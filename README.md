@@ -42,6 +42,7 @@
 | React |18.2.0|
 |-react-router-dom |6.3.0|
 | styled-components |5.3.5|
+| styled-reset |4.4.1|
   
 </div>
 

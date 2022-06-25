@@ -3,7 +3,7 @@
 <br>
 <br>
 <div align="left">
-<h3 align="left">📅프로젝트 기간 : 2022년 4월 22일 ~ 2022년 6월 3일 (6주)</h3>
+<h3 align="left">📅프로젝트 기간 : 2022년 6월 24일 ~ 2022년 8월 5일 (6주)</h3>
   <h4 align="left">1주차:
     <span><a href="https://www.notion.so/99-8-08bf4916b9e548279d160ba596f9ac2e">(🔗리본 기획 노션 바로가기)</a></span></h4>
 <p align="left">-webRTC를 이용한 화상채팅 및 socket을 통해 실시간 채팅 구현 결정 </p>

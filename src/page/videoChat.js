@@ -4,30 +4,48 @@ function VideoChat() {
   const [voiceMuted, setVoiceMuted] = React.useState(false);
   const [cameraOff, setCameraOff] = React.useState(false);
   const [cameras, setCameras] = React.useState([]);
+  const [screenShare, setScreenShare] = React.useState(false);
 
   let myStream;
 
   async function getMedia(cameraId) {
-    try {
-      const myFace = document.getElementById("myFace");
-      myStream = await navigator.mediaDevices
-        .getUserMedia({
-          audio: !voiceMuted,
-          video: cameraOff
-            ? false
-            : cameraId === null || undefined
-            ? { facingMode: "user" }
-            : { deviceId: cameraId },
-        })
-        .then((res) => {
-          myFace.srcObject = res;
-          myStream = res;
-          document.getElementById(
-            "option" + myStream.getVideoTracks()[0].label
-          ).selected = "selected";
-        });
-    } catch (e) {
-      console.log(e);
+    if (screenShare === false) {
+      try {
+        const myScreen = document.getElementById("myFace");
+        myStream = await navigator.mediaDevices
+          .getUserMedia({
+            audio: !voiceMuted,
+            video: cameraOff
+              ? false
+              : cameraId === null || undefined
+              ? { facingMode: "user" }
+              : { deviceId: cameraId },
+          })
+          .then((res) => {
+            myScreen.srcObject = res;
+            myStream = res;
+            document.getElementById(
+              "option" + myStream.getVideoTracks()[0].label
+            ).selected = "selected";
+          });
+      } catch (e) {
+        console.log(e);
+      }
+    } else {
+      try {
+        const myScreen = document.getElementById("myFace");
+        myStream = await navigator.mediaDevices
+          .getDisplayMedia({
+            audio: !voiceMuted,
+            video: !cameraOff,
+          })
+          .then((res) => {
+            myScreen.srcObject = res;
+            myStream = res;
+          });
+      } catch (e) {
+        console.log(e);
+      }
     }
   }
 
@@ -46,7 +64,7 @@ function VideoChat() {
   React.useEffect(() => {
     getMedia();
     getCameras();
-  }, []);
+  }, [screenShare]);
 
   const muteClick = () => {
     const myFace = document.getElementById("myFace");
@@ -66,6 +84,10 @@ function VideoChat() {
 
   const changeSelect = (e) => {
     getMedia(e.target.value);
+  };
+
+  const screenShareBtn = () => {
+    setScreenShare(!screenShare);
   };
 
   return (
@@ -104,16 +126,23 @@ function VideoChat() {
         >
           {cameraOff ? "카메라 켜기" : "카메라 끄기"}
         </button>
-        카메라 선택:
-        <select onChange={changeSelect}>
-          {cameras.map((v, i) => {
-            return (
-              <option key={i} value={v.deviceId} id={"option" + v.label}>
-                {v.label}
-              </option>
-            );
-          })}
-        </select>
+        <button onClick={screenShareBtn}>
+          {screenShare ? "화면공유 끄기" : "화면공유"}
+        </button>
+        {screenShare ? null : (
+          <div>
+            카메라 선택:
+            <select onChange={changeSelect}>
+              {cameras.map((v, i) => {
+                return (
+                  <option key={i} value={v.deviceId} id={"option" + v.label}>
+                    {v.label}
+                  </option>
+                );
+              })}
+            </select>
+          </div>
+        )}
       </div>
     </div>
   );

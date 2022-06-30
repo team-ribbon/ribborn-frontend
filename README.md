@@ -48,6 +48,8 @@
 | react-redux |8.0.2|
 | redux-logger |3.0.6|
 | redux-thunk |2.4.1|
+| redux-actions |2.6.5|
+| immer |9.0.15|
 
   
 </div>

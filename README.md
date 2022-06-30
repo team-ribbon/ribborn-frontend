@@ -25,11 +25,12 @@
 <br>
 <img src="https://img.shields.io/badge/WebRtc-E2001A?style=for-the-badge&logo=WebRtc&logoColor=white">
 <img src="https://img.shields.io/badge/Styled Components-F893D1?style=for-the-badge&logo=styledComponents&logoColor=white">
-<img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white">
+<img src="https://img.shields.io/badge/Redux-764ABC?style=for-the-badge&logo=Redux&logoColor=white"> 
 <img src="https://img.shields.io/badge/Axios-764ABC?style=for-the-badge&logo=Axios&logoColor=white">
 <br>
 <img src="https://img.shields.io/badge/Yarn-2C8EBB?style=for-the-badge&logo=Yarn&logoColor=white">
 <img src="https://img.shields.io/badge/Notion-000000?style=for-the-badge&logo=Notion&logoColor=white">
+<img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white">
 </div>
 
 <br>

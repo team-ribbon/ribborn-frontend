@@ -40,9 +40,14 @@
   |name|ver|
 |------|---|
 | React |18.2.0|
-|-react-router-dom |6.3.0|
+| react-router-dom |6.3.0|
 | styled-components |5.3.5|
 | styled-reset |4.4.1|
+| redux |4.2.0|
+| react-redux |8.0.2|
+| redux-logger |3.0.6|
+| redux-thunk |2.4.1|
+
   
 </div>
 

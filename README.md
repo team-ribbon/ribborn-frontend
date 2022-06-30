@@ -3,7 +3,7 @@
 <br>
 <br>
 <div align="left">
-<h3 align="left">📅프로젝트 기간 : 2022년 4월 22일 ~ 2022년 6월 3일 (6주)</h3>
+<h3 align="left">📅프로젝트 기간 : 2022년 6월 24일 ~ 2022년 8월 5일 (6주)</h3>
   <h4 align="left">1주차:
     <span><a href="https://www.notion.so/99-8-08bf4916b9e548279d160ba596f9ac2e">(🔗리본 기획 노션 바로가기)</a></span></h4>
 <p align="left">-webRTC를 이용한 화상채팅 및 socket을 통해 실시간 채팅 구현 결정 </p>
@@ -42,8 +42,36 @@
 | React |18.2.0|
 |-react-router-dom |6.3.0|
 | styled-components |5.3.5|
+| styled-reset |4.4.1|
   
 </div>
+
+### ✨Git 컨벤션
+
+---
+
+```
+FEAT:    새로운 기능을 추가할 경우
+FIX:     버그를 고친 경우
+STYLE:   코드 포맷 변경, 간단한 수정, 코드 변경이 없는 경우
+REFATOR: 프로덕션 코드 리팩토링
+DOCS:    문서를 수정한 경우(ex> Swagger)
+Rename:  파일 혹은 폴더명 수정 및 이동
+Remove:  파일 삭제
+CHORE:    빌드 업무 수정(ex> dependency 추가)
+```
+
+```bash
+type: subject
+
+body
+
+type: subject 커밋 타입과 내용 자세히 적어주기
+  ex) FEAT: 로그인 기능 추가
+
+type은 영문 대문자로 적고, 제목은 50자를 넘기지 않는다. 제목에서는 마침표를 쓰지 않는다.
+body는 필수 요소가 아니며 제목과 구분되도록 한칸 띄어서 작성한다.
+```
   
   <br>
   <br>

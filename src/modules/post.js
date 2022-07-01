@@ -1,5 +1,6 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
+import { apis } from "../shared/api";
 
 // Action
 const GET_QNA_LIST = "GET_QNA_LIST";

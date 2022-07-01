@@ -21,5 +21,5 @@ export const apis = {
   // 회원정보
 
   // 게시물
-  loadQnAList: () => api.get("/api/qnaList"),
+  loadQnAList: () => api.get("/qnaList"),
 };

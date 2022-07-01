@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 import Post, { getQnAListDB } from "../modules/post";
 
@@ -8,6 +8,7 @@ function QnAList() {
   const dispatch = useDispatch();
 
   const [category, setCategory] = React.useState("all");
+  const postlists = useSelector((state) => state.post.QnAList.posts);
 
   React.useEffect(() => {
     dispatch(getQnAListDB());
@@ -40,6 +41,15 @@ function QnAList() {
     },
   ];
 
+  const categorySearch = {
+    all: "전체",
+    clothes: "옷 리폼",
+    furniture: "가구 리폼",
+    shoes: "신발 리폼",
+    goods: "기타리폼",
+    diy: "DIY",
+  };
+
   return (
     <Template>
       <ButtonDiv>
@@ -58,28 +68,25 @@ function QnAList() {
       </ButtonDiv>
       <PostCoverDiv>
         <AskBtn>질문하기</AskBtn>
-        {categories.map((v) => {
+        {postlists.map((v) => {
           return (
-            <PostDiv>
+            <PostDiv key={v.postId}>
               <TextDiv>
-                <Title>저 질문이 있어요!(타이틀)</Title>
-                <Content>
-                  제가 뭐가 궁금하냐면요, 옷을 리폼하려는데 손재주가 없어요.
-                  제가 뭐가 궁금하냐면요, 신발을 리폼하려는데 손재주가 없어요.
-                  제가 뭐가 궁금하냐면요, 가구를 리폼하려는데 손재주가 없어요.
-                  제가 뭐가 궁금하냐면요, DIY를 하려는데 손재주가 없어요. 제가
-                  뭐가 궁금하냐면요, 가방을 리폼하려는데 손재주가 없어요. 제가
-                  뭐가 궁금하냐면요, 인생을 리폼하려는데 손재주가 없어요.
-                </Content>
+                <Title>{v.title}</Title>
+                <Content>{v.content}</Content>
                 <PostFooter>
-                  <Like>좋아요 123</Like>
-                  <Comment>댓글 250</Comment>
-                  <PostUserId>ID: 내 이름은 라채채</PostUserId>
-                  <PostCategory>옷 리폼</PostCategory>
+                  <Like>좋아요 {v.likeCount}</Like>
+                  <Comment>댓글 {v.commentCount}</Comment>
+                  <PostUserId>ID: {v.nickname}</PostUserId>
+                  {categories.map((w) => {
+                    return w.value === v.category ? (
+                      <PostCategory>{w.text}</PostCategory>
+                    ) : null;
+                  })}
                 </PostFooter>
               </TextDiv>
               <PictureDiv>
-                <Picture src="https://cdn.imweb.me/upload/S20210826c6fa6a96dcb7a/e66c8a02c98ec.png" />
+                <Picture src={v.image} />
               </PictureDiv>
             </PostDiv>
           );

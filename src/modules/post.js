@@ -10,7 +10,9 @@ const getQnAList = createAction(GET_QNA_LIST, (QnAList) => ({ QnAList }));
 
 // InitialState
 const initialState = {
-  QnAList: [],
+  QnAList: {
+    posts: [],
+  },
 };
 
 // Middleware

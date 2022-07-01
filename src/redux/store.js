@@ -3,7 +3,7 @@ import thunk from "redux-thunk";
 import logger from "redux-logger";
 
 // import user from "./modules/user";
-import post from "./modules/post";
+import post from "../modules/post";
 
 const rootReducer = combineReducers({
   // user,

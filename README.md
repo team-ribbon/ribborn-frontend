@@ -50,6 +50,7 @@
 | redux-thunk |2.4.1|
 | redux-actions |2.6.5|
 | immer |9.0.15|
+| axios |0.27.2|
 
   
 </div>

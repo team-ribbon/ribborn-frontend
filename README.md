@@ -51,6 +51,7 @@
 | redux-actions |2.6.5|
 | immer |9.0.15|
 | axios |0.27.2|
+| react-hook-form |7.33.1|
 
   
 </div>

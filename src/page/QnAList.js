@@ -1,11 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
-import Post, { getQnAListDB } from "../modules/post";
+import { getQnAListDB, cleanUpQnAList } from "../modules/post";
 
 function QnAList() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [category, setCategory] = React.useState("all");
   const postlists = useSelector((state) => state.post.QnAList.posts);
@@ -13,6 +15,12 @@ function QnAList() {
   React.useEffect(() => {
     dispatch(getQnAListDB());
   }, [category]);
+
+  React.useEffect(() => {
+    return () => {
+      dispatch(cleanUpQnAList());
+    };
+  }, []);
 
   const categories = [
     {
@@ -41,15 +49,6 @@ function QnAList() {
     },
   ];
 
-  const categorySearch = {
-    all: "전체",
-    clothes: "옷 리폼",
-    furniture: "가구 리폼",
-    shoes: "신발 리폼",
-    goods: "기타리폼",
-    diy: "DIY",
-  };
-
   return (
     <Template>
       <ButtonDiv>
@@ -59,7 +58,7 @@ function QnAList() {
               onClick={() => {
                 setCategory(v.value);
               }}
-              key={v.value + "categorybtn"}
+              key={"categorybtn" + v.value}
             >
               {v.text}
             </CategoryBtn>
@@ -70,7 +69,7 @@ function QnAList() {
         <AskBtn>질문하기</AskBtn>
         {postlists.map((v) => {
           return (
-            <PostDiv key={v.postId}>
+            <PostDiv key={"post" + v.postId}>
               <TextDiv>
                 <Title>{v.title}</Title>
                 <Content>{v.content}</Content>
@@ -80,7 +79,9 @@ function QnAList() {
                   <PostUserId>ID: {v.nickname}</PostUserId>
                   {categories.map((w) => {
                     return w.value === v.category ? (
-                      <PostCategory>{w.text}</PostCategory>
+                      <PostCategory key={"postCategory" + w.value}>
+                        {w.text}
+                      </PostCategory>
                     ) : null;
                   })}
                 </PostFooter>

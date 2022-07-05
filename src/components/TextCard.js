@@ -2,16 +2,34 @@ import styled from "styled-components";
 
 import Categories from "../shared/Categories";
 
-const TextCard = ({ postObj }) => {
+const TextCard = ({ postObj, noWriter, reform }) => {
+  let process = null;
+  switch (postObj.process) {
+    case undefined:
+      break;
+    case "before":
+      process = "모집중";
+      break;
+    case "ing":
+      process = "진행중";
+      break;
+    case "after":
+      process = "완료";
+      break;
+  }
+
   return (
     <PostDiv key={"post" + postObj.postId}>
       <TextDiv>
-        <Title>{postObj.title}</Title>
+        <TitleDiv>
+          <Title>{postObj.title}</Title>
+          {reform ? <PostProcess>{process}</PostProcess> : null}
+        </TitleDiv>
         <Content>{postObj.content}</Content>
         <PostFooter>
-          <Like>좋아요 {postObj.likeCount}</Like>
-          <Comment>댓글 {postObj.commentCount}</Comment>
-          <PostUserId>ID: {postObj.nickname}</PostUserId>
+          {reform ? null : <Like>좋아요 {postObj.likeCount}</Like>}
+          {reform ? null : <Comment>댓글 {postObj.commentCount}</Comment>}
+          {noWriter ? null : <PostUserId>ID: {postObj.nickname}</PostUserId>}
           {Categories.map((w) => {
             return w.value === postObj.category ? (
               <PostCategory key={"postCategory" + w.value}>
@@ -41,9 +59,23 @@ const TextDiv = styled.div`
   width: 80%;
 `;
 
+const TitleDiv = styled.div`
+  display: inline-block;
+`;
+
 const Title = styled.p`
   font-size: 20px;
   margin: 20px auto 10px auto;
+  float: left;
+`;
+
+const PostProcess = styled.button`
+  font-size: 13px;
+  height: 20px;
+  background-color: #ddd;
+  border: none;
+  border-radius: 20px;
+  margin: 20px auto auto 10px;
 `;
 
 const Content = styled.p`

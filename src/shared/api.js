@@ -33,4 +33,7 @@ export const apis = {
   // 게시물
   loadQnAList: () => api.get("/qnaList"),
   loadReviewList: (category) => api.get(`/api/reviewList?category=${category}`),
+
+  // 유저 상세페이지
+  loadMyPage: () => api.get("/mypage"),
 };

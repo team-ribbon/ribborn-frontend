@@ -7,7 +7,7 @@ const Header = () => {
     <HeaderWrap>
       <NavWrap>
         <UserNav>
-          <Link to="">
+          <Link to="/mypage">
             <span>마이페이지</span>
           </Link>
           <Link to="/login">

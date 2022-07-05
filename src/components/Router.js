@@ -10,6 +10,7 @@ import Signup from "../pages/Signup";
 import SignupTech from "./SignupTech";
 import SignupUser from "./SignupUser";
 // import Review from "../pages/Review";
+import MyPage from "../page/MyPage";
 
 export default function Router() {
   return (
@@ -25,6 +26,7 @@ export default function Router() {
           <Route path="tech" element={<SignupTech />} />
         </Route>
         {/* <Route path="review" element={<Review />} /> */}
+        <Route path="mypage" element={<MyPage />} />
       </Routes>
     </>
   );

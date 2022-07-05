@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-const Card = ({ postObj }) => {
+const Card = ({ postObj, noWriter, noComment }) => {
   return (
     <article>
       <ImageWrap>
@@ -9,14 +9,15 @@ const Card = ({ postObj }) => {
         <Image alt="card" src={postObj.image} />
       </ImageWrap>
       <Content>
-        <span>좋아요 {postObj.love}</span>
-        <span>댓글 {postObj.comment}</span>
-        <span>{postObj.nickname}</span>
+        <span>좋아요 {postObj.likeCount}</span>
+        {noComment ? null : <span>댓글 {postObj.commentCount}</span>}
+        {noWriter ? null : <span>{postObj.nickname}</span>}
         <div>{postObj.title}</div>
       </Content>
     </article>
   );
 };
+
 const ImageWrap = styled.div`
   position: relative;
   overflow: hidden;

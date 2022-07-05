@@ -1,12 +1,16 @@
 import React from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
-import { cleanUpMyPage, getMyPageDB } from "../modules/UserPage";
+import { cleanUpMyPage, getUserDetailDB } from "../modules/UserPage";
+import { useParams } from "react-router-dom";
 
 import UserInfoCard from "../components/UserInfoCard";
 import UserPost from "../components/UserPost";
 
-function MyPage() {
+function UserDetail() {
+  const params = useParams();
+  const id = params.userId;
+
   const dispatch = useDispatch();
   const user = useSelector((state) => state.UserPage.myPage.users);
   const qna = useSelector((state) => state.UserPage.myPage.qna);
@@ -15,7 +19,7 @@ function MyPage() {
   const reform = useSelector((state) => state.UserPage.myPage.reform);
 
   React.useEffect(() => {
-    dispatch(getMyPageDB());
+    dispatch(getUserDetailDB(id));
   }, []);
   React.useEffect(() => {
     return () => {
@@ -25,7 +29,7 @@ function MyPage() {
 
   return (
     <Template>
-      <UserInfoCard user={user} myPage={true} />
+      <UserInfoCard user={user} myPage={false} />
       <UserPost
         user={user}
         qna={qna}
@@ -44,4 +48,4 @@ const Template = styled.div`
   padding-top: 40px;
 `;
 
-export default MyPage;
+export default UserDetail;

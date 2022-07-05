@@ -1,17 +1,25 @@
 import styled from "styled-components";
 
-const UserInfoCard = ({ myPage, nickname }) => {
-  return (
+const UserInfoCard = ({ myPage, user }) => {
+  return user ? (
     <CardDiv>
-      <IdText>ID</IdText> <br />
-      <IdText>{nickname}</IdText>
+      <TitleText>ID</TitleText>
+      <ContentText>{user.nickname}</ContentText>
+      {user.userType === 1 ? (
+        <>
+          <TitleText>위치</TitleText>
+          <ContentText>{user.addressDetail}</ContentText>
+          <TitleText>사업자번호</TitleText>
+          <ContentText>{user.companyNum}</ContentText>
+        </>
+      ) : null}
       <BookmarkDiv>
         <BookmarkP>관심</BookmarkP>
         <BookmarkP>88</BookmarkP>
       </BookmarkDiv>
       {myPage ? <Button>수정하기</Button> : <Button>채팅하기</Button>}
     </CardDiv>
-  );
+  ) : null;
 };
 
 const CardDiv = styled.div`
@@ -20,8 +28,12 @@ const CardDiv = styled.div`
   height: 250px;
 `;
 
-const IdText = styled.p`
-  margin: 5px auto 0px 20px;
+const TitleText = styled.p`
+  margin: 5px auto 10px 20px;
+`;
+
+const ContentText = styled.p`
+  margin: 5px auto 20px 20px;
 `;
 
 const BookmarkDiv = styled.div`

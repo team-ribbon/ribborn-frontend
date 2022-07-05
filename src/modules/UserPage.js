@@ -37,6 +37,17 @@ export const getMyPageDB = () => {
   };
 };
 
+export const getUserDetailDB = (id) => {
+  return async function (dispatch) {
+    try {
+      const response = await apis.loadUserDetail(id);
+      dispatch(getMyPage(response.data));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
 // Reducer
 export default handleActions(
   {

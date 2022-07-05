@@ -36,4 +36,5 @@ export const apis = {
 
   // 유저 상세페이지
   loadMyPage: () => api.get("/mypage"),
+  loadUserDetail: (id) => api.get(`/api/users/userinfo/${id}`),
 };

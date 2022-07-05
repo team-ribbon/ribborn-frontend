@@ -11,6 +11,7 @@ import SignupTech from "./SignupTech";
 import SignupUser from "./SignupUser";
 // import Review from "../pages/Review";
 import MyPage from "../page/MyPage";
+import UserDetail from "../page/UserDetail";
 
 export default function Router() {
   return (
@@ -27,6 +28,7 @@ export default function Router() {
         </Route>
         {/* <Route path="review" element={<Review />} /> */}
         <Route path="mypage" element={<MyPage />} />
+        <Route path="userdetail/:userId" element={<UserDetail />} />
       </Routes>
     </>
   );

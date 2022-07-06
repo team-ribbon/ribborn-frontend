@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { cleanUpMyPage, getMyPageDB } from "../modules/UserPage";
 
 import UserInfoCard from "../components/UserInfoCard";
 import UserPost from "../components/UserPost";
+import InfoChange from "../components/InfoChange";
 
 function MyPage() {
   const dispatch = useDispatch();
@@ -13,6 +14,8 @@ function MyPage() {
   const lookbook = useSelector((state) => state.UserPage.myPage.lookbook);
   const review = useSelector((state) => state.UserPage.myPage.review);
   const reform = useSelector((state) => state.UserPage.myPage.reform);
+
+  const [infoChange, SetInfoChange] = useState(false);
 
   React.useEffect(() => {
     dispatch(getMyPageDB());
@@ -23,9 +26,11 @@ function MyPage() {
     };
   }, []);
 
-  return (
+  return infoChange ? (
+    <InfoChange change={SetInfoChange} user={user} />
+  ) : (
     <Template>
-      <UserInfoCard user={user} myPage={true} />
+      <UserInfoCard user={user} myPage={true} change={SetInfoChange} />
       <UserPost
         user={user}
         qna={qna}

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const UserInfoCard = ({ myPage, user }) => {
+const UserInfoCard = ({ myPage, user, change }) => {
   return user ? (
     <CardDiv>
       <TitleText>ID</TitleText>
@@ -17,7 +17,17 @@ const UserInfoCard = ({ myPage, user }) => {
         <BookmarkP>관심</BookmarkP>
         <BookmarkP>88</BookmarkP>
       </BookmarkDiv>
-      {myPage ? <Button>수정하기</Button> : <Button>채팅하기</Button>}
+      {myPage ? (
+        <Button
+          onClick={() => {
+            change(true);
+          }}
+        >
+          수정하기
+        </Button>
+      ) : (
+        <Button>채팅하기</Button>
+      )}
     </CardDiv>
   ) : null;
 };

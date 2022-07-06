@@ -63,7 +63,7 @@ const UserPost = ({ user, qna, lookbook, review, reform }) => {
           )}
         </TextCardDiv>
       </PostCollection>
-      {user !== null && user.userType === 1 ? (
+      {user !== null && user.userType === 0 ? (
         <PostCollection>
           <h3>{user.nickname}님의 견적</h3>
           <TextCardDiv>

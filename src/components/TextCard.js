@@ -1,8 +1,11 @@
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 import Categories from "../shared/Categories";
 
 const TextCard = ({ postObj, noWriter, reform }) => {
+  const navigate = useNavigate();
+
   let process = null;
   switch (postObj.process) {
     case undefined:
@@ -19,17 +22,24 @@ const TextCard = ({ postObj, noWriter, reform }) => {
   }
 
   return (
-    <PostDiv key={"post" + postObj.postId}>
+    <PostDiv
+      key={"post" + postObj.postId}
+      onClick={() => {
+        reform
+          ? navigate(`/reformdetail/${postObj.postId}`)
+          : navigate(`/qnadetail/${postObj.postId}`);
+      }}
+    >
       <TextDiv>
         <TitleDiv>
-          <Title>{postObj.title}</Title>
           {reform ? <PostProcess>{process}</PostProcess> : null}
+          <Title>{postObj.title}</Title>
         </TitleDiv>
         <Content>{postObj.content}</Content>
         <PostFooter>
           {reform ? null : <Like>좋아요 {postObj.likeCount}</Like>}
           {reform ? null : <Comment>댓글 {postObj.commentCount}</Comment>}
-          {noWriter ? null : <PostUserId>ID: {postObj.nickname}</PostUserId>}
+          {noWriter ? null : <PostUserId>@{postObj.nickname}</PostUserId>}
           {Categories.map((w) => {
             return w.value === postObj.category ? (
               <PostCategory key={"postCategory" + w.value}>
@@ -37,6 +47,7 @@ const TextCard = ({ postObj, noWriter, reform }) => {
               </PostCategory>
             ) : null;
           })}
+          {reform ? <PostCategory>{postObj.region}</PostCategory> : null}
         </PostFooter>
       </TextDiv>
       <PictureDiv>

@@ -30,9 +30,20 @@ export const apis = {
   // 메인
   loadMain: () => api.get("/api/home"),
 
-  // 게시물
+  // 게시물 리스트
   loadQnAList: () => api.get("/qnaList"),
   loadReviewList: (category) => api.get(`/api/reviewList?category=${category}`),
+  loadReformList: (category, region, process, page) =>
+    api.get(
+      `/api/reformList?category=${category}&region=${region}&process=${process}&page=${page}&size=6`
+    ),
+
+  // 게시물
+  loadQnAPost: (id) => api.get(`/api/qnaPosts/${id}`),
+
+  // 댓글
+  loadComments: (postId, page) =>
+    api.get(`api/comments/${postId}?page=${page}&size=5`),
 
   // 유저 상세페이지
   loadMyPage: () => api.get("/mypage"),

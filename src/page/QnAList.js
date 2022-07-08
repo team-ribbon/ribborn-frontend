@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-import { getQnAListDB, cleanUpQnAList } from "../modules/post";
+import { getQnAListDB, cleanUpList } from "../modules/post";
 import TextCard from "../components/TextCard";
 import CategoryBtn from "../elements/CategoryBtn";
 
@@ -12,7 +12,7 @@ function QnAList() {
   const navigate = useNavigate();
 
   const [category, setCategory] = React.useState("all");
-  const postlists = useSelector((state) => state.post.QnAList.posts);
+  const postlists = useSelector((state) => state.post.List.posts);
 
   React.useEffect(() => {
     dispatch(getQnAListDB());
@@ -20,7 +20,7 @@ function QnAList() {
 
   React.useEffect(() => {
     return () => {
-      dispatch(cleanUpQnAList());
+      dispatch(cleanUpList());
     };
   }, []);
 

@@ -16,12 +16,12 @@ const Categories = [
     text: "신발 리폼",
   },
   {
-    value: "goods",
-    text: "기타리폼",
+    value: "bags",
+    text: "가방 리폼",
   },
   {
-    value: "diy",
-    text: "DIY",
+    value: "goods",
+    text: "기타 리폼",
   },
 ];
 

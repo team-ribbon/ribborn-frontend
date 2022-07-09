@@ -18,11 +18,11 @@ const initialState = {
 
 // 로그인
 export const loginDB = (username, password) => {
-  return async (dispatch) => {
+  return async () => {
     try {
       const response = await apis.login(username, password);
-      //   const token
-      //   localStorage.setItem("token", token);
+      const token = response.headers.authorization;
+      localStorage.setItem("token", token);
     } catch (error) {
       console.log(error);
       return false;
@@ -32,15 +32,14 @@ export const loginDB = (username, password) => {
 
 // 회원가입
 export const signupDB = (userObj) => {
-  delete userObj.password2;
   return async () => {
     try {
-      if (userObj.userType === 0) {
-        await apis.signupUser(userObj);
-      }
-      if (userObj.userType === 1) {
-        await apis.signupTech(userObj);
-      }
+      // if (userObj.userType === 0) {
+      await apis.signupUser(userObj);
+      // }
+      // if (userObj.userType === 1) {
+      //   await apis.signupTech(userObj);
+      // }
     } catch (error) {
       console.log(error);
     }

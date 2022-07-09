@@ -51,9 +51,9 @@ const Login = () => {
         />
         <span>{errors?.password?.message}</span>
         <span>{errors?.loginFail?.message}</span>
-        <button>로그인</button>
+        <button disabled={errors?.password || errors?.username}>로그인</button>
       </Form>
-      <Link to="/signup/user">이메일 가입</Link>
+      <Link to="/signup">회원가입</Link>
     </Wrap>
   );
 };

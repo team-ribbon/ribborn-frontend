@@ -33,11 +33,12 @@ const SignupUser = () => {
       setAgreeError("필수 항목에 모두 동의해주세요.");
       return false;
     }
+    delete data.password2;
+    data.userType = 0;
     console.log(data);
     dispatch(signupDB(data));
     navigate("/login");
   };
-
   return (
     <Wrap>
       <Form onSubmit={handleSubmit(onValid)}>
@@ -118,7 +119,16 @@ const SignupUser = () => {
 
         <SignupAgree ref={checkRef} />
         <span>{agreeError}</span>
-        <button>회원가입</button>
+        <button
+          disabled={
+            errors.nickname ||
+            errors.password ||
+            errors.username ||
+            errors.password2
+          }
+        >
+          회원가입
+        </button>
       </Form>
     </Wrap>
   );

@@ -9,21 +9,33 @@ import Signup from "../pages/Signup";
 import SignupTech from "./SignupTech";
 import SignupUser from "./SignupUser";
 import Review from "../pages/Review";
+import Lookbook from "../pages/Lookbook";
+import WritePost from "../pages/WritePost";
+import styled from "styled-components";
+import Footer from "./Footer";
 
 export default function Router() {
   return (
     <>
       <Header />
-      <Routes>
-        {/* <Route path="/" element={<VideoChat />} /> */}
-        <Route path="/" element={<Main />} />
-        <Route path="login" element={<Login />} />
-        <Route path="signup" element={<Signup />}>
-          <Route path="user" element={<SignupUser />} />
-          <Route path="tech" element={<SignupTech />} />
-        </Route>
-        <Route path="review" element={<Review />} />
-      </Routes>
+      <MainWrap>
+        <Routes>
+          {/* <Route path="/" element={<VideoChat />} /> */}
+          <Route path="/" element={<Main />} />
+          <Route path="login" element={<Login />} />
+          <Route path="signup" element={<Signup />}>
+            <Route path="user" element={<SignupUser />} />
+            <Route path="tech" element={<SignupTech />} />
+          </Route>
+          <Route path="review" element={<Review />} />
+          <Route path="lookbook" element={<Lookbook />} />
+          <Route path="write/:type" element={<WritePost />} />
+        </Routes>
+      </MainWrap>
+      <Footer />
     </>
   );
 }
+const MainWrap = styled.main`
+  padding-top: 125px;
+`;

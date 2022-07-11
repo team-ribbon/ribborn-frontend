@@ -15,8 +15,8 @@ const QnADetail = () => {
   const params = useParams();
   console.log(params);
 
-  const post = useSelector((state) => state.post.Comments);
-  const commentsList = useSelector((state) => state.post.Post);
+  const post = useSelector((state) => state.post.Post);
+  const commentsList = useSelector((state) => state.post.Comments);
 
   React.useEffect(() => {
     dispatch(getQnAPostDB(params.postId));
@@ -32,8 +32,8 @@ const QnADetail = () => {
     <Template>
       <PostDetail />
       <MyPostChange />
-      <PostFooter />
       <PostRightBtn />
+      <PostFooter id={params.postId} commentsList={commentsList} />
     </Template>
   );
 };

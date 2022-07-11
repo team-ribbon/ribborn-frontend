@@ -97,6 +97,16 @@ export const getQnAPostDB = (id) => {
   };
 };
 
+export const deletePostDB = (id) => {
+  return async function () {
+    try {
+      const response = await apis.deletePost(id);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
 export const getReformListDB = (category, region, process, page) => {
   return async function (dispatch) {
     try {

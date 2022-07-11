@@ -60,6 +60,7 @@ export const apis = {
 
   // 게시물 상세
   loadQnAPost: (id) => api.get(`/api/qnaPosts/${id}`),
+  deletePost: (id) => api.delete(`/api/post/${id}`),
 
   // 댓글
   loadComments: (postId, page) =>

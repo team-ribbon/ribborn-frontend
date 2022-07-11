@@ -29,8 +29,8 @@ const TextCard = ({ postObj, noWriter, reform }) => {
       key={"post" + postObj.postId}
       onClick={() => {
         reform
-          ? navigate(`/reformdetail/${postObj.postId}`)
-          : navigate(`/qnadetail/${postObj.postId}`);
+          ? navigate(`/reformdetail/${postObj.id}`)
+          : navigate(`/qnadetail/${postObj.id}`);
       }}
     >
       <TextDiv>
@@ -54,13 +54,15 @@ const TextCard = ({ postObj, noWriter, reform }) => {
               <Comment>{postObj.commentCount}</Comment>
             </>
           )}
-          {Categories.map((w) => {
-            return w.value === postObj.category ? (
-              <PostCategory key={"postCategory" + w.value}>
-                {w.text}
-              </PostCategory>
-            ) : null;
-          })}
+          {reform
+            ? Categories.map((w) => {
+                return w.value === postObj.category ? (
+                  <PostCategory key={"postCategory" + w.value}>
+                    {w.text}
+                  </PostCategory>
+                ) : null;
+              })
+            : null}
           {reform
             ? Regions.map((w) => {
                 return w.value === postObj.region ? (
@@ -71,6 +73,15 @@ const TextCard = ({ postObj, noWriter, reform }) => {
               })
             : null}
         </PostFooter>
+        {reform
+          ? null
+          : Categories.map((w) => {
+              return w.value === postObj.category ? (
+                <PostCategory key={"postCategory" + w.value}>
+                  {w.text}
+                </PostCategory>
+              ) : null;
+            })}
       </TextDiv>
       <PictureDiv>
         <Picture src={postObj.image} />

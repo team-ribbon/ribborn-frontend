@@ -26,9 +26,9 @@ const CardA = ({ postObj, type }) => {
         {type === "A" && (
           <div>
             <HeartSVG />
-            <span>{postObj.love}</span>
+            <span>{postObj.likeCount}</span>
             <CommentSVG />
-            <span>{postObj.comment}</span>
+            <span>{postObj.commentCount}</span>
           </div>
         )}
         {type === "C" && <span>{postObj.region}</span>}

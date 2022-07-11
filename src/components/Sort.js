@@ -40,14 +40,14 @@ const Sort = ({ setSort, sort }) => {
             fill="black"
           />
         </svg>
-        <Text>{sort === "popular" ? "인기순" : "최신순"}</Text>
+        <Text>{sort === "likeCount" ? "인기순" : "최신순"}</Text>
       </ButtonWrap>
       {isModalOn && (
         <>
           <Modal>
             <span
               onClick={() => {
-                setSort("popular");
+                setSort("likeCount");
                 setIsModalOn(false);
               }}
             >
@@ -55,7 +55,7 @@ const Sort = ({ setSort, sort }) => {
             </span>
             <span
               onClick={() => {
-                setSort("recent");
+                setSort("createAt");
                 setIsModalOn(false);
               }}
             >

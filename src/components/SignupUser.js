@@ -12,6 +12,7 @@ const SignupUser = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const checkRef = useRef(false);
+  const passwordRef = useRef();
   const [agreeError, setAgreeError] = useState("");
   const {
     register,
@@ -35,9 +36,10 @@ const SignupUser = () => {
     }
     delete data.password2;
     data.userType = 0;
+    // data.password = passwordRef.current.value;
     console.log(data);
     dispatch(signupDB(data));
-    navigate("/login");
+    // navigate("/login");
   };
   return (
     <Wrap>

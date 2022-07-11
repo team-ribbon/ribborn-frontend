@@ -5,7 +5,10 @@ import { useNavigate } from "react-router-dom";
 
 import { getReformListDB } from "../modules/post";
 import TextCard from "../components/TextCard";
-import CategoryBtn from "../elements/CategoryBtn";
+import Categories from "../shared/Categories";
+import { SubBtn, Category } from "../elements/Buttons";
+import RegionSelect from "../components/RegionSelect";
+import ProcessSelect from "../components/ProcessSelect";
 
 function ReformList() {
   const dispatch = useDispatch();
@@ -17,12 +20,8 @@ function ReformList() {
   const [region, setRegion] = React.useState("all");
   const postlists = useSelector((state) => state.post.reformList);
 
-  const handleProcessSelect = (e) => {
-    setProcess(e.target.value);
-  };
-
-  const handleRegionSelect = (e) => {
-    setRegion(e.target.value);
+  const onClickCategory = (event) => {
+    setCategory(event.target.id);
   };
 
   React.useEffect(() => {
@@ -59,14 +58,16 @@ function ReformList() {
       <PostCoverDiv>
         <AskBtn>견적 요청하기</AskBtn>
         {postlists.map((v) => {
-          return <TextCard postObj={v} key={"post" + v.postId} reform={true} />;
+          return <TextCard postObj={v} key={"post" + v.id} reform={true} />;
         })}
       </PostCoverDiv>
-    </Template>
+    </Wrap>
   );
 }
 
-const Template = styled.div`
+const Wrap = styled.div`
+  width: 70%;
+  max-width: 1100px;
   display: flex;
   flex-direction: column;
   align-items: center;

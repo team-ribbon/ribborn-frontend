@@ -2,23 +2,31 @@ import React from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import { getQnAListDB } from "../modules/post";
 import TextCard from "../components/TextCard";
-import CategoryBtn from "../elements/CategoryBtn";
+import TabWrap from "../components/TabWrap";
+import Sort from "../components/Sort";
+import Categories from "../shared/Categories";
+import { MainBtn, SubBtn, Category } from "../elements/Buttons";
 
 function QnAList() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [category, setCategory] = React.useState("all");
-  const [sort, setSort] = React.useState("popular");
+  const [sort, setSort] = React.useState("createAt");
   const [page, setPage] = React.useState(0);
   const postlists = useSelector((state) => state.post.qnaList);
 
+  const onClickCategory = (event) => {
+    setCategory(event.target.id);
+  };
+
   React.useEffect(() => {
     dispatch(getQnAListDB(category, sort, page));
-  }, [category]);
+  }, [category, sort, page]);
 
   // React.useEffect(() => {
   //   return () => {
@@ -34,7 +42,7 @@ function QnAList() {
       <PostCoverDiv>
         <AskBtn>질문하기</AskBtn>
         {postlists.map((v) => {
-          return <TextCard postObj={v} key={"post" + v.postId} />;
+          return <TextCard postObj={v} key={"post" + v.id} />;
         })}
       </PostCoverDiv>
     </Template>

@@ -19,7 +19,7 @@ const GET_POST = "GET_POST";
 
 // Action Creator
 const getMain = createAction(GET_MAIN, (mainContents) => ({ mainContents }));
-const getQnAList = createAction(GET_QNA_LIST, (QnAList) => ({ QnAList }));
+const getQnAList = createAction(GET_QNA_LIST, (qnaList) => ({ qnaList }));
 const getReformList = createAction(GET_REFORM_LIST, (reformList) => ({
   reformList,
 }));
@@ -42,8 +42,8 @@ const initialState = {
   techIntro: "",
   qnaList: [],
   reformList: [],
-  reviewList: [{}],
-  lookbookList: [{}],
+  reviewList: [],
+  lookbookList: [],
   Post: null,
   Comments: [],
   mainContents: {
@@ -53,10 +53,10 @@ const initialState = {
       toUrl: "/",
     },
     co2: { count: "999", co2Reduce: "99" },
-    lookbookList: [{}],
-    reviewList: [{}],
-    qnaList: [{}],
-    reformList: [{}],
+    lookbookList: [],
+    reviewList: [],
+    qnaList: [],
+    reformList: [],
   },
 };
 
@@ -128,7 +128,7 @@ export const getReviewListDB = (category, sort) => {
   return async (dispatch) => {
     try {
       const response = await apis.loadReviewList(category, sort);
-      dispatch(getReviewList(response));
+      dispatch(getReviewList(response.data));
     } catch (error) {
       console.log(error);
     }
@@ -139,9 +139,11 @@ export const getReviewListDB = (category, sort) => {
 export const getLookbookListDB = (category, sort) => {
   return async (dispatch) => {
     try {
-      const response = await apis.loadLookbookList(category, sort);
-      console.log(response);
-      dispatch(getLookbookList(response));
+      const response = await apis
+        .loadLookbookList(category, sort)
+        .then((res) => {
+          dispatch(getLookbookList(res.data));
+        });
     } catch (error) {
       console.log(error);
     }

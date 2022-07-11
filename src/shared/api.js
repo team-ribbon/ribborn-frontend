@@ -44,7 +44,7 @@ export const apis = {
   // 메인
   loadMain: () => api.get("/api/home"),
 
-  // 게시물 조회
+  // 게시물 리스트 조회
   loadQnAList: (category, sort, page) =>
     api.get(
       `/api/qnaList?category=${category}&sort=${sort}&page=${page}&size=6`
@@ -53,10 +53,12 @@ export const apis = {
     api.get(`/api/reviewList?category=${category}&sort=${sort}`),
   loadLookbookList: (category, sort) =>
     api.get(`/api/lookList?category=${category}&sort=${sort}`),
+  // loadReformList: (category, region, process, page) =>
+  // api.get(
+  //   `/api/reformList?category=${category}&region=${region}&process=${process}&page=${page}&size=6`
+  // ),
   loadReformList: (category, region, process, page) =>
-  api.get(
-    `/api/reformList?category=${category}&region=${region}&process=${process}&page=${page}&size=6`
-  ),
+    api.get(`/api/reformList?category=${category}&page=${page}&size=6`),
 
   // 게시물 상세
   loadQnAPost: (id) => api.get(`/api/qnaPosts/${id}`),

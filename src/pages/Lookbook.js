@@ -6,21 +6,22 @@ import Sort from "../components/Sort";
 import { getLookbookListDB } from "../modules/post";
 import styled from "styled-components";
 import { MainBtn, SubBtn, Category } from "../elements/Buttons";
+import Categories from "../shared/Categories";
 
 const Lookbook = () => {
   const dispatch = useDispatch();
   const postList = useSelector((state) => state.post.lookbookList);
 
-  const [sort, setSort] = useState("popular");
+  const [sort, setSort] = useState("likeCount");
   const [category, setCategory] = useState("all");
 
   const onClickCategory = (event) => {
     setCategory(event.target.id);
-    dispatch(getLookbookListDB(category, "popular"));
   };
 
   useEffect(() => {
     dispatch(getLookbookListDB(category, sort));
+    console.log("dispatched");
   }, [category, sort]);
 
   return (

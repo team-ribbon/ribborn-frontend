@@ -6,13 +6,15 @@ import CardA from "../components/CardA";
 import { getReviewListDB } from "../modules/post";
 import { MainBtn, SubBtn, Category } from "../elements/Buttons";
 import Sort from "../components/Sort";
+import TabWrap from "../components/TabWrap";
+import Categories from "../shared/Categories";
 
 const Review = () => {
   const dispatch = useDispatch();
   const postList = useSelector((state) => state.post.reviewList);
   // console.log(postList);
 
-  const [sort, setSort] = useState("recent");
+  const [sort, setSort] = useState("createAt");
   const [category, setCategory] = useState("all");
 
   const onClickCategory = (event) => {
@@ -25,14 +27,7 @@ const Review = () => {
 
   return (
     <Wrap>
-      <TabWrap>
-        <Link to="/review">
-          <ActiveTab>리폼 리뷰</ActiveTab>
-        </Link>
-        <Link to="">
-          <Tab>질문과 답변</Tab>
-        </Link>
-      </TabWrap>
+      <TabWrap review={true} />
       <Category category={category}>
         <SubBtn id="all" onClick={onClickCategory}>
           전체
@@ -78,19 +73,7 @@ const Grid = styled.div`
   grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
   margin: 20px 0;
 `;
-const TabWrap = styled.div`
-  text-align: center;
-  margin: 40px 0;
-`;
-const Tab = styled.span`
-  font-size: ${({ theme }) => theme.fontSizes.xl};
-  margin: 0 25px;
-`;
-const ActiveTab = styled(Tab)`
-  border-bottom: 3px solid black;
-  font-weight: 700;
-  padding-bottom: 7px;
-`;
+
 const Buttons = styled(Category)`
   width: 100%;
   margin: 50px auto;

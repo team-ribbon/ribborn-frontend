@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
+import TimeCalculator from "../shared/TimeCalculator";
 import { PostCommentDB } from "../modules/post";
 
 const PostFooter = ({ commentsList, id }) => {
@@ -33,7 +34,7 @@ const PostFooter = ({ commentsList, id }) => {
                   <CommentNickname>@{v.nickname}</CommentNickname>
                   <CommentContent>{v.comment}</CommentContent>
                 </CommentFistLine>
-                <CreatedAt>{v.createAt}</CreatedAt>
+                <CreatedAt>{TimeCalculator(v.createAt)}</CreatedAt>
               </Comment>
             );
           })}

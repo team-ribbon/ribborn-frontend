@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import MyPostButtons from "./MyPostButtons";
 import Categories from "../shared/Categories";
+import TimeCalculator from "../shared/TimeCalculator";
 
 const PostDetail = ({ post }) => {
   return (
@@ -11,7 +12,7 @@ const PostDetail = ({ post }) => {
         <IDDiv>
           <ID>@{post.nickname}</ID>
           <CircleDiv />
-          <Time>{post.modifyAt}</Time>
+          <Time>{TimeCalculator(post.modifyAt)}</Time>
           <MyPostButtons postType="qna" id={post.id} />
         </IDDiv>
         <TagDiv>

@@ -6,7 +6,6 @@ import { useParams } from "react-router-dom";
 import { getQnAPostDB } from "../modules/post";
 
 import PostDetail from "../components/PostDetail";
-import MyPostChange from "../components/MyPostChange";
 import PostFooter from "../components/PostFooter";
 import PostRightBtn from "../elements/PostRightBtn";
 
@@ -30,8 +29,7 @@ const QnADetail = () => {
 
   return (
     <Template>
-      <PostDetail />
-      <MyPostChange />
+      <PostDetail post={post} />
       <PostFooter id={params.postId} commentsList={commentsList} />
       <PostRightBtn noshare={true} id={params.postId} />
     </Template>

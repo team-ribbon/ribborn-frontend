@@ -5,9 +5,11 @@ import { apis } from "../../shared/api";
 
 // Action
 const USER_INFO = "USER_INFO";
+const CLEAR_USER_INFO = "CLEAR_USER_INFO";
 
 // Action creator
 const userInfo = createAction(USER_INFO, (userObj) => ({ userObj }));
+const clearUserInfo = createAction(CLEAR_USER_INFO);
 
 // initialState
 const initialState = {
@@ -22,7 +24,7 @@ export const loginDB = (username, password) => {
     try {
       const response = await apis.login(username, password);
       console.log(response);
-      const token = response.headers.Authorization;
+      const token = response.data;
       console.log(token);
       localStorage.setItem("token", token);
       if (response.status === 200) return true;
@@ -69,6 +71,8 @@ export const loadUserInfoDB = () => {
       const response = await apis.loadUserInfo();
       dispatch(userInfo(response));
     } catch (error) {
+      dispatch(clearUserInfo());
+      localStorage.removeItem("token");
       console.log(error);
     }
   };
@@ -80,6 +84,10 @@ export default handleActions(
     [USER_INFO]: (state, { payload }) =>
       produce(state, (draft) => {
         draft.user = payload.userObj;
+      }),
+    [CLEAR_USER_INFO]: (state, { payload }) =>
+      produce(state, (draft) => {
+        draft.user = initialState.user;
       }),
   },
   initialState

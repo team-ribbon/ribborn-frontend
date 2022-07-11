@@ -50,20 +50,8 @@ function ReformList() {
         })}
       </Category>
       <SelectDiv>
-        <SelectBox left={true} name="process" onChange={handleProcessSelect}>
-          <Option value="all">전체 상태보기</Option>
-          <Option value="before">모집중</Option>
-          <Option value="ing">진행중</Option>
-          <Option value="after">완료</Option>
-        </SelectBox>
-        <SelectBox left={false} name="region" onChange={handleRegionSelect}>
-          <option value="all">전체 지역</option>
-          <option value="gyeonggi">경기권</option>
-          <option value="gangwon">강원도</option>
-          <option value="chungcheong">충청권</option>
-          <option value="jeolla">전라권</option>
-          <option value="gyeongsang">경상권</option>
-        </SelectBox>
+        <ProcessSelect setProcess={setProcess} process={process} />
+        <RegionSelect setRegion={setRegion} region={region} />
       </SelectDiv>
       <PostCoverDiv>
         <AskBtn>견적 요청하기</AskBtn>
@@ -89,34 +77,13 @@ const Wrap = styled.div`
 const SelectDiv = styled.div`
   display: flex;
   flex-direction: row;
-  width: 70%;
   max-width: 1100px;
-`;
-
-const SelectBox = styled.select`
-  margin-left: ${(props) => (props.left ? "auto" : "30px")};
-  width: ${(props) => (props.left ? "179px" : "164px")};
-  height: 28px;
-  font-weight: 400;
-  font-size: 18px;
-  line-height: 20px;
-  border-bottom: 2px solid rgba(0, 0, 0, 1);
-  border-top: none;
-  border-right: none;
-  border-left: none;
-  :active {
-    border: none;
-  }
-  outline: none;
-`;
-
-const Option = styled.option`
-  border: none;
+  margin-top: 42px;
+  margin-left: auto;
 `;
 
 const PostCoverDiv = styled.div`
-  width: 70%;
-  max-width: 1100px;
+  width: 100%;
   display: flex;
   flex-direction: column;
 `;

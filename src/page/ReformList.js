@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-import { getReformListDB, cleanUpList } from "../modules/post";
+import { getReformListDB } from "../modules/post";
 import TextCard from "../components/TextCard";
 import CategoryBtn from "../elements/CategoryBtn";
 
@@ -15,7 +15,7 @@ function ReformList() {
   const [category, setCategory] = React.useState("all");
   const [process, setProcess] = React.useState("all");
   const [region, setRegion] = React.useState("all");
-  const postlists = useSelector((state) => state.post.List);
+  const postlists = useSelector((state) => state.post.reformList);
 
   const handleProcessSelect = (e) => {
     setProcess(e.target.value);
@@ -29,11 +29,11 @@ function ReformList() {
     dispatch(getReformListDB(category, region, process, page));
   }, [category, region, process, page]);
 
-  React.useEffect(() => {
-    return () => {
-      dispatch(cleanUpList());
-    };
-  }, []);
+  // React.useEffect(() => {
+  //   return () => {
+  //     dispatch(cleanUpList());
+  //   };
+  // }, []);
 
   return (
     <Template>

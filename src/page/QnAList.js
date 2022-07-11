@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-import { getQnAListDB, cleanUpList } from "../modules/post";
+import { getQnAListDB } from "../modules/post";
 import TextCard from "../components/TextCard";
 import CategoryBtn from "../elements/CategoryBtn";
 
@@ -14,17 +14,17 @@ function QnAList() {
   const [category, setCategory] = React.useState("all");
   const [sort, setSort] = React.useState("popular");
   const [page, setPage] = React.useState(0);
-  const postlists = useSelector((state) => state.post.List);
+  const postlists = useSelector((state) => state.post.qnaList);
 
   React.useEffect(() => {
     dispatch(getQnAListDB(category, sort, page));
   }, [category]);
 
-  React.useEffect(() => {
-    return () => {
-      dispatch(cleanUpList());
-    };
-  }, []);
+  // React.useEffect(() => {
+  //   return () => {
+  //     dispatch(cleanUpList());
+  //   };
+  // }, []);
 
   return (
     <Template>

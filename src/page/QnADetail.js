@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
-import { getQnAPostDB, cleanUpPost } from "../modules/post";
+import { getQnAPostDB } from "../modules/post";
 
 import PostDetail from "../components/PostDetail";
 import MyPostChange from "../components/MyPostChange";
@@ -22,11 +22,11 @@ const QnADetail = () => {
     dispatch(getQnAPostDB(params.postId));
   }, []);
 
-  React.useEffect(() => {
-    return () => {
-      dispatch(cleanUpPost());
-    };
-  }, []);
+  // React.useEffect(() => {
+  //   return () => {
+  //     dispatch(cleanUpPost());
+  //   };
+  // }, []);
 
   return (
     <Template>

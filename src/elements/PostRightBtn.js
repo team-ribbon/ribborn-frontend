@@ -5,11 +5,12 @@ const PostRightBtn = () => {
   return (
     <Cover>
       <Button>
-        <HiOutlineShare size="28" />
+        <HiOutlineHeart size="26" />
       </Button>
+      <p>56</p>
+      <HR />
       <Button>
-        <HiOutlineHeart size="24" />
-        <p>56</p>
+        <HiOutlineShare size="28" />
       </Button>
     </Cover>
   );
@@ -18,19 +19,29 @@ const PostRightBtn = () => {
 const Cover = styled.div`
   position: absolute;
   top: 50%;
-  right: 100px;
+  right: 200px;
+  text-align: center;
 `;
 
 const Button = styled.div`
-  background-color: #ddd;
-  width: 50px;
-  height: 50px;
+  background-color: rgba(242, 242, 242, 1);
+  width: 60px;
+  height: 60px;
   border-radius: 50px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 5px;
+`;
+
+const HR = styled.hr`
+  width: 33px;
+  border-top: 1px solid rgba(175, 176, 178, 1);
+  border-bottom: none;
+  border-left: none;
+  border-right: none;
+  margin: 30px auto 30px auto;
 `;
 
 export default PostRightBtn;

@@ -1,23 +1,38 @@
 import styled from "styled-components";
 import { HiOutlineShare, HiOutlineHeart } from "react-icons/hi";
+import { useDispatch } from "react-redux";
+import { likePostDB } from "../modules/post";
 
-const PostRightBtn = () => {
+const PostRightBtn = ({ noshare, id }) => {
+  const dispatch = useDispatch();
+
+  const likeIt = (like) => {
+    dispatch(likePostDB(id, like));
+  };
   return (
     <Cover>
-      <Button>
+      <Button
+        onClick={() => {
+          likeIt(true);
+        }}
+      >
         <HiOutlineHeart size="26" />
       </Button>
       <p>56</p>
-      <HR />
-      <Button>
-        <HiOutlineShare size="28" />
-      </Button>
+      {!noshare && (
+        <>
+          <HR />
+          <Button>
+            <HiOutlineShare size="28" />
+          </Button>
+        </>
+      )}
     </Cover>
   );
 };
 
 const Cover = styled.div`
-  position: absolute;
+  position: fixed;
   top: 50%;
   right: 200px;
   text-align: center;

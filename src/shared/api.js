@@ -62,6 +62,7 @@ export const apis = {
 
   // 게시물 상세
   loadQnAPost: (id) => api.get(`/api/qnaPosts/${id}`),
+  likePost: (id, like) => api.post(`/api/post/${id}/love`, { love: like }),
   deletePost: (id) => api.delete(`/api/post/${id}`),
 
   // 댓글

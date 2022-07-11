@@ -97,6 +97,17 @@ export const getQnAPostDB = (id) => {
   };
 };
 
+export const likePostDB = (id, like) => {
+  return async function () {
+    try {
+      const response = await apis.likePost(id, like);
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
 export const deletePostDB = (id) => {
   return async function () {
     try {

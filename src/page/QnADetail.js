@@ -32,8 +32,8 @@ const QnADetail = () => {
     <Template>
       <PostDetail />
       <MyPostChange />
-      <PostRightBtn />
       <PostFooter id={params.postId} commentsList={commentsList} />
+      <PostRightBtn noshare={true} id={params.postId} />
     </Template>
   );
 };

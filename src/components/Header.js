@@ -11,7 +11,7 @@ const Header = () => {
       <NavWrap>
         <UserNav>
           <span>
-            <Link to="">마이페이지</Link>
+            <Link to="/mypage">마이페이지</Link>
           </span>
           <span>
             <Link to="/signup">회원가입</Link>

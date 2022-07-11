@@ -9,7 +9,7 @@ const GlobalStyles = createGlobalStyle`
     }
     * {
         box-sizing:border-box;
-        
+        font-family: 'Apple SD Gothic Neo', 'Apple SD 산돌고딕 Neo' !important ;
     }
     html {
         font-family: 'Apple SD Gothic Neo';

@@ -7,12 +7,22 @@ const GET_MAIN = "GET_MAIN";
 const GET_QNA_LIST = "GET_QNA_LIST";
 const GET_REVIEW_LIST = "GET_REVIEW_LIST";
 const GET_LOOKBOOK_LIST = "GET_LOOKBOOK_LIST";
+const GET_REFORM_LIST = "GET_REFORM_LIST";
 
 const GET_TECH_INTRO = "GET_TECH_INTRO";
+
+const GET_POST = "GET_POST";
+
+// // Cleanup Action
+// const CLEANUP_LIST = "CLEANUP_LIST";
+// const CLEANUP_POST = "CLEANUP_POST";
 
 // Action Creator
 const getMain = createAction(GET_MAIN, (mainContents) => ({ mainContents }));
 const getQnAList = createAction(GET_QNA_LIST, (QnAList) => ({ QnAList }));
+const getReformList = createAction(GET_REFORM_LIST, (reformList) => ({
+  reformList,
+}));
 const getReviewList = createAction(GET_REVIEW_LIST, (reviewList) => ({
   reviewList,
 }));
@@ -21,12 +31,21 @@ const getLookbookList = createAction(GET_LOOKBOOK_LIST, (lookbookList) => ({
 }));
 const getTechIntro = createAction(GET_TECH_INTRO, (intro) => ({ intro }));
 
+const getPost = createAction(GET_POST, (Post) => ({ Post }));
+
+// // Cleanup Action Creator
+// export const cleanUpList = createAction(CLEANUP_LIST);
+// export const cleanUpPost = createAction(CLEANUP_POST);
+
 // InitialState
 const initialState = {
   techIntro: "",
-  QnAList: [],
+  qnaList: [],
+  reformList: [],
   reviewList: [{}],
   lookbookList: [{}],
+  Post: null,
+  Comments: [],
   mainContents: {
     banner: {
       image:
@@ -56,11 +75,38 @@ export const getMainDB = () => {
 };
 
 // 질문 게시판 - 게시물 불러오기
-export const getQnAListDB = () => {
+export const getQnAListDB = (category, sort, page) => {
   return async function (dispatch) {
     try {
-      const response = await apis.loadQnAList();
+      const response = await apis.loadQnAList(category, sort, page);
       dispatch(getQnAList(response.data));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const getQnAPostDB = (id) => {
+  return async function (dispatch) {
+    try {
+      const response = await apis.loadQnAPost(id);
+      dispatch(getPost(response.data));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const getReformListDB = (category, region, process, page) => {
+  return async function (dispatch) {
+    try {
+      const response = await apis.loadReformList(
+        category,
+        region,
+        process,
+        page
+      );
+      dispatch(getReformList(response.data));
     } catch (error) {
       console.log(error);
     }
@@ -127,7 +173,12 @@ export default handleActions(
       }),
     [GET_QNA_LIST]: (state, { payload }) =>
       produce(state, (draft) => {
-        draft.QnAList = payload.QnAList;
+        draft.qnaList = payload.qnaList;
+      }),
+    [GET_POST]: (state, { payload }) =>
+      produce(state, (draft) => {
+        draft.Post = payload.Post.post;
+        draft.Comments = payload.Post.comments;
       }),
     [GET_REVIEW_LIST]: (state, { payload }) =>
       produce(state, (draft) => {
@@ -137,10 +188,24 @@ export default handleActions(
       produce(state, (draft) => {
         draft.lookbookList = payload.lookbookList;
       }),
+    [GET_REFORM_LIST]: (state, { payload }) =>
+      produce(state, (draft) => {
+        draft.reformList = payload.reformList;
+      }),
     [GET_TECH_INTRO]: (state, { payload }) =>
       produce(state, (draft) => {
         draft.techIntro = payload.intro;
       }),
+    //   // Cleanup Reducer
+    //   [CLEANUP_LIST]: (state) =>
+    //   produce(state, (draft) => {
+    //     draft.List = initialState.List;
+    //   }),
+    // [CLEANUP_POST]: (state) =>
+    //   produce(state, (draft) => {
+    //     draft.Post = initialState.Post;
+    //     draft.Comments = initialState.Comments;
+    //   }),
   },
   initialState
 );

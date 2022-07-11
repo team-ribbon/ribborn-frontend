@@ -1,7 +1,9 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import VideoChat from "../page/VideoChat";
 
+import VideoChat from "../page/VideoChat";
+import QnAList from "../page/QnAList";
+import ReformList from "../page/ReformList";
 import Header from "./Header";
 import Main from "../pages/Main";
 import Login from "../pages/Login";
@@ -9,6 +11,9 @@ import Signup from "../pages/Signup";
 import SignupTech from "./SignupTech";
 import SignupUser from "./SignupUser";
 import Review from "../pages/Review";
+import MyPage from "../page/MyPage";
+import UserDetail from "../page/UserDetail";
+import QnADetail from "../page/QnADetail";
 import Lookbook from "../pages/Lookbook";
 import WritePost from "../pages/WritePost";
 import styled from "styled-components";
@@ -29,8 +34,13 @@ export default function Router() {
           </Route>
           <Route path="review" element={<Review />} />
           <Route path="lookbook" element={<Lookbook />} />
+          <Route path="/qna" element={<QnAList />} />
+          <Route path="/reform" element={<ReformList />} />
           <Route path="write/:type" element={<WritePost />} />
           <Route path="edit/:type/:id" element={<WritePost />} />
+          <Route path="mypage" element={<MyPage />} />
+          <Route path="userdetail/:userId" element={<UserDetail />} />
+          <Route path="qnadetail/:postId" element={<QnADetail />} />
         </Routes>
       </MainWrap>
       <Footer />

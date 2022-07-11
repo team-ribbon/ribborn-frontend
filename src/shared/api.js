@@ -45,11 +45,25 @@ export const apis = {
   loadMain: () => api.get("/api/home"),
 
   // 게시물 조회
-  loadQnAList: () => api.get("/api/qnaList"),
+  loadQnAList: (category, sort, page) =>
+    api.get(
+      `/api/qnaList?category=${category}&sort=${sort}&page=${page}&size=6`
+    ),
   loadReviewList: (category, sort) =>
     api.get(`/api/reviewList?category=${category}&sort=${sort}`),
   loadLookbookList: (category, sort) =>
     api.get(`/api/lookList?category=${category}&sort=${sort}`),
+  loadReformList: (category, region, process, page) =>
+  api.get(
+    `/api/reformList?category=${category}&region=${region}&process=${process}&page=${page}&size=6`
+  ),
+
+  // 게시물 상세
+  loadQnAPost: (id) => api.get(`/api/qnaPosts/${id}`),
+
+  // 댓글
+  loadComments: (postId, page) =>
+  api.get(`/api/comments/${postId}?page=${page}&size=5`),
 
   // 게시물 등록
   postQna: (formData) => formDataApi.post("/api/qnaPosts", { formData }),
@@ -66,4 +80,9 @@ export const apis = {
     formDataApi.put("/api/reformPosts/" + id, { formData }),
   editLookbook: (formData, id) =>
     formDataApi.put("/api/lookPosts/" + id, { formData }),
+
+  // 유저 상세페이지
+  loadMyPage: () => api.get("/api/users/mypage"),
+  loadUserDetail: (id) => api.get(`/api/users/userinfo/${id}`),
+  changeUserInfo: (data) => api.put("/api/users/mypage", data),
 };

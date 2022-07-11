@@ -1,11 +1,16 @@
 import { forwardRef, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
+import Rule from "./Rule";
+import Info from "./Info";
+
 const SignupAgree = forwardRef((prop, ref) => {
   const [agreeAll, setAgreeAll] = useState(false);
   const [agree1, setAgree1] = useState(false);
   const [agree2, setAgree2] = useState(false);
   const [agree3, setAgree3] = useState(false);
+  const [ruleModal, setRuleModal] = useState(false);
+  const [infoModal, setInfoModal] = useState(false);
 
   const onChangeAll = () => {
     if (!agreeAll) {
@@ -35,6 +40,8 @@ const SignupAgree = forwardRef((prop, ref) => {
   }, [agree1, agree2, agree3]);
   return (
     <div>
+      {ruleModal ? <Rule modal={setRuleModal} /> : null}
+      {infoModal ? <Info modal={setInfoModal} /> : null}
       <label htmlFor="agree">
         <input
           type="checkbox"
@@ -63,6 +70,14 @@ const SignupAgree = forwardRef((prop, ref) => {
         />
         <span>(필수) 이용약관</span>
       </label>
+      <div
+        onClick={() => {
+          setRuleModal(true);
+        }}
+      >
+        보기
+      </div>
+      <br />
       <label htmlFor="agree3">
         <input
           type="checkbox"
@@ -72,6 +87,13 @@ const SignupAgree = forwardRef((prop, ref) => {
         />
         <span>(필수) 개인정보수집 및 이용동의</span>
       </label>
+      <div
+        onClick={() => {
+          setInfoModal(true);
+        }}
+      >
+        보기
+      </div>
     </div>
   );
 });

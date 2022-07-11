@@ -15,16 +15,17 @@ const Login = () => {
   } = useForm();
 
   const onValid = (loginObj) => {
-    dispatch(loginDB(loginObj.username, loginObj.password)).then((result) => {
-      if (!result) {
-        setError("loginFail", {
-          message: "이메일 또는 비밀번호를 잘못 입력했습니다.",
-        });
-        return false;
-      }
-      navigate("/");
-    });
-    // console.log(loginObj);
+    dispatch(loginDB(loginObj.username, loginObj.password));
+    // .then((result) => {
+    //   if (!result) {
+    //     setError("loginFail", {
+    //       message: "이메일 또는 비밀번호를 잘못 입력했습니다.",
+    //     });
+    //     return false;
+    //   }
+    //   navigate("/");
+    // });
+    console.log(loginObj);
   };
   return (
     <Wrap>

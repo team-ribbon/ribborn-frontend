@@ -28,24 +28,13 @@ const Lookbook = () => {
     <Wrap>
       <TopWrap>
         <LCategory category={category}>
-          <SubBtn id="all" onClick={onClickCategory}>
-            전체
-          </SubBtn>
-          <SubBtn id="clothes" onClick={onClickCategory}>
-            옷 룩북
-          </SubBtn>
-          <SubBtn id="furniture" onClick={onClickCategory}>
-            가구 룩북
-          </SubBtn>
-          <SubBtn id="shoes" onClick={onClickCategory}>
-            신발 룩북
-          </SubBtn>
-          <SubBtn id="bags" onClick={onClickCategory}>
-            가방 룩북
-          </SubBtn>
-          <SubBtn id="goods" onClick={onClickCategory}>
-            기타 룩북
-          </SubBtn>
+          {Categories.map((v) => {
+            return (
+              <SubBtn id={v.value} onClick={onClickCategory}>
+                {v.text}
+              </SubBtn>
+            );
+          })}
         </LCategory>
         <Sort setSort={setSort} sort={sort} />
       </TopWrap>

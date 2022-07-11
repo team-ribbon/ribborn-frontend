@@ -35,10 +35,23 @@ function QnAList() {
   // }, []);
 
   return (
-    <Template>
-      <ButtonDiv>
-        <CategoryBtn categorySet={setCategory} category={category} />
-      </ButtonDiv>
+    <Wrap>
+      <TabWrap review={false} />
+      <Category category={category}>
+        {Categories.map((v) => {
+          return (
+            <SubBtn id={v.value} onClick={onClickCategory}>
+              {v.text}
+            </SubBtn>
+          );
+        })}
+      </Category>
+      <Buttons>
+        <Link to="/write/qna">
+          <MainBtn>글쓰기</MainBtn>
+        </Link>
+        <Sort setSort={setSort} sort={sort} />
+      </Buttons>
       <PostCoverDiv>
         <AskBtn>질문하기</AskBtn>
         {postlists.map((v) => {
@@ -55,11 +68,11 @@ const Template = styled.div`
   align-items: center;
 `;
 
-const ButtonDiv = styled.div`
-  width: fit-content;
+const Buttons = styled(Category)`
+  width: 100%;
+  margin: 50px auto;
   display: flex;
-  flex-direction: row;
-  justify-content: center;
+  align-items: center;
 `;
 
 const PostCoverDiv = styled.div`
@@ -67,23 +80,6 @@ const PostCoverDiv = styled.div`
   max-width: 1100px;
   display: flex;
   flex-direction: column;
-`;
-
-const AskBtn = styled.button`
-  background-color: #ff8c28;
-  color: white;
-  font-weight: 700;
-  font-size: 18px;
-  line-height: 24px;
-  border: none;
-  margin: 20px 0px;
-  width: 170px;
-  height: 74px;
-  border-radius: 15px;
-  float: left;
-  :hover {
-    cursor: pointer;
-  }
 `;
 
 export default QnAList;

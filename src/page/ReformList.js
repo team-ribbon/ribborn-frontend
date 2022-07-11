@@ -35,10 +35,20 @@ function ReformList() {
   // }, []);
 
   return (
-    <Template>
-      <ButtonDiv>
-        <CategoryBtn categorySet={setCategory} category={category} />
-      </ButtonDiv>
+    <Wrap>
+      <Category category={category}>
+        {Categories.map((v) => {
+          return (
+            <SubBtn
+              key={"categoryBtn" + v.value}
+              id={v.value}
+              onClick={onClickCategory}
+            >
+              {v.text}
+            </SubBtn>
+          );
+        })}
+      </Category>
       <SelectDiv>
         <SelectBox left={true} name="process" onChange={handleProcessSelect}>
           <Option value="all">전체 상태보기</Option>
@@ -71,13 +81,9 @@ const Wrap = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-`;
-
-const ButtonDiv = styled.div`
-  width: fit-content;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
+  max-width: ${({ theme }) => theme.width.maxWidth};
+  margin: 0 auto;
+  padding: 0 40px;
 `;
 
 const SelectDiv = styled.div`

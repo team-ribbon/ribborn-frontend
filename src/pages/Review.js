@@ -29,24 +29,13 @@ const Review = () => {
     <Wrap>
       <TabWrap review={true} />
       <Category category={category}>
-        <SubBtn id="all" onClick={onClickCategory}>
-          전체
-        </SubBtn>
-        <SubBtn id="clothes" onClick={onClickCategory}>
-          옷 리뷰
-        </SubBtn>
-        <SubBtn id="furniture" onClick={onClickCategory}>
-          가구 리뷰
-        </SubBtn>
-        <SubBtn id="shoes" onClick={onClickCategory}>
-          신발 리뷰
-        </SubBtn>
-        <SubBtn id="bags" onClick={onClickCategory}>
-          가방 리뷰
-        </SubBtn>
-        <SubBtn id="goods" onClick={onClickCategory}>
-          기타 리뷰
-        </SubBtn>
+        {Categories.map((v) => {
+          return (
+            <SubBtn id={v.value} onClick={onClickCategory}>
+              {v.text}
+            </SubBtn>
+          );
+        })}
       </Category>
       <Buttons>
         <Link to="/write/review">

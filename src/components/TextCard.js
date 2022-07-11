@@ -2,6 +2,9 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 
 import Categories from "../shared/Categories";
+import Regions from "../shared/Regions";
+import { HiOutlineHeart } from "react-icons/hi";
+import { IoChatbubbleOutline } from "react-icons/io5";
 
 const TextCard = ({ postObj, noWriter, reform }) => {
   const navigate = useNavigate();
@@ -32,14 +35,25 @@ const TextCard = ({ postObj, noWriter, reform }) => {
     >
       <TextDiv>
         <TitleDiv>
-          {reform ? <PostProcess>{process}</PostProcess> : null}
+          {reform ? (
+            <PostProcess process={postObj.process}>{process}</PostProcess>
+          ) : null}
           <Title>{postObj.title}</Title>
         </TitleDiv>
         <Content>{postObj.content}</Content>
         <PostFooter>
-          {reform ? null : <Like>좋아요 {postObj.likeCount}</Like>}
-          {reform ? null : <Comment>댓글 {postObj.commentCount}</Comment>}
           {noWriter ? null : <PostUserId>@{postObj.nickname}</PostUserId>}
+          {reform ? null : (
+            <>
+              <HiOutlineHeart size="16" /> <Like>{postObj.likeCount}</Like>
+            </>
+          )}
+          {reform ? null : (
+            <>
+              <IoChatbubbleOutline size="16" />
+              <Comment>{postObj.commentCount}</Comment>
+            </>
+          )}
           {Categories.map((w) => {
             return w.value === postObj.category ? (
               <PostCategory key={"postCategory" + w.value}>
@@ -47,7 +61,15 @@ const TextCard = ({ postObj, noWriter, reform }) => {
               </PostCategory>
             ) : null;
           })}
-          {reform ? <PostCategory>{postObj.region}</PostCategory> : null}
+          {reform
+            ? Regions.map((w) => {
+                return w.value === postObj.region ? (
+                  <PostCategory key={"postRegion" + w.value}>
+                    {w.text}
+                  </PostCategory>
+                ) : null;
+              })
+            : null}
         </PostFooter>
       </TextDiv>
       <PictureDiv>
@@ -59,9 +81,9 @@ const TextCard = ({ postObj, noWriter, reform }) => {
 
 const PostDiv = styled.div`
   width: 100%;
-  border-top: 1px solid #ccc;
   border-bottom: 1px solid #ccc;
-  height: 140px;
+  margin-bottom: 20px;
+  height: 256px;
   display: flex;
   flex-direction: row;
 `;
@@ -70,74 +92,100 @@ const TextDiv = styled.div`
   width: 80%;
 `;
 
-const TitleDiv = styled.div`
-  display: inline-block;
-`;
+const TitleDiv = styled.div``;
 
 const Title = styled.p`
-  font-size: 20px;
-  margin: 20px auto 10px auto;
+  font-size: 18px;
+  font-weight: 700;
+  margin: 20px auto 10px;
   float: left;
 `;
 
 const PostProcess = styled.button`
-  font-size: 13px;
-  height: 20px;
-  background-color: #ddd;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 14px;
+  height: 27px;
+  width: 59px;
+  background-color: ${(props) =>
+    props.process === "before"
+      ? "rgba(0, 174, 30, 0.43)"
+      : props.process === "ing"
+      ? "rgba(0, 64, 193, 0.43)"
+      : "rgba(255, 140, 40, 0.43)"};
   border: none;
-  border-radius: 20px;
-  margin: 20px auto auto 10px;
+  border-radius: 8px;
+  margin: 16px 30px auto 0px;
+  float: left;
 `;
 
 const Content = styled.p`
+  font-weight: 400;
   font-size: 15px;
-  line-height: 20px;
+  line-height: 28px;
   overflow: hidden;
-  height: 40px;
+  height: 80px;
+  width: 80%;
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
+  color: #222222;
 `;
 
 const PostFooter = styled.div`
-  margin: 10px auto;
+  margin: 20px auto;
   display: flex;
+  align-items: center;
 `;
 
 const Like = styled.p`
-  font-size: 13px;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 14px;
   margin-right: 20px;
+  margin-left: 8px;
 `;
 
 const Comment = styled.p`
-  font-size: 13px;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 14px;
   margin-right: 40px;
+  margin-left: 8px;
 `;
 
 const PostUserId = styled.p`
-  font-size: 13px;
-  margin-right: 30px;
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 18px;
+  margin-right: 40px;
 `;
 
 const PostCategory = styled.button`
-  font-size: 13px;
-  height: 20px;
-  background-color: #ddd;
+  font-weight: 700;
+  font-size: 11px;
+  line-height: 14px;
+  height: 29px;
+  width: 77px;
+  background-color: #f2f2f2;
   border: none;
-  border-radius: 20px;
+  border-radius: 8px;
+  margin-right: 30px;
 `;
 
 const PictureDiv = styled.div`
-  width: 20%;
+  width: 276px;
+  height: 217px;
   display: flex;
   justify-content: center;
   align-items: center;
 `;
 
 const Picture = styled.img`
-  max-width: 90%;
-  max-height: 120px;
+  width: 276px;
+  height: 217px;
   margin: auto;
+  border-radius: 15px;
 `;
 
 export default TextCard;

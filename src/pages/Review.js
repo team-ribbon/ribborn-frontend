@@ -12,16 +12,15 @@ const Review = () => {
   const postList = useSelector((state) => state.post.reviewList);
   // console.log(postList);
 
-  const [sort, setSort] = useState("popular");
+  const [sort, setSort] = useState("recent");
   const [category, setCategory] = useState("all");
 
   const onClickCategory = (event) => {
     setCategory(event.target.id);
-    // dispatch(getReviewListDB(category,"popular"))
   };
 
   useEffect(() => {
-    // dispatch(getReviewListDB(category, sort));
+    dispatch(getReviewListDB(category, sort));
   }, [category, sort]);
 
   return (

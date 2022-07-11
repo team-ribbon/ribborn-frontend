@@ -16,11 +16,11 @@ const Lookbook = () => {
 
   const onClickCategory = (event) => {
     setCategory(event.target.id);
-    // dispatch(getLookbookListDB(category,"popular"))
+    dispatch(getLookbookListDB(category, "popular"));
   };
 
   useEffect(() => {
-    // dispatch(getLookbookListDB(category, sort));
+    dispatch(getLookbookListDB(category, sort));
   }, [category, sort]);
 
   return (

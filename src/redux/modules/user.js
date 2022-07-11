@@ -21,10 +21,14 @@ export const loginDB = (username, password) => {
   return async () => {
     try {
       const response = await apis.login(username, password);
-      const token = response.headers.authorization;
+      console.log(response);
+      const token = response.headers.Authorization;
+      console.log(token);
       localStorage.setItem("token", token);
+      if (response.status === 200) return true;
     } catch (error) {
       console.log(error);
+      alert("띠로리....실패했습니다...");
       return false;
     }
   };
@@ -34,14 +38,12 @@ export const loginDB = (username, password) => {
 export const signupDB = (userObj) => {
   return async () => {
     try {
-      // if (userObj.userType === 0) {
       await apis.signupUser(userObj);
-      // }
-      // if (userObj.userType === 1) {
-      //   await apis.signupTech(userObj);
-      // }
+      return true;
     } catch (error) {
       console.log(error);
+      alert("띠로리....실패했습니다...");
+      return false;
     }
   };
 };
@@ -50,7 +52,9 @@ export const signupDB = (userObj) => {
 export const usernameCheckDB = (username) => {
   return async () => {
     try {
-      await apis.usernameCheck(username);
+      const response = await apis.usernameCheck(username);
+      // console.log(response.data.status);
+      if (response?.data?.status === "Success") return true;
     } catch (error) {
       console.log(error);
       return false;

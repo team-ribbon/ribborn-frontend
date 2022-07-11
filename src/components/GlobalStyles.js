@@ -12,14 +12,16 @@ const GlobalStyles = createGlobalStyle`
         
     }
     html {
-        font-size:82.5%;
+        font-family: 'Apple SD Gothic Neo';
+        font-size: ${({ theme }) => theme.fontSizes.m};
         margin : 0;
         padding: 0;
+        color: ${({ theme }) => theme.colors.black};
         
     }
     body{
-        background-color:#F8F8F8;
-        
+        background-color:#FFF;
+
     }
 `;
 

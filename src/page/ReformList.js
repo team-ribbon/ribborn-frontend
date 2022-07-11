@@ -15,7 +15,7 @@ function ReformList() {
   const [category, setCategory] = React.useState("all");
   const [process, setProcess] = React.useState("all");
   const [region, setRegion] = React.useState("all");
-  const postlists = useSelector((state) => state.post.List.posts);
+  const postlists = useSelector((state) => state.post.List);
 
   const handleProcessSelect = (e) => {
     setProcess(e.target.value);
@@ -38,24 +38,24 @@ function ReformList() {
   return (
     <Template>
       <ButtonDiv>
-        <CategoryBtn categorySet={setCategory} />
+        <CategoryBtn categorySet={setCategory} category={category} />
       </ButtonDiv>
-      <div>
-        <select name="process" onChange={handleProcessSelect}>
-          <option value="all">전체 상태보기</option>
-          <option value="before">모집중</option>
-          <option value="ing">진행중</option>
-          <option value="after">완료</option>
-        </select>
-        <select name="region" onChange={handleRegionSelect}>
+      <SelectDiv>
+        <SelectBox left={true} name="process" onChange={handleProcessSelect}>
+          <Option value="all">전체 상태보기</Option>
+          <Option value="before">모집중</Option>
+          <Option value="ing">진행중</Option>
+          <Option value="after">완료</Option>
+        </SelectBox>
+        <SelectBox left={false} name="region" onChange={handleRegionSelect}>
           <option value="all">전체 지역</option>
-          <option value="경기권">경기권</option>
-          <option value="강원도">강원도</option>
-          <option value="충청권">충청권</option>
-          <option value="전라권">전라권</option>
-          <option value="경상권">경상권</option>
-        </select>
-      </div>
+          <option value="gyeonggi">경기권</option>
+          <option value="gangwon">강원도</option>
+          <option value="chungcheong">충청권</option>
+          <option value="jeolla">전라권</option>
+          <option value="gyeongsang">경상권</option>
+        </SelectBox>
+      </SelectDiv>
       <PostCoverDiv>
         <AskBtn>견적 요청하기</AskBtn>
         {postlists.map((v) => {
@@ -79,18 +79,52 @@ const ButtonDiv = styled.div`
   justify-content: center;
 `;
 
+const SelectDiv = styled.div`
+  display: flex;
+  flex-direction: row;
+  width: 70%;
+  max-width: 1100px;
+`;
+
+const SelectBox = styled.select`
+  margin-left: ${(props) => (props.left ? "auto" : "30px")};
+  width: ${(props) => (props.left ? "179px" : "164px")};
+  height: 28px;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 20px;
+  border-bottom: 2px solid rgba(0, 0, 0, 1);
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  :active {
+    border: none;
+  }
+  outline: none;
+`;
+
+const Option = styled.option`
+  border: none;
+`;
+
 const PostCoverDiv = styled.div`
   width: 70%;
+  max-width: 1100px;
   display: flex;
   flex-direction: column;
 `;
 
 const AskBtn = styled.button`
-  background-color: #ddd;
+  background-color: #ff8c28;
+  color: white;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 24px;
   border: none;
   margin: 20px 0px;
-  width: 100px;
-  height: 60px;
+  width: 170px;
+  height: 74px;
+  border-radius: 15px;
   float: left;
   :hover {
     cursor: pointer;

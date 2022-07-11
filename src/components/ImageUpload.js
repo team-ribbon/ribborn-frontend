@@ -72,7 +72,7 @@ const ImageUpload = ({ type }) => {
     <div>
       <Wrap>
         <input
-          id={"file"}
+          id="file"
           type="file"
           accept=".png, .jpg, .jpeg, .webp"
           multiple
@@ -81,7 +81,7 @@ const ImageUpload = ({ type }) => {
           ref={fileRef}
         />
 
-        <Label htmlFor={"file"}>
+        <Label htmlFor="file">
           <FileInput>사진을 업로드 해주세요</FileInput>
         </Label>
         {previewList.map((file, index) => {

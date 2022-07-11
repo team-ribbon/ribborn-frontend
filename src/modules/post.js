@@ -20,17 +20,16 @@ export const cleanUpPost = createAction(CLEANUP_POST);
 
 // InitialState
 const initialState = {
-  List: {
-    posts: [],
-  },
+  List: [],
   Post: null,
+  Comments: [],
 };
 
 // Middleware
-export const getQnAListDB = () => {
+export const getQnAListDB = (category, sort, page) => {
   return async function (dispatch) {
     try {
-      const response = await apis.loadQnAList();
+      const response = await apis.loadQnAList(category, sort, page);
       dispatch(getList(response.data));
     } catch (error) {
       console.log(error);
@@ -74,7 +73,8 @@ export default handleActions(
       }),
     [GET_QNA_POST]: (state, { payload }) =>
       produce(state, (draft) => {
-        draft.Post = payload.Post;
+        draft.Post = payload.Post.post;
+        draft.Comments = payload.Post.comments;
       }),
     // Cleanup Reducer
     [CLEANUP_LIST]: (state) =>
@@ -84,6 +84,7 @@ export default handleActions(
     [CLEANUP_POST]: (state) =>
       produce(state, (draft) => {
         draft.Post = initialState.Post;
+        draft.Comments = initialState.Comments;
       }),
   },
   initialState

@@ -12,10 +12,12 @@ function QnAList() {
   const navigate = useNavigate();
 
   const [category, setCategory] = React.useState("all");
-  const postlists = useSelector((state) => state.post.List.posts);
+  const [sort, setSort] = React.useState("popular");
+  const [page, setPage] = React.useState(0);
+  const postlists = useSelector((state) => state.post.List);
 
   React.useEffect(() => {
-    dispatch(getQnAListDB());
+    dispatch(getQnAListDB(category, sort, page));
   }, [category]);
 
   React.useEffect(() => {
@@ -27,7 +29,7 @@ function QnAList() {
   return (
     <Template>
       <ButtonDiv>
-        <CategoryBtn categorySet={setCategory} />
+        <CategoryBtn categorySet={setCategory} category={category} />
       </ButtonDiv>
       <PostCoverDiv>
         <AskBtn>질문하기</AskBtn>
@@ -54,16 +56,22 @@ const ButtonDiv = styled.div`
 
 const PostCoverDiv = styled.div`
   width: 70%;
+  max-width: 1100px;
   display: flex;
   flex-direction: column;
 `;
 
 const AskBtn = styled.button`
-  background-color: #ddd;
+  background-color: #ff8c28;
+  color: white;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 24px;
   border: none;
   margin: 20px 0px;
-  width: 100px;
-  height: 60px;
+  width: 170px;
+  height: 74px;
+  border-radius: 15px;
   float: left;
   :hover {
     cursor: pointer;

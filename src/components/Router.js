@@ -30,6 +30,7 @@ export default function Router() {
           <Route path="review" element={<Review />} />
           <Route path="lookbook" element={<Lookbook />} />
           <Route path="write/:type" element={<WritePost />} />
+          <Route path="edit/:type/:id" element={<WritePost />} />
         </Routes>
       </MainWrap>
       <Footer />

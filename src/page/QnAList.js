@@ -53,19 +53,20 @@ function QnAList() {
         <Sort setSort={setSort} sort={sort} />
       </Buttons>
       <PostCoverDiv>
-        <AskBtn>질문하기</AskBtn>
         {postlists.map((v) => {
           return <TextCard postObj={v} key={"post" + v.id} />;
         })}
       </PostCoverDiv>
-    </Template>
+    </Wrap>
   );
 }
 
-const Template = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+const Wrap = styled.div`
+  width: 70%;
+  max-width: 1100px;
+  max-width: ${({ theme }) => theme.width.maxWidth};
+  margin: 0 auto;
+  padding: 0 40px;
 `;
 
 const Buttons = styled(Category)`
@@ -76,8 +77,7 @@ const Buttons = styled(Category)`
 `;
 
 const PostCoverDiv = styled.div`
-  width: 70%;
-  max-width: 1100px;
+  width: 100%;
   display: flex;
   flex-direction: column;
 `;

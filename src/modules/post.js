@@ -118,6 +118,16 @@ export const deletePostDB = (id) => {
   };
 };
 
+export const PostCommentDB = (id, comment) => {
+  return async function () {
+    try {
+      const response = await apis.uploadComment(id, comment);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
 export const getReformListDB = (category, region, process, page) => {
   return async function (dispatch) {
     try {

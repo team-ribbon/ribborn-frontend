@@ -68,6 +68,11 @@ export const apis = {
   // 댓글
   loadComments: (postId, page) =>
     api.get(`/api/comments/${postId}?page=${page}&size=5`),
+  uploadComment: (id, comment) => {
+    api.post(`/api/post/${id}/comment`, {
+      comment: comment,
+    });
+  },
 
   // 게시물 등록
   postQna: (formData) => formDataApi.post("/api/qnaPosts", { formData }),

@@ -1,13 +1,14 @@
 import React from "react";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
+import { PostCommentDB } from "../modules/post";
 
 const PostFooter = ({ commentsList, id }) => {
   const inputCurrent = React.useRef(null);
   const dispatch = useDispatch();
 
   const sendMessage = () => {
-    // dispatch(comment(inputCurrent.current.value));
+    dispatch(PostCommentDB(id, inputCurrent.current.value));
   };
 
   return (

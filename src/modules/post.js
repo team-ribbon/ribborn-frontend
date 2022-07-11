@@ -10,8 +10,6 @@ const GET_LOOKBOOK_LIST = "GET_LOOKBOOK_LIST";
 
 const GET_TECH_INTRO = "GET_TECH_INTRO";
 
-const POST_REVIEW = "POST_REVIEW";
-
 // Action Creator
 const getMain = createAction(GET_MAIN, (mainContents) => ({ mainContents }));
 const getQnAList = createAction(GET_QNA_LIST, (QnAList) => ({ QnAList }));
@@ -27,46 +25,8 @@ const getTechIntro = createAction(GET_TECH_INTRO, (intro) => ({ intro }));
 const initialState = {
   techIntro: "",
   QnAList: [],
-  reviewList: [
-    {
-      id: 1,
-      nickname: "이것은닉네임",
-      image:
-        "http://www.mth.co.kr/wp-content/uploads/2014/12/default-placeholder-1024x1024.png",
-      love: 99,
-      comment: 99,
-      title: "리폼 후기입니다.",
-    },
-    {
-      id: 2,
-      nickname: "이것은닉네임",
-      image:
-        "http://www.mth.co.kr/wp-content/uploads/2014/12/default-placeholder-1024x1024.png",
-      love: 99,
-      comment: 99,
-      title: "리폼 후기입니다.",
-    },
-  ],
-  lookbookList: [
-    {
-      id: 1,
-      nickname: "이것은닉네임",
-      image:
-        "http://www.mth.co.kr/wp-content/uploads/2014/12/default-placeholder-1024x1024.png",
-      likeCount: 99,
-      category: "shoes",
-      createAt: "2022.07.02",
-    },
-    {
-      id: 2,
-      nickname: "이것은닉네임",
-      image:
-        "http://www.mth.co.kr/wp-content/uploads/2014/12/default-placeholder-1024x1024.png",
-      likeCount: 99,
-      category: "shoes",
-      createAt: "2022.07.02",
-    },
-  ],
+  reviewList: [{}],
+  lookbookList: [{}],
   mainContents: {
     banner: {
       image:
@@ -74,118 +34,10 @@ const initialState = {
       toUrl: "/",
     },
     co2: { count: "999", co2Reduce: "99" },
-    lookbookList: [
-      {
-        id: 1,
-        nickname: "이것은닉네임",
-        image:
-          "http://www.mth.co.kr/wp-content/uploads/2014/12/default-placeholder-1024x1024.png",
-        likeCount: 99,
-        category: "shoes",
-        createAt: "2022.07.02",
-      },
-      {
-        id: 122,
-        nickname: "이것은닉네임",
-        image:
-          "http://www.mth.co.kr/wp-content/uploads/2014/12/default-placeholder-1024x1024.png",
-        likeCount: 99,
-        category: "shoes",
-        createAt: "2022.07.02",
-      },
-      {
-        id: 1232,
-        nickname: "이것은닉네임",
-        image:
-          "http://www.mth.co.kr/wp-content/uploads/2014/12/default-placeholder-1024x1024.png",
-        likeCount: 99,
-        category: "shoes",
-        createAt: "2022.07.02",
-      },
-      {
-        id: 1232,
-        nickname: "이것은닉네임",
-        image:
-          "http://www.mth.co.kr/wp-content/uploads/2014/12/default-placeholder-1024x1024.png",
-        likeCount: 99,
-        category: "shoes",
-        createAt: "2022.07.02",
-      },
-      {
-        id: 1232,
-        nickname: "이것은닉네임",
-        image:
-          "http://www.mth.co.kr/wp-content/uploads/2014/12/default-placeholder-1024x1024.png",
-        likeCount: 99,
-        category: "shoes",
-        createAt: "2022.07.02",
-      },
-      {
-        id: 1232,
-        nickname: "이것은닉네임",
-        image:
-          "http://www.mth.co.kr/wp-content/uploads/2014/12/default-placeholder-1024x1024.png",
-        likeCount: 99,
-        category: "shoes",
-        createAt: "2022.07.02",
-      },
-    ],
-    reviewList: [
-      {
-        id: 20,
-        nickname: "이것은닉네임",
-        image:
-          "http://www.mth.co.kr/wp-content/uploads/2014/12/default-placeholder-1024x1024.png",
-        love: 123,
-        comment: 123,
-        title: "리폼 후기입니다.",
-      },
-      {
-        id: 202,
-        nickname: "이것은닉네임",
-        image:
-          "http://www.mth.co.kr/wp-content/uploads/2014/12/default-placeholder-1024x1024.png",
-        love: 99,
-        comment: 99,
-        title: "리폼 후기입니다.",
-      },
-    ],
+    lookbookList: [{}],
+    reviewList: [{}],
     qnaList: [{}],
-    reformList: [
-      {
-        id: 20,
-        nickname: "이것은닉네임",
-        image:
-          "http://www.mth.co.kr/wp-content/uploads/2014/12/default-placeholder-1024x1024.png",
-        love: 123,
-        comment: 123,
-        title: "리폼 후기입니다.",
-        process: "after",
-        region: "경기권",
-      },
-      {
-        id: 202,
-        nickname: "이것은닉네임",
-        image:
-          "http://www.mth.co.kr/wp-content/uploads/2014/12/default-placeholder-1024x1024.png",
-        love: 99,
-        comment: 99,
-        title: "리폼 후기입니다.",
-        process: "before",
-        region: "경기권",
-      },
-      {
-        id: 202,
-        nickname: "이것은닉네임",
-        image:
-          "http://www.mth.co.kr/wp-content/uploads/2014/12/default-placeholder-1024x1024.png",
-        love: 99,
-        comment: 99,
-        title: "리폼 후기입니다.",
-        process: "ing",
-        region: "경기권",
-      },
-    ],
+    reformList: [{}],
   },
 };
 
@@ -228,10 +80,11 @@ export const getReviewListDB = (category, sort) => {
 };
 
 // 룩북 게시판 - 게시물 불러오기
-export const getLookbookListDB = (sort) => {
+export const getLookbookListDB = (category, sort) => {
   return async (dispatch) => {
     try {
-      const response = await apis.loadLookbookList(sort);
+      const response = await apis.loadLookbookList(category, sort);
+      console.log(response);
       dispatch(getLookbookList(response));
     } catch (error) {
       console.log(error);

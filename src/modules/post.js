@@ -190,7 +190,7 @@ export default handleActions(
     [GET_POST]: (state, { payload }) =>
       produce(state, (draft) => {
         draft.Post = payload.Post.post;
-        draft.Comments = payload.Post.comments;
+        draft.Comments = payload.Post.comment;
       }),
     [GET_REVIEW_LIST]: (state, { payload }) =>
       produce(state, (draft) => {

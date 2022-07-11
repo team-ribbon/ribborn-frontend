@@ -3,8 +3,11 @@ import { Link, useMatch } from "react-router-dom";
 import styled, { css } from "styled-components";
 
 const Header = () => {
-  const isCommunity = useMatch("/review");
+  const isReview = useMatch("/review");
+  const isQna = useMatch("/qna");
+  const isCommunity = isReview || isQna;
   const isLookbook = useMatch("/lookbook");
+  const isReform = useMatch("/reform");
 
   return (
     <HeaderWrap>
@@ -30,9 +33,9 @@ const Header = () => {
           <Lookbook isLookbook={isLookbook}>
             <Link to="/lookbook">LOOKBOOK</Link>
           </Lookbook>
-          <span>
-            <Link to="">견적</Link>
-          </span>
+          <Reform isReform={isReform}>
+            <Link to="/reform">견적</Link>
+          </Reform>
         </div>
       </CategoryNav>
     </HeaderWrap>
@@ -85,6 +88,9 @@ const Community = styled.span`
 `;
 const Lookbook = styled.span`
   ${({ isLookbook }) => isLookbook && Active}
+`;
+const Reform = styled.span`
+  ${({ isReform }) => isReform && Active}
 `;
 
 export default Header;

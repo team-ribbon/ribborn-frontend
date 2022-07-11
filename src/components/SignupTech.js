@@ -3,7 +3,6 @@ import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-
 import { signupDB, usernameCheckDB } from "../redux/modules/user";
 import SignupAgree from "./SignupAgree";
 import { AddressCategory } from "../shared/AddressCategory";
@@ -34,6 +33,8 @@ const SignupTech = () => {
       setAgreeError("필수 항목에 모두 동의해주세요.");
       return false;
     }
+    delete data.password2;
+    data.userType = 1;
     console.log(data);
     dispatch(signupDB(data));
     navigate("/login");
@@ -125,8 +126,10 @@ const SignupTech = () => {
           {...register("phoneNum", {
             required: "연락처를 입력해주세요.",
             pattern: {
-              value: /^([0-9]{2,3})-([0-9]{3,4})-([0-9]{4})$/,
-              message: "전화번호 형식이 아닙니다. -를 포함하여 입력해주세요.",
+              // value: /^([0-9]{2,3})-([0-9]{3,4})-([0-9]{4})$/,
+              value: /^([0-9]{9,11})$/,
+              message:
+                "전화번호 형식이 아닙니다. -를 제외하고 숫자만 입력해주세요.",
             },
           })}
           placeholder="연락처"
@@ -139,9 +142,10 @@ const SignupTech = () => {
           {...register("companyNum", {
             required: "사업자등록번호를 입력해주세요.",
             pattern: {
-              value: /^\d\d\d-\d\d-\d\d\d\d\d$/,
+              // value: /^\d\d\d-\d\d-\d\d\d\d\d$/,
+              value: /^([0-9]{10,10})$/,
               message:
-                "사업자등록번호 형식이 아닙니다. -를 포함하여 입력해주세요.",
+                "사업자등록번호 형식이 아닙니다. -를 제외하고 숫자만 입력해주세요.",
             },
           })}
           placeholder="사업자등록번호"
@@ -161,6 +165,7 @@ const SignupTech = () => {
             </option>
           ))}
         </select>
+        <span>{errors?.addressCategory?.message}</span>
 
         <span>상세주소</span>
         <input
@@ -170,10 +175,27 @@ const SignupTech = () => {
           placeholder="상세 위치"
           autoComplete="off"
         />
+        <span>{errors?.addressDetail?.message}</span>
+
+        <span>브랜드/자기소개</span>
+        <textarea {...register("introduction")} />
 
         <SignupAgree ref={checkRef} />
         <span>{agreeError}</span>
-        <button>회원가입</button>
+        <button
+          disabled={
+            errors.username ||
+            errors.password ||
+            errors.password2 ||
+            errors.nickname ||
+            errors.phoneNum ||
+            errors.companyNum ||
+            errors.addressCategory ||
+            errors.addressDetail
+          }
+        >
+          회원가입
+        </button>
       </Form>
     </Wrap>
   );

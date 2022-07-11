@@ -12,12 +12,16 @@ const GlobalStyles = createGlobalStyle`
         font-family: 'Apple SD Gothic Neo', 'Apple SD 산돌고딕 Neo' !important ;
     }
     html {
-        font-size:82.5%;
+        font-family: 'Apple SD Gothic Neo';
+        font-size: ${({ theme }) => theme.fontSizes.m};
         margin : 0;
         padding: 0;
+        color: ${({ theme }) => theme.colors.black};
+        
     }
     body{
-        background-color: #FFFFFF;
+        background-color:#FFF;
+
     }
 `;
 

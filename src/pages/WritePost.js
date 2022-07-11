@@ -30,58 +30,87 @@ const WritePost = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const selectRef = useRef();
+  const categoryRef = useRef();
+  const regionRef = useRef();
+  const titleRef = useRef();
+  const contentRef = useRef();
+  const introRef = useRef();
+
   const files = useSelector((state) => state.image.fileList);
   const intro = useSelector((state) => state.post.techIntro);
+
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [introduction, setIntroduction] = useState(intro);
+
   const { type } = useParams();
+  const { id } = useParams();
 
   const onSubmit = (event) => {
     event.preventDefault();
 
-    if (+selectRef.current.value === 0) {
-      alert("리폼 종류");
+    if (+categoryRef.current.value === 0) {
+      alert("리폼 종류 없음");
+      return false;
+    }
+
+    if (type === "reform" && +regionRef.current.value === 0) {
+      alert("지역 없음");
       return false;
     }
 
     if (title.length < 1) {
-      alert("제목");
+      alert("제목 없음");
       return false;
     }
 
     if (content.length < 1) {
-      alert("내용");
+      alert("내용 없음");
       return false;
     }
 
     if ((type === "review" || type === "lookbook") && files.length < 1) {
-      alert("사진");
+      alert("사진 없음");
       return false;
     }
 
-    const formData = new FormData(event.target);
-    formData.append("postCategory", type);
+    // 1번 방법 => api 설계서와 동일하게 보내기
+    // const formData = new FormData(event.target);
+    // formData.append("postCategory", type);
 
-    // string
-    // formData.append("image", files);
+    // files.forEach((file) => {
+    //   formData.append("image", file);
+    // });
+    // console.log(formData.getAll("image"));
 
+    // 2번 방법 => file, key로 나눠서 보내기
+    const formData = new FormData();
     files.forEach((file) => {
-      formData.append("image", file);
-      formData.append("image", "url");
+      formData.append("file", file);
     });
 
-    console.log(formData.getAll("image"));
+    let key = {
+      category: categoryRef.current.value,
+      title: titleRef.current.value,
+      content: contentRef.current.value,
+    };
+
+    if (type === "reform") {
+      key = { ...key, region: regionRef.current.value };
+    }
+    formData.append("key", JSON.stringify(key));
+
+    // formdata 확인하기
+    // console.log(formData.getAll("file"));
     // for (let key of formData.keys()) {
     //   console.log(key, ":", formData.get(key));
     // }
     // for (let v of formData.values()) console.log(v);
 
-    // dispatch(postDB(formData, type)).then(() => {
-    //   dispatch(resetFile());
-    //   navigate("/" + type);
-    // });
+    dispatch(postDB(formData, type)).then(() => {
+      dispatch(resetFile());
+      // navigate("/" + type);
+    });
   };
 
   const onChangeTitle = (event) => {
@@ -104,11 +133,11 @@ const WritePost = () => {
   };
 
   useEffect(() => {
-    dispatch(getTechIntroDB());
+    // dispatch(getTechIntroDB());
   }, []);
   return (
     <form onSubmit={onSubmit}>
-      <select name="category" defaultValue={0} ref={selectRef}>
+      <select name="category" defaultValue={0} ref={categoryRef}>
         <option value={0} disabled>
           리폼 종류
         </option>
@@ -119,7 +148,7 @@ const WritePost = () => {
         <option value="goods">기타</option>
       </select>
       {type === "reform" && (
-        <select name="region" defaultValue={0} ref={selectRef}>
+        <select name="region" defaultValue={0} ref={regionRef}>
           <option value={0} disabled>
             지역
           </option>
@@ -139,6 +168,7 @@ const WritePost = () => {
             placeholder="브랜드 또는 디자이너에 대한 간단한 소개를 적어주세요."
             value={introduction}
             onChange={onChangeIntro}
+            ref={introRef}
           />
           <span>{content.length}/100</span>
         </>
@@ -149,6 +179,7 @@ const WritePost = () => {
         placeholder="제목을 입력해주세요."
         value={title}
         onChange={onChangeTitle}
+        ref={titleRef}
       />
       <span>{title.length}/15</span>
 
@@ -157,6 +188,7 @@ const WritePost = () => {
         placeholder="내용을 입력해주세요."
         value={content}
         onChange={onChangeContent}
+        ref={contentRef}
       />
       <span>{content.length}/100</span>
 

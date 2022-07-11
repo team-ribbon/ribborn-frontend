@@ -3,7 +3,7 @@ import axios from "axios";
 const token = localStorage.getItem("token");
 
 const api = axios.create({
-  baseURL: "http://localhost:5001/",
+  baseURL: "http://3.35.49.121:8080",
   headers: {
     "content-type": "application/json;charset=UTF-8",
     accept: "application/json,",
@@ -11,7 +11,7 @@ const api = axios.create({
 });
 
 const formDataApi = axios.create({
-  baseURL: "http://localhost:5001/",
+  baseURL: "http://3.35.49.121:8080",
   headers: {
     "content-type": "multipart/form-data",
   },
@@ -48,7 +48,8 @@ export const apis = {
   loadQnAList: () => api.get("/api/qnaList"),
   loadReviewList: (category, sort) =>
     api.get(`/api/reviewList?category=${category}&sort=${sort}`),
-  loadLookbookList: (sort) => api.get(`/api/lookList?sort=${sort}`),
+  loadLookbookList: (category, sort) =>
+    api.get(`/api/lookList?category=${category}&sort=${sort}`),
 
   // 게시물 등록
   postQna: (formData) => formDataApi.post("/api/qnaPosts", { formData }),

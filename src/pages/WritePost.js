@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
+import styled from "styled-components";
 
 import { getTechIntroDB, postDB } from "../modules/post";
 import { resetFile } from "../redux/modules/image";
@@ -121,9 +122,6 @@ const WritePost = () => {
   };
   const onChangeContent = (event) => {
     setContent(event.target.value);
-    if (content.length > 99) {
-      return setContent((prev) => prev.substring(0, 100));
-    }
   };
   const onChangeIntro = (event) => {
     setIntroduction(event.target.value);
@@ -136,67 +134,150 @@ const WritePost = () => {
     // dispatch(getTechIntroDB());
   }, []);
   return (
-    <form onSubmit={onSubmit}>
-      <select name="category" defaultValue={0} ref={categoryRef}>
-        <option value={0} disabled>
-          리폼 종류
-        </option>
-        <option value="clothes">옷</option>
-        <option value="furniture">가구</option>
-        <option value="bags">가방</option>
-        <option value="shoes">신발</option>
-        <option value="goods">기타</option>
-      </select>
-      {type === "reform" && (
-        <select name="region" defaultValue={0} ref={regionRef}>
-          <option value={0} disabled>
-            지역
-          </option>
-          <option value="gyeonggi">경기권</option>
-          <option value="gangwon">강원도</option>
-          <option value="chungcheong">충청권</option>
-          <option value="jeolla">전라권</option>
-          <option value="gyeongsang">경상권</option>
-        </select>
-      )}
-      <div>{info[type].title}</div>
-      <div>{info[type].content}</div>
-      {type === "lookbook" && (
-        <>
-          <textarea
-            name="introduction"
-            placeholder="브랜드 또는 디자이너에 대한 간단한 소개를 적어주세요."
-            value={introduction}
-            onChange={onChangeIntro}
-            ref={introRef}
+    <Wrap>
+      <Form onSubmit={onSubmit}>
+        <FormWrap>
+          <SubmitBtnDiv>
+            <SubmitBtn type="submit" value="발행" />
+          </SubmitBtnDiv>
+          <select name="category" defaultValue={0} ref={categoryRef}>
+            <option value={0} disabled>
+              리폼 종류
+            </option>
+            <option value="clothes">옷</option>
+            <option value="furniture">가구</option>
+            <option value="bags">가방</option>
+            <option value="shoes">신발</option>
+            <option value="goods">기타</option>
+          </select>
+          {type === "reform" && (
+            <select name="region" defaultValue={0} ref={regionRef}>
+              <option value={0} disabled>
+                지역
+              </option>
+              <option value="gyeonggi">경기권</option>
+              <option value="gangwon">강원도</option>
+              <option value="chungcheong">충청권</option>
+              <option value="jeolla">전라권</option>
+              <option value="gyeongsang">경상권</option>
+            </select>
+          )}
+          <div>{info[type].title}</div>
+          <div>{info[type].content}</div>
+          {type === "lookbook" && (
+            <>
+              <textarea
+                name="introduction"
+                placeholder="브랜드 또는 디자이너에 대한 간단한 소개를 적어주세요."
+                value={introduction}
+                onChange={onChangeIntro}
+                ref={introRef}
+              />
+              <span>{content.length}/100</span>
+            </>
+          )}
+          <TitleDiv>
+            <TitleSpan>제목</TitleSpan>
+            <TitleInput
+              name="title"
+              placeholder="제목을 입력해주세요"
+              value={title}
+              onChange={onChangeTitle}
+              ref={titleRef}
+            />
+            <TitleLength>{title.length}/15</TitleLength>
+          </TitleDiv>
+          <TitleSpan>내용</TitleSpan>
+          <TextArea
+            name="content"
+            placeholder="여기에 내용을 적어주세요"
+            value={content}
+            onChange={onChangeContent}
+            ref={contentRef}
           />
-          <span>{content.length}/100</span>
-        </>
-      )}
-
-      <input
-        name="title"
-        placeholder="제목을 입력해주세요."
-        value={title}
-        onChange={onChangeTitle}
-        ref={titleRef}
-      />
-      <span>{title.length}/15</span>
-
-      <textarea
-        name="content"
-        placeholder="내용을 입력해주세요."
-        value={content}
-        onChange={onChangeContent}
-        ref={contentRef}
-      />
-      <span>{content.length}/100</span>
-
-      <ImageUpload type={type} />
-
-      <input type="submit" value="발행" />
-    </form>
+          <ImageUpload type={type} />
+        </FormWrap>
+      </Form>
+    </Wrap>
   );
 };
+
+const Wrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: ${({ theme }) => theme.width.maxWidth};
+  margin: 24px auto;
+`;
+
+const Form = styled.form`
+  width: 100%;
+`;
+
+const FormWrap = styled.div`
+  width: 700px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+`;
+
+const SubmitBtnDiv = styled.div``;
+
+const SubmitBtn = styled.input`
+  margin-left: 530px;
+  border-radius: 15px;
+  padding: 25px 60px;
+  width: 170px;
+  height: 74px;
+  border: none;
+  color: #fff;
+  margin-bottom: 100px;
+  background-color: ${({ theme }) => theme.colors.orange};
+  font-size: ${({ theme }) => theme.fontSizes.l};
+  cursor: pointer;
+`;
+
+const TitleDiv = styled.div`
+  position: relative;
+`;
+
+const TitleSpan = styled.span`
+  font-weight: 400;
+  font-size: ${({ theme }) => theme.fontSizes.l};
+  line-height: 24px;
+  color: #afb0b3;
+`;
+
+const TitleInput = styled.input`
+  padding-left: 20px;
+  border: 1px solid #afb0b3;
+  border-radius: 15px;
+  width: 700px;
+  height: 84px;
+  font-weight: 400;
+  font-size: ${({ theme }) => theme.fontSizes.l};
+  line-height: 24px;
+`;
+
+const TitleLength = styled.span`
+  position: absolute;
+  right: 19px;
+  top: 56px;
+  font-weight: 700;
+  font-size: ${({ theme }) => theme.fontSizes.l};
+  line-height: 24px;
+  color: #afb0b3;
+`;
+
+const TextArea = styled.textarea`
+  padding: 30px 20px;
+  width: 700px;
+  height: 761px;
+  border: 1px solid #afb0b3;
+  border-radius: 15px;
+  font-weight: 400;
+  font-size: ${({ theme }) => theme.fontSizes.l};
+  line-height: 24px;
+`;
 
 export default WritePost;

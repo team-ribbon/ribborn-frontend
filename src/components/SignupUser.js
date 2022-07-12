@@ -3,6 +3,8 @@ import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { BlackBtn } from "../elements/Buttons";
+import { HelpText, Input, InputTitle } from "../elements/Inputs";
 
 import { signupDB, usernameCheckDB } from "../redux/modules/user";
 import SignupAgree from "./SignupAgree";
@@ -12,7 +14,6 @@ const SignupUser = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const checkRef = useRef(false);
-  const passwordRef = useRef();
   const [agreeError, setAgreeError] = useState("");
   const {
     register,
@@ -36,16 +37,17 @@ const SignupUser = () => {
     }
     delete data.password2;
     data.userType = 0;
-    // data.password = passwordRef.current.value;
     console.log(data);
     dispatch(signupDB(data));
     // navigate("/login");
   };
   return (
     <Wrap>
-      <Form onSubmit={handleSubmit(onValid)}>
-        <span>이메일 주소</span>
-        <input
+      <form onSubmit={handleSubmit(onValid)}>
+        <InputTitle>
+          이메일 주소<Required>●</Required>
+        </InputTitle>
+        <Input
           {...register("username", {
             required: "이메일을 입력해주세요.",
             pattern: {
@@ -63,12 +65,15 @@ const SignupUser = () => {
               else return true;
             },
           })}
-          placeholder="이메일"
+          invalid={errors?.username?.message}
+          placeholder="ribborn@ribborn.co.kr"
           autoComplete="off"
         />
-        <span>{errors?.username?.message}</span>
-        <span>비밀번호</span>
-        <input
+        <HelpText>{errors?.username?.message}</HelpText>
+        <InputTitle>
+          비밀번호<Required>●</Required>
+        </InputTitle>
+        <Input
           {...register("password", {
             required: "비밀번호를 입력해주세요.",
             pattern: {
@@ -84,21 +89,27 @@ const SignupUser = () => {
               message: "16자까지만 입력할 수 있습니다.",
             },
           })}
+          invalid={errors?.password?.message}
           type="password"
-          placeholder="비밀번호"
+          placeholder="영문과 숫자를 조합해서 입력해주세요.(8~16자)"
         />
-        <span>{errors?.password?.message}</span>
-        <span>비밀번호 확인</span>
-        <input
+        <HelpText>{errors?.password?.message}</HelpText>
+        <InputTitle>
+          비밀번호 확인<Required>●</Required>
+        </InputTitle>
+        <Input
           {...register("password2", {
             required: "비밀번호를 다시 입력해주세요.",
           })}
-          placeholder="비밀번호 확인"
+          invalid={errors?.password2?.message}
+          placeholder="비밀번호를 다시 한 번 입력해주세요."
           type="password"
         />
-        <span>{errors?.password2?.message}</span>
-        <span>닉네임</span>
-        <input
+        <HelpText>{errors?.password2?.message}</HelpText>
+        <InputTitle>
+          닉네임<Required>●</Required>
+        </InputTitle>
+        <Input
           {...register("nickname", {
             required: "닉네임을 입력하세요.",
             pattern: {
@@ -114,14 +125,32 @@ const SignupUser = () => {
               message: "12자까지만 입력할 수 있습니다.",
             },
           })}
-          placeholder="닉네임"
+          invalid={errors?.nickname?.message}
+          placeholder="닉네임을 입력해주세요."
           autoComplete="off"
         />
-        <span>{errors?.nickname?.message}</span>
-
+        <HelpText>{errors?.nickname?.message}</HelpText>
+        <InputTitle>
+          연락처<Required>●</Required>
+        </InputTitle>
+        <Input
+          {...register("phoneNum", {
+            required: "연락처를 입력해주세요.",
+            pattern: {
+              // value: /^([0-9]{2,3})-([0-9]{3,4})-([0-9]{4})$/,
+              value: /^([0-9]{9,11})$/,
+              message:
+                "전화번호 형식이 아닙니다. -를 제외하고 숫자만 입력해주세요.",
+            },
+          })}
+          invalid={errors?.phoneNum?.message}
+          placeholder="01012345678"
+          autoComplete="off"
+        />
+        <HelpText>{errors?.phoneNum?.message}</HelpText>
         <SignupAgree ref={checkRef} />
         <span>{agreeError}</span>
-        <button
+        <BlackBtn
           disabled={
             errors.nickname ||
             errors.password ||
@@ -130,19 +159,21 @@ const SignupUser = () => {
           }
         >
           회원가입
-        </button>
-      </Form>
+        </BlackBtn>
+      </form>
     </Wrap>
   );
 };
 
 const Wrap = styled.div`
-  width: 400px;
-  margin: 50px auto;
+  margin: 90px auto 0 auto;
 `;
-const Form = styled.form`
-  display: flex;
-  flex-direction: column;
+const Form = styled.form``;
+const Required = styled.span`
+  color: ${({ theme }) => theme.colors.orange};
+  font-size: 5px;
+  padding-left: 5px;
+  vertical-align: top;
 `;
 
 export default SignupUser;

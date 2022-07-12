@@ -4,10 +4,7 @@ import { apis } from "../shared/api";
 
 // Action
 const GET_MAIN = "GET_MAIN";
-const GET_QNA_LIST = "GET_QNA_LIST";
-const GET_REVIEW_LIST = "GET_REVIEW_LIST";
-const GET_LOOKBOOK_LIST = "GET_LOOKBOOK_LIST";
-const GET_REFORM_LIST = "GET_REFORM_LIST";
+const GET_POST_LIST = "GET_POST_LIST";
 
 const GET_TECH_INTRO = "GET_TECH_INTRO";
 
@@ -19,16 +16,7 @@ const GET_POST = "GET_POST";
 
 // Action Creator
 const getMain = createAction(GET_MAIN, (mainContents) => ({ mainContents }));
-const getQnAList = createAction(GET_QNA_LIST, (qnaList) => ({ qnaList }));
-const getReformList = createAction(GET_REFORM_LIST, (reformList) => ({
-  reformList,
-}));
-const getReviewList = createAction(GET_REVIEW_LIST, (reviewList) => ({
-  reviewList,
-}));
-const getLookbookList = createAction(GET_LOOKBOOK_LIST, (lookbookList) => ({
-  lookbookList,
-}));
+const getPostList = createAction(GET_POST_LIST, (PostList) => ({ PostList }));
 const getTechIntro = createAction(GET_TECH_INTRO, (intro) => ({ intro }));
 
 const getPost = createAction(GET_POST, (Post) => ({ Post }));
@@ -40,10 +28,7 @@ const getPost = createAction(GET_POST, (Post) => ({ Post }));
 // InitialState
 const initialState = {
   techIntro: "",
-  qnaList: [],
-  reformList: [],
-  reviewList: [],
-  lookbookList: [],
+  PostList: [],
   Post: null,
   Comments: [],
   mainContents: {
@@ -86,11 +71,17 @@ export const getQnAListDB = (category, sort, page) => {
   };
 };
 
-export const getQnAPostDB = (id) => {
+// 견적 게시판 - 게시물 불러오기
+export const getReformListDB = (category, region, process, page) => {
   return async function (dispatch) {
     try {
-      const response = await apis.loadQnAPost(id);
-      dispatch(getPost(response.data));
+      const response = await apis.loadReformList(
+        category,
+        region,
+        process,
+        page
+      );
+      dispatch(getPostList(response.data));
     } catch (error) {
       console.log(error);
     }
@@ -204,26 +195,20 @@ export default handleActions(
       produce(state, (draft) => {
         draft.mainContents = payload.mainContents;
       }),
-    [GET_QNA_LIST]: (state, { payload }) =>
+    [GET_POST_LIST]: (state, { payload }) =>
       produce(state, (draft) => {
-        draft.qnaList = payload.qnaList;
+        draft.PostList = payload.PostList;
       }),
     [GET_POST]: (state, { payload }) =>
       produce(state, (draft) => {
         draft.Post = payload.Post.post;
         draft.Comments = payload.Post.comment;
       }),
-    [GET_REVIEW_LIST]: (state, { payload }) =>
       produce(state, (draft) => {
-        draft.reviewList = payload.reviewList;
       }),
-    [GET_LOOKBOOK_LIST]: (state, { payload }) =>
       produce(state, (draft) => {
-        draft.lookbookList = payload.lookbookList;
       }),
-    [GET_REFORM_LIST]: (state, { payload }) =>
       produce(state, (draft) => {
-        draft.reformList = payload.reformList;
       }),
     [GET_TECH_INTRO]: (state, { payload }) =>
       produce(state, (draft) => {

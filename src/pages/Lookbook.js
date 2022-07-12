@@ -11,7 +11,7 @@ import Categories from "../shared/Categories";
 
 const Lookbook = () => {
   const dispatch = useDispatch();
-  const postList = useSelector((state) => state.post.lookbookList);
+  const postList = useSelector((state) => state.post.PostList);
 
   const [sort, setSort] = useState("likeCount");
   const [category, setCategory] = useState("all");

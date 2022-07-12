@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -18,7 +18,7 @@ function ReformList() {
   const [category, setCategory] = React.useState("all");
   const [process, setProcess] = React.useState("all");
   const [region, setRegion] = React.useState("all");
-  const postlists = useSelector((state) => state.post.reformList);
+  const postlists = useSelector((state) => state.post.PostList);
 
   const onClickCategory = (event) => {
     setCategory(event.target.id);

@@ -18,7 +18,7 @@ function QnAList() {
   const [category, setCategory] = React.useState("all");
   const [sort, setSort] = React.useState("createAt");
   const [page, setPage] = React.useState(0);
-  const postlists = useSelector((state) => state.post.qnaList);
+  const postlists = useSelector((state) => state.post.PostList);
 
   const onClickCategory = (event) => {
     setCategory(event.target.id);

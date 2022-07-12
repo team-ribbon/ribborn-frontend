@@ -11,7 +11,7 @@ import Categories from "../shared/Categories";
 
 const Review = () => {
   const dispatch = useDispatch();
-  const postList = useSelector((state) => state.post.reviewList);
+  const postList = useSelector((state) => state.post.PostList);
   // console.log(postList);
 
   const [sort, setSort] = useState("createAt");

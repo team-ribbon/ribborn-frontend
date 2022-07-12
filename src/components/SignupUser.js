@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { BlackBtn } from "../elements/Buttons";
-import { HelpText, Input, InputTitle } from "../elements/Inputs";
+import { HelpText, Input, InputTitle, Required } from "../elements/Inputs";
 
 import { signupDB, usernameCheckDB } from "../redux/modules/user";
 import SignupAgree from "./SignupAgree";
@@ -61,7 +61,7 @@ const SignupUser = () => {
             },
             validate: async (username) => {
               const result = await dispatch(usernameCheckDB(username));
-              if (!result) return "이미 존재하는 이메일입니다.";
+              if (!result) return "이미 가입된 이메일입니다.";
               else return true;
             },
           })}
@@ -126,7 +126,7 @@ const SignupUser = () => {
             },
           })}
           invalid={errors?.nickname?.message}
-          placeholder="닉네임을 입력해주세요."
+          placeholder="김리본"
           autoComplete="off"
         />
         <HelpText>{errors?.nickname?.message}</HelpText>
@@ -167,13 +167,6 @@ const SignupUser = () => {
 
 const Wrap = styled.div`
   margin: 90px auto 0 auto;
-`;
-const Form = styled.form``;
-const Required = styled.span`
-  color: ${({ theme }) => theme.colors.orange};
-  font-size: 5px;
-  padding-left: 5px;
-  vertical-align: top;
 `;
 
 export default SignupUser;

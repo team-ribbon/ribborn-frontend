@@ -1,6 +1,7 @@
 const TimeCalculator = (time) => {
-  const currentTime = new Date();
-  const current = currentTime.toUTCString();
+  const now = new Date();
+  const currentTime = new Date(now.getTime() + now.getTimezoneOffset() * 60000);
+  const current = currentTime.toISOString();
   const timeDifference = Date.parse(current) - Date.parse(time);
   if (timeDifference >= 31536000000) {
     return parseInt(timeDifference / 31536000000) + "년 전";
@@ -31,7 +32,7 @@ const TimeCalculator = (time) => {
   if (timeDifference >= 60000) {
     return parseInt(timeDifference / 60000) + "분 전";
   }
-  if (timeDifference < 0) {
+  if (timeDifference < -300000) {
     return "에러";
   }
 

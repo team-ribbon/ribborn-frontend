@@ -13,7 +13,9 @@ const PostDetail = ({ post }) => {
           <ID>@{post.nickname}</ID>
           <CircleDiv />
           <Time>{TimeCalculator(post.modifyAt)}</Time>
-          <MyPostButtons postType="qna" id={post.id} />
+          {userId === post.userid ? (
+            <MyPostButtons postType="qna" id={post.id} />
+          ) : null}
         </IDDiv>
         <TagDiv>
           {Categories.map((v) => {

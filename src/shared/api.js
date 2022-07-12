@@ -19,14 +19,14 @@ const formDataApi = axios.create({
 
 api.interceptors.request.use(function (config) {
   if (token !== undefined) {
-    config.headers.common["Authorization"] = `Bearer ${token}`;
+    config.headers.common["Authorization"] = token;
   }
   return config;
 });
 
 formDataApi.interceptors.request.use(function (config) {
   if (token !== undefined) {
-    config.headers.common["Authorization"] = `Bearer ${token}`;
+    config.headers.common["Authorization"] = token;
   }
   return config;
 });

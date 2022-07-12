@@ -1,6 +1,8 @@
 import React from "react";
 import { Link, useMatch } from "react-router-dom";
 import styled, { css } from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
+import { clearUserInfo } from "../redux/modules/user";
 
 const Header = () => {
   const isReview = useMatch("/review");
@@ -9,19 +11,37 @@ const Header = () => {
   const isLookbook = useMatch("/lookbook");
   const isReform = useMatch("/reform");
 
+  const dispatch = useDispatch();
+  const isLogin = useSelector((state) => state.user.isLogin);
+
   return (
     <HeaderWrap>
       <NavWrap>
         <UserNav>
-          <span>
-            <Link to="/mypage">마이페이지</Link>
-          </span>
-          <span>
-            <Link to="/signup">회원가입</Link>
-          </span>
-          <span>
-            <Link to="/login">로그인</Link>
-          </span>
+          {isLogin ? (
+            <>
+              <HeaderUserSpan>
+                <Link to="/mypage">마이페이지</Link>
+              </HeaderUserSpan>
+              <HeaderUserSpan
+                onClick={() => {
+                  localStorage.removeItem("token");
+                  dispatch(clearUserInfo());
+                }}
+              >
+                로그아웃
+              </HeaderUserSpan>
+            </>
+          ) : (
+            <>
+              <HeaderUserSpan>
+                <Link to="/signup">회원가입</Link>
+              </HeaderUserSpan>
+              <HeaderUserSpan>
+                <Link to="/login">로그인</Link>
+              </HeaderUserSpan>
+            </>
+          )}
         </UserNav>
       </NavWrap>
       <CategoryNav>
@@ -64,6 +84,15 @@ const NavWrap = styled.div`
   font-size: ${({ theme }) => theme.fontSizes.s};
   span {
     margin-left: 24px;
+  }
+`;
+
+const HeaderUserSpan = styled.span`
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 14px;
+  :hover {
+    cursor: pointer;
   }
 `;
 

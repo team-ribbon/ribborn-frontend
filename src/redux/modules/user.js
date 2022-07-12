@@ -9,7 +9,7 @@ const CLEAR_USER_INFO = "CLEAR_USER_INFO";
 
 // Action creator
 const userInfo = createAction(USER_INFO, (userObj) => ({ userObj }));
-const clearUserInfo = createAction(CLEAR_USER_INFO);
+export const clearUserInfo = createAction(CLEAR_USER_INFO);
 
 // initialState
 const initialState = {

@@ -2,12 +2,13 @@ import styled from "styled-components";
 import MyPostButtons from "./MyPostButtons";
 import Categories from "../shared/Categories";
 import TimeCalculator from "../shared/TimeCalculator";
+import { TagTextColor } from "../elements/TagTextColor";
 
-const PostDetail = ({ post }) => {
+const PostDetail = ({ qna, post, userId }) => {
   return (
     post && (
       <CenterPostDiv>
-        <Community>질문과 답변</Community>
+        <Community>{qna ? "질문과 답변" : "리폼 후기"}</Community>
         <Title>{post.title}</Title>
         <IDDiv>
           <ID>@{post.nickname}</ID>
@@ -18,11 +19,15 @@ const PostDetail = ({ post }) => {
           ) : null}
         </IDDiv>
         <TagDiv>
-          {Categories.map((v) => {
-            return v.value === post.category ? (
-              <Category key={"category" + v.value}>{v.text}</Category>
-            ) : null;
-          })}
+          {qna ? (
+            Categories.map((v) => {
+              return v.value === post.category ? (
+                <Category key={"category" + v.value}>{v.text}</Category>
+              ) : null;
+            })
+          ) : (
+            <TagTextColor>{post.category.toUpperCase()}</TagTextColor>
+          )}
         </TagDiv>
         {post.image.length !== 0 ? (
           <Image alt="card" src={post.image[0]} />
@@ -87,6 +92,7 @@ const Time = styled.p`
 const TagDiv = styled.div`
   display: flex;
   gap: 10px;
+  margin-top: 30px;
 `;
 
 const Category = styled.button`
@@ -98,7 +104,6 @@ const Category = styled.button`
   background-color: #f2f2f2;
   border: none;
   border-radius: 8px;
-  margin-top: 30px;
 `;
 
 const Image = styled.img`

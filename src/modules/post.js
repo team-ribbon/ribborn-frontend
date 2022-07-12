@@ -10,9 +10,9 @@ const GET_TECH_INTRO = "GET_TECH_INTRO";
 
 const GET_POST = "GET_POST";
 
-// // Cleanup Action
-// const CLEANUP_LIST = "CLEANUP_LIST";
-// const CLEANUP_POST = "CLEANUP_POST";
+// Cleanup Action
+const CLEANUP_POST_LIST = "CLEANUP_POST_LIST";
+const CLEANUP_POST = "CLEANUP_POST";
 
 // Action Creator
 const getMain = createAction(GET_MAIN, (mainContents) => ({ mainContents }));
@@ -21,9 +21,9 @@ const getTechIntro = createAction(GET_TECH_INTRO, (intro) => ({ intro }));
 
 const getPost = createAction(GET_POST, (Post) => ({ Post }));
 
-// // Cleanup Action Creator
-// export const cleanUpList = createAction(CLEANUP_LIST);
-// export const cleanUpPost = createAction(CLEANUP_POST);
+// Cleanup Action Creator
+export const cleanUpPostList = createAction(CLEANUP_POST_LIST);
+export const cleanUpPost = createAction(CLEANUP_POST);
 
 // InitialState
 const initialState = {
@@ -214,16 +214,16 @@ export default handleActions(
       produce(state, (draft) => {
         draft.techIntro = payload.intro;
       }),
-    //   // Cleanup Reducer
-    //   [CLEANUP_LIST]: (state) =>
-    //   produce(state, (draft) => {
-    //     draft.List = initialState.List;
-    //   }),
-    // [CLEANUP_POST]: (state) =>
-    //   produce(state, (draft) => {
-    //     draft.Post = initialState.Post;
-    //     draft.Comments = initialState.Comments;
-    //   }),
+    // Cleanup Reducer
+    [CLEANUP_POST_LIST]: (state) =>
+      produce(state, (draft) => {
+        draft.PostList = initialState.PostList;
+      }),
+    [CLEANUP_POST]: (state) =>
+      produce(state, (draft) => {
+        draft.Post = initialState.Post;
+        draft.Comments = initialState.Comments;
+      }),
   },
   initialState
 );

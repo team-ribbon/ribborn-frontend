@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
-import { getQnAListDB } from "../modules/post";
+import { getQnAListDB, cleanUpPostList } from "../modules/post";
 import TextCard from "../components/TextCard";
 import TabWrap from "../components/TabWrap";
 import Sort from "../components/Sort";
@@ -32,11 +32,11 @@ function QnAList() {
     dispatch(getQnAListDB(category, sort, page));
   }, [category, sort, page]);
 
-  // React.useEffect(() => {
-  //   return () => {
-  //     dispatch(cleanUpList());
-  //   };
-  // }, []);
+  React.useEffect(() => {
+    return () => {
+      dispatch(cleanUpPostList());
+    };
+  }, []);
 
   return (
     <Wrap>

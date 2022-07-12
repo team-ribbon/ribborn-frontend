@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import CardB from "../components/CardB";
 import Sort from "../components/Sort";
-import { getLookbookListDB } from "../modules/post";
+import { getLookbookListDB, cleanUpPostList } from "../modules/post";
 import styled from "styled-components";
 import { MainBtn, SubBtn, Category } from "../elements/Buttons";
 import Categories from "../shared/Categories";
@@ -29,6 +29,12 @@ const Lookbook = () => {
     dispatch(getLookbookListDB(category, sort, page));
     console.log("dispatched");
   }, [category, sort, page]);
+
+  React.useEffect(() => {
+    return () => {
+      dispatch(cleanUpPostList());
+    };
+  }, []);
 
   return (
     <Wrap>

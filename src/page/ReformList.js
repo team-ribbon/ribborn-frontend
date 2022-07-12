@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-import { getReformListDB } from "../modules/post";
+import { getReformListDB, cleanUpPostList } from "../modules/post";
 import TextCard from "../components/TextCard";
 import Categories from "../shared/Categories";
 import { SubBtn, Category } from "../elements/Buttons";
@@ -32,11 +32,11 @@ function ReformList() {
     dispatch(getReformListDB(category, region, process, page));
   }, [category, region, process, page]);
 
-  // React.useEffect(() => {
-  //   return () => {
-  //     dispatch(cleanUpList());
-  //   };
-  // }, []);
+  React.useEffect(() => {
+    return () => {
+      dispatch(cleanUpPostList());
+    };
+  }, []);
 
   return (
     <Wrap>

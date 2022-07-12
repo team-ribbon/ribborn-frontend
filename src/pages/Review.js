@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import styled, { css } from "styled-components";
 import CardA from "../components/CardA";
-import { getReviewListDB } from "../modules/post";
+import { getReviewListDB, cleanUpPostList } from "../modules/post";
 import { MainBtn, SubBtn, Category } from "../elements/Buttons";
 import Sort from "../components/Sort";
 import TabWrap from "../components/TabWrap";
@@ -29,6 +29,12 @@ const Review = () => {
   useEffect(() => {
     dispatch(getReviewListDB(category, sort, page));
   }, [category, sort, page]);
+
+  React.useEffect(() => {
+    return () => {
+      dispatch(cleanUpPostList());
+    };
+  }, []);
 
   return (
     <Wrap>

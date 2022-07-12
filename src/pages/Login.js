@@ -67,11 +67,11 @@ const Login = () => {
   );
 };
 const Wrap = styled.div`
-  width: 700px;
+  max-width: 700px;
   margin: 0 auto 150px auto;
   h1 {
     text-align: center;
-    font-size: 30px;
+    font-size: ${({ theme }) => theme.fontSizes.xl};
     font-weight: 700;
     margin: 90px 0;
   }

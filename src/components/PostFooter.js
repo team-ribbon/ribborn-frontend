@@ -1,23 +1,37 @@
 import React from "react";
 import styled from "styled-components";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import TimeCalculator from "../shared/TimeCalculator";
-import { PostCommentDB } from "../modules/post";
+import { GetCommentDB, PostCommentDB } from "../modules/post";
 
-const PostFooter = ({ commentsList, id }) => {
+const PostFooter = ({ commentsList, id, userId, commentCount, page }) => {
   const inputCurrent = React.useRef(null);
   const dispatch = useDispatch();
+  const isLogin = useSelector((state) => state.user.isLogin);
 
-  const sendMessage = () => {
-    dispatch(PostCommentDB(id, inputCurrent.current.value));
+  const sendMessage = async () => {
+    if (isLogin) {
+      await dispatch(PostCommentDB(id, inputCurrent.current.value)).then(
+        (res) => {
+          dispatch(GetCommentDB(id, 0, (page + 1) * 5));
+        }
+      );
+      document.getElementById("messageInput").value = "";
+    } else {
+      alert("댓글을 달려면 로그인을 해주세요!");
+    }
   };
+
+  // const deletetMessage = () => {
+  //   dispatch(deletMessageDB())
+  // }
 
   return (
     commentsList && (
       <PostFooterWrap>
         <HR />
         <CommentDiv>
-          <CommentCount>댓글 {commentsList.length}</CommentCount>
+          <CommentCount>댓글 {commentCount}</CommentCount>
           <MessageCover>
             <MessageInput
               placeholder="기분 좋은 말 한마디는 모두에게 긍정적인 에너지를 줘요 :)"
@@ -28,11 +42,18 @@ const PostFooter = ({ commentsList, id }) => {
             <MessageBtn onClick={sendMessage}>입력</MessageBtn>
           </MessageCover>
           {commentsList.map((v) => {
+            const myComment = userId === v.userid;
             return (
-              <Comment>
+              <Comment modify={myComment}>
                 <CommentFistLine>
                   <CommentNickname>@{v.nickname}</CommentNickname>
                   <CommentContent>{v.comment}</CommentContent>
+                  {myComment ? (
+                    <>
+                      <CommentModifyBtn left={true}>수정</CommentModifyBtn>
+                      <CommentModifyBtn>삭제</CommentModifyBtn>
+                    </>
+                  ) : null}
                 </CommentFistLine>
                 <CreatedAt>{TimeCalculator(v.createAt)}</CreatedAt>
               </Comment>
@@ -61,7 +82,8 @@ const HR = styled.hr`
 
 const CommentDiv = styled.div`
   width: 700px;
-  margin: 0px auto 30px auto;
+  margin: ${(props) =>
+    props.modify ? "0px auto 19px auto" : "0px auto 30px auto"};
 `;
 
 const MessageCover = styled.section`
@@ -116,6 +138,7 @@ const Comment = styled.div`
 const CommentFistLine = styled.div`
   display: flex;
   flex-direction: row;
+  align-items: baseline;
   margin-bottom: 16px;
 `;
 
@@ -132,6 +155,21 @@ const CommentContent = styled.span`
   line-height: 18px;
   margin-left: 16px;
   color: #222222;
+`;
+
+const CommentModifyBtn = styled.button`
+  width: 68px;
+  height: 29px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 18px;
+  border: 1px solid #222222;
+  border-radius: 8px;
+  background-color: transparent;
+  margin-left: ${(props) => (props.left ? "auto" : "12px")};
+  :hover {
+    cursor: pointer;
+  }
 `;
 
 const CreatedAt = styled.span`

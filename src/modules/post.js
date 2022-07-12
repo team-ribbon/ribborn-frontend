@@ -9,6 +9,10 @@ const GET_POST_LIST = "GET_POST_LIST";
 const GET_TECH_INTRO = "GET_TECH_INTRO";
 
 const GET_POST = "GET_POST";
+const LIKE_SUCCESS = "LIKE_SUCCESS";
+const NEW_COMMENT = "NEW_COMMENT";
+const NEW_COMMENT_LOAD = "NEW_COMMENT_LOAD";
+const MORE_COMMENT_LOAD = "MORE_COMMENT_LOAD";
 
 // Cleanup Action
 const CLEANUP_POST_LIST = "CLEANUP_POST_LIST";
@@ -20,6 +24,14 @@ const getPostList = createAction(GET_POST_LIST, (PostList) => ({ PostList }));
 const getTechIntro = createAction(GET_TECH_INTRO, (intro) => ({ intro }));
 
 const getPost = createAction(GET_POST, (Post) => ({ Post }));
+const likesuccess = createAction(LIKE_SUCCESS);
+const newComment = createAction(NEW_COMMENT);
+const newCommentLoad = createAction(NEW_COMMENT_LOAD, (Comments) => ({
+  Comments,
+}));
+const moreCommentLoad = createAction(MORE_COMMENT_LOAD, (Comments) => ({
+  Comments,
+}));
 
 // Cleanup Action Creator
 export const cleanUpPostList = createAction(CLEANUP_POST_LIST);
@@ -64,7 +76,7 @@ export const getQnAListDB = (category, sort, page) => {
   return async function (dispatch) {
     try {
       const response = await apis.loadQnAList(category, sort, page);
-      dispatch(getQnAList(response.data));
+      dispatch(getPostList(response.data));
     } catch (error) {
       console.log(error);
     }
@@ -88,10 +100,64 @@ export const getReformListDB = (category, region, process, page) => {
   };
 };
 
-export const likePostDB = (id, like) => {
-  return async function () {
+// 후기 게시판 - 게시물 불러오기
+export const getReviewListDB = (category, sort, page) => {
+  return async (dispatch) => {
     try {
-      const response = await apis.likePost(id, like);
+      const response = await apis.loadReviewList(category, sort, page);
+      dispatch(getPostList(response.data));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+// 룩북 게시판 - 게시물 불러오기
+export const getLookbookListDB = (category, sort, page) => {
+  return async (dispatch) => {
+    try {
+      const response = await apis
+        .loadLookbookList(category, sort, page)
+        .then((res) => {
+          dispatch(getPostList(res.data));
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+// 질문 게시글 불러오기
+export const getQnAPostDB = (id) => {
+  return async function (dispatch) {
+    try {
+      const response = await apis.loadQnAPost(id);
+      dispatch(getPost(response.data));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+// 리뷰 게시글 불러오기
+export const getReviewPostDB = (id) => {
+  return async function (dispatch) {
+    try {
+      const response = await apis.loadReviewPost(id);
+      dispatch(getPost(response.data));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+// 게시물 좋아요
+export const likePostDB = (id, like) => {
+  return async function (dispatch) {
+    try {
+      const response = await apis.likePost(id, like).then((res) => {
+        dispatch(likesuccess());
+      });
       console.log(response);
     } catch (error) {
       console.log(error);
@@ -99,6 +165,7 @@ export const likePostDB = (id, like) => {
   };
 };
 
+// 게시물 삭제
 export const deletePostDB = (id) => {
   return async function () {
     try {
@@ -109,53 +176,31 @@ export const deletePostDB = (id) => {
   };
 };
 
+// 댓글달기
 export const PostCommentDB = (id, comment) => {
-  return async function () {
+  return async (dispatch) => {
     try {
-      const response = await apis.uploadComment(id, comment);
+      await apis.uploadComment(id, comment);
+      dispatch(newComment());
     } catch (error) {
       console.log(error);
     }
   };
 };
 
-export const getReformListDB = (category, region, process, page) => {
+// 댓글 페이징
+
+export const GetCommentDB = (id, page, num) => {
   return async function (dispatch) {
     try {
-      const response = await apis.loadReformList(
-        category,
-        region,
-        process,
-        page
-      );
-      dispatch(getReformList(response.data));
-    } catch (error) {
-      console.log(error);
-    }
-  };
-};
-
-// 후기 게시판 - 게시물 불러오기
-export const getReviewListDB = (category, sort) => {
-  return async (dispatch) => {
-    try {
-      const response = await apis.loadReviewList(category, sort);
-      dispatch(getReviewList(response.data));
-    } catch (error) {
-      console.log(error);
-    }
-  };
-};
-
-// 룩북 게시판 - 게시물 불러오기
-export const getLookbookListDB = (category, sort) => {
-  return async (dispatch) => {
-    try {
-      const response = await apis
-        .loadLookbookList(category, sort)
-        .then((res) => {
-          dispatch(getLookbookList(res.data));
-        });
+      const response = await apis.loadComments(id, page, num).then((res) => {
+        if (page === 0) {
+          console.log(res.data);
+          dispatch(newCommentLoad(res.data));
+        } else {
+          dispatch(moreCommentLoad(res.data));
+        }
+      });
     } catch (error) {
       console.log(error);
     }
@@ -204,11 +249,22 @@ export default handleActions(
         draft.Post = payload.Post.post;
         draft.Comments = payload.Post.comment;
       }),
+    [LIKE_SUCCESS]: (state) =>
       produce(state, (draft) => {
+        draft.Post.liked = !draft.Post.liked;
+        draft.Post.liked ? draft.Post.likeCount++ : draft.Post.likeCount--;
       }),
+    [NEW_COMMENT]: (state) =>
       produce(state, (draft) => {
+        draft.Post.commentCount++;
       }),
+    [NEW_COMMENT_LOAD]: (state, { payload }) =>
       produce(state, (draft) => {
+        draft.Comments = payload.Comments.content;
+      }),
+    [MORE_COMMENT_LOAD]: (state, { payload }) =>
+      produce(state, (draft) => {
+        draft.Comments.push(...payload.Comments.content);
       }),
     [GET_TECH_INTRO]: (state, { payload }) =>
       produce(state, (draft) => {

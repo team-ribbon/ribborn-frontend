@@ -68,16 +68,20 @@ export const apis = {
 
   // 게시물 상세
   loadQnAPost: (id) => api.get(`/api/qnaPosts/${id}`),
+  loadReviewPost: (id) => api.get(`/api/reviewPosts/${id}`),
   likePost: (id, like) => api.post(`/api/post/${id}/love`, { love: like }),
   deletePost: (id) => api.delete(`/api/post/${id}`),
 
   // 댓글
-  loadComments: (postId, page) =>
-    api.get(`/api/comments/${postId}?page=${page}&size=5`),
+  loadComments: (postId, page, num) =>
+    api.get(`/api/comments/${postId}?page=${page}&size=${num}`),
   uploadComment: (id, comment) => {
     api.post(`/api/post/${id}/comment`, {
       comment: comment,
     });
+  },
+  deleteComment: (postId, commentId) => {
+    api.delete(`/api/post/${postId}/comment/${commentId}`);
   },
 
   // 게시물 등록

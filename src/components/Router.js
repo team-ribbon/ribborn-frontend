@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 
 import VideoChat from "../page/VideoChat";
 import QnAList from "../page/QnAList";
@@ -19,14 +19,18 @@ import WritePost from "../pages/WritePost";
 import styled from "styled-components";
 import Footer from "./Footer";
 import ChatFloat from "./ChatFloat";
+import ChatModal from "./ChatModal";
+import ChatRoom from "./ChatRoom";
 
 export default function Router() {
+  const location = useLocation();
+
   return (
     <>
       <Header />
       <MainWrap>
         <ChatFloat />
-        <Routes>
+        <Routes location={location.state?.backgroundLocation || location}>
           {/* <Route path="/" element={<VideoChat />} /> */}
           <Route path="/" element={<Main />} />
           <Route path="login" element={<Login />} />
@@ -43,6 +47,13 @@ export default function Router() {
           <Route path="mypage" element={<MyPage />} />
           <Route path="userdetail/:userId" element={<UserDetail />} />
           <Route path="qnadetail/:postId" element={<QnADetail />} />
+
+          {location.state?.backgroundLocation && (
+            <>
+              <Route path="chat" element={<ChatModal />} />
+              <Route path="chat/:id" element={<ChatRoom />} />
+            </>
+          )}
         </Routes>
       </MainWrap>
       <Footer />

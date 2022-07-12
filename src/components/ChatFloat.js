@@ -1,8 +1,11 @@
 import { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import ChatModal from "./ChatModal";
 
 const ChatFloat = () => {
+  const location = useLocation();
+
   const [chatToggle, setChatToggle] = useState(false);
 
   const onClickToggle = () => {
@@ -10,7 +13,9 @@ const ChatFloat = () => {
   };
   return (
     <FloatWrap>
-      {!chatToggle && <button onClick={onClickToggle}>채팅</button>}
+      <Link to="/chat" state={{ backgroundLocation: location }}>
+        {!chatToggle && <button onClick={onClickToggle}>채팅</button>}
+      </Link>
       <ChatWrap>
         <Dim chatToggle={chatToggle} />
         {chatToggle && <ChatModal setChatToggle={setChatToggle} />}
@@ -33,7 +38,6 @@ const ChatWrap = styled.div`
 const Dim = styled.div`
   box-sizing: border-box;
   display: ${(props) => (props.chatToggle ? "block" : "none")};
-  /* display: block; */
   position: fixed;
   top: 0;
   left: 0;

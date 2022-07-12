@@ -6,6 +6,9 @@ import styled from "styled-components";
 import { signupDB, usernameCheckDB } from "../redux/modules/user";
 import SignupAgree from "./SignupAgree";
 import { AddressCategory } from "../shared/AddressCategory";
+import { HelpText, Input, InputTitle, Required } from "../elements/Inputs";
+import { BlackBtn } from "../elements/Buttons";
+import { Textarea } from "../elements/Textarea";
 
 // 기술자 회원가입
 const SignupTech = () => {
@@ -42,9 +45,11 @@ const SignupTech = () => {
 
   return (
     <Wrap>
-      <Form onSubmit={handleSubmit(onValid)}>
-        <span>이메일 주소</span>
-        <input
+      <form onSubmit={handleSubmit(onValid)}>
+        <InputTitle>
+          이메일 주소<Required>●</Required>
+        </InputTitle>
+        <Input
           {...register("username", {
             required: "이메일을 입력해주세요.",
             pattern: {
@@ -58,17 +63,19 @@ const SignupTech = () => {
             },
             validate: async (username) => {
               const result = await dispatch(usernameCheckDB(username));
-              if (!result) return "이미 존재하는 이메일입니다.";
+              if (!result) return "이미 가입된 이메일입니다.";
               else return true;
             },
           })}
-          placeholder="이메일"
+          placeholder="ribborn@ribborn.co.kr"
           autoComplete="off"
         />
-        <span>{errors?.username?.message}</span>
+        <HelpText>{errors?.username?.message}</HelpText>
 
-        <span>비밀번호</span>
-        <input
+        <InputTitle>
+          비밀번호<Required>●</Required>
+        </InputTitle>
+        <Input
           {...register("password", {
             required: "비밀번호를 입력해주세요.",
             pattern: {
@@ -85,22 +92,26 @@ const SignupTech = () => {
             },
           })}
           type="password"
-          placeholder="비밀번호"
+          placeholder="영문과 숫자를 조합해서 입력해주세요.(8~16자)"
         />
-        <span>{errors?.password?.message}</span>
+        <HelpText>{errors?.password?.message}</HelpText>
 
-        <span>비밀번호 확인</span>
-        <input
+        <InputTitle>
+          비밀번호 확인<Required>●</Required>
+        </InputTitle>
+        <Input
           {...register("password2", {
             required: "비밀번호를 다시 입력해주세요.",
           })}
-          placeholder="비밀번호 확인"
+          placeholder="비밀번호를 다시 한 번 입력해주세요."
           type="password"
         />
-        <span>{errors?.password2?.message}</span>
+        <HelpText>{errors?.password2?.message}</HelpText>
 
-        <span>이름 또는 업체이름 (닉네임 가능)</span>
-        <input
+        <InputTitle>
+          이름 또는 업체이름 (닉네임 가능)<Required>●</Required>
+        </InputTitle>
+        <Input
           {...register("nickname", {
             required: "이름 또는 업체이름을 입력하세요.",
             pattern: {
@@ -116,13 +127,15 @@ const SignupTech = () => {
               message: "12자까지만 입력할 수 있습니다.",
             },
           })}
-          placeholder="실명 또는 업체명"
+          placeholder="김리본"
           autoComplete="off"
         />
-        <span>{errors?.nickname?.message}</span>
+        <HelpText>{errors?.nickname?.message}</HelpText>
 
-        <span>연락처</span>
-        <input
+        <InputTitle>
+          연락처<Required>●</Required>
+        </InputTitle>
+        <Input
           {...register("phoneNum", {
             required: "연락처를 입력해주세요.",
             pattern: {
@@ -132,13 +145,15 @@ const SignupTech = () => {
                 "전화번호 형식이 아닙니다. -를 제외하고 숫자만 입력해주세요.",
             },
           })}
-          placeholder="연락처"
+          placeholder="01012345678"
           autoComplete="off"
         />
-        <span>{errors?.phoneNum?.message}</span>
+        <HelpText>{errors?.phoneNum?.message}</HelpText>
 
-        <span>사업자등록번호</span>
-        <input
+        <InputTitle>
+          사업자등록번호<Required>●</Required>
+        </InputTitle>
+        <Input
           {...register("companyNum", {
             required: "사업자등록번호를 입력해주세요.",
             pattern: {
@@ -148,12 +163,14 @@ const SignupTech = () => {
                 "사업자등록번호 형식이 아닙니다. -를 제외하고 숫자만 입력해주세요.",
             },
           })}
-          placeholder="사업자등록번호"
+          placeholder="1234512345"
           autoComplete="off"
         />
-        <span>{errors?.companyNum?.message}</span>
+        <HelpText>{errors?.companyNum?.message}</HelpText>
 
-        <span>사업자 위치</span>
+        <InputTitle>
+          사업자 위치<Required>●</Required>
+        </InputTitle>
         <select
           {...register("addressCategory", {
             required: "지역을 선택해주세요.",
@@ -165,24 +182,29 @@ const SignupTech = () => {
             </option>
           ))}
         </select>
-        <span>{errors?.addressCategory?.message}</span>
+        <HelpText>{errors?.addressCategory?.message}</HelpText>
 
-        <span>상세주소</span>
-        <input
+        <InputTitle>
+          상세주소<Required>●</Required>
+        </InputTitle>
+        <Input
           {...register("addressDetail", {
             required: "상세주소를 입력해주세요.",
           })}
           placeholder="상세 위치"
           autoComplete="off"
         />
-        <span>{errors?.addressDetail?.message}</span>
+        <HelpText>{errors?.addressDetail?.message}</HelpText>
 
-        <span>브랜드/자기소개</span>
-        <textarea {...register("introduction")} />
+        <InputTitle>브랜드/자기소개</InputTitle>
+        <Textarea
+          {...register("introduction")}
+          placeholder="브랜드 또는 디자이너에 대한 간단한 소개를 이곳에 적어주세요!"
+        />
 
         <SignupAgree ref={checkRef} />
-        <span>{agreeError}</span>
-        <button
+        <HelpText>{agreeError}</HelpText>
+        <BlackBtn
           disabled={
             errors.username ||
             errors.password ||
@@ -195,19 +217,14 @@ const SignupTech = () => {
           }
         >
           회원가입
-        </button>
-      </Form>
+        </BlackBtn>
+      </form>
     </Wrap>
   );
 };
 
 const Wrap = styled.div`
-  width: 400px;
-  margin: 50px auto;
-`;
-const Form = styled.form`
-  display: flex;
-  flex-direction: column;
+  margin: 90px auto 0 auto;
 `;
 
 export default SignupTech;

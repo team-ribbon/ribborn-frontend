@@ -18,7 +18,6 @@ export const HeartSVG = () => {
 export const CommentSVG = () => {
   return (
     <svg
-      vertical
       width="15"
       height="16"
       viewBox="0 0 15 16"
@@ -45,8 +44,8 @@ export const ArrowLeftSVG = () => {
       <path
         d="M44.8662 32.7332H12.1995L21.799 19.6666M0.999997 29C0.999997 44.464 13.536 57 29 57C44.464 57 57 44.464 57 29C57 13.536 44.464 1 29 1C13.536 1 0.999997 13.536 0.999997 29Z"
         stroke="#FF8C28"
-        stroke-width="2"
-        stroke-linecap="round"
+        strokeWidth="2"
+        strokeLinecap="round"
       />
     </svg>
   );
@@ -64,8 +63,8 @@ export const ArrowRightSVG = () => {
       <path
         d="M13.1338 32.7332H45.8005L36.201 19.6666M57 29C57 44.464 44.464 57 29 57C13.536 57 1 44.464 1 29C1 13.536 13.536 1 29 1C44.464 1 57 13.536 57 29Z"
         stroke="#FF8C28"
-        stroke-width="2"
-        stroke-linecap="round"
+        strokeWidth="2"
+        strokeLinecap="round"
       />
     </svg>
   );

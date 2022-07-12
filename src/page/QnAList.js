@@ -25,6 +25,10 @@ function QnAList() {
   };
 
   React.useEffect(() => {
+    setPage(0);
+  }, [category, sort]);
+
+  React.useEffect(() => {
     dispatch(getQnAListDB(category, sort, page));
   }, [category, sort, page]);
 

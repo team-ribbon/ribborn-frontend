@@ -1,3 +1,4 @@
+import React from "react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -14,15 +15,20 @@ const Lookbook = () => {
 
   const [sort, setSort] = useState("likeCount");
   const [category, setCategory] = useState("all");
+  const [page, setPage] = useState(0);
 
   const onClickCategory = (event) => {
     setCategory(event.target.id);
   };
 
   useEffect(() => {
-    dispatch(getLookbookListDB(category, sort));
-    console.log("dispatched");
+    setPage(0);
   }, [category, sort]);
+
+  useEffect(() => {
+    dispatch(getLookbookListDB(category, sort, page));
+    console.log("dispatched");
+  }, [category, sort, page]);
 
   return (
     <Wrap>

@@ -14,7 +14,7 @@ function ReformList() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const page = 0;
+  const [page, setPage] = React.useState(0);
   const [category, setCategory] = React.useState("all");
   const [process, setProcess] = React.useState("all");
   const [region, setRegion] = React.useState("all");
@@ -23,6 +23,10 @@ function ReformList() {
   const onClickCategory = (event) => {
     setCategory(event.target.id);
   };
+
+  useEffect(() => {
+    setPage(0);
+  }, [category, region, process]);
 
   React.useEffect(() => {
     dispatch(getReformListDB(category, region, process, page));

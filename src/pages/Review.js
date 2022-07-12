@@ -16,14 +16,19 @@ const Review = () => {
 
   const [sort, setSort] = useState("createAt");
   const [category, setCategory] = useState("all");
+  const [page, setPage] = useState(0);
 
   const onClickCategory = (event) => {
     setCategory(event.target.id);
   };
 
   useEffect(() => {
-    dispatch(getReviewListDB(category, sort));
+    setPage(0);
   }, [category, sort]);
+
+  useEffect(() => {
+    dispatch(getReviewListDB(category, sort, page));
+  }, [category, sort, page]);
 
   return (
     <Wrap>

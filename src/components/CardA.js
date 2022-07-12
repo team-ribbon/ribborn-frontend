@@ -1,11 +1,17 @@
 import React from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 import { CommentSVG, HeartSVG } from "../elements/SVG";
 
 // 메인, 커뮤니티 > 리폼 리뷰 게시판에 사용되는 카드
 const CardA = ({ postObj, type }) => {
+  const navigate = useNavigate();
   return (
-    <article>
+    <article
+      onClick={() => {
+        navigate(`/reviewdetail/${postObj.id}`);
+      }}
+    >
       <ImageWrap>
         <Image alt="card" src={postObj.image} />
       </ImageWrap>

@@ -29,3 +29,10 @@ export const HelpText = styled.div`
   margin-top: 8px;
   margin-bottom: 24px;
 `;
+
+export const Required = styled.span`
+  color: ${({ theme }) => theme.colors.orange};
+  font-size: 5px;
+  padding-left: 5px;
+  vertical-align: top;
+`;

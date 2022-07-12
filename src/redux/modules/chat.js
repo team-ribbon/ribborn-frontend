@@ -18,37 +18,39 @@ const initialState = {
   roomList: [
     {
       roomId: 1,
-      chat: "가장최근채팅1",
+      message: "가장최근채팅1",
       nickname: "이것은닉네임1",
-      time: "12:12",
+      date: "12:12",
     },
     {
       roomId: 2,
-      chat: "가장최근채팅2",
+      message: "가장최근채팅2",
       nickname: "이것은닉네임2",
-      time: "12:12",
+      date: "12:12",
     },
     {
       roomId: 3,
-      chat: "가장최근채팅3",
+      message: "가장최근채팅3",
       nickname: "이것은닉네임3",
-      time: "12:12",
-    },
-    {
-      roomId: 4,
-      chat: "가장최근채팅4",
-      nickname: "이것은닉네임4",
-      time: "12:12",
-    },
-    {
-      roomId: 5,
-      chat: "가장최근채팅5",
-      nickname: "이것은닉네임5",
-      time: "12:12",
+      date: "12:12",
     },
   ],
-  msg: [],
-  sub: [],
+  chatLog: [
+    {
+      messageId: 1,
+      senderId: 1,
+      nickname: "내닉내임",
+      message: "안녕하세요 나는 나",
+      date: "12:12",
+    },
+    {
+      messageId: 2,
+      senderId: 2,
+      nickname: "상대방닉네임",
+      message: "안녕하세요 나는 상대방",
+      date: "12:12",
+    },
+  ],
 };
 
 // 채팅 페이지에서 채팅 리스트 데이터 받아오기

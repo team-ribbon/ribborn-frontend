@@ -66,8 +66,6 @@ function QnAList() {
 }
 
 const Wrap = styled.div`
-  width: 70%;
-  max-width: 1100px;
   max-width: ${({ theme }) => theme.width.maxWidth};
   margin: 0 auto;
   padding: 0 40px;

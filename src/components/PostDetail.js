@@ -13,7 +13,7 @@ const PostDetail = ({ qna, post, userId }) => {
         <IDDiv>
           <ID>@{post.nickname}</ID>
           <CircleDiv />
-          <Time>{TimeCalculator(post.modifyAt)}</Time>
+          <Time>{TimeCalculator(post.createAt)}</Time>
           {userId === post.userid ? (
             <MyPostButtons postType="qna" id={post.id} />
           ) : null}

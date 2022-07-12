@@ -18,12 +18,14 @@ import Lookbook from "../pages/Lookbook";
 import WritePost from "../pages/WritePost";
 import styled from "styled-components";
 import Footer from "./Footer";
+import ChatFloat from "./ChatFloat";
 
 export default function Router() {
   return (
     <>
       <Header />
       <MainWrap>
+        <ChatFloat />
         <Routes>
           {/* <Route path="/" element={<VideoChat />} /> */}
           <Route path="/" element={<Main />} />

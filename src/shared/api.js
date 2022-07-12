@@ -17,6 +17,14 @@ const formDataApi = axios.create({
   },
 });
 
+const chatApi = axios.create({
+  baseURL: "",
+  headers: {
+    "content-type": "application/json;charset=UTF-8",
+    accept: "application/json,",
+  },
+});
+
 api.interceptors.request.use(function (config) {
   if (token !== undefined) {
     config.headers.common["Authorization"] = `Bearer ${token}`;
@@ -54,16 +62,16 @@ export const apis = {
   loadLookbookList: (category, sort) =>
     api.get(`/api/lookList?category=${category}&sort=${sort}`),
   loadReformList: (category, region, process, page) =>
-  api.get(
-    `/api/reformList?category=${category}&region=${region}&process=${process}&page=${page}&size=6`
-  ),
+    api.get(
+      `/api/reformList?category=${category}&region=${region}&process=${process}&page=${page}&size=6`
+    ),
 
   // 게시물 상세
   loadQnAPost: (id) => api.get(`/api/qnaPosts/${id}`),
 
   // 댓글
   loadComments: (postId, page) =>
-  api.get(`/api/comments/${postId}?page=${page}&size=5`),
+    api.get(`/api/comments/${postId}?page=${page}&size=5`),
 
   // 게시물 등록
   postQna: (formData) => formDataApi.post("/api/qnaPosts", { formData }),
@@ -85,4 +93,10 @@ export const apis = {
   loadMyPage: () => api.get("/api/users/mypage"),
   loadUserDetail: (id) => api.get(`/api/users/userinfo/${id}`),
   changeUserInfo: (data) => api.put("/api/users/mypage", data),
+  // 채팅
+  getRoom: () => chatApi.get("/chat/rooms"),
+  addRoom: (username) => chatApi.post("/chat/room", { userId: username }),
+  enterRoom: (roomId) => chatApi.get(`/chat/room/${roomId}`),
+  getMessage: (roomId) => chatApi.get(`/chat/room/${roomId}`),
+  exitRoom: (roomId) => chatApi.get(`chat/room/exit/${roomId}`),
 };

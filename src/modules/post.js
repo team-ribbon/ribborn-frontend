@@ -11,6 +11,7 @@ const GET_TECH_INTRO = "GET_TECH_INTRO";
 const GET_POST = "GET_POST";
 const LIKE_SUCCESS = "LIKE_SUCCESS";
 const NEW_COMMENT = "NEW_COMMENT";
+const DELETE_COMMENT = "DELETE_COMMENT";
 const NEW_COMMENT_LOAD = "NEW_COMMENT_LOAD";
 const MORE_COMMENT_LOAD = "MORE_COMMENT_LOAD";
 
@@ -26,6 +27,7 @@ const getTechIntro = createAction(GET_TECH_INTRO, (intro) => ({ intro }));
 const getPost = createAction(GET_POST, (Post) => ({ Post }));
 const likesuccess = createAction(LIKE_SUCCESS);
 const newComment = createAction(NEW_COMMENT);
+const deleteComment = createAction(DELETE_COMMENT);
 const newCommentLoad = createAction(NEW_COMMENT_LOAD, (Comments) => ({
   Comments,
 }));
@@ -188,6 +190,18 @@ export const PostCommentDB = (id, comment) => {
   };
 };
 
+// 댓글 삭제
+export const deleteCommentDB = (id, commentId) => {
+  return async (dispatch) => {
+    try {
+      await apis.deleteComment(id, commentId);
+      dispatch(deleteComment(commentId));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
 // 댓글 페이징
 
 export const GetCommentDB = (id, page, num) => {
@@ -257,6 +271,11 @@ export default handleActions(
     [NEW_COMMENT]: (state) =>
       produce(state, (draft) => {
         draft.Post.commentCount++;
+      }),
+    [DELETE_COMMENT]: (state, { payload }) =>
+      produce(state, (draft) => {
+        draft.Post.commentCount--;
+        draft.Comments = draft.Comments.filter((v) => v.id !== payload);
       }),
     [NEW_COMMENT_LOAD]: (state, { payload }) =>
       produce(state, (draft) => {

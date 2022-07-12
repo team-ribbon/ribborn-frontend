@@ -2,14 +2,14 @@ import React from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import TimeCalculator from "../shared/TimeCalculator";
-import { GetCommentDB, PostCommentDB } from "../modules/post";
+import { GetCommentDB, PostCommentDB, deleteCommentDB } from "../modules/post";
 
 const PostFooter = ({ commentsList, id, userId, commentCount, page }) => {
   const inputCurrent = React.useRef(null);
   const dispatch = useDispatch();
   const isLogin = useSelector((state) => state.user.isLogin);
 
-  const sendMessage = async () => {
+  const sendComment = async () => {
     if (isLogin) {
       await dispatch(PostCommentDB(id, inputCurrent.current.value)).then(
         (res) => {
@@ -22,9 +22,9 @@ const PostFooter = ({ commentsList, id, userId, commentCount, page }) => {
     }
   };
 
-  // const deletetMessage = () => {
-  //   dispatch(deletMessageDB())
-  // }
+  const deleteComment = (commentId) => {
+    dispatch(deleteCommentDB(id, commentId));
+  };
 
   return (
     commentsList && (
@@ -39,7 +39,7 @@ const PostFooter = ({ commentsList, id, userId, commentCount, page }) => {
               ref={inputCurrent}
               autoComplete="off"
             />
-            <MessageBtn onClick={sendMessage}>입력</MessageBtn>
+            <MessageBtn onClick={sendComment}>입력</MessageBtn>
           </MessageCover>
           {commentsList.map((v) => {
             const myComment = userId === v.userid;
@@ -51,7 +51,13 @@ const PostFooter = ({ commentsList, id, userId, commentCount, page }) => {
                   {myComment ? (
                     <>
                       <CommentModifyBtn left={true}>수정</CommentModifyBtn>
-                      <CommentModifyBtn>삭제</CommentModifyBtn>
+                      <CommentModifyBtn
+                        onClick={() => {
+                          deleteComment(v.id);
+                        }}
+                      >
+                        삭제
+                      </CommentModifyBtn>
                     </>
                   ) : null}
                 </CommentFistLine>

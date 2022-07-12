@@ -1,24 +1,25 @@
 import styled from "styled-components";
-import { HiOutlineShare, HiOutlineHeart } from "react-icons/hi";
-import { useDispatch } from "react-redux";
+import { HiOutlineShare, HiOutlineHeart, HiHeart } from "react-icons/hi";
+import { useDispatch, useSelector } from "react-redux";
 import { likePostDB } from "../modules/post";
 
-const PostRightBtn = ({ noshare, id }) => {
+const PostRightBtn = ({ noshare, id, liked, likeCount }) => {
   const dispatch = useDispatch();
-
-  const likeIt = (like) => {
-    dispatch(likePostDB(id, like));
-  };
   return (
     <Cover>
       <Button
+        id="likeBtn"
         onClick={() => {
-          likeIt(true);
+          likeIt();
         }}
       >
-        <HiOutlineHeart size="26" />
+        {liked ? (
+          <HiHeart size="26" color="#FF8C28" />
+        ) : (
+          <HiOutlineHeart size="26" />
+        )}
       </Button>
-      <p>56</p>
+      <LikeCount>{likeCount}</LikeCount>
       {!noshare && (
         <>
           <HR />
@@ -48,6 +49,12 @@ const Button = styled.div`
   justify-content: center;
   align-items: center;
   margin-bottom: 5px;
+`;
+
+const LikeCount = styled.span`
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 14px;
 `;
 
 const HR = styled.hr`

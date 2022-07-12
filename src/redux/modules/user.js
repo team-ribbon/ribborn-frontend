@@ -11,7 +11,7 @@ const userInfo = createAction(USER_INFO, (userObj) => ({ userObj }));
 
 // initialState
 const initialState = {
-  user: {},
+  user: { id: 1 },
 };
 
 // Middleware
@@ -22,13 +22,13 @@ export const loginDB = (username, password) => {
     try {
       const response = await apis.login(username, password);
       console.log(response);
-      const token = response.headers.Authorization;
+      const token = response.data;
       console.log(token);
       localStorage.setItem("token", token);
       if (response.status === 200) return true;
     } catch (error) {
       console.log(error);
-      alert("띠로리....실패했습니다...");
+
       return false;
     }
   };

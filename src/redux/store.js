@@ -6,12 +6,14 @@ import user from "./modules/user";
 import post from "../modules/post";
 import UserPage from "../modules/UserPage";
 import image from "./modules/image";
+import chat from "./modules/chat";
 
 const rootReducer = combineReducers({
   user,
   post,
   UserPage,
   image,
+  chat,
 });
 
 const middlewares = [thunk, logger];

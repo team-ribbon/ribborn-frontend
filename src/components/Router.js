@@ -14,6 +14,7 @@ import Review from "../pages/Review";
 import MyPage from "../page/MyPage";
 import UserDetail from "../page/UserDetail";
 import QnADetail from "../page/QnADetail";
+import ReviewDetail from "../page/ReviewDetail";
 import Lookbook from "../pages/Lookbook";
 import WritePost from "../pages/WritePost";
 import styled from "styled-components";
@@ -41,6 +42,7 @@ export default function Router() {
           <Route path="mypage" element={<MyPage />} />
           <Route path="userdetail/:userId" element={<UserDetail />} />
           <Route path="qnadetail/:postId" element={<QnADetail />} />
+          <Route path="reviewdetail/:postId" element={<ReviewDetail />} />
         </Routes>
       </MainWrap>
       <Footer />

@@ -15,40 +15,6 @@ const Main = () => {
     dispatch(getMainDB());
   }, []);
 
-  const navButtons = [
-    {
-      to: "",
-      name: "뉴 트렌드 리폼 🎵",
-    },
-    {
-      to: "",
-      name: "옷 리뷰",
-    },
-    {
-      to: "",
-      name: "가구 리뷰",
-    },
-    {
-      to: "",
-      name: "신발 리뷰",
-    },
-    {
-      to: "",
-      name: "가방 리뷰",
-    },
-    {
-      to: "",
-      name: "기타 리뷰",
-    },
-    {
-      to: "",
-      name: "질문과 답변",
-    },
-    {
-      to: "",
-      name: "리본 이용 가이드",
-    },
-  ];
   return (
     <main>
       <Link to={contents.banner.toUrl}>
@@ -58,16 +24,60 @@ const Main = () => {
       </Link>
       <MainWrap>
         <Nav>
-          {navButtons.map((item) => {
-            return (
-              <Link to={item.to} key={item.name}>
-                <div>
-                  <NavButton />
-                  <span>{item.name}</span>
-                </div>
-              </Link>
-            );
-          })}
+          <Link to="/lookbook">
+            <div>
+              <TrendButton>
+                <NewTrend>NEW TREND</NewTrend>
+              </TrendButton>
+              <span>뉴 트렌드 리폼 🎵</span>
+            </div>
+          </Link>
+          <Link to="/review/clothes">
+            <div>
+              <NavButton />
+              <span>옷 리뷰</span>
+            </div>
+          </Link>
+          <Link to="/review/furniture">
+            <div>
+              <NavButton />
+              <span>가구 리뷰</span>
+            </div>
+          </Link>
+          <Link to="/review/shoes">
+            <div>
+              <NavButton />
+              <span>신발 리뷰</span>
+            </div>
+          </Link>
+          <Link to="/review/bags">
+            <div>
+              <NavButton />
+              <span>가방 리뷰</span>
+            </div>
+          </Link>
+          <Link to="/review/goods">
+            <div>
+              <NavButton />
+              <span>기타 리뷰</span>
+            </div>
+          </Link>
+          <Link to="/qna">
+            <div>
+              <NavButton>
+                <Community>COMMUNITY</Community>
+              </NavButton>
+              <span>질문과 답변</span>
+            </div>
+          </Link>
+          <Link to="/">
+            <div>
+              <NavButton>
+                <Community>Service Guide</Community>
+              </NavButton>
+              <span>리본 이용 가이드</span>
+            </div>
+          </Link>
         </Nav>
       </MainWrap>
       <CO2>

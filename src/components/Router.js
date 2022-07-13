@@ -36,6 +36,7 @@ export default function Router() {
             <Route path="tech" element={<SignupTech />} />
           </Route>
           <Route path="review" element={<Review />} />
+          <Route path="review/:category" element={<Review />} />
           <Route path="lookbook" element={<Lookbook />} />
           <Route path="/qna" element={<QnAList />} />
           <Route path="/reform" element={<ReformList />} />

@@ -6,7 +6,7 @@ import { HeartSVG } from "../elements/SVG";
 const CardB = ({ postObj, hot, isMain }) => {
   return (
     <article>
-      <ImageWrap isMain>
+      <ImageWrap isMain={isMain}>
         <ImageDim />
         <Image alt="lookbook" src={postObj.image} />
         <Title>

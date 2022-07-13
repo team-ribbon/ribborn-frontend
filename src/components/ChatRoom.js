@@ -29,7 +29,9 @@ const ChatRoom = ({ isRoom }) => {
 
   // }, []);
 
-  let sock = new SockJS("http://13.125.117.133:8888");
+  // /ws-stomp
+  // /pub/chat/connect-status
+  let sock = new SockJS("http://13.125.117.133:8888/ws-stomp");
   let client = Stomp.over(sock);
 
   useEffect(() => {

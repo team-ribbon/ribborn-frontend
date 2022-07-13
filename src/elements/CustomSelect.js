@@ -15,6 +15,7 @@ const CustomSelect = forwardRef(({ options, setSelectError }, ref) => {
 
   const onClickOption = (event) => {
     setCurrentValue(event.target.id);
+    ref.current = event.target.id;
     setSelectError("");
   };
 

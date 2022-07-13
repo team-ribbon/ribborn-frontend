@@ -30,7 +30,10 @@ const CategorySelect = ({ setCategory, category }) => {
         {category === 0 && (
           <>
             <Text>리폼종류</Text>
-            <IoIosArrowDown size="22" />
+            <IoIosArrowDown
+              size="22"
+              style={{ marginLeft: "auto", marginRight: "10px" }}
+            />
           </>
         )}
         {Categories.map((v) => {

@@ -13,7 +13,7 @@ const CardB = ({ postObj, hot, isMain }) => {
         navigate(`/lookbookdetail/${postObj.id}`);
       }}
     >
-      <ImageWrap isMain>
+      <ImageWrap isMain={isMain}>
         <ImageDim />
         <Image alt="lookbook" src={postObj.image} />
         <Title>

@@ -17,6 +17,14 @@ const formDataApi = axios.create({
   },
 });
 
+const chatApi = axios.create({
+  baseURL: "",
+  headers: {
+    "content-type": "application/json;charset=UTF-8",
+    accept: "application/json,",
+  },
+});
+
 api.interceptors.request.use(function (config) {
   if (token !== undefined) {
     config.headers.common["Authorization"] = token;
@@ -111,4 +119,10 @@ export const apis = {
     api.get(`/api/users/mypage?postCategory=${category}`),
   loadUserDetail: (id) => api.get(`/api/users/userinfo/${id}`),
   changeUserInfo: (data) => api.put("/api/users/mypage", data),
+  // 채팅
+  getRoom: () => chatApi.get("/chat/rooms"),
+  addRoom: (username) => chatApi.post("/chat/room", { userId: username }),
+  enterRoom: (roomId) => chatApi.get(`/chat/room/${roomId}`),
+  getMessage: (roomId) => chatApi.get(`/chat/room/${roomId}`),
+  exitRoom: (roomId) => chatApi.get(`chat/room/exit/${roomId}`),
 };

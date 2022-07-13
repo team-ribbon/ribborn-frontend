@@ -10,6 +10,14 @@ export const MainBtn = styled.button`
   cursor: pointer;
 `;
 
+export const BlackBtn = styled(MainBtn)`
+  background-color: ${({ theme }) => theme.colors.black};
+  &:disabled {
+    background-color: #f2f2f2;
+    cursor: default;
+  }
+`;
+
 export const SubBtn = styled.button`
   border-radius: 25px;
   padding: 20px 30px;

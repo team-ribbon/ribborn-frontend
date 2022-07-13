@@ -59,7 +59,7 @@ const DesignSection = ({ postList }) => {
           {postList.map((postObj) => {
             return (
               <PostWrap>
-                <CardB postObj={postObj} isMain hot />
+                <CardB postObj={postObj} isMain hot ket={postObj.id} />
               </PostWrap>
             );
           })}

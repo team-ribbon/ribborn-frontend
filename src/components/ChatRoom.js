@@ -9,39 +9,48 @@ const ChatRoom = ({ isRoom }) => {
   const chatLog = useSelector((state) => state.chat.chatLog);
   const user = useSelector((state) => state.user.user);
 
-  // const sockjs = new SockJS("url");
-  // const socket = Stomp.over(sockjs);
-
-  // useEffect(() => {
-  //   // 연결 및 구독
-  //   const connect = () => {
-  //     try {
-  //       socket.connect({ Authorization: localStorage.get("token") }, () => {
-  //         socket.subscribe("url");
-  //       });
-  //     } catch (error) {
-  //       alert("에러");
-  //       console.log(error);
-  //     }
-  //   };
-
-  //   // 연결 해제
-
-  // }, []);
+  useEffect(() => {
+    // 연결 및 구독
+    // const sockjs = new SockJS("url");
+    // const socket = Stomp.over(sockjs);
+    // const connect = () => {
+    //   try {
+    //     socket.connect({ Authorization: localStorage.get("token") }, () => {
+    //       socket.subscribe("url");
+    //     });
+    //   } catch (error) {
+    //     alert("에러");
+    //     console.log(error);
+    //   }
+    // };
+    // 연결 해제
+  }, []);
 
   // /ws-stomp
   // /pub/chat/connect-status
   // http://13.125.117.133:8888
 
   const socketConnect = () => {
-    let sock = new SockJS("/ws-stomp");
+    let sock = new SockJS("http://13.125.117.133:8888/ws-stomp");
     let client = Stomp.over(sock);
-    console.log(localStorage.getItem("token"));
     client.connect(
       { Authorization: `${localStorage.getItem("token")}` },
       () => {
         console.log("connected");
-        console.log(client.ws.readyState);
+        // console.log(client.ws.readyState);
+        client.subscribe(
+          `/sub/chat/room/${isRoom}`,
+          function (messagefs) {
+            const messageFromServer = JSON.parse(messagefs.body);
+            // {"messageId":21,"senderId":2,"message":"fffff","date":"2022-05-09T21:58:58.756","isRead":false,"type":"TALK"}
+            if (messageFromServer.type === "TALK") {
+              // dispatch(addMessage(messageFromServer));
+            } else if (messageFromServer.type === "FULL") {
+              // dispatch(changeRoomtype('FULL'));
+            }
+          },
+          { Authorization: localStorage.getItem("token") }
+        );
       }
     );
   };

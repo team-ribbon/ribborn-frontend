@@ -92,7 +92,7 @@ const Text = styled.span`
   font-weight: 400;
   font-size: 18px;
   line-height: 20px;
-  margin: auto 58px auto 18px;
+  margin: auto 48px auto 18px;
 `;
 
 const Modal = styled.div`

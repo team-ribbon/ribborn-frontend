@@ -25,7 +25,7 @@ export default function Router() {
     <>
       <Header />
       <MainWrap>
-        <ChatFloat />
+        {/* <ChatFloat /> */}
         <Routes>
           {/* <Route path="/" element={<VideoChat />} /> */}
           <Route path="/" element={<Main />} />

@@ -4,6 +4,7 @@ export const Textarea = styled.textarea`
   border: none;
   resize: none;
   width: 100%;
+  height: 145px;
   padding: 30px 20px;
   border-radius: 15px;
   background-color: ${({ theme }) => theme.colors.lighterGray};

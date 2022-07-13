@@ -10,7 +10,12 @@ const TimeCalculator = (time) => {
     return parseInt(timeDifference / 2635200000) + "달 전";
   }
   if (timeDifference >= 2592000000) {
-    if (currentTime.getMonth() === 4 || 6 || 9 || 11) {
+    if (
+      currentTime.getMonth() === 4 ||
+      currentTime.getMonth() === 6 ||
+      currentTime.getMonth() === 9 ||
+      currentTime.getMonth() === 11
+    ) {
       if (currentTime.getDate() < 31) {
         return "1달 전";
       }

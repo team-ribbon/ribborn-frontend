@@ -94,7 +94,7 @@ export const apis = {
   // 게시물 등록
   postQna: (formData) => formDataApi.post("/api/qnaPosts", formData),
   postReview: (formData) => formDataApi.post("/api/reviewPosts", formData),
-  postReform: (formData) => formDataApi.post("/api/reformPosts", formData),
+  postReform: (formData) => formDataApi.post("/api/reform-Posts", formData),
   postLookbook: (formData) => formDataApi.post("/api/lookPosts", formData),
 
   // 게시물 수정

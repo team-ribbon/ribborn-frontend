@@ -28,10 +28,10 @@ const initialState = {
 };
 
 // Middleware
-export const getMyPageDB = () => {
+export const getMyPageDB = (category) => {
   return async function (dispatch) {
     try {
-      const response = await apis.loadMyPage();
+      const response = await apis.loadMyPage(category);
       dispatch(getMyPage(response.data));
     } catch (error) {
       console.log(error);

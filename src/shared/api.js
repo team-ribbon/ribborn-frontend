@@ -107,7 +107,8 @@ export const apis = {
     formDataApi.put("/api/lookPosts/" + id, formData),
 
   // 유저 상세페이지
-  loadMyPage: () => api.get("/api/users/mypage"),
+  loadMyPage: (category) =>
+    api.get(`/api/users/mypage?postCategory=${category}`),
   loadUserDetail: (id) => api.get(`/api/users/userinfo/${id}`),
   changeUserInfo: (data) => api.put("/api/users/mypage", data),
 };

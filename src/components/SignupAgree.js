@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 import Rule from "./Rule";
 import Info from "./Info";
+import { CheckSVG } from "../elements/SVG";
 
 const SignupAgree = forwardRef((prop, ref) => {
   const [agreeAll, setAgreeAll] = useState(false);
@@ -34,68 +35,112 @@ const SignupAgree = forwardRef((prop, ref) => {
       setAgreeAll(false);
     }
   };
-
   useEffect(() => {
     isCheckedAll();
   }, [agree1, agree2, agree3]);
+
   return (
-    <div>
+    <Wrap>
       {ruleModal ? <Rule modal={setRuleModal} /> : null}
       {infoModal ? <Info modal={setInfoModal} /> : null}
-      <label htmlFor="agree">
+      <Label htmlFor="agree">
         <input
           type="checkbox"
           id="agree"
           checked={agreeAll}
           onChange={onChangeAll}
           ref={ref}
+          style={{ display: "none" }}
         />
+        <CheckBox>
+          <CheckSVG />
+        </CheckBox>
         <span>약관 전체동의</span>
-      </label>
-      <label htmlFor="agree1">
+      </Label>
+
+      <Label htmlFor="agree1">
         <input
           type="checkbox"
           id="agree1"
           checked={agree1}
           onChange={() => setAgree1((prev) => !prev)}
+          style={{ display: "none" }}
         />
+        <CheckBox />
         <span>(필수) 만 14세 이상입니다.</span>
-      </label>
-      <label htmlFor="agree2">
-        <input
-          type="checkbox"
-          id="agree2"
-          checked={agree2}
-          onChange={() => setAgree2((prev) => !prev)}
-        />
-        <span>(필수) 이용약관</span>
-      </label>
-      <div
-        onClick={() => {
-          setRuleModal(true);
-        }}
-      >
-        보기
+      </Label>
+      <div>
+        <Label htmlFor="agree2">
+          <input
+            type="checkbox"
+            id="agree2"
+            checked={agree2}
+            onChange={() => setAgree2((prev) => !prev)}
+            style={{ display: "none" }}
+          />
+          <CheckBox />
+          <span>(필수) 이용약관</span>
+        </Label>
+
+        <ShowContent
+          onClick={() => {
+            setRuleModal(true);
+          }}
+        >
+          내용보기
+        </ShowContent>
       </div>
-      <br />
-      <label htmlFor="agree3">
-        <input
-          type="checkbox"
-          id="agree3"
-          checked={agree3}
-          onChange={() => setAgree3((prev) => !prev)}
-        />
-        <span>(필수) 개인정보수집 및 이용동의</span>
-      </label>
-      <div
-        onClick={() => {
-          setInfoModal(true);
-        }}
-      >
-        보기
+      <div>
+        <Label htmlFor="agree3">
+          <input
+            type="checkbox"
+            id="agree3"
+            checked={agree3}
+            onChange={() => setAgree3((prev) => !prev)}
+            style={{ display: "none" }}
+          />
+          <CheckBox />
+          <span>(필수) 개인정보수집 및 이용동의</span>
+        </Label>
+        <ShowContent
+          onClick={() => {
+            setInfoModal(true);
+          }}
+        >
+          내용보기
+        </ShowContent>
       </div>
-    </div>
+    </Wrap>
   );
 });
+
+const Wrap = styled.div`
+  margin: 55px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+`;
+const Label = styled.label`
+  display: inline-flex;
+  font-size: ${({ theme }) => theme.fontSizes.l};
+  align-items: center;
+  gap: 30px;
+`;
+const CheckBox = styled.span`
+  width: 32px;
+  height: 32px;
+  border: 2px solid ${({ theme }) => theme.colors.gray};
+  border-radius: 8px;
+  background-color: black;
+`;
+const ShowContent = styled.span`
+  text-decoration: underline;
+  color: ${({ theme }) => theme.colors.gray};
+`;
 
 export default SignupAgree;

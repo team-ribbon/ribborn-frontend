@@ -15,6 +15,7 @@ import MyPage from "../page/MyPage";
 import UserDetail from "../page/UserDetail";
 import QnADetail from "../page/QnADetail";
 import ReviewDetail from "../page/ReviewDetail";
+import ReformDetail from "../page/ReformDetail";
 import LookBookDetail from "../page/LookBookDetail";
 import Lookbook from "../pages/Lookbook";
 import WritePost from "../pages/WritePost";
@@ -44,6 +45,7 @@ export default function Router() {
           <Route path="userdetail/:userId" element={<UserDetail />} />
           <Route path="qnadetail/:postId" element={<QnADetail />} />
           <Route path="reviewdetail/:postId" element={<ReviewDetail />} />
+          <Route path="reformdetail/:postId" element={<ReformDetail />} />
           <Route path="lookbookdetail/:postId" element={<LookBookDetail />} />
         </Routes>
       </MainWrap>

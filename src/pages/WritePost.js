@@ -70,7 +70,6 @@ const WritePost = () => {
   const intro = useSelector((state) => state.post.techIntro);
 
   const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
   const [introduction, setIntroduction] = useState(intro);
   const [category, setCategory] = useState(0);
   const [region, setRegion] = useState(0);
@@ -86,17 +85,17 @@ const WritePost = () => {
       return false;
     }
 
-    if (type === "reform" && +region.current.value === 0) {
+    if (type === "reform" && +region === 0) {
       alert("지역 없음");
       return false;
     }
 
-    if (title.length < 1) {
+    if (type !== "lookbook" && title.length < 1) {
       alert("제목 없음");
       return false;
     }
 
-    if (content.length < 1) {
+    if (contentRef.current.value.length < 1) {
       alert("내용 없음");
       return false;
     }
@@ -124,14 +123,20 @@ const WritePost = () => {
     let key = {
       postCategory: type,
       category: category,
-      title: titleRef.current.value,
       content: contentRef.current.value,
     };
-    console.log(key);
 
     if (type === "reform") {
-      key = { ...key, region: region };
+      key = { ...key, region: region, process: "before" };
     }
+    if (type !== "lookbook") {
+      key = { ...key, title: titleRef.current.value };
+    }
+    if (type === "lookbook") {
+      key = { ...key, introduction: introRef.current.value };
+    }
+    console.log(key);
+
     frm.append(
       "key",
       new Blob([JSON.stringify(key)], { type: "application/json" })
@@ -156,9 +161,6 @@ const WritePost = () => {
     if (title.length > 14) {
       return setTitle((prev) => prev.substring(0, 15));
     }
-  };
-  const onChangeContent = (event) => {
-    setContent(event.target.value);
   };
   const onChangeIntro = (event) => {
     setIntroduction(event.target.value);
@@ -221,24 +223,24 @@ const WritePost = () => {
             <IntroLength>{introduction.length}/100</IntroLength>
           </IntroDiv>
         )}
-        <TitleDiv>
-          <TitleSpan>제목</TitleSpan>
-          <TitleInput
-            name="title"
-            placeholder="제목을 입력해주세요"
-            value={title}
-            onChange={onChangeTitle}
-            ref={titleRef}
-          />
-          <TitleLength>{title.length}/15</TitleLength>
-        </TitleDiv>
+        {type !== "lookbook" && (
+          <TitleDiv>
+            <TitleSpan>제목</TitleSpan>
+            <TitleInput
+              name="title"
+              placeholder="제목을 입력해주세요"
+              value={title}
+              onChange={onChangeTitle}
+              ref={titleRef}
+            />
+            <TitleLength>{title.length}/15</TitleLength>
+          </TitleDiv>
+        )}
         <ImageUpload type={type} />
         <TitleSpan>내용</TitleSpan>
         <TextArea
           name="content"
           placeholder="여기에 내용을 적어주세요"
-          value={content}
-          onChange={onChangeContent}
           ref={contentRef}
         />
       </FormWrap>

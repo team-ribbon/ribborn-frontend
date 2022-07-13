@@ -5,27 +5,32 @@ import { apis } from "../../shared/api";
 
 // Action
 const USER_INFO = "USER_INFO";
+const CLEAR_USER_INFO = "CLEAR_USER_INFO";
 
 // Action creator
 const userInfo = createAction(USER_INFO, (userObj) => ({ userObj }));
+export const clearUserInfo = createAction(CLEAR_USER_INFO);
 
 // initialState
 const initialState = {
   user: {},
+  isLogin: false,
 };
 
 // Middleware
 
 // 로그인
 export const loginDB = (username, password) => {
-  return async () => {
+  return async (dispatch) => {
     try {
-      const response = await apis.login(username, password);
-      console.log(response);
-      const token = response.headers.Authorization;
-      console.log(token);
-      localStorage.setItem("token", token);
-      if (response.status === 200) return true;
+      const response = await apis.login(username, password).then((res) => {
+        const token = res.data;
+        localStorage.setItem("token", token);
+        dispatch(loadUserInfoDB());
+        if (res.status === 200) {
+          return true;
+        }
+      });
     } catch (error) {
       console.log(error);
       alert("띠로리....실패했습니다...");
@@ -67,8 +72,10 @@ export const loadUserInfoDB = () => {
   return async (dispatch) => {
     try {
       const response = await apis.loadUserInfo();
-      dispatch(userInfo(response));
+      dispatch(userInfo(response.data));
     } catch (error) {
+      dispatch(clearUserInfo());
+      localStorage.removeItem("token");
       console.log(error);
     }
   };
@@ -80,6 +87,12 @@ export default handleActions(
     [USER_INFO]: (state, { payload }) =>
       produce(state, (draft) => {
         draft.user = payload.userObj;
+        draft.isLogin = true;
+      }),
+    [CLEAR_USER_INFO]: (state, { payload }) =>
+      produce(state, (draft) => {
+        draft.user = initialState.user;
+        draft.isLogin = initialState.isLogin;
       }),
   },
   initialState

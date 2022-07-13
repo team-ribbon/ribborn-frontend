@@ -1,92 +1,111 @@
-import { useSelector } from "react-redux";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import MainSection from "../components/MainSection";
 import DesignSection from "../components/DesignSection";
+import { getMainDB } from "../modules/post";
 
 const Main = () => {
   const contents = useSelector((state) => state.post.mainContents);
-  const navButtons = [
-    {
-      to: "",
-      name: "뉴 트렌드 리폼 🎵",
-    },
-    {
-      to: "",
-      name: "옷 리뷰",
-    },
-    {
-      to: "",
-      name: "가구 리뷰",
-    },
-    {
-      to: "",
-      name: "신발 리뷰",
-    },
-    {
-      to: "",
-      name: "가방 리뷰",
-    },
-    {
-      to: "",
-      name: "기타 리뷰",
-    },
-    {
-      to: "",
-      name: "질문과 답변",
-    },
-    {
-      to: "",
-      name: "리본 이용 가이드",
-    },
-  ];
+
+  const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    dispatch(getMainDB());
+  }, []);
+
   return (
     <main>
-      <Link to={contents.banner.toUrl}>
-        <BannerWrap>
-          <Banner src={contents.banner.image} type="A" />
-        </BannerWrap>
-      </Link>
+      {/* <Link to={contents.banner.toUrl}> */}
+      <BannerWrap>
+        <Banner src={contents.banner} type="A" />
+      </BannerWrap>
+      {/* </Link> */}
       <MainWrap>
         <Nav>
-          {navButtons.map((item) => {
-            return (
-              <Link to={item.to} key={item.name}>
-                <div>
-                  <NavButton />
-                  <span>{item.name}</span>
-                </div>
-              </Link>
-            );
-          })}
+          <Link to="/lookbook">
+            <div>
+              <TrendButton>
+                <NewTrend>NEW TREND</NewTrend>
+              </TrendButton>
+              <span>뉴 트렌드 리폼 🎵</span>
+            </div>
+          </Link>
+          <Link to="/review/clothes">
+            <div>
+              <NavButton />
+              <span>옷 리뷰</span>
+            </div>
+          </Link>
+          <Link to="/review/furniture">
+            <div>
+              <NavButton />
+              <span>가구 리뷰</span>
+            </div>
+          </Link>
+          <Link to="/review/shoes">
+            <div>
+              <NavButton />
+              <span>신발 리뷰</span>
+            </div>
+          </Link>
+          <Link to="/review/bags">
+            <div>
+              <NavButton />
+              <span>가방 리뷰</span>
+            </div>
+          </Link>
+          <Link to="/review/goods">
+            <div>
+              <NavButton />
+              <span>기타 리뷰</span>
+            </div>
+          </Link>
+          <Link to="/qna">
+            <div>
+              <NavButton>
+                <Community>COMMUNITY</Community>
+              </NavButton>
+              <span>질문과 답변</span>
+            </div>
+          </Link>
+          <Link to="/">
+            <div>
+              <NavButton>
+                <Community>Service Guide</Community>
+              </NavButton>
+              <span>리본 이용 가이드</span>
+            </div>
+          </Link>
         </Nav>
       </MainWrap>
       <CO2>
         <span>
-          누적 {contents.co2.count}건의 리본으로 인해
+          누적 {contents.co2Count}건의 리본으로 인해
           <br />
-          탄소배출을 {contents.co2.co2Reduce}kg 줄였습니다.
+          탄소배출을 {contents.co2Reduce}kg 줄였습니다.
         </span>
       </CO2>
       <MainWrap>
         <MainSection
           type="A"
           title="금손 장인 ✌🏻"
-          url=""
+          url="/review"
           postList={contents.reviewList}
         />
       </MainWrap>
       <DesignSection postList={contents.lookbookList} />
-      <Link to={contents.banner.toUrl}>
-        <BannerWrap>
-          <Banner src={contents.banner.image} type="B" />
-        </BannerWrap>
-      </Link>
+      {/* <Link to={contents.banner.toUrl}> */}
+      <BannerWrap>
+        <Banner src={contents.banner} type="B" />
+      </BannerWrap>
+      {/* </Link> */}
       <MainWrap>
         <MainSection
           type="C"
           title="오늘의 견적 ⚡️"
-          url=""
+          url="/reform"
           postList={contents.reformList}
         />
       </MainWrap>
@@ -98,6 +117,9 @@ const MainWrap = styled.div`
   max-width: ${({ theme }) => theme.width.maxWidth};
   padding: 50px 40px 0 40px;
   margin: 0 auto;
+  font-weight: 400;
+  font-size: ${({ theme }) => theme.fontSizes.m};
+  line-height: 18px;
 `;
 const BannerWrap = styled.div`
   max-width: ${({ theme }) => theme.width.maxWidth};
@@ -116,12 +138,42 @@ const Nav = styled.nav`
   text-align: center;
   margin-bottom: 50px;
 `;
+
+const TrendButton = styled.div`
+  background: linear-gradient(
+    263.38deg,
+    #322f5a 4.35%,
+    #fc8d28 20.95%,
+    #f28e28 31.89%,
+    #07ad1f 102.29%
+  );
+  border-radius: 15px;
+  width: 100%;
+  height: 100px;
+  margin-bottom: 24px;
+  padding-top: 35px;
+`;
+const NewTrend = styled.span`
+  font-weight: 700;
+  font-size: ${({ theme }) => theme.fontSizes.l};
+  line-height: 32px;
+  color: #fff;
+`;
+const Community = styled.span`
+  font-weight: 700;
+  font-size: ${({ theme }) => theme.fontSizes.l};
+  line-height: 32px;
+`;
 const NavButton = styled.div`
   background-color: ${({ theme }) => theme.colors.lightGray};
   border-radius: 15px;
   width: 100%;
   height: 100px;
   margin-bottom: 24px;
+  font-weight: 700;
+  font-size: ${({ theme }) => theme.fontSizes.l};
+  line-height: 32px;
+  padding-top: 35px;
 `;
 
 const CO2 = styled.div`

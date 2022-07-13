@@ -1,7 +1,7 @@
 const Regions = [
   {
     value: "all",
-    text: "전체",
+    text: "전체 지역",
   },
   {
     value: "gyeonggi",

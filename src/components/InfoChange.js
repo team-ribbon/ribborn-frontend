@@ -153,7 +153,7 @@ const InfoChange = ({ change, user }) => {
         />
         <span>{errors?.nickname?.message}</span>
         {user.userType === 1 ? (
-          <>
+          <div>
             <span>연락처</span>
             <input
               {...register("phoneNum", {
@@ -213,7 +213,7 @@ const InfoChange = ({ change, user }) => {
               defaultValue={user.introduction}
               autoComplete="off"
             />
-          </>
+          </div>
         ) : null}
 
         <input
@@ -225,7 +225,7 @@ const InfoChange = ({ change, user }) => {
         />
 
         {passwordChange ? (
-          <>
+          <div>
             <span>현재 비밀번호</span>
             <input
               {...register("currentPassword", {
@@ -275,7 +275,7 @@ const InfoChange = ({ change, user }) => {
               type="password"
             />
             <span>{errors?.newPasswordCheck?.message}</span>
-          </>
+          </div>
         ) : null}
 
         <ButtonDiv>

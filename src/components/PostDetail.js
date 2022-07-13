@@ -1,44 +1,48 @@
 import styled from "styled-components";
+import MyPostButtons from "./MyPostButtons";
+import Categories from "../shared/Categories";
+import TimeCalculator from "../shared/TimeCalculator";
+import { TagTextColor } from "../elements/TagTextColor";
 
-const PostDetail = () => {
+const PostDetail = ({ qna, post, userId }) => {
   return (
-    <CenterPostDiv>
-      <Community>질문과 답변</Community>
-      <Title>자켓 리폼하기</Title>
-      <IDDiv>
-        <ID>@내이름은라채채</ID>
-        <CircleDiv />
-        <Time>1시간 전</Time>
-      </IDDiv>
-      <TagDiv>
-        <Category>옷 리폼</Category>
-      </TagDiv>
-      <Image
-        alt="card"
-        src="https://image-cdn.hypb.st/https%3A%2F%2Fkr.hypebeast.com%2Ffiles%2F2021%2F10%2Fthe-reason-why-you-should-pay-attention-to-upcycling-clothes-03.jpg?q=90&w=1090&cbr=1&fit=max"
-      />
-      <TextArea>
-        저는 블라블라 이런 내용이 들어가요 저는 블라블라 이런 내용이 들어가요
-        저는 블라블라 이런 내용이 들어가요 저는 블라블라 이런 내용이 들어가요
-        저는 블라블라 이런 내용이 들어가요 저는 블라블라 이런 내용이 들어가요
-        저는 블라블라 이런 내용이 들어가요 저는 블라블라 이런 내용이 들어가요
-        저는 블라블라 이런 내용이 들어가요 저는 블라블라 이런 내용이 들어가요
-        저는 블라블라 이런 내용이 들어가요저는 블라블라 이런 내용이
-        들어가요(본문 내용)
-      </TextArea>
-      <Image
-        alt="card"
-        src="https://image-cdn.hypb.st/https%3A%2F%2Fkr.hypebeast.com%2Ffiles%2F2021%2F10%2Fthe-reason-why-you-should-pay-attention-to-upcycling-clothes-03.jpg?q=90&w=1090&cbr=1&fit=max"
-      />
-      <Image
-        alt="card"
-        src="https://image-cdn.hypb.st/https%3A%2F%2Fkr.hypebeast.com%2Ffiles%2F2021%2F10%2Fthe-reason-why-you-should-pay-attention-to-upcycling-clothes-03.jpg?q=90&w=1090&cbr=1&fit=max"
-      />
-    </CenterPostDiv>
+    post && (
+      <CenterPostDiv>
+        <Community>{qna ? "질문과 답변" : "리폼 후기"}</Community>
+        <Title>{post.title}</Title>
+        <IDDiv>
+          <ID>@{post.nickname}</ID>
+          <CircleDiv />
+          <Time>{TimeCalculator(post.createAt)}</Time>
+          {userId === post.userid ? (
+            <MyPostButtons postType={qna ? "qna" : "review"} id={post.id} />
+          ) : null}
+        </IDDiv>
+        <TagDiv>
+          {qna ? (
+            Categories.map((v) => {
+              return v.value === post.category ? (
+                <Category key={"category" + v.value}>{v.text}</Category>
+              ) : null;
+            })
+          ) : (
+            <TagTextColor>{post.category.toUpperCase()}</TagTextColor>
+          )}
+        </TagDiv>
+        {post.image[0] !== null ? (
+          <Image alt="card" src={post.image[0]} />
+        ) : null}
+        <TextArea noImage={post.image[0] === null}>{post.content}</TextArea>
+        {post.image.map((v, i) => {
+          return i !== 0 ? <Image alt="card" src={v} /> : null;
+        })}
+      </CenterPostDiv>
+    )
   );
 };
 
 const CenterPostDiv = styled.div`
+  margin-top: 60px;
   width: 700px;
   margin-left: calc(50vw - 350px);
 `;
@@ -83,11 +87,13 @@ const Time = styled.p`
   font-size: 14px;
   line-height: 18px;
   color: #afb0b3;
+  margin-right: 34px;
 `;
 
 const TagDiv = styled.div`
   display: flex;
   gap: 10px;
+  margin-top: 30px;
 `;
 
 const Category = styled.button`
@@ -99,7 +105,6 @@ const Category = styled.button`
   background-color: #f2f2f2;
   border: none;
   border-radius: 8px;
-  margin-top: 30px;
 `;
 
 const Image = styled.img`
@@ -117,6 +122,7 @@ const TextArea = styled.div`
   font-weight: 400;
   font-size: 18px;
   line-height: 28px;
+  margin-top: ${(props) => (props.noImage ? "30px" : "")};
 `;
 
 export default PostDetail;

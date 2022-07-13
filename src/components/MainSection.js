@@ -1,26 +1,33 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import CardA from "./CardA";
 import CardB from "./CardB";
 
 // 메인 > 기본 섹션
 const MainSection = ({ type, title, url, postList }) => {
+  const navigate = useNavigate();
   return (
     <section>
       <Header>
         <Title>{title}</Title>
-        <More>더보기</More>
+        <More
+          onClick={() => {
+            type === "A" ? navigate("/review") : navigate("/reform");
+          }}
+        >
+          더보기
+        </More>
       </Header>
       <Grid type={type}>
-        {type === "B"
+        {type === "C"
           ? postList.map((postObj) => {
-              return <CardB postObj={postObj} key={postObj.id} />;
+              return <CardA postObj={postObj} key={postObj.id} reform={true} />;
             })
           : postList.map((postObj) => {
               return <CardA postObj={postObj} key={postObj.id} type={type} />;
             })}
       </Grid>
-      <Link to={url}></Link>
+      {url ? <Link to={url}></Link> : null}
     </section>
   );
 };
@@ -48,6 +55,7 @@ const More = styled.div`
   color: ${({ theme }) => theme.colors.red};
   font-size: ${({ theme }) => theme.fontSizes.l};
   font-weight: 700;
+  cursor: pointer;
 `;
 
 export default MainSection;

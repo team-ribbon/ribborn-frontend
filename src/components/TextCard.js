@@ -29,18 +29,21 @@ const TextCard = ({ postObj, noWriter, reform }) => {
       key={"post" + postObj.postId}
       onClick={() => {
         reform
-          ? navigate(`/reformdetail/${postObj.postId}`)
-          : navigate(`/qnadetail/${postObj.postId}`);
+          ? navigate(`/reformdetail/${postObj.id}`)
+          : navigate(`/qnadetail/${postObj.id}`);
       }}
     >
       <TextDiv>
-        <TitleDiv>
-          {reform ? (
-            <PostProcess process={postObj.process}>{process}</PostProcess>
-          ) : null}
-          <Title>{postObj.title}</Title>
-        </TitleDiv>
-        <Content>{postObj.content}</Content>
+        <TitleContentWrap>
+          <TitleDiv>
+            {reform ? (
+              <PostProcess process={postObj.process}>{process}</PostProcess>
+            ) : null}
+            <Title>{postObj.title}</Title>
+          </TitleDiv>
+          <Content>{postObj.content}</Content>
+        </TitleContentWrap>
+
         <PostFooter>
           {noWriter ? null : <PostUserId>@{postObj.nickname}</PostUserId>}
           {reform ? null : (
@@ -54,13 +57,15 @@ const TextCard = ({ postObj, noWriter, reform }) => {
               <Comment>{postObj.commentCount}</Comment>
             </>
           )}
-          {Categories.map((w) => {
-            return w.value === postObj.category ? (
-              <PostCategory key={"postCategory" + w.value}>
-                {w.text}
-              </PostCategory>
-            ) : null;
-          })}
+          {reform
+            ? Categories.map((w) => {
+                return w.value === postObj.category ? (
+                  <PostCategory key={"postCategory" + w.value}>
+                    {w.text}
+                  </PostCategory>
+                ) : null;
+              })
+            : null}
           {reform
             ? Regions.map((w) => {
                 return w.value === postObj.region ? (
@@ -71,9 +76,24 @@ const TextCard = ({ postObj, noWriter, reform }) => {
               })
             : null}
         </PostFooter>
+        {reform
+          ? null
+          : Categories.map((w) => {
+              return w.value === postObj.category ? (
+                <PostCategory key={"postCategory" + w.value}>
+                  {w.text}
+                </PostCategory>
+              ) : null;
+            })}
       </TextDiv>
       <PictureDiv>
-        <Picture src={postObj.image} />
+        <Picture
+          src={
+            postObj.image !== null
+              ? postObj.image
+              : "http://openimage.interpark.com/goods_image_big/1/4/1/9/9090461419_l.jpg"
+          }
+        />
       </PictureDiv>
     </PostDiv>
   );
@@ -90,6 +110,11 @@ const PostDiv = styled.div`
 
 const TextDiv = styled.div`
   width: 80%;
+`;
+
+const TitleContentWrap = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
 
 const TitleDiv = styled.div``;

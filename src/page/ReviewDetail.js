@@ -3,13 +3,13 @@ import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
-import { getQnAPostDB, cleanUpPost } from "../modules/post";
+import { getReviewPostDB, cleanUpPost } from "../modules/post";
 
 import PostDetail from "../components/PostDetail";
 import PostFooter from "../components/PostFooter";
 import PostRightBtn from "../components/PostRightBtn";
 
-const QnADetail = () => {
+const ReviewDetail = () => {
   const dispatch = useDispatch();
   const params = useParams();
   const [page, setPage] = useState(0);
@@ -20,7 +20,7 @@ const QnADetail = () => {
   const userId = useSelector((state) => state.user.user.id);
 
   React.useEffect(() => {
-    dispatch(getQnAPostDB(params.postId));
+    dispatch(getReviewPostDB(params.postId));
   }, []);
 
   React.useEffect(() => {
@@ -31,7 +31,7 @@ const QnADetail = () => {
 
   return (
     <Template>
-      <PostDetail qna={true} post={post} userId={userId} />
+      <PostDetail post={post} userId={userId} />
       <PostFooter
         id={params.postId}
         commentsList={commentsList}
@@ -40,7 +40,7 @@ const QnADetail = () => {
         page={page}
       />
       <PostRightBtn
-        noshare={true}
+        noshare={false}
         id={params.postId}
         liked={post && post.liked}
         likeCount={post && post.likeCount}
@@ -51,4 +51,4 @@ const QnADetail = () => {
 
 const Template = styled.div``;
 
-export default QnADetail;
+export default ReviewDetail;

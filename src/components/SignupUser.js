@@ -37,9 +37,8 @@ const SignupUser = () => {
     }
     delete data.password2;
     data.userType = 0;
-    console.log(data);
     dispatch(signupDB(data));
-    // navigate("/login");
+    navigate("/login");
   };
   return (
     <Wrap>
@@ -148,8 +147,8 @@ const SignupUser = () => {
           autoComplete="off"
         />
         <HelpText>{errors?.phoneNum?.message}</HelpText>
-        <SignupAgree ref={checkRef} />
-        <span>{agreeError}</span>
+        <SignupAgree ref={checkRef} setAgreeError={setAgreeError} />
+        <HelpText>{agreeError}</HelpText>
         <BlackBtn
           disabled={
             errors.nickname ||

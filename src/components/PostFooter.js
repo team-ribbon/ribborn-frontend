@@ -12,8 +12,11 @@ const PostFooter = ({ commentsList, id, userId, commentCount, page }) => {
   const sendComment = async () => {
     if (isLogin) {
       await dispatch(PostCommentDB(id, inputCurrent.current.value)).then(
-        (res) => {
-          dispatch(GetCommentDB(id, 0, (page + 1) * 5));
+        (success) => {
+          console.log(success);
+          success
+            ? dispatch(GetCommentDB(id, 0, (page + 1) * 5))
+            : alert("실패했어요!");
         }
       );
       document.getElementById("messageInput").value = "";

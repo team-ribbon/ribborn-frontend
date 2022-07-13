@@ -180,25 +180,33 @@ export const deletePostDB = (id) => {
 
 // 댓글달기
 export const PostCommentDB = (id, comment) => {
+  let success = null;
   return async (dispatch) => {
     try {
       await apis.uploadComment(id, comment);
       dispatch(newComment());
+      success = true;
     } catch (error) {
       console.log(error);
+      success = false;
     }
+    return success;
   };
 };
 
 // 댓글 삭제
 export const deleteCommentDB = (id, commentId) => {
+  let success = null;
   return async (dispatch) => {
     try {
       await apis.deleteComment(id, commentId);
       dispatch(deleteComment(commentId));
+      success = true;
     } catch (error) {
       console.log(error);
+      success = false;
     }
+    return success;
   };
 };
 

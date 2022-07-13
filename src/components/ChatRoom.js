@@ -31,44 +31,58 @@ const ChatRoom = ({ isRoom }) => {
 
   // /ws-stomp
   // /pub/chat/connect-status
-  let sock = new SockJS("http://13.125.117.133:8888/ws-stomp");
-  let client = Stomp.over(sock);
+  // http://13.125.117.133:8888
 
-  useEffect(() => {
+  const socketConnect = () => {
+    let sock = new SockJS("/ws-stomp");
+    let client = Stomp.over(sock);
     console.log(localStorage.getItem("token"));
     client.connect(
       { Authorization: `${localStorage.getItem("token")}` },
-      function () {
+      () => {
         console.log("connected");
         console.log(client.ws.readyState);
-        // client.subscribe(
-        //   `/sub/chat/room/${isRoom}`,
-        //   function (messagefs) {
-        //     const messageFromServer = JSON.parse(messagefs.body);
-        //     // {"messageId":21,"senderId":2,"message":"fffff","date":"2022-05-09T21:58:58.756","isRead":false,"type":"TALK"}
-        //     if (messageFromServer.type === "TALK") {
-        //       // dispatch(addMessage(messageFromServer));
-        //     } else if (messageFromServer.type === "FULL") {
-        //       // dispatch(changeRoomtype('FULL'));
-        //     }
-        //   },
-        //   { Authorization: localStorage.getItem("token") }
-        // );
-        // const data = {
-        //   roomId: isRoom,
-        //   type: "IN",
-        // };
-        // client.send(
-        //   `/pub/chat/connect-status`,
-        //   { Authorization: `${localStorage.getItem("token")}` },
-        //   JSON.stringify(data)
-        // );
-        // //   window.alert('room in')
-        // console.log("send room in");
-        // console.log(client.ws.readyState);
       }
     );
+  };
 
+  useEffect(() => {
+    // client.connect(
+    //   { Authorization: `${localStorage.getItem("token")}` },
+    //   function () {
+    //     console.log("connected");
+    //     console.log(client.ws.readyState);
+    // client.subscribe(
+    //   `/sub/chat/room/${isRoom}`,
+    //   function (messagefs) {
+    //     const messageFromServer = JSON.parse(messagefs.body);
+    //     // {"messageId":21,"senderId":2,"message":"fffff","date":"2022-05-09T21:58:58.756","isRead":false,"type":"TALK"}
+    //     if (messageFromServer.type === "TALK") {
+    //       // dispatch(addMessage(messageFromServer));
+    //     } else if (messageFromServer.type === "FULL") {
+    //       // dispatch(changeRoomtype('FULL'));
+    //     }
+    //   },
+    //   { Authorization: localStorage.getItem("token") }
+    // );
+    // const data = {
+    //   roomId: isRoom,
+    //   type: "IN",
+    // };
+    // client.send(
+    //   `/pub/chat/connect-status`,
+    //   { Authorization: `${localStorage.getItem("token")}` },
+    //   JSON.stringify(data)
+    // );
+    // //   window.alert('room in')
+    // console.log("send room in");
+    // console.log(client.ws.readyState);
+    // }
+    // );
+    socketConnect();
+    // sock.onclose = function () {
+    setTimeout(() => socketConnect(), 5000);
+    // };
     return () => {
       // const data = {
       //   roomId: isRoom,
@@ -79,14 +93,13 @@ const ChatRoom = ({ isRoom }) => {
       //   { Authorization: `${localStorage.getItem("token")}` },
       //   JSON.stringify(data)
       // );
-      client.disconnect(
-        () => {
-          client.unsubscribe("sub-0");
-        },
-        { Authorization: `${localStorage.getItem("token")}` }
-      );
+      // client.disconnect(
+      //   () => {
+      //     client.unsubscribe("sub-0");
+      //   },
+      //   { Authorization: `${localStorage.getItem("token")}` }
+      // );
       // dispatch(getPreviousMessages([]));
-
       //방퇴장할때 OUT 했다는 메시지 Send
     };
   }, []);

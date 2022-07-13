@@ -6,12 +6,12 @@ const UserInfoCard = ({ myPage, user, change }) => {
       <TitleText>ID</TitleText>
       <ContentText>{user.nickname}</ContentText>
       {user.userType === 1 ? (
-        <>
+        <div>
           <TitleText>위치</TitleText>
           <ContentText>{user.addressDetail}</ContentText>
           <TitleText>사업자번호</TitleText>
           <ContentText>{user.companyNum}</ContentText>
-        </>
+        </div>
       ) : null}
       <BookmarkDiv>
         <BookmarkP>관심</BookmarkP>

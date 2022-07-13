@@ -43,7 +43,8 @@ const InfoDiv = styled.div`
   height: ${(props) => (props.reform ? "154px" : "102px")};
   background: #fafafa;
   border-radius: 8px;
-  margin: 48px 16px auto 0;
+  margin: ${(props) =>
+    props.reform ? "48px 16px auto 0" : "48px 0 auto 16px"};
 `;
 
 const TopInfoDiv = styled.div`

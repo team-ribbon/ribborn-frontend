@@ -15,7 +15,7 @@ const PostDetail = ({ qna, post, userId }) => {
           <CircleDiv />
           <Time>{TimeCalculator(post.createAt)}</Time>
           {userId === post.userid ? (
-            <MyPostButtons postType="qna" id={post.id} />
+            <MyPostButtons postType={qna ? "qna" : "review"} id={post.id} />
           ) : null}
         </IDDiv>
         <TagDiv>

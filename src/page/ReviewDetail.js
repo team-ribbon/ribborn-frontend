@@ -31,7 +31,7 @@ const ReviewDetail = () => {
 
   return (
     <Template>
-      <PostDetail post={post} />
+      <PostDetail post={post} userId={userId} />
       <PostFooter
         id={params.postId}
         commentsList={commentsList}

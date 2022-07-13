@@ -87,7 +87,13 @@ const TextCard = ({ postObj, noWriter, reform }) => {
             })}
       </TextDiv>
       <PictureDiv>
-        <Picture src={postObj.image} />
+        <Picture
+          src={
+            postObj.image !== null
+              ? postObj.image
+              : "http://openimage.interpark.com/goods_image_big/1/4/1/9/9090461419_l.jpg"
+          }
+        />
       </PictureDiv>
     </PostDiv>
   );

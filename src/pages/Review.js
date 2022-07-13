@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import styled, { css } from "styled-components";
 import CardA from "../components/CardA";
 import { getReviewListDB, cleanUpPostList } from "../modules/post";
@@ -12,10 +12,13 @@ import Categories from "../shared/Categories";
 const Review = () => {
   const dispatch = useDispatch();
   const postList = useSelector((state) => state.post.PostList);
+  const param = useParams();
   // console.log(postList);
 
   const [sort, setSort] = useState("createAt");
-  const [category, setCategory] = useState("all");
+  const [category, setCategory] = useState(
+    param.category === undefined ? "all" : param.category
+  );
   const [page, setPage] = useState(0);
 
   const onClickCategory = (event) => {

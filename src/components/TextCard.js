@@ -34,13 +34,16 @@ const TextCard = ({ postObj, noWriter, reform }) => {
       }}
     >
       <TextDiv>
-        <TitleDiv>
-          {reform ? (
-            <PostProcess process={postObj.process}>{process}</PostProcess>
-          ) : null}
-          <Title>{postObj.title}</Title>
-        </TitleDiv>
-        <Content>{postObj.content}</Content>
+        <TitleContentWrap>
+          <TitleDiv>
+            {reform ? (
+              <PostProcess process={postObj.process}>{process}</PostProcess>
+            ) : null}
+            <Title>{postObj.title}</Title>
+          </TitleDiv>
+          <Content>{postObj.content}</Content>
+        </TitleContentWrap>
+
         <PostFooter>
           {noWriter ? null : <PostUserId>@{postObj.nickname}</PostUserId>}
           {reform ? null : (
@@ -101,6 +104,11 @@ const PostDiv = styled.div`
 
 const TextDiv = styled.div`
   width: 80%;
+`;
+
+const TitleContentWrap = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
 
 const TitleDiv = styled.div``;

@@ -17,11 +17,11 @@ const Main = () => {
 
   return (
     <main>
-      <Link to={contents.banner.toUrl}>
-        <BannerWrap>
-          <Banner src={contents.banner.image} type="A" />
-        </BannerWrap>
-      </Link>
+      {/* <Link to={contents.banner.toUrl}> */}
+      <BannerWrap>
+        <Banner src={contents.banner} type="A" />
+      </BannerWrap>
+      {/* </Link> */}
       <MainWrap>
         <Nav>
           <Link to="/lookbook">
@@ -82,30 +82,30 @@ const Main = () => {
       </MainWrap>
       <CO2>
         <span>
-          누적 {contents.co2.count}건의 리본으로 인해
+          누적 {contents.co2Count}건의 리본으로 인해
           <br />
-          탄소배출을 {contents.co2.co2Reduce}kg 줄였습니다.
+          탄소배출을 {contents.co2Reduce}kg 줄였습니다.
         </span>
       </CO2>
       <MainWrap>
         <MainSection
           type="A"
           title="금손 장인 ✌🏻"
-          url=""
+          url="/review"
           postList={contents.reviewList}
         />
       </MainWrap>
       <DesignSection postList={contents.lookbookList} />
-      <Link to={contents.banner.toUrl}>
-        <BannerWrap>
-          <Banner src={contents.banner.image} type="B" />
-        </BannerWrap>
-      </Link>
+      {/* <Link to={contents.banner.toUrl}> */}
+      <BannerWrap>
+        <Banner src={contents.banner} type="B" />
+      </BannerWrap>
+      {/* </Link> */}
       <MainWrap>
         <MainSection
           type="C"
           title="오늘의 견적 ⚡️"
-          url=""
+          url="/reform"
           postList={contents.reformList}
         />
       </MainWrap>
@@ -117,6 +117,9 @@ const MainWrap = styled.div`
   max-width: ${({ theme }) => theme.width.maxWidth};
   padding: 50px 40px 0 40px;
   margin: 0 auto;
+  font-weight: 400;
+  font-size: ${({ theme }) => theme.fontSizes.m};
+  line-height: 18px;
 `;
 const BannerWrap = styled.div`
   max-width: ${({ theme }) => theme.width.maxWidth};
@@ -135,12 +138,42 @@ const Nav = styled.nav`
   text-align: center;
   margin-bottom: 50px;
 `;
+
+const TrendButton = styled.div`
+  background: linear-gradient(
+    263.38deg,
+    #322f5a 4.35%,
+    #fc8d28 20.95%,
+    #f28e28 31.89%,
+    #07ad1f 102.29%
+  );
+  border-radius: 15px;
+  width: 100%;
+  height: 100px;
+  margin-bottom: 24px;
+  padding-top: 35px;
+`;
+const NewTrend = styled.span`
+  font-weight: 700;
+  font-size: ${({ theme }) => theme.fontSizes.l};
+  line-height: 32px;
+  color: #fff;
+`;
+const Community = styled.span`
+  font-weight: 700;
+  font-size: ${({ theme }) => theme.fontSizes.l};
+  line-height: 32px;
+`;
 const NavButton = styled.div`
   background-color: ${({ theme }) => theme.colors.lightGray};
   border-radius: 15px;
   width: 100%;
   height: 100px;
   margin-bottom: 24px;
+  font-weight: 700;
+  font-size: ${({ theme }) => theme.fontSizes.l};
+  line-height: 32px;
+  padding-top: 35px;
 `;
 
 const CO2 = styled.div`

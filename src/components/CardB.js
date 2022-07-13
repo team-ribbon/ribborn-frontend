@@ -19,7 +19,13 @@ const CardB = ({ postObj, hot, isMain }) => {
         <Title>
           {postObj.nickname} <span>님의 작업</span>
         </Title>
-        <Date>{postObj.createAt && postObj.createAt.slice(0, 10)}</Date>
+        <Date>
+          {postObj.createAt &&
+            (+postObj.createAt.slice(11, 13) >= 15
+              ? postObj.createAt.slice(0, 8) +
+                (+postObj.createAt.slice(8, 10) + 1)
+              : postObj.createAt.slice(0, 10))}
+        </Date>
         {hot && <Hot>HOT 🔥</Hot>}
       </ImageWrap>
       {!isMain && (

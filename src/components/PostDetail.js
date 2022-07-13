@@ -29,7 +29,7 @@ const PostDetail = ({ qna, post, userId }) => {
             <TagTextColor>{post.category.toUpperCase()}</TagTextColor>
           )}
         </TagDiv>
-        {post.image.length !== 0 ? (
+        {post.image[0] !== null ? (
           <Image alt="card" src={post.image[0]} />
         ) : null}
         <TextArea>{post.content}</TextArea>

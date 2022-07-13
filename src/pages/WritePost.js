@@ -153,20 +153,12 @@ const WritePost = () => {
             value="발행"
           />
         </SubmitBtnDiv>
-        <CategorySelect setCategory={setCategory} category={category} />
-        <input ref={categoryRef} value={category} />
-        {type === "reform" && (
-          <select name="region" defaultValue={0} ref={regionRef}>
-            <option value={0} disabled>
-              지역
-            </option>
-            <option value="gyeonggi">경기권</option>
-            <option value="gangwon">강원도</option>
-            <option value="chungcheong">충청권</option>
-            <option value="jeolla">전라권</option>
-            <option value="gyeongsang">경상권</option>
-          </select>
-        )}
+        <SelectDiv>
+          <CategorySelect setCategory={setCategory} category={category} />
+          {type === "reform" && (
+            <RegionSelect write={true} setRegion={setRegion} region={region} />
+          )}
+        </SelectDiv>
         <GuideTitleDiv>
           <GreenBox></GreenBox>
           <GuideTitle>{info[type].title}</GuideTitle>

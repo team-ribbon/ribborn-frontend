@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Regions from "../shared/Regions";
 import { IoIosArrowDown } from "react-icons/io";
 
-const RegionSelect = ({ setRegion, region }) => {
+const RegionSelect = ({ setRegion, region, write }) => {
   const [isModalOn, setIsModalOn] = useState(false);
   const outsideRef = useRef();
 
@@ -26,20 +26,32 @@ const RegionSelect = ({ setRegion, region }) => {
   return (
     <Wrap ref={outsideRef}>
       <ButtonWrap onClick={() => setIsModalOn((prev) => !prev)}>
+        {region === 0 && (
+          <>
+            <Text>지역</Text>
+            <IoIosArrowDown
+              size="22"
+              style={{ marginLeft: "auto", marginRight: "10px" }}
+            />
+          </>
+        )}
         {Regions.map((v) => {
           return region === v.value ? (
             <>
               <Text>{v.text}</Text>
-              <IoIosArrowDown size="22" />
+              <IoIosArrowDown
+                size="22"
+                style={{ marginLeft: "auto", marginRight: "10px" }}
+              />
             </>
           ) : null;
         })}
       </ButtonWrap>
       {isModalOn && (
         <>
-          <Modal>
-            {Regions.map((v) => {
-              return (
+          <Modal write={write}>
+            {Regions.map((v, i) => {
+              return write && i === 0 ? null : (
                 <span
                   key={"RegionSpan" + v.value}
                   onClick={() => {
@@ -85,7 +97,7 @@ const Text = styled.span`
 
 const Modal = styled.div`
   position: absolute;
-  height: 310px;
+  height: ${(props) => (props.write ? "265px" : "310px")};
   width: 170px;
   right: 0px;
   z-index: 1;

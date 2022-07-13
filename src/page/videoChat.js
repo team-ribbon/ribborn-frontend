@@ -17,7 +17,7 @@ function VideoChat() {
             audio: !voiceMuted,
             video: cameraOff
               ? false
-              : cameraId === null || undefined
+              : cameraId === null || cameraId === undefined
               ? { facingMode: "user" }
               : { deviceId: cameraId },
           })

@@ -19,14 +19,14 @@ const formDataApi = axios.create({
 
 api.interceptors.request.use(function (config) {
   if (token !== undefined) {
-    config.headers.common["Authorization"] = `Bearer ${token}`;
+    config.headers.common["Authorization"] = token;
   }
   return config;
 });
 
 formDataApi.interceptors.request.use(function (config) {
   if (token !== undefined) {
-    config.headers.common["Authorization"] = `Bearer ${token}`;
+    config.headers.common["Authorization"] = token;
   }
   return config;
 });
@@ -44,45 +44,71 @@ export const apis = {
   // 메인
   loadMain: () => api.get("/api/home"),
 
-  // 게시물 조회
+  // 게시물 리스트 조회
   loadQnAList: (category, sort, page) =>
     api.get(
-      `/api/qnaList?category=${category}&sort=${sort}&page=${page}&size=6`
+      `/api/qnaList?category=${category}&sort=${sort},desc&page=${page}&size=6`
     ),
-  loadReviewList: (category, sort) =>
-    api.get(`/api/reviewList?category=${category}&sort=${sort}`),
-  loadLookbookList: (category, sort) =>
-    api.get(`/api/lookList?category=${category}&sort=${sort}`),
+  loadReviewList: (category, sort, page) =>
+    api.get(
+      `/api/reviewList?category=${category}&sort=${sort},desc&page=${page}&size=6`
+    ),
+  loadLookbookList: (category, sort, page) =>
+    api.get(
+      `/api/lookList?category=${category}&sort=${sort},desc&page=${page}&size=6`
+    ),
+  // loadReformList: (category, region, process, page) =>
+  // api.get(
+  //   `/api/reformList?category=${category}&sort=createAt,desc&region=${region}&process=${process}&page=${page}&size=6`
+  // ),
   loadReformList: (category, region, process, page) =>
-  api.get(
-    `/api/reformList?category=${category}&region=${region}&process=${process}&page=${page}&size=6`
-  ),
+    api.get(
+      `/api/reformList?category=${category}&sort=createAt,desc&page=${page}&size=6`
+    ),
 
   // 게시물 상세
   loadQnAPost: (id) => api.get(`/api/qnaPosts/${id}`),
+  loadReviewPost: (id) => api.get(`/api/reviewPosts/${id}`),
+  loadReformPost: (id) => api.get(`/api/reformPosts/${id}`),
+  loadLookbookPost: (id) => api.get(`/api/lookPosts/${id}`),
+  likePost: (id, like) => api.post(`/api/post/${id}/love`, { love: like }),
+  deletePost: (id) => api.delete(`/api/post/${id}`),
 
   // 댓글
-  loadComments: (postId, page) =>
-  api.get(`/api/comments/${postId}?page=${page}&size=5`),
+  loadComments: (postId, page, num) =>
+    api.get(`/api/comments/${postId}?page=${page}&size=${num}`),
+  uploadComment: (id, comment) => {
+    api.post(`/api/post/${id}/comment`, {
+      comment: comment,
+    });
+  },
+  deleteComment: (postId, commentId) => {
+    api.delete(`/api/post/${postId}/comment/${commentId}`);
+  },
+  modifyComment: (id, commentId, comment) => {
+    api.put(`/api/post/${id}/comment/${commentId}`, {
+      comment: comment,
+    });
+  },
 
   // 게시물 등록
-  postQna: (formData) => formDataApi.post("/api/qnaPosts", { formData }),
-  postReview: (formData) => formDataApi.post("/api/reviewPosts", { formData }),
-  postReform: (formData) => formDataApi.post("/api/reformPosts", { formData }),
-  postLookbook: (formData) => formDataApi.post("/api/lookPosts", { formData }),
+  postQna: (formData) => formDataApi.post("/api/qnaPosts", formData),
+  postReview: (formData) => formDataApi.post("/api/reviewPosts", formData),
+  postReform: (formData) => formDataApi.post("/api/reform-Posts", formData),
+  postLookbook: (formData) => formDataApi.post("/api/lookPosts", formData),
 
   // 게시물 수정
-  editQna: (formData, id) =>
-    formDataApi.put("/api/qnaPosts/" + id, { formData }),
+  editQna: (formData, id) => formDataApi.put("/api/qnaPosts/" + id, formData),
   editReview: (formData, id) =>
-    formDataApi.put("/api/reviewPosts/" + id, { formData }),
+    formDataApi.put("/api/reviewPosts/" + id, formData),
   editReform: (formData, id) =>
-    formDataApi.put("/api/reformPosts/" + id, { formData }),
+    formDataApi.put("/api/reformPosts/" + id, formData),
   editLookbook: (formData, id) =>
-    formDataApi.put("/api/lookPosts/" + id, { formData }),
+    formDataApi.put("/api/lookPosts/" + id, formData),
 
   // 유저 상세페이지
-  loadMyPage: () => api.get("/api/users/mypage"),
+  loadMyPage: (category) =>
+    api.get(`/api/users/mypage?postCategory=${category}`),
   loadUserDetail: (id) => api.get(`/api/users/userinfo/${id}`),
   changeUserInfo: (data) => api.put("/api/users/mypage", data),
 };

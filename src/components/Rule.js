@@ -18,6 +18,7 @@ const Rule = (props) => {
 const ModalCover = styled.div`
   width: 50vw;
   height: 80vh;
+  z-index: 11;
   position: absolute;
   top: 50%;
   left: 50%;

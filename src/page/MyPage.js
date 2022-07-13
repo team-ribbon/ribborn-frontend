@@ -16,9 +16,10 @@ function MyPage() {
   const reform = useSelector((state) => state.UserPage.myPage.reform);
 
   const [infoChange, SetInfoChange] = useState(false);
+  const [category, setCategory] = useState("all");
 
   React.useEffect(() => {
-    dispatch(getMyPageDB());
+    dispatch(getMyPageDB(category));
   }, []);
   React.useEffect(() => {
     return () => {

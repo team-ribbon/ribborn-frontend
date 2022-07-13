@@ -40,6 +40,7 @@ const ImageUpload = ({ type }) => {
         reader.onloadend = () => {
           dispatch(uploadPreview(reader.result));
         };
+        fileRef.current.value = null;
       }
     }
     function validation(obj) {
@@ -61,7 +62,6 @@ const ImageUpload = ({ type }) => {
         return true;
       }
     }
-    fileRef.current.value = null;
   };
 
   const onClickDelete = (event) => {
@@ -82,7 +82,11 @@ const ImageUpload = ({ type }) => {
         />
 
         <Label htmlFor="file">
-          <FileInput>사진을 업로드 해주세요</FileInput>
+          <FileInput>
+            <FileInputPlus>+</FileInputPlus>
+            <FileInputText>사진 추가하기</FileInputText>
+          </FileInput>
+          <FileText>*권장 사이즈: 700*508 (1:1.3비율)</FileText>
         </Label>
         {previewList.map((file, index) => {
           return (
@@ -99,25 +103,53 @@ const ImageUpload = ({ type }) => {
   );
 };
 const Wrap = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
 `;
 const Label = styled.label`
-  width: 200px;
+  position: absolute;
+  left: -264px;
+  width: 240px;
+  top: 32px;
 `;
 const FileInput = styled.div`
-  width: 200px;
-  height: 100px;
-  border: 1px solid black;
+  margin-left: 49px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 191px;
+  height: 64px;
+  border: 1px solid #afb0b3;
+  border-radius: 15px;
   /* display: ${(props) => (props.preview > 1 ? "none" : "flex")}; */
   cursor: pointer;
 `;
+const FileInputPlus = styled.span`
+  font-size: ${({ theme }) => theme.fontSizes.xl};
+  margin-right: 10px;
+  height: 32px;
+`;
+const FileInputText = styled.span`
+  font-weight: 400;
+  font-size: ${({ theme }) => theme.fontSizes.l};
+  line-height: 24px;
+`;
+const FileText = styled.span`
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 28px;
+  text-align: right;
+  color: rgba(34, 34, 34, 0.7);
+`;
 const PreviewWrap = styled.div`
+  margin-top: 34px;
   position: relative;
-  width: 200px;
+  width: 100%;
 `;
 const Preview = styled.img`
-  width: 200px;
+  width: 100%;
 `;
 const DeleteButton = styled.span`
   background-color: #fff;

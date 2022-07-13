@@ -1,24 +1,47 @@
 import React from "react";
 import { Link, useMatch } from "react-router-dom";
 import styled, { css } from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
+import { clearUserInfo } from "../redux/modules/user";
 
 const Header = () => {
-  const isCommunity = useMatch("/review");
+  const isReview = useMatch("/review");
+  const isQna = useMatch("/qna");
+  const isCommunity = isReview || isQna;
   const isLookbook = useMatch("/lookbook");
+  const isReform = useMatch("/reform");
+
+  const dispatch = useDispatch();
+  const isLogin = useSelector((state) => state.user.isLogin);
 
   return (
     <HeaderWrap>
       <NavWrap>
         <UserNav>
-          <span>
-            <Link to="/mypage">마이페이지</Link>
-          </span>
-          <span>
-            <Link to="/signup">회원가입</Link>
-          </span>
-          <span>
-            <Link to="/login">로그인</Link>
-          </span>
+          {isLogin ? (
+            <>
+              <HeaderUserSpan>
+                <Link to="/mypage">마이페이지</Link>
+              </HeaderUserSpan>
+              <HeaderUserSpan
+                onClick={() => {
+                  localStorage.removeItem("token");
+                  dispatch(clearUserInfo());
+                }}
+              >
+                로그아웃
+              </HeaderUserSpan>
+            </>
+          ) : (
+            <>
+              <HeaderUserSpan>
+                <Link to="/signup">회원가입</Link>
+              </HeaderUserSpan>
+              <HeaderUserSpan>
+                <Link to="/login">로그인</Link>
+              </HeaderUserSpan>
+            </>
+          )}
         </UserNav>
       </NavWrap>
       <CategoryNav>
@@ -30,9 +53,9 @@ const Header = () => {
           <Lookbook isLookbook={isLookbook}>
             <Link to="/lookbook">LOOKBOOK</Link>
           </Lookbook>
-          <span>
-            <Link to="">견적</Link>
-          </span>
+          <Reform isReform={isReform}>
+            <Link to="/reform">견적</Link>
+          </Reform>
         </div>
       </CategoryNav>
     </HeaderWrap>
@@ -64,6 +87,15 @@ const NavWrap = styled.div`
   }
 `;
 
+const HeaderUserSpan = styled.span`
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 14px;
+  :hover {
+    cursor: pointer;
+  }
+`;
+
 const CategoryNav = styled.nav`
   max-width: ${({ theme }) => theme.width.maxWidth};
   margin: 0 auto;
@@ -85,6 +117,9 @@ const Community = styled.span`
 `;
 const Lookbook = styled.span`
   ${({ isLookbook }) => isLookbook && Active}
+`;
+const Reform = styled.span`
+  ${({ isReform }) => isReform && Active}
 `;
 
 export default Header;

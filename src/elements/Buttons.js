@@ -28,7 +28,7 @@ export const Category = styled.div`
   display: flex;
   justify-content: space-between;
   width: 850px;
-  margin: 10px auto;
+  margin: 10px auto 0px auto;
   #all {
     ${({ category }) => category === "all" && SubBtnActive}
   }
@@ -43,6 +43,9 @@ export const Category = styled.div`
   }
   #goods {
     ${({ category }) => category === "goods" && SubBtnActive}
+  }
+  #bags {
+    ${({ category }) => category === "bags" && SubBtnActive}
   }
   #diy {
     ${({ category }) => category === "diy" && SubBtnActive}

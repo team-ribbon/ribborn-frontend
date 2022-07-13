@@ -9,6 +9,7 @@ const GET_POST_LIST = "GET_POST_LIST";
 const GET_TECH_INTRO = "GET_TECH_INTRO";
 
 const GET_POST = "GET_POST";
+const GET_NO_COMMENT_POST = "GET_NO_COMMENT_POST";
 const LIKE_SUCCESS = "LIKE_SUCCESS";
 const NEW_COMMENT = "NEW_COMMENT";
 const DELETE_COMMENT = "DELETE_COMMENT";
@@ -26,6 +27,9 @@ const getPostList = createAction(GET_POST_LIST, (PostList) => ({ PostList }));
 const getTechIntro = createAction(GET_TECH_INTRO, (intro) => ({ intro }));
 
 const getPost = createAction(GET_POST, (Post) => ({ Post }));
+const getNoCommentPost = createAction(GET_NO_COMMENT_POST, (Post) => ({
+  Post,
+}));
 const likesuccess = createAction(LIKE_SUCCESS);
 const newComment = createAction(NEW_COMMENT);
 const deleteComment = createAction(DELETE_COMMENT, (commentId) => ({
@@ -157,6 +161,30 @@ export const getReviewPostDB = (id) => {
   };
 };
 
+// 리폼 게시글 불러오기
+export const getReformPostDB = (id) => {
+  return async function (dispatch) {
+    try {
+      const response = await apis.loadReformPost(id);
+      dispatch(getNoCommentPost(response.data));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+// 룩북 게시글 불러오기
+export const getLookbookPostDB = (id) => {
+  return async function (dispatch) {
+    try {
+      const response = await apis.loadLookbookPost(id);
+      dispatch(getNoCommentPost(response.data));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
 // 게시물 좋아요
 export const likePostDB = (id, like) => {
   return async function (dispatch) {
@@ -282,6 +310,10 @@ export default handleActions(
       produce(state, (draft) => {
         draft.Post = payload.Post.post;
         draft.Comments = payload.Post.comment;
+      }),
+    [GET_NO_COMMENT_POST]: (state, { payload }) =>
+      produce(state, (draft) => {
+        draft.Post = payload.Post;
       }),
     [LIKE_SUCCESS]: (state) =>
       produce(state, (draft) => {

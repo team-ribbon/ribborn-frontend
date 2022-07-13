@@ -12,6 +12,7 @@ const GET_POST = "GET_POST";
 const LIKE_SUCCESS = "LIKE_SUCCESS";
 const NEW_COMMENT = "NEW_COMMENT";
 const DELETE_COMMENT = "DELETE_COMMENT";
+const MODIFY_COMMENT = "MODIFY_COMMENT";
 const NEW_COMMENT_LOAD = "NEW_COMMENT_LOAD";
 const MORE_COMMENT_LOAD = "MORE_COMMENT_LOAD";
 
@@ -27,7 +28,10 @@ const getTechIntro = createAction(GET_TECH_INTRO, (intro) => ({ intro }));
 const getPost = createAction(GET_POST, (Post) => ({ Post }));
 const likesuccess = createAction(LIKE_SUCCESS);
 const newComment = createAction(NEW_COMMENT);
-const deleteComment = createAction(DELETE_COMMENT);
+const deleteComment = createAction(DELETE_COMMENT, (commentId) => ({
+  commentId,
+}));
+const modifyComment = createAction(MODIFY_COMMENT, (info) => ({ info }));
 const newCommentLoad = createAction(NEW_COMMENT_LOAD, (Comments) => ({
   Comments,
 }));
@@ -196,17 +200,25 @@ export const PostCommentDB = (id, comment) => {
 
 // 댓글 삭제
 export const deleteCommentDB = (id, commentId) => {
-  let success = null;
   return async (dispatch) => {
     try {
       await apis.deleteComment(id, commentId);
       dispatch(deleteComment(commentId));
-      success = true;
     } catch (error) {
       console.log(error);
-      success = false;
     }
-    return success;
+  };
+};
+
+// 댓글 수정
+export const modifyCommentDB = (id, commentId, comment) => {
+  return async (dispatch) => {
+    try {
+      await apis.modifyComment(id, commentId, comment);
+      dispatch(modifyComment({ id: commentId, comment: comment }));
+    } catch (error) {
+      console.log(error);
+    }
   };
 };
 
@@ -283,7 +295,14 @@ export default handleActions(
     [DELETE_COMMENT]: (state, { payload }) =>
       produce(state, (draft) => {
         draft.Post.commentCount--;
-        draft.Comments = draft.Comments.filter((v) => v.id !== payload);
+        draft.Comments = draft.Comments.filter(
+          (v) => v.id !== payload.commentId
+        );
+      }),
+    [MODIFY_COMMENT]: (state, { payload }) =>
+      produce(state, (draft) => {
+        const index = draft.Comments.findIndex((v) => v.id === payload.info.id);
+        draft.Comments[index].comment = payload.info.comment;
       }),
     [NEW_COMMENT_LOAD]: (state, { payload }) =>
       produce(state, (draft) => {

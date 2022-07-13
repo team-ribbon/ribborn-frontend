@@ -1,19 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import TimeCalculator from "../shared/TimeCalculator";
-import { GetCommentDB, PostCommentDB, deleteCommentDB } from "../modules/post";
+import {
+  GetCommentDB,
+  PostCommentDB,
+  deleteCommentDB,
+  modifyCommentDB,
+} from "../modules/post";
 
 const PostFooter = ({ commentsList, id, userId, commentCount, page }) => {
   const inputCurrent = React.useRef(null);
+  const modifyInputCurrent = React.useRef(null);
   const dispatch = useDispatch();
   const isLogin = useSelector((state) => state.user.isLogin);
+  const [changingComment, setChangingComment] = useState(null);
 
   const sendComment = async () => {
+    if (inputCurrent.current.value === "") {
+      return false;
+    }
     if (isLogin) {
       await dispatch(PostCommentDB(id, inputCurrent.current.value)).then(
         (success) => {
-          console.log(success);
           success
             ? dispatch(GetCommentDB(id, 0, (page + 1) * 5))
             : alert("실패했어요!");
@@ -27,6 +36,10 @@ const PostFooter = ({ commentsList, id, userId, commentCount, page }) => {
 
   const deleteComment = (commentId) => {
     dispatch(deleteCommentDB(id, commentId));
+  };
+
+  const modifyComment = (commentId) => {
+    dispatch(modifyCommentDB(id, commentId, modifyInputCurrent.current.value));
   };
 
   return (
@@ -44,7 +57,7 @@ const PostFooter = ({ commentsList, id, userId, commentCount, page }) => {
             />
             <MessageBtn onClick={sendComment}>입력</MessageBtn>
           </MessageCover>
-          {commentsList.map((v) => {
+          {commentsList.map((v, i) => {
             const myComment = userId === v.userid;
             return (
               <Comment modify={myComment}>
@@ -53,11 +66,32 @@ const PostFooter = ({ commentsList, id, userId, commentCount, page }) => {
                   <CommentContent>{v.comment}</CommentContent>
                   {myComment ? (
                     <>
-                      <CommentModifyBtn left={true}>수정</CommentModifyBtn>
+                      {changingComment === null ? (
+                        <CommentModifyBtn
+                          onClick={() => {
+                            setChangingComment(i);
+                          }}
+                          left={true}
+                        >
+                          수정
+                        </CommentModifyBtn>
+                      ) : null}
+                      {changingComment === i ? (
+                        <CommentModifyBtn
+                          left={true}
+                          moreWidth={true}
+                          onClick={() => {
+                            setChangingComment(null);
+                          }}
+                        >
+                          수정 취소
+                        </CommentModifyBtn>
+                      ) : null}
                       <CommentModifyBtn
                         onClick={() => {
                           deleteComment(v.id);
                         }}
+                        left={changingComment !== null && changingComment !== i}
                       >
                         삭제
                       </CommentModifyBtn>
@@ -65,6 +99,24 @@ const PostFooter = ({ commentsList, id, userId, commentCount, page }) => {
                   ) : null}
                 </CommentFistLine>
                 <CreatedAt>{TimeCalculator(v.createAt)}</CreatedAt>
+                {changingComment === i ? (
+                  <MessageCover>
+                    <MessageInput
+                      defaultValue={v.comment}
+                      id="modifyMessageInput"
+                      ref={modifyInputCurrent}
+                      autoComplete="off"
+                    />
+                    <MessageBtn
+                      onClick={() => {
+                        modifyComment(v.id);
+                        setChangingComment(null);
+                      }}
+                    >
+                      수정
+                    </MessageBtn>
+                  </MessageCover>
+                ) : null}
               </Comment>
             );
           })}
@@ -167,7 +219,7 @@ const CommentContent = styled.span`
 `;
 
 const CommentModifyBtn = styled.button`
-  width: 68px;
+  width: ${(props) => (props.moreWidth ? "86px" : "68px")};
   height: 29px;
   font-weight: 400;
   font-size: 14px;

@@ -83,6 +83,11 @@ export const apis = {
   deleteComment: (postId, commentId) => {
     api.delete(`/api/post/${postId}/comment/${commentId}`);
   },
+  modifyComment: (id, commentId, comment) => {
+    api.put(`/api/post/${id}/comment/${commentId}`, {
+      comment: comment,
+    });
+  },
 
   // 게시물 등록
   postQna: (formData) => formDataApi.post("/api/qnaPosts", formData),

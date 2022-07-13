@@ -17,7 +17,6 @@ const SignupTech = () => {
   const navigate = useNavigate();
   const checkRef = useRef(false);
   const selectRef = useRef();
-  console.log(selectRef.current);
   const [selectError, setSelectError] = useState("");
   const [agreeError, setAgreeError] = useState("");
   const {
@@ -45,8 +44,9 @@ const SignupTech = () => {
       return false;
     }
     delete data.password2;
+    data.addressCategory = selectRef.current;
     data.userType = 1;
-    console.log(data);
+    // console.log(data);
     dispatch(signupDB(data));
     navigate("/login");
   };
@@ -200,11 +200,16 @@ const SignupTech = () => {
 
         <InputTitle>브랜드/자기소개</InputTitle>
         <Textarea
-          {...register("introduction")}
+          {...register("introduction", {
+            maxLength: {
+              value: 200,
+              message: "200자까지만 입력할 수 있습니다.",
+            },
+          })}
           placeholder="브랜드 또는 디자이너에 대한 간단한 소개를 이곳에 적어주세요."
         />
-
-        <SignupAgree ref={checkRef} />
+        <HelpText>{errors?.introduction?.message}</HelpText>
+        <SignupAgree ref={checkRef} setAgreeError={setAgreeError} />
         <HelpText>{agreeError}</HelpText>
         <BlackBtn
           disabled={

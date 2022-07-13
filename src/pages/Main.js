@@ -11,9 +11,9 @@ const Main = () => {
 
   const dispatch = useDispatch();
 
-  // React.useEffect(() => {
-  //   dispatch(getMainDB());
-  // }, []);
+  React.useEffect(() => {
+    dispatch(getMainDB());
+  }, []);
 
   const navButtons = [
     {

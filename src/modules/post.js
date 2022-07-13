@@ -74,7 +74,7 @@ export const getMainDB = () => {
   return async (dispatch) => {
     try {
       const response = await apis.loadMain();
-      dispatch(getMain(response));
+      dispatch(getMain(response.data));
     } catch (error) {
       console.log(error);
     }

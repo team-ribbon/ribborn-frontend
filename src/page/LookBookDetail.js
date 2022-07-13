@@ -1,22 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
-import { getQnAPostDB, cleanUpPost } from "../modules/post";
+import { getLookbookPostDB, cleanUpPost } from "../modules/post";
 
-import PostRightBtn from "../elements/PostRightBtn";
+import LookBookPostDetail from "../components/LookBookPostDetail";
+import PostRightBtn from "../components/PostRightBtn";
 
 const LookBookDetail = () => {
   const dispatch = useDispatch();
   const params = useParams();
   console.log(params);
 
-  const post = useSelector((state) => state.post.Comments);
-  const commentsList = useSelector((state) => state.post.Post);
+  const post = useSelector((state) => state.post.Post);
+  const userId = useSelector((state) => state.user.user.id);
 
   React.useEffect(() => {
-    dispatch(getQnAPostDB(params.postId));
+    dispatch(getLookbookPostDB(params.postId));
   }, []);
 
   React.useEffect(() => {
@@ -27,10 +28,14 @@ const LookBookDetail = () => {
 
   return (
     <Template>
-      <PostDetail />
-      <MyPostChange />
-      <PostFooter />
-      <PostRightBtn />
+      <LookBookPostDetail post={post} userId={userId} />
+      <PostRightBtn
+        noshare={false}
+        id={params.postId}
+        liked={post && post.liked}
+        likeCount={post && post.likeCount}
+        lookbook={true}
+      />
     </Template>
   );
 };

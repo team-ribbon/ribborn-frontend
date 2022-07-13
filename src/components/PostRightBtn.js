@@ -3,7 +3,7 @@ import { HiOutlineShare, HiOutlineHeart, HiHeart } from "react-icons/hi";
 import { useDispatch, useSelector } from "react-redux";
 import { likePostDB } from "../modules/post";
 
-const PostRightBtn = ({ noshare, id, liked, likeCount }) => {
+const PostRightBtn = ({ noshare, id, liked, likeCount, lookbook }) => {
   const dispatch = useDispatch();
   const isLogin = useSelector((state) => state.user.isLogin);
 
@@ -18,7 +18,7 @@ const PostRightBtn = ({ noshare, id, liked, likeCount }) => {
     }
   };
   return (
-    <Cover>
+    <Cover lookbook={lookbook}>
       <Button
         id="likeBtn"
         onClick={() => {

@@ -8,6 +8,7 @@ import { resetFile } from "../redux/modules/image";
 import CategorySelect from "../components/CategorySelect";
 
 import ImageUpload from "../components/ImageUpload";
+import RegionSelect from "../components/RegionSelect";
 
 const WritePost = () => {
   const info = {
@@ -61,8 +62,6 @@ const WritePost = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const categoryRef = useRef();
-  const regionRef = useRef();
   const titleRef = useRef();
   const contentRef = useRef();
   const introRef = useRef();
@@ -74,6 +73,7 @@ const WritePost = () => {
   const [content, setContent] = useState("");
   const [introduction, setIntroduction] = useState(intro);
   const [category, setCategory] = useState(0);
+  const [region, setRegion] = useState(0);
 
   const { type } = useParams();
   const { id } = useParams();
@@ -81,12 +81,12 @@ const WritePost = () => {
   let frm = new FormData();
 
   const onSubmit = async () => {
-    if (+categoryRef.current.value === 0) {
+    if (+category === 0) {
       alert("리폼 종류 없음");
       return false;
     }
 
-    if (type === "reform" && +regionRef.current.value === 0) {
+    if (type === "reform" && +region.current.value === 0) {
       alert("지역 없음");
       return false;
     }
@@ -123,14 +123,14 @@ const WritePost = () => {
 
     let key = {
       postCategory: type,
-      category: categoryRef.current.value,
+      category: category,
       title: titleRef.current.value,
       content: contentRef.current.value,
     };
     console.log(key);
 
     if (type === "reform") {
-      key = { ...key, region: regionRef.current.value };
+      key = { ...key, region: region };
     }
     frm.append(
       "key",
@@ -162,7 +162,7 @@ const WritePost = () => {
   };
   const onChangeIntro = (event) => {
     setIntroduction(event.target.value);
-    if (content.length > 99) {
+    if (introduction.length > 99) {
       return setIntroduction((prev) => prev.substring(0, 100));
     }
   };
@@ -199,22 +199,27 @@ const WritePost = () => {
           {info[type].content.map((v, i) => {
             return (
               <div>
-                <GuideContent key={"guideContent" + i}>{"· " + v}</GuideContent>
+                <GuideContent
+                  indent={v.slice(0, 1) === "-"}
+                  key={"guideContent" + i}
+                >
+                  {v.slice(0, 1) === "-" ? v : "· " + v}
+                </GuideContent>
               </div>
             );
           })}
         </GuideContentDiv>
         {type === "lookbook" && (
-          <>
-            <textarea
+          <IntroDiv>
+            <IntroTextArea
               name="introduction"
               placeholder="브랜드 또는 디자이너에 대한 간단한 소개를 적어주세요."
               value={introduction}
               onChange={onChangeIntro}
               ref={introRef}
             />
-            <span>{content.length}/100</span>
-          </>
+            <IntroLength>{introduction.length}/100</IntroLength>
+          </IntroDiv>
         )}
         <TitleDiv>
           <TitleSpan>제목</TitleSpan>
@@ -227,6 +232,7 @@ const WritePost = () => {
           />
           <TitleLength>{title.length}/15</TitleLength>
         </TitleDiv>
+        <ImageUpload type={type} />
         <TitleSpan>내용</TitleSpan>
         <TextArea
           name="content"
@@ -235,7 +241,6 @@ const WritePost = () => {
           onChange={onChangeContent}
           ref={contentRef}
         />
-        <ImageUpload type={type} />
       </FormWrap>
     </Wrap>
   );
@@ -246,6 +251,7 @@ const Wrap = styled.div`
   flex-direction: column;
   align-items: center;
   max-width: ${({ theme }) => theme.width.maxWidth};
+  min-width: 1230px;
   margin: 24px auto;
 `;
 
@@ -270,6 +276,11 @@ const SubmitBtn = styled.input`
   background-color: ${({ theme }) => theme.colors.orange};
   font-size: ${({ theme }) => theme.fontSizes.l};
   cursor: pointer;
+`;
+
+const SelectDiv = styled.div`
+  display: flex;
+  flex-direction: row;
 `;
 
 const GuideTitleDiv = styled.div`
@@ -318,6 +329,33 @@ const GuideContent = styled.span`
   line-height: ${({ theme }) => theme.fontSizes.m};
   line-height: 28px;
   color: rgba(34, 34, 34, 0.7);
+  margin-left: ${(props) => (props.indent ? "20px" : "")};
+`;
+
+const IntroDiv = styled.div`
+  position: relative;
+`;
+
+const IntroTextArea = styled.textarea`
+  padding: 30px 20px;
+  width: 700px;
+  height: 208px;
+  border: 1px solid #afb0b3;
+  border-radius: 15px;
+  font-weight: 400;
+  font-size: ${({ theme }) => theme.fontSizes.l};
+  line-height: 24px;
+  resize: none;
+`;
+
+const IntroLength = styled.span`
+  position: absolute;
+  right: 19px;
+  bottom: 22px;
+  font-weight: 700;
+  font-size: ${({ theme }) => theme.fontSizes.l};
+  line-height: 24px;
+  color: #afb0b3;
 `;
 
 const TitleDiv = styled.div`
@@ -329,6 +367,7 @@ const TitleSpan = styled.span`
   font-size: ${({ theme }) => theme.fontSizes.l};
   line-height: 24px;
   color: #afb0b3;
+  margin-top: 10px;
 `;
 
 const TitleInput = styled.input`

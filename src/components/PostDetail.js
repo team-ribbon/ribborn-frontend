@@ -32,7 +32,7 @@ const PostDetail = ({ qna, post, userId }) => {
         {post.image[0] !== null ? (
           <Image alt="card" src={post.image[0]} />
         ) : null}
-        <TextArea>{post.content}</TextArea>
+        <TextArea noImage={post.image[0] === null}>{post.content}</TextArea>
         {post.image.map((v, i) => {
           return i !== 0 ? <Image alt="card" src={v} /> : null;
         })}
@@ -42,6 +42,7 @@ const PostDetail = ({ qna, post, userId }) => {
 };
 
 const CenterPostDiv = styled.div`
+  margin-top: 60px;
   width: 700px;
   margin-left: calc(50vw - 350px);
 `;
@@ -121,6 +122,7 @@ const TextArea = styled.div`
   font-weight: 400;
   font-size: 18px;
   line-height: 28px;
+  margin-top: ${(props) => (props.noImage ? "30px" : "")};
 `;
 
 export default PostDetail;

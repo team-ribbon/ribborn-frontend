@@ -111,7 +111,7 @@ const Label = styled.label`
   position: absolute;
   left: -264px;
   width: 240px;
-  top: -762px;
+  top: 32px;
 `;
 const FileInput = styled.div`
   margin-left: 49px;
@@ -144,11 +144,12 @@ const FileText = styled.span`
   color: rgba(34, 34, 34, 0.7);
 `;
 const PreviewWrap = styled.div`
+  margin-top: 34px;
   position: relative;
-  width: 200px;
+  width: 100%;
 `;
 const Preview = styled.img`
-  width: 200px;
+  width: 100%;
 `;
 const DeleteButton = styled.span`
   background-color: #fff;

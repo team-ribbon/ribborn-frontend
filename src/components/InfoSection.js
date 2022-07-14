@@ -18,7 +18,9 @@ const InfoSection = ({ reform, region, category }) => {
         </ReformCategoryDiv>
         <VerticalLineDiv />
         <LocationDiv>
-          <InfoTitleSpan>📍 스튜디오 위치</InfoTitleSpan>
+          <InfoTitleSpan>
+            {reform ? "📍 의뢰 위치" : "📍 스튜디오 위치"}
+          </InfoTitleSpan>
           {Regions.map((w) => {
             return w.value === region ? (
               <InfoContentSpan key={"detailRegion" + w.value}>

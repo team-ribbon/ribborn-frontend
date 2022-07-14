@@ -9,7 +9,7 @@ const ChatModal = ({ setChatToggle }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const roomList = useSelector((state) => state.chat.roomList);
-  const isRoom = location.pathname.split("/")[2];
+  const roomId = location.pathname.split("/")[2];
 
   const onClickClose = () => {
     setChatToggle((prev) => !prev);
@@ -45,7 +45,7 @@ const ChatModal = ({ setChatToggle }) => {
           (roomList.length > 0
             ? "왼쪽 채팅 목록을 클릭하여 채팅 내용을 확인해주세요!"
             : "채팅 내역이 없어요!")}
-        {isRoom && <ChatRoom isRoom={isRoom} />}
+        {roomId && <ChatRoom roomId={roomId} />}
       </RoomWrap>
     </Wrap>
   );

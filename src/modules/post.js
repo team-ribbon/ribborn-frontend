@@ -274,7 +274,7 @@ export const getTechIntroDB = () => {
   return async (dispatch) => {
     try {
       const response = await apis.loadIntro();
-      dispatch(getTechIntro(response));
+      dispatch(getTechIntro(response.data));
     } catch (error) {
       console.log(error);
     }
@@ -346,7 +346,7 @@ export default handleActions(
       }),
     [GET_TECH_INTRO]: (state, { payload }) =>
       produce(state, (draft) => {
-        draft.techIntro = payload.intro;
+        draft.techIntro = payload.intro.introduction;
       }),
     // Cleanup Reducer
     [CLEANUP_POST_LIST]: (state) =>

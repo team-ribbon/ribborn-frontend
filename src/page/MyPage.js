@@ -10,10 +10,10 @@ import InfoChange from "../components/InfoChange";
 function MyPage() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.UserPage.myPage.users);
-  const qna = useSelector((state) => state.UserPage.myPage.qna);
-  const lookbook = useSelector((state) => state.UserPage.myPage.lookbook);
-  const review = useSelector((state) => state.UserPage.myPage.review);
-  const reform = useSelector((state) => state.UserPage.myPage.reform);
+  const qna = useSelector((state) => state.UserPage.myPage.qnaList);
+  const lookbook = useSelector((state) => state.UserPage.myPage.lookbookList);
+  const review = useSelector((state) => state.UserPage.myPage.reviewList);
+  const reform = useSelector((state) => state.UserPage.myPage.reformList);
 
   const [infoChange, SetInfoChange] = useState(false);
   const [category, setCategory] = useState("all");

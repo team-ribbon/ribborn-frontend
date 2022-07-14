@@ -21,10 +21,10 @@ const initialState = {
   myPage: {
     posts: null,
     users: null,
-    qna: null,
-    lookbook: null,
-    review: null,
-    reform: null,
+    qnaList: null,
+    lookbookList: null,
+    reviewList: null,
+    reformList: null,
   },
 };
 

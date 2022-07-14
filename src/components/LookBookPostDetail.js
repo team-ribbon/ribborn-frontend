@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import MyPostButtons from "./MyPostButtons";
-import TimeCalculator from "../shared/TimeCalculator";
+import moment from "moment";
 import InfoSection from "./InfoSection";
 import { MainBtn } from "../elements/Buttons";
 
@@ -15,9 +15,13 @@ const LookBookPostDetail = ({ post, userId }) => {
           </TitleWrap>
           <Date>
             {post.createAt &&
-              (+post.createAt.slice(11, 13) >= 15
-                ? post.createAt.slice(0, 8) + (+post.createAt.slice(8, 10) + 1)
-                : post.createAt.slice(0, 10))}
+              moment(
+                post.createAt.split("T")[0] + "" + post.createAt.split("T")[1],
+                "YYYY-MM-DD HH:mm:ss"
+              )
+                .add(9, "hours")
+                .format()
+                .slice(0, 10)}
           </Date>
           <MyButtonsWrap>
             {userId === post.userid ? (

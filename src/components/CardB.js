@@ -1,4 +1,5 @@
 import React from "react";
+import moment from "moment";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { HeartSVG } from "../elements/SVG";
@@ -21,10 +22,15 @@ const CardB = ({ postObj, hot, isMain }) => {
         </Title>
         <Date>
           {postObj.createAt &&
-            (+postObj.createAt.slice(11, 13) >= 15
-              ? postObj.createAt.slice(0, 8) +
-                (+postObj.createAt.slice(8, 10) + 1)
-              : postObj.createAt.slice(0, 10))}
+            moment(
+              postObj.createAt.split("T")[0] +
+                "" +
+                postObj.createAt.split("T")[1],
+              "YYYY-MM-DD HH:mm:ss"
+            )
+              .add(9, "hours")
+              .format()
+              .slice(0, 10)}
         </Date>
         {hot && <Hot>HOT 🔥</Hot>}
       </ImageWrap>

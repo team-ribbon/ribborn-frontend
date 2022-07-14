@@ -23,14 +23,12 @@ const initialState = {
 export const loginDB = (username, password) => {
   return async (dispatch) => {
     try {
-      const response = await apis.login(username, password).then((res) => {
-        const token = res.data;
-        localStorage.setItem("token", token);
-        dispatch(loadUserInfoDB());
-        if (res.status === 200) {
-          return true;
-        }
-      });
+      const response = await apis.login(username, password);
+      localStorage.setItem("token", response.data);
+      dispatch(loadUserInfoDB());
+      if (response.status === 200) {
+        return true;
+      }
     } catch (error) {
       console.log(error);
       alert("띠로리....실패했습니다...");

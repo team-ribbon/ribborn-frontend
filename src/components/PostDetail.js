@@ -3,15 +3,19 @@ import MyPostButtons from "./MyPostButtons";
 import Categories from "../shared/Categories";
 import TimeCalculator from "../shared/TimeCalculator";
 import { TagTextColor } from "../elements/TagTextColor";
+import { useNavigate } from "react-router-dom";
 
 const PostDetail = ({ qna, post, userId }) => {
+  const navigate = useNavigate();
   return (
     post && (
       <CenterPostDiv>
         <Community>{qna ? "질문과 답변" : "리폼 후기"}</Community>
         <Title>{post.title}</Title>
         <IDDiv>
-          <ID>@{post.nickname}</ID>
+          <ID onClick={() => navigate(`/userdetail/${post.userid}`)}>
+            @{post.nickname}
+          </ID>
           <CircleDiv />
           <Time>{TimeCalculator(post.createAt)}</Time>
           {userId === post.userid ? (
@@ -102,7 +106,7 @@ const Category = styled.button`
   line-height: 14px;
   height: 29px;
   width: 77px;
-  background-color: #f2f2f2;
+  background-color: #fafafa;
   border: none;
   border-radius: 8px;
 `;

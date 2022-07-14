@@ -3,13 +3,15 @@ import MyPostButtons from "./MyPostButtons";
 import moment from "moment";
 import InfoSection from "./InfoSection";
 import { MainBtn } from "../elements/Buttons";
+import { useNavigate } from "react-router-dom";
 
 const LookBookPostDetail = ({ post, userId }) => {
+  const navigate = useNavigate();
   return (
     post && (
       <Wrap>
         <HeaderWrap>
-          <TitleWrap>
+          <TitleWrap onClick={() => navigate(`/userdetail/${post.userid}`)}>
             <Title weight={700}>{post.nickname}</Title>
             <Title weight={400}>님의 작업</Title>
           </TitleWrap>

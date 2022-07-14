@@ -16,18 +16,12 @@ const PostFooter = ({ commentsList, id, userId, commentCount, page }) => {
   const isLogin = useSelector((state) => state.user.isLogin);
   const [changingComment, setChangingComment] = useState(null);
 
-  const sendComment = async () => {
+  const sendComment = () => {
     if (inputCurrent.current.value === "") {
       return false;
     }
     if (isLogin) {
-      await dispatch(PostCommentDB(id, inputCurrent.current.value)).then(
-        (success) => {
-          success
-            ? dispatch(GetCommentDB(id, 0, (page + 1) * 5))
-            : alert("실패했어요!");
-        }
-      );
+      dispatch(PostCommentDB(id, inputCurrent.current.value, page));
       document.getElementById("messageInput").value = "";
     } else {
       alert("댓글을 달려면 로그인을 해주세요!");

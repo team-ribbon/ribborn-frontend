@@ -211,18 +211,19 @@ export const deletePostDB = (id) => {
 };
 
 // 댓글달기
-export const PostCommentDB = (id, comment) => {
-  let success = null;
-  return async (dispatch) => {
-    try {
-      await apis.uploadComment(id, comment);
-      dispatch(newComment());
-      success = true;
-    } catch (error) {
-      console.log(error);
-      success = false;
-    }
-    return success;
+export const PostCommentDB = (id, comment, page) => {
+  return async function (dispatch) {
+    await apis
+      .uploadComment(id, comment)
+      .then((res) => {
+        console.log(res);
+        dispatch(newComment());
+        dispatch(GetCommentDB(id, 0, (page + 1) * 5));
+      })
+      .catch((error) => {
+        console.log(error);
+        alert("실패했어요!");
+      });
   };
 };
 

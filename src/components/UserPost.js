@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import Card from "../components/Card";
+import CardA from "../components/CardA";
+import CardB from "../components/CardB";
 import NoPost from "../components/NoPost";
 import TextCard from "../components/TextCard";
 
@@ -15,7 +16,7 @@ const UserPost = ({ user, qna, lookbook, review, reform }) => {
             ) : (
               lookbook.slice(0, 3).map((thisPost) => {
                 return (
-                  <Card
+                  <CardB
                     key={"lookbook" + thisPost.postId}
                     postObj={thisPost}
                     noWriter={true}
@@ -35,7 +36,7 @@ const UserPost = ({ user, qna, lookbook, review, reform }) => {
           ) : (
             review.slice(0, 3).map((thisPost) => {
               return (
-                <Card
+                <CardA
                   key={"review" + thisPost.postId}
                   postObj={thisPost}
                   noWriter={true}

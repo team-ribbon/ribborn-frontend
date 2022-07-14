@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 
-import VideoChat from "../page/VideoChat";
+// import VideoChat from "../page/VideoChat";
 import QnAList from "../page/QnAList";
 import ReformList from "../page/ReformList";
 import Header from "./Header";

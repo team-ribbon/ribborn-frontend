@@ -9,6 +9,7 @@ import CategorySelect from "../components/CategorySelect";
 
 import ImageUpload from "../components/ImageUpload";
 import RegionSelect from "../components/RegionSelect";
+import React from "react";
 
 const WritePost = () => {
   const info = {
@@ -76,6 +77,12 @@ const WritePost = () => {
 
   const { type } = useParams();
   const { id } = useParams();
+
+  React.useEffect(() => {
+    if (document.getElementById("introduction")) {
+      document.getElementById("introduction").value = intro;
+    }
+  }, [intro]);
 
   let frm = new FormData();
 
@@ -152,7 +159,7 @@ const WritePost = () => {
 
     await dispatch(postDB(frm, type)).then(() => {
       dispatch(resetFile());
-      // navigate("/" + type);
+      navigate("/" + type);
     });
   };
 
@@ -170,13 +177,15 @@ const WritePost = () => {
   };
 
   useEffect(() => {
-    // dispatch(getTechIntroDB());
+    dispatch(getTechIntroDB());
+  }, []);
 
   useEffect(() => {
     return () => {
       dispatch(resetFile());
     };
   }, []);
+
   return (
     <Wrap>
       <FormWrap>
@@ -219,6 +228,7 @@ const WritePost = () => {
         {type === "lookbook" && (
           <IntroDiv>
             <IntroTextArea
+              id="introduction"
               name="introduction"
               placeholder="브랜드 또는 디자이너에 대한 간단한 소개를 적어주세요."
               value={introduction}

@@ -3,77 +3,88 @@ import Stomp from "stompjs";
 
 import { useSelector } from "react-redux";
 import styled from "styled-components";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
-const ChatRoom = ({ isRoom }) => {
+const ChatRoom = ({ roomId }) => {
   const chatLog = useSelector((state) => state.chat.chatLog);
   const user = useSelector((state) => state.user.user);
 
-  useEffect(() => {
-    // 연결 및 구독
-    // const sockjs = new SockJS("url");
-    // const socket = Stomp.over(sockjs);
-    // const connect = () => {
-    //   try {
-    //     socket.connect({ Authorization: localStorage.get("token") }, () => {
-    //       socket.subscribe("url");
-    //     });
-    //   } catch (error) {
-    //     alert("에러");
-    //     console.log(error);
-    //   }
-    // };
-    // 연결 해제
-  }, []);
+  let currentRoomId = useRef();
+  let stompClient = useRef(null);
+
+  console.log("roomId :", roomId);
 
   // /ws-stomp
-  // /pub/chat/connect-status
   // http://13.125.117.133:8888
 
   const socketConnect = () => {
-    let sock = new SockJS("http://13.125.117.133:8888/ws-stomp");
-    let client = Stomp.over(sock);
-    client.connect(
-      { Authorization: `${localStorage.getItem("token")}` },
-      () => {
-        console.log("connected");
+    const webSocket = new SockJS("http://13.125.117.133:8888/ws-stomp");
+    stompClient = Stomp.over(webSocket);
+    stompClient.connect(
+      {
+        Authorization: localStorage.getItem("token"),
+        // , type: "IN"
+      },
+      (frame) => {
+        console.log("연결 성공~!~!~!🕺 💃");
+        console.log("frame", frame);
         // console.log(client.ws.readyState);
-        client.subscribe(
-          `/sub/chat/room/${isRoom}`,
-          function (messagefs) {
-            const messageFromServer = JSON.parse(messagefs.body);
-            // {"messageId":21,"senderId":2,"message":"fffff","date":"2022-05-09T21:58:58.756","isRead":false,"type":"TALK"}
-            if (messageFromServer.type === "TALK") {
-              // dispatch(addMessage(messageFromServer));
-            } else if (messageFromServer.type === "FULL") {
-              // dispatch(changeRoomtype('FULL'));
-            }
-          },
-          { Authorization: localStorage.getItem("token") }
+
+        stompClient.subscribe(
+          `/sub/chat/room/${roomId}`,
+          (response) => {
+            const messageFromServer = JSON.parse(response.body);
+            console.log(messageFromServer);
+            //     //     // {"messageId":21,"senderId":2,"message":"fffff","date":"2022-05-09T21:58:58.756","isRead":false,"type":"TALK"}
+            //     //     if (messageFromServer.type === "TALK") {
+            //     //       // dispatch(addMessage(messageFromServer));
+            //     //     } else if (messageFromServer.type === "FULL") {
+            //     //       // dispatch(changeRoomtype('FULL'));
+            //     //     }
+          }
+          // { Authorization: localStorage.getItem("token") }
+        );
+        stompClient.send(
+          `/pub/chat/connect-status`,
+          { Authorization: localStorage.getItem("token") },
+          JSON.stringify("채팅이라네")
         );
       }
     );
   };
+  const socketDisconnect = () => {
+    if (stompClient) stompClient.disconnect();
+  };
+  const sendMessage = () => {
+    stompClient.send();
+  };
 
   useEffect(() => {
+    // let sock = new SockJS("http://13.125.117.133:8888/ws-stomp");
+    // let client = Stomp.over(sock);
     // client.connect(
     //   { Authorization: `${localStorage.getItem("token")}` },
-    //   function () {
+    //   function (frame) {
     //     console.log("connected");
     //     console.log(client.ws.readyState);
+    //     console.log(frame);
+    //   }
+    // );
+
     // client.subscribe(
     //   `/sub/chat/room/${isRoom}`,
     //   function (messagefs) {
     //     const messageFromServer = JSON.parse(messagefs.body);
-    //     // {"messageId":21,"senderId":2,"message":"fffff","date":"2022-05-09T21:58:58.756","isRead":false,"type":"TALK"}
-    //     if (messageFromServer.type === "TALK") {
-    //       // dispatch(addMessage(messageFromServer));
-    //     } else if (messageFromServer.type === "FULL") {
-    //       // dispatch(changeRoomtype('FULL'));
-    //     }
+    //     //     // {"messageId":21,"senderId":2,"message":"fffff","date":"2022-05-09T21:58:58.756","isRead":false,"type":"TALK"}
+    //     //     if (messageFromServer.type === "TALK") {
+    //     //       // dispatch(addMessage(messageFromServer));
+    //     //     } else if (messageFromServer.type === "FULL") {
+    //     //       // dispatch(changeRoomtype('FULL'));
+    //     //     }
     //   },
     //   { Authorization: localStorage.getItem("token") }
-    // );
+    // )
+
     // const data = {
     //   roomId: isRoom,
     //   type: "IN",
@@ -90,9 +101,10 @@ const ChatRoom = ({ isRoom }) => {
     // );
     socketConnect();
     // sock.onclose = function () {
-    setTimeout(() => socketConnect(), 5000);
+    // setTimeout(() => socketConnect(), 5000);
     // };
     return () => {
+      socketDisconnect();
       // const data = {
       //   roomId: isRoom,
       //   type: "OUT",
@@ -111,7 +123,7 @@ const ChatRoom = ({ isRoom }) => {
       // dispatch(getPreviousMessages([]));
       //방퇴장할때 OUT 했다는 메시지 Send
     };
-  }, []);
+  }, [roomId]);
 
   return (
     <div>

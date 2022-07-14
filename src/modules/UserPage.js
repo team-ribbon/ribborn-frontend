@@ -52,12 +52,11 @@ export const changeMyDataDB = (data) => {
   };
 };
 
-export const getUserDetailDB = (data) => {
+export const getUserDetailDB = (id, category) => {
   return async function (dispatch) {
     try {
-      const response = await apis.changeUserInfo(data).then(() => {
-        dispatch(changeMyInfo(data));
-      });
+      const response = await apis.loadUserDetail(id, category);
+      dispatch(getMyPage(response.data));
     } catch (error) {
       console.log(error);
     }

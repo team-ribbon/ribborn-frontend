@@ -117,7 +117,8 @@ export const apis = {
   // 유저 상세페이지
   loadMyPage: (category) =>
     api.get(`/api/users/mypage?postCategory=${category}`),
-  loadUserDetail: (id) => api.get(`/api/users/userinfo/${id}`),
+  loadUserDetail: (id, category) =>
+    api.get(`/api/users/userinfo/${id}?postCategory=${category}`),
   changeUserInfo: (data) => api.put("/api/users/mypage", data),
   // 채팅
   getRoom: () => chatApi.get("/chat/rooms"),

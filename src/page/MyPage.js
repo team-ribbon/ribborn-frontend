@@ -14,13 +14,14 @@ function MyPage() {
   const lookbook = useSelector((state) => state.UserPage.myPage.lookbookList);
   const review = useSelector((state) => state.UserPage.myPage.reviewList);
   const reform = useSelector((state) => state.UserPage.myPage.reformList);
+  const categoriedPosts = useSelector((state) => state.UserPage.myPage.posts);
 
   const [infoChange, SetInfoChange] = useState(false);
   const [category, setCategory] = useState("all");
 
   React.useEffect(() => {
     dispatch(getMyPageDB(category));
-  }, []);
+  }, [category]);
   React.useEffect(() => {
     return () => {
       dispatch(cleanUpMyPage());
@@ -33,21 +34,26 @@ function MyPage() {
     <Template>
       <UserInfoCard user={user} myPage={true} change={SetInfoChange} />
       <UserPost
+        category={category}
+        setCategory={setCategory}
         user={user}
         qna={qna}
         lookbook={lookbook}
         review={review}
         reform={reform}
+        categoriedPosts={categoriedPosts}
       />
     </Template>
   );
 }
 
 const Template = styled.div`
+  max-width: ${({ theme }) => theme.width.maxWidth};
+  margin: 0 auto;
+  padding: 40px 40px 0 40px;
   display: flex;
   flex-direction: row;
   justify-content: center;
-  padding-top: 40px;
 `;
 
 export default MyPage;

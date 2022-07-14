@@ -6,7 +6,7 @@ import { HeartSVG } from "../elements/SVG";
 import { TagTextColor } from "../elements/TagTextColor";
 
 // 메인, LOOKBOOK 게시판에 사용되는 카드
-const CardB = ({ postObj, hot, isMain }) => {
+const CardB = ({ postObj, hot, isMain, userPage }) => {
   const navigate = useNavigate();
   return (
     <article
@@ -20,7 +20,7 @@ const CardB = ({ postObj, hot, isMain }) => {
         <Title>
           {postObj.nickname} <span>님의 작업</span>
         </Title>
-        <Date>
+        <Date userPage={userPage}>
           {postObj.createAt &&
             moment(
               postObj.createAt.split("T")[0] +

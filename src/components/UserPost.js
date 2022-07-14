@@ -3,123 +3,293 @@ import CardA from "../components/CardA";
 import CardB from "../components/CardB";
 import NoPost from "../components/NoPost";
 import TextCard from "../components/TextCard";
+import { Category, SubBtn } from "../elements/Buttons";
 
-const UserPost = ({ user, qna, lookbook, review, reform }) => {
+const UserPost = ({
+  category,
+  setCategory,
+  user,
+  qna,
+  lookbook,
+  review,
+  reform,
+  categoriedPosts,
+}) => {
+  const postCategory = [
+    {
+      text: "전체",
+      value: "all",
+    },
+    {
+      text: "후기",
+      value: "review",
+    },
+    {
+      text: "질문과 답변",
+      value: "qna",
+    },
+    {
+      text: "견적",
+      value: "reform",
+    },
+    {
+      text: "룩북",
+      value: "lookbook",
+    },
+  ];
   return (
     <UserPostDiv>
-      {user !== null && +user.userType === 1 ? (
-        <PostCollection>
-          <h3>{user.nickname}님의 룩북</h3>
-          <CardDiv>
-            {lookbook === null ? (
-              <NoPost category="lookbook" />
-            ) : (
-              lookbook.slice(0, 3).map((thisPost) => {
-                return (
-                  <CardB
-                    key={"lookbook" + thisPost.postId}
-                    postObj={thisPost}
-                    noWriter={true}
-                    noComment={true}
-                  />
-                );
-              })
-            )}
-          </CardDiv>
-        </PostCollection>
-      ) : null}
-      <PostCollection>
-        <h3>{user === null ? null : user.nickname}님이 쓴 후기</h3>
-        <CardDiv>
-          {review === null ? (
-            <NoPost category="review" />
-          ) : (
-            review.slice(0, 3).map((thisPost) => {
-              return (
-                <CardA
-                  key={"review" + thisPost.postId}
-                  postObj={thisPost}
-                  noWriter={true}
-                />
-              );
-            })
+      <Category category={category} userpage={true}>
+        {postCategory.map((v, i) => {
+          return user && user.userType === 1 ? (
+            i !== 3 ? (
+              <UserCategoryBtn
+                onClick={() => {
+                  setCategory(v.value);
+                }}
+                id={v.value}
+              >
+                {v.text}
+              </UserCategoryBtn>
+            ) : null
+          ) : i !== 4 ? (
+            <UserCategoryBtn
+              onClick={() => {
+                setCategory(v.value);
+              }}
+              id={v.value}
+            >
+              {v.text}
+            </UserCategoryBtn>
+          ) : null;
+        })}
+      </Category>
+      {category === "all" ? (
+        <PostDiv>
+          {user && user !== null && +user.userType === 1 ? (
+            <PostCollection>
+              <CategoryTitle>{user.nickname}님의 룩북</CategoryTitle>
+              <Grid>
+                {lookbook === null ? (
+                  <NoPost category="lookbook" />
+                ) : (
+                  lookbook.slice(0, 3).map((thisPost) => {
+                    return (
+                      <CardB
+                        key={"lookbook" + thisPost.id}
+                        postObj={thisPost}
+                      />
+                    );
+                  })
+                )}
+              </Grid>
+            </PostCollection>
+          ) : null}
+          <PostCollection>
+            <CategoryTitle>{user && user.nickname}님이 쓴 후기</CategoryTitle>
+            <Grid>
+              {review === null ? (
+                <NoPost category="review" />
+              ) : (
+                review &&
+                review.slice(0, 3).map((thisPost) => {
+                  return (
+                    <CardA
+                      key={"review" + thisPost.id}
+                      postObj={thisPost}
+                      type="A"
+                    />
+                  );
+                })
+              )}
+            </Grid>
+          </PostCollection>
+          <PostCollection>
+            <CategoryTitle>
+              {user && user.nickname}님의 질문과 답변
+            </CategoryTitle>
+            <TextCardDiv>
+              {qna === null ? (
+                <NoPost category="qna" />
+              ) : (
+                qna &&
+                qna.slice(0, 3).map((thisPost) => {
+                  return (
+                    <TextCard
+                      key={"qna" + thisPost.id}
+                      postObj={thisPost}
+                      noWriter={true}
+                    />
+                  );
+                })
+              )}
+            </TextCardDiv>
+          </PostCollection>
+          {user && +user.userType === 0 ? (
+            <PostCollection>
+              <CategoryTitle>{user.nickname}님의 견적</CategoryTitle>
+              <TextCardDiv>
+                {reform === null ? (
+                  <NoPost category="reform" />
+                ) : (
+                  reform.slice(0, 3).map((thisPost) => {
+                    return (
+                      <TextCard
+                        key={"reform" + thisPost.id}
+                        postObj={thisPost}
+                        noWriter={true}
+                        reform={true}
+                      />
+                    );
+                  })
+                )}
+              </TextCardDiv>
+            </PostCollection>
+          ) : null}
+        </PostDiv>
+      ) : (
+        <PostDiv>
+          {user !== null && +user.userType === 1
+            ? category === "lookbook" && (
+                <PostCollection>
+                  <CategoryTitle>{user.nickname}님의 룩북</CategoryTitle>
+                  <Grid>
+                    {categoriedPosts === null ? (
+                      <NoPost category="lookbook" />
+                    ) : (
+                      categoriedPosts &&
+                      categoriedPosts.map((thisPost) => {
+                        return (
+                          <CardB
+                            key={"lookbook" + thisPost.id}
+                            postObj={thisPost}
+                          />
+                        );
+                      })
+                    )}
+                  </Grid>
+                </PostCollection>
+              )
+            : null}
+          {category === "review" && (
+            <PostCollection>
+              <CategoryTitle>
+                {user === null ? null : user.nickname}님이 쓴 후기
+              </CategoryTitle>
+              <Grid>
+                {categoriedPosts === null ? (
+                  <NoPost category="review" />
+                ) : (
+                  categoriedPosts &&
+                  categoriedPosts.map((thisPost) => {
+                    return (
+                      <CardA
+                        key={"review" + thisPost.id}
+                        postObj={thisPost}
+                        type="A"
+                      />
+                    );
+                  })
+                )}
+              </Grid>
+            </PostCollection>
           )}
-        </CardDiv>
-      </PostCollection>
-      <PostCollection>
-        <h3>{user === null ? null : user.nickname}님의 질문과 답변</h3>
-        <TextCardDiv>
-          {qna === null ? (
-            <NoPost category="qna" />
-          ) : (
-            qna.slice(0, 3).map((thisPost) => {
-              return (
-                <TextCard
-                  key={"qna" + thisPost.postId}
-                  postObj={thisPost}
-                  noWriter={true}
-                />
-              );
-            })
+          {category === "qna" && (
+            <PostCollection>
+              <CategoryTitle>
+                {user === null ? null : user.nickname}님의 질문과 답변
+              </CategoryTitle>
+              <TextCardDiv>
+                {categoriedPosts === null ? (
+                  <NoPost category="qna" />
+                ) : (
+                  categoriedPosts &&
+                  category === "qna" &&
+                  categoriedPosts.map((thisPost) => {
+                    return (
+                      <TextCard
+                        key={"qna" + thisPost.id}
+                        postObj={thisPost}
+                        noWriter={true}
+                      />
+                    );
+                  })
+                )}
+              </TextCardDiv>
+            </PostCollection>
           )}
-        </TextCardDiv>
-      </PostCollection>
-      {user !== null && +user.userType === 0 ? (
-        <PostCollection>
-          <h3>{user.nickname}님의 견적</h3>
-          <TextCardDiv>
-            {reform === null ? (
-              <NoPost category="reform" />
-            ) : (
-              reform.slice(0, 3).map((thisPost) => {
-                return (
-                  <TextCard
-                    key={"reform" + thisPost.postId}
-                    postObj={thisPost}
-                    noWriter={true}
-                    reform={true}
-                  />
-                );
-              })
-            )}
-          </TextCardDiv>
-        </PostCollection>
-      ) : null}
+          {user !== null && +user.userType === 0
+            ? category === "reform" && (
+                <PostCollection>
+                  <CategoryTitle>{user.nickname}님의 견적</CategoryTitle>
+                  <TextCardDiv>
+                    {categoriedPosts === null ? (
+                      <NoPost category="reform" />
+                    ) : (
+                      categoriedPosts &&
+                      category === "reform" &&
+                      categoriedPosts.map((thisPost) => {
+                        return (
+                          <TextCard
+                            key={"reform" + thisPost.id}
+                            postObj={thisPost}
+                            noWriter={true}
+                            reform={true}
+                          />
+                        );
+                      })
+                    )}
+                  </TextCardDiv>
+                </PostCollection>
+              )
+            : null}
+        </PostDiv>
+      )}
     </UserPostDiv>
   );
 };
 
 const UserPostDiv = styled.div`
+  margin-left: 37px;
   width: calc(90vw - 200px);
   display: flex;
   flex-direction: column;
-  justify-content: center;
+`;
+
+const UserCategoryBtn = styled(SubBtn)`
+  margin: 0 30px 0 0;
 `;
 
 const PostCollection = styled.div`
   width: 100%;
-  padding: 0px 30px;
   margin-bottom: 30px;
   display: flex;
   flex-direction: column;
   justify-content: center;
 `;
 
-const CardDiv = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  gap: 50px;
-  margin-top: 40px;
-  height: 250px;
-  width: 100%;
-`;
+const PostDiv = styled.div``;
 
 const TextCardDiv = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   margin-top: 40px;
+`;
+
+const CategoryTitle = styled.span`
+  font-weight: 700;
+  font-size: ${({ theme }) => theme.fontSizes.l};
+  line-height: 24px;
+  margin-top: 49px;
+`;
+
+const Grid = styled.div`
+  width: 100%;
+  display: grid;
+  grid-gap: 40px;
+  grid-template-columns: 1fr 1fr 1fr;
+  margin: 20px auto;
 `;
 
 export default UserPost;

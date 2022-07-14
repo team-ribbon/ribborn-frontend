@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 
 import {
-  postDB,
+  EditPostDB,
   getReviewPostDB,
   getQnAPostDB,
   getReformPostDB,
@@ -89,13 +89,13 @@ const EditPost = () => {
   React.useEffect(() => {
     if (post) {
       if (document.getElementById("introductionInput")) {
-        document.getElementById("introductionInput").value = post.introduction;
+        setIntroduction(post.introduction);
       }
-      if (document.getElementById("title")) {
-        document.getElementById("title").value = post.title;
+      if (document.getElementById("titleInput")) {
+        setTitle(post.title);
       }
-      if (document.getElementById("content")) {
-        document.getElementById("content").value = post.content;
+      if (document.getElementById("contentInput")) {
+        document.getElementById("contentInput").value = post.content;
       }
       if (post.category) {
         setCategory(post.category);
@@ -159,7 +159,7 @@ const EditPost = () => {
 
     previewList.forEach((previewUrl) => {
       if (previewUrl.slice(0, 4) === "data") {
-        imageUrl.push(null);
+        imageUrl.push("");
       } else {
         imageUrl.push(previewUrl);
       }
@@ -197,7 +197,7 @@ const EditPost = () => {
     // }
     // for (let v of frm.values()) console.log(v);
 
-    await dispatch(postDB(frm, type)).then(() => {
+    await dispatch(EditPostDB(frm, type, id)).then(() => {
       dispatch(resetFile());
       navigate("/" + type);
     });
@@ -286,14 +286,16 @@ const EditPost = () => {
               onChange={onChangeIntro}
               ref={introRef}
             />
-            <IntroLength>{introduction.length}/100</IntroLength>
+            <IntroLength>
+              {introduction ? introduction.length : 0}/100
+            </IntroLength>
           </IntroDiv>
         )}
         {type !== "lookbook" && (
           <TitleDiv>
             <TitleSpan>제목</TitleSpan>
             <TitleInput
-              id="title"
+              id="titleInput"
               name="title"
               placeholder="제목을 입력해주세요"
               value={title}
@@ -306,7 +308,7 @@ const EditPost = () => {
         <ImageUpload edit={true} type={type} />
         <TitleSpan>내용</TitleSpan>
         <TextArea
-          id="content"
+          id="contentInput"
           name="content"
           placeholder="여기에 내용을 적어주세요"
           ref={contentRef}

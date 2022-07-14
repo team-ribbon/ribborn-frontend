@@ -106,13 +106,13 @@ export const apis = {
   postLookbook: (formData) => formDataApi.post("/api/lookPosts", formData),
 
   // 게시물 수정
-  editQna: (formData, id) => formDataApi.put("/api/qnaPosts/" + id, formData),
+  editQna: (formData, id) => formDataApi.put(`/api/qnaPosts/${id}`, formData),
   editReview: (formData, id) =>
-    formDataApi.put("/api/reviewPosts/" + id, formData),
+    formDataApi.put(`/api/reviewPosts/${id}`, formData),
   editReform: (formData, id) =>
-    formDataApi.put("/api/reformPosts/" + id, formData),
+    formDataApi.put(`/api/reformPosts/${id}`, formData),
   editLookbook: (formData, id) =>
-    formDataApi.put("/api/lookPosts/" + id, formData),
+    formDataApi.put(`/api/lookPosts/${id}`, formData),
 
   // 유저 상세페이지
   loadMyPage: (category) =>

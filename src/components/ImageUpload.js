@@ -21,7 +21,7 @@ const ImageUpload = ({ type, edit }) => {
 
     const maxFileCnt = type === "lookbook" ? 20 : 5;
     const uploadFileCnt = previewList.length;
-    const currentFileCnt = previewList.length;
+    const currentFileCnt = files.length;
     const remainFileCnt = maxFileCnt - uploadFileCnt;
 
     if (currentFileCnt > remainFileCnt) {
@@ -87,7 +87,6 @@ const ImageUpload = ({ type, edit }) => {
           style={{ display: "none" }}
           ref={fileRef}
         />
-
         <Label htmlFor="file">
           <FileInput>
             <FileInputPlus>+</FileInputPlus>

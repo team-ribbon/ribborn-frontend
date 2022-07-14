@@ -296,6 +296,19 @@ export const postDB = (formData, type) => {
   };
 };
 
+export const EditPostDB = (formData, type, id) => {
+  return async () => {
+    try {
+      if (type === "review") await apis.editReview(formData, id);
+      if (type === "lookbook") await apis.editLookbook(formData, id);
+      if (type === "qna") await apis.editQna(formData, id);
+      if (type === "reform") await apis.editReform(formData, id);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
 // Reducer
 export default handleActions(
   {

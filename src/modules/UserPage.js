@@ -19,6 +19,7 @@ export const cleanUpMyPage = createAction(CLEANUP_MY_PAGE);
 // InitialState
 const initialState = {
   myPage: {
+    posts: null,
     users: null,
     qna: null,
     lookbook: null,
@@ -77,13 +78,7 @@ export default handleActions(
     // Cleanup Reducer
     [CLEANUP_MY_PAGE]: (state) =>
       produce(state, (draft) => {
-        draft.myPage = {
-          users: null,
-          qna: null,
-          lookbook: null,
-          review: null,
-          reform: null,
-        };
+        draft.myPage = initialState.myPage;
       }),
   },
 

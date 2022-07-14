@@ -9,7 +9,7 @@ import {
   uploadPreview,
 } from "../redux/modules/image";
 
-const ImageUpload = ({ type }) => {
+const ImageUpload = ({ type, edit }) => {
   const dispatch = useDispatch();
 
   const fileRef = useRef();
@@ -20,8 +20,8 @@ const ImageUpload = ({ type }) => {
     const { files } = event.target;
 
     const maxFileCnt = type === "lookbook" ? 20 : 5;
-    const uploadFileCnt = fileList.length;
-    const currentFileCnt = files.length;
+    const uploadFileCnt = previewList.length;
+    const currentFileCnt = previewList.length;
     const remainFileCnt = maxFileCnt - uploadFileCnt;
 
     if (currentFileCnt > remainFileCnt) {
@@ -64,6 +64,13 @@ const ImageUpload = ({ type }) => {
     }
   };
 
+  const onClickEditDelete = (file, index) => {
+    if (file.slice(0, 4) === "data") {
+      dispatch(deleteFile(index.toString()));
+    }
+    dispatch(deletePreview(index.toString()));
+  };
+
   const onClickDelete = (event) => {
     dispatch(deleteFile(event.target.id));
     dispatch(deletePreview(event.target.id));
@@ -92,9 +99,20 @@ const ImageUpload = ({ type }) => {
           return (
             <PreviewWrap key={Date.now() + file}>
               <Preview src={file} />
-              <DeleteButton id={index} onClick={onClickDelete}>
-                삭제
-              </DeleteButton>
+              {edit ? (
+                <DeleteButton
+                  id={index}
+                  onClick={() => {
+                    onClickEditDelete(file, index);
+                  }}
+                >
+                  삭제
+                </DeleteButton>
+              ) : (
+                <DeleteButton id={index} onClick={onClickDelete}>
+                  삭제
+                </DeleteButton>
+              )}
             </PreviewWrap>
           );
         })}

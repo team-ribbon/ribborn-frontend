@@ -1,13 +1,28 @@
 import React from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 import { CommentSVG, HeartSVG } from "../elements/SVG";
 
 // 메인, 커뮤니티 > 리폼 리뷰 게시판에 사용되는 카드
-const CardA = ({ postObj, type }) => {
+const CardA = ({ postObj, type, reform }) => {
+  const navigate = useNavigate();
   return (
-    <article>
+    <article
+      onClick={() => {
+        reform
+          ? navigate(`/reformdetail/${postObj.id}`)
+          : navigate(`/reviewdetail/${postObj.id}`);
+      }}
+    >
       <ImageWrap>
-        <Image alt="card" src={postObj.image} />
+        <Image
+          alt="card"
+          src={
+            postObj.image !== null
+              ? postObj.image
+              : "http://openimage.interpark.com/goods_image_big/1/4/1/9/9090461419_l.jpg"
+          }
+        />
       </ImageWrap>
       <Content>
         <Title>{postObj.title}</Title>
@@ -26,9 +41,9 @@ const CardA = ({ postObj, type }) => {
         {type === "A" && (
           <div>
             <HeartSVG />
-            <span>{postObj.love}</span>
+            <span>{postObj.likeCount}</span>
             <CommentSVG />
-            <span>{postObj.comment}</span>
+            <span>{postObj.commentCount}</span>
           </div>
         )}
         {type === "C" && <span>{postObj.region}</span>}

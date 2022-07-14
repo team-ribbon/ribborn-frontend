@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { ArrowLeftSVG, ArrowRightSVG } from "../elements/SVG";
 import CardB from "./CardB";
@@ -8,6 +9,7 @@ const DesignSection = ({ postList }) => {
   const scrollRef = useRef(null);
   const [isDrag, setIsDrag] = useState(false);
   const [startX, setStartX] = useState();
+  const navigate = useNavigate();
 
   const onDragStart = (e) => {
     e.preventDefault();
@@ -37,7 +39,13 @@ const DesignSection = ({ postList }) => {
     <Wrap>
       <TopWrap>
         <Title>놓치면 안되는 리폼 디자이너 🔥</Title>
-        <More>더보기</More>
+        <More
+          onClick={() => {
+            navigate("/lookbook");
+          }}
+        >
+          더보기
+        </More>
       </TopWrap>
       <SliderWrap>
         <Slider

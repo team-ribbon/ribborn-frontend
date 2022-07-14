@@ -14,6 +14,9 @@ import Review from "../pages/Review";
 import MyPage from "../page/MyPage";
 import UserDetail from "../page/UserDetail";
 import QnADetail from "../page/QnADetail";
+import ReviewDetail from "../page/ReviewDetail";
+import ReformDetail from "../page/ReformDetail";
+import LookBookDetail from "../page/LookBookDetail";
 import Lookbook from "../pages/Lookbook";
 import WritePost from "../pages/WritePost";
 import styled from "styled-components";
@@ -39,6 +42,7 @@ export default function Router() {
             <Route path="tech" element={<SignupTech />} />
           </Route>
           <Route path="review" element={<Review />} />
+          <Route path="review/:category" element={<Review />} />
           <Route path="lookbook" element={<Lookbook />} />
           <Route path="/qna" element={<QnAList />} />
           <Route path="/reform" element={<ReformList />} />
@@ -47,7 +51,9 @@ export default function Router() {
           <Route path="mypage" element={<MyPage />} />
           <Route path="userdetail/:userId" element={<UserDetail />} />
           <Route path="qnadetail/:postId" element={<QnADetail />} />
-
+          <Route path="reviewdetail/:postId" element={<ReviewDetail />} />
+          <Route path="reformdetail/:postId" element={<ReformDetail />} />
+          <Route path="lookbookdetail/:postId" element={<LookBookDetail />} />
           {location.state?.backgroundLocation && (
             <>
               <Route path="chat" element={<ChatModal />} />

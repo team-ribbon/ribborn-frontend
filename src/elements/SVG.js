@@ -69,3 +69,42 @@ export const ArrowRightSVG = () => {
     </svg>
   );
 };
+
+export const ThinArrowSVG = () => {
+  return (
+    <svg
+      width="15"
+      height="7"
+      viewBox="0 0 15 7"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M14 1L7.31429 6L1 1"
+        stroke="#222222"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+};
+
+export const CheckSVG = () => {
+  return (
+    <svg
+      width="32"
+      height="32"
+      viewBox="0 0 32 32"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M8 0C3.58172 0 0 3.58172 0 8V24C0 28.4183 3.58172 32 8 32H24C28.4183 32 32 28.4183 32 24V8C32 3.58172 28.4183 0 24 0H8ZM24.5513 11.5085C24.8321 11.2041 24.813 10.7296 24.5085 10.4487C24.2041 10.1679 23.7296 10.187 23.4487 10.4915L13.8417 20.9061L9.54069 16.4319C9.25363 16.1333 8.77885 16.1239 8.48024 16.411C8.18162 16.6981 8.17225 17.1728 8.45931 17.4715L13.3123 22.5198L13.8642 23.0939L14.4042 22.5085L24.5513 11.5085Z"
+        fill="#222222"
+      />
+    </svg>
+  );
+};

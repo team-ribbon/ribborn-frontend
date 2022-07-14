@@ -7,7 +7,7 @@ import { loadUserInfoDB } from "../src/redux/modules/user";
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
-    // dispatch(loadUserInfoDB());
+    dispatch(loadUserInfoDB());
   }, []);
   return (
     <>

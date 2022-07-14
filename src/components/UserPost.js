@@ -6,7 +6,7 @@ import TextCard from "../components/TextCard";
 const UserPost = ({ user, qna, lookbook, review, reform }) => {
   return (
     <UserPostDiv>
-      {user !== null && user.userType === 1 ? (
+      {user !== null && +user.userType === 1 ? (
         <PostCollection>
           <h3>{user.nickname}님의 룩북</h3>
           <CardDiv>
@@ -63,7 +63,7 @@ const UserPost = ({ user, qna, lookbook, review, reform }) => {
           )}
         </TextCardDiv>
       </PostCollection>
-      {user !== null && user.userType === 0 ? (
+      {user !== null && +user.userType === 0 ? (
         <PostCollection>
           <h3>{user.nickname}님의 견적</h3>
           <TextCardDiv>

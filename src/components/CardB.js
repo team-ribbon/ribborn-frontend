@@ -1,18 +1,37 @@
 import React from "react";
+import moment from "moment";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { HeartSVG } from "../elements/SVG";
+import { TagTextColor } from "../elements/TagTextColor";
 
 // 메인, LOOKBOOK 게시판에 사용되는 카드
 const CardB = ({ postObj, hot, isMain }) => {
+  const navigate = useNavigate();
   return (
-    <article>
-      <ImageWrap isMain>
+    <article
+      onClick={() => {
+        navigate(`/lookbookdetail/${postObj.id}`);
+      }}
+    >
+      <ImageWrap isMain={isMain}>
         <ImageDim />
         <Image alt="lookbook" src={postObj.image} />
         <Title>
           {postObj.nickname} <span>님의 작업</span>
         </Title>
-        <Date>{postObj.createAt}</Date>
+        <Date>
+          {postObj.createAt &&
+            moment(
+              postObj.createAt.split("T")[0] +
+                "" +
+                postObj.createAt.split("T")[1],
+              "YYYY-MM-DD HH:mm:ss"
+            )
+              .add(9, "hours")
+              .format()
+              .slice(0, 10)}
+        </Date>
         {hot && <Hot>HOT 🔥</Hot>}
       </ImageWrap>
       {!isMain && (
@@ -21,7 +40,7 @@ const CardB = ({ postObj, hot, isMain }) => {
             <HeartSVG />
             <span>{postObj.likeCount}</span>
             <Tag>
-              <TagText>{postObj?.category?.toUpperCase()}</TagText>
+              <TagTextColor>{postObj?.category?.toUpperCase()}</TagTextColor>
             </Tag>
           </div>
         </Content>
@@ -108,17 +127,6 @@ const Tag = styled.div`
   padding: 8px 15px;
   border-radius: 8px;
   background-color: ${({ theme }) => theme.colors.lighterGray};
-`;
-const TagText = styled.div`
-  background: linear-gradient(
-    268.58deg,
-    #322f5a 25.29%,
-    #ff8c28 50.14%,
-    #00ae1e 85.17%
-  );
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
 `;
 
 export default CardB;

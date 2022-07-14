@@ -1,57 +1,55 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import styled, { css } from "styled-components";
 import CardA from "../components/CardA";
-import { getReviewListDB } from "../modules/post";
+import { getReviewListDB, cleanUpPostList } from "../modules/post";
 import { MainBtn, SubBtn, Category } from "../elements/Buttons";
 import Sort from "../components/Sort";
+import TabWrap from "../components/TabWrap";
+import Categories from "../shared/Categories";
 
 const Review = () => {
   const dispatch = useDispatch();
-  const postList = useSelector((state) => state.post.reviewList);
+  const postList = useSelector((state) => state.post.PostList);
+  const param = useParams();
   // console.log(postList);
 
-  const [sort, setSort] = useState("recent");
-  const [category, setCategory] = useState("all");
+  const [sort, setSort] = useState("createAt");
+  const [category, setCategory] = useState(
+    param.category === undefined ? "all" : param.category
+  );
+  const [page, setPage] = useState(0);
 
   const onClickCategory = (event) => {
     setCategory(event.target.id);
   };
 
   useEffect(() => {
-    dispatch(getReviewListDB(category, sort));
+    setPage(0);
   }, [category, sort]);
+
+  useEffect(() => {
+    dispatch(getReviewListDB(category, sort, page));
+  }, [category, sort, page]);
+
+  React.useEffect(() => {
+    return () => {
+      dispatch(cleanUpPostList());
+    };
+  }, []);
 
   return (
     <Wrap>
-      <TabWrap>
-        <Link to="/review">
-          <ActiveTab>리폼 리뷰</ActiveTab>
-        </Link>
-        <Link to="">
-          <Tab>질문과 답변</Tab>
-        </Link>
-      </TabWrap>
+      <TabWrap review={true} />
       <Category category={category}>
-        <SubBtn id="all" onClick={onClickCategory}>
-          전체
-        </SubBtn>
-        <SubBtn id="clothes" onClick={onClickCategory}>
-          옷 리뷰
-        </SubBtn>
-        <SubBtn id="furniture" onClick={onClickCategory}>
-          가구 리뷰
-        </SubBtn>
-        <SubBtn id="shoes" onClick={onClickCategory}>
-          신발 리뷰
-        </SubBtn>
-        <SubBtn id="bags" onClick={onClickCategory}>
-          가방 리뷰
-        </SubBtn>
-        <SubBtn id="goods" onClick={onClickCategory}>
-          기타 리뷰
-        </SubBtn>
+        {Categories.map((v) => {
+          return (
+            <SubBtn id={v.value} onClick={onClickCategory}>
+              {v.text}
+            </SubBtn>
+          );
+        })}
       </Category>
       <Buttons>
         <Link to="/write/review">
@@ -78,19 +76,7 @@ const Grid = styled.div`
   grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
   margin: 20px 0;
 `;
-const TabWrap = styled.div`
-  text-align: center;
-  margin: 40px 0;
-`;
-const Tab = styled.span`
-  font-size: ${({ theme }) => theme.fontSizes.xl};
-  margin: 0 25px;
-`;
-const ActiveTab = styled(Tab)`
-  border-bottom: 3px solid black;
-  font-weight: 700;
-  padding-bottom: 7px;
-`;
+
 const Buttons = styled(Category)`
   width: 100%;
   margin: 50px auto;

@@ -1,50 +1,52 @@
+import React from "react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import CardB from "../components/CardB";
 import Sort from "../components/Sort";
-import { getLookbookListDB } from "../modules/post";
+import { getLookbookListDB, cleanUpPostList } from "../modules/post";
 import styled from "styled-components";
 import { MainBtn, SubBtn, Category } from "../elements/Buttons";
+import Categories from "../shared/Categories";
 
 const Lookbook = () => {
   const dispatch = useDispatch();
-  const postList = useSelector((state) => state.post.lookbookList);
+  const postList = useSelector((state) => state.post.PostList);
 
-  const [sort, setSort] = useState("popular");
+  const [sort, setSort] = useState("likeCount");
   const [category, setCategory] = useState("all");
+  const [page, setPage] = useState(0);
 
   const onClickCategory = (event) => {
     setCategory(event.target.id);
-    dispatch(getLookbookListDB(category, "popular"));
   };
 
   useEffect(() => {
-    dispatch(getLookbookListDB(category, sort));
+    setPage(0);
   }, [category, sort]);
+
+  useEffect(() => {
+    dispatch(getLookbookListDB(category, sort, page));
+    console.log("dispatched");
+  }, [category, sort, page]);
+
+  React.useEffect(() => {
+    return () => {
+      dispatch(cleanUpPostList());
+    };
+  }, []);
 
   return (
     <Wrap>
       <TopWrap>
         <LCategory category={category}>
-          <SubBtn id="all" onClick={onClickCategory}>
-            전체
-          </SubBtn>
-          <SubBtn id="clothes" onClick={onClickCategory}>
-            옷 룩북
-          </SubBtn>
-          <SubBtn id="furniture" onClick={onClickCategory}>
-            가구 룩북
-          </SubBtn>
-          <SubBtn id="shoes" onClick={onClickCategory}>
-            신발 룩북
-          </SubBtn>
-          <SubBtn id="bags" onClick={onClickCategory}>
-            가방 룩북
-          </SubBtn>
-          <SubBtn id="goods" onClick={onClickCategory}>
-            기타 룩북
-          </SubBtn>
+          {Categories.map((v) => {
+            return (
+              <SubBtn id={v.value} onClick={onClickCategory}>
+                {v.text}
+              </SubBtn>
+            );
+          })}
         </LCategory>
         <Sort setSort={setSort} sort={sort} />
       </TopWrap>

@@ -53,6 +53,7 @@
 | axios |0.27.2|
 | react-hook-form |7.33.0|
 | react-icons |4.4.0|
+| moment |2.29.4|
   
 </div>
 

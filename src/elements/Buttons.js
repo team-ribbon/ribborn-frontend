@@ -10,6 +10,14 @@ export const MainBtn = styled.button`
   cursor: pointer;
 `;
 
+export const BlackBtn = styled(MainBtn)`
+  background-color: ${({ theme }) => theme.colors.black};
+  &:disabled {
+    background-color: #f2f2f2;
+    cursor: default;
+  }
+`;
+
 export const SubBtn = styled.button`
   border-radius: 25px;
   padding: 20px 30px;
@@ -28,7 +36,7 @@ export const Category = styled.div`
   display: flex;
   justify-content: space-between;
   width: 850px;
-  margin: 10px auto;
+  margin: 10px auto 0px auto;
   #all {
     ${({ category }) => category === "all" && SubBtnActive}
   }
@@ -43,6 +51,9 @@ export const Category = styled.div`
   }
   #goods {
     ${({ category }) => category === "goods" && SubBtnActive}
+  }
+  #bags {
+    ${({ category }) => category === "bags" && SubBtnActive}
   }
   #diy {
     ${({ category }) => category === "diy" && SubBtnActive}

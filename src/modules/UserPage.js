@@ -19,6 +19,7 @@ export const cleanUpMyPage = createAction(CLEANUP_MY_PAGE);
 // InitialState
 const initialState = {
   myPage: {
+    posts: null,
     users: null,
     qna: null,
     lookbook: null,
@@ -28,10 +29,10 @@ const initialState = {
 };
 
 // Middleware
-export const getMyPageDB = () => {
+export const getMyPageDB = (category) => {
   return async function (dispatch) {
     try {
-      const response = await apis.loadMyPage();
+      const response = await apis.loadMyPage(category);
       dispatch(getMyPage(response.data));
     } catch (error) {
       console.log(error);
@@ -77,13 +78,7 @@ export default handleActions(
     // Cleanup Reducer
     [CLEANUP_MY_PAGE]: (state) =>
       produce(state, (draft) => {
-        draft.myPage = {
-          users: null,
-          qna: null,
-          lookbook: null,
-          review: null,
-          reform: null,
-        };
+        draft.myPage = initialState.myPage;
       }),
   },
 

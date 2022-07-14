@@ -171,6 +171,11 @@ const WritePost = () => {
 
   useEffect(() => {
     // dispatch(getTechIntroDB());
+
+  useEffect(() => {
+    return () => {
+      dispatch(resetFile());
+    };
   }, []);
   return (
     <Wrap>

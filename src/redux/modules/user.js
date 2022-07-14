@@ -22,20 +22,19 @@ const initialState = {
 // 로그인
 export const loginDB = (username, password) => {
   return async (dispatch) => {
+    let success = null;
     try {
       const response = await apis.login(username, password).then((res) => {
         const token = res.data;
         localStorage.setItem("token", token);
-        dispatch(loadUserInfoDB());
-        if (res.status === 200) {
-          return true;
-        }
+        success = true;
       });
     } catch (error) {
       console.log(error);
       alert("띠로리....실패했습니다...");
-      return false;
+      success = false;
     }
+    return success;
   };
 };
 
@@ -89,7 +88,7 @@ export default handleActions(
         draft.user = payload.userObj;
         draft.isLogin = true;
       }),
-    [CLEAR_USER_INFO]: (state, { payload }) =>
+    [CLEAR_USER_INFO]: (state) =>
       produce(state, (draft) => {
         draft.user = initialState.user;
         draft.isLogin = initialState.isLogin;

@@ -1,7 +1,5 @@
 import axios from "axios";
 
-const token = localStorage.getItem("token");
-
 const api = axios.create({
   baseURL: "http://3.35.49.121:8080",
   headers: {
@@ -26,6 +24,7 @@ const chatApi = axios.create({
 });
 
 api.interceptors.request.use(function (config) {
+  const token = localStorage.getItem("token");
   if (token !== undefined) {
     config.headers.common["Authorization"] = token;
   }
@@ -33,6 +32,7 @@ api.interceptors.request.use(function (config) {
 });
 
 formDataApi.interceptors.request.use(function (config) {
+  const token = localStorage.getItem("token");
   if (token !== undefined) {
     config.headers.common["Authorization"] = token;
   }

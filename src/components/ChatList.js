@@ -17,10 +17,10 @@ const ChatList = ({ roomId }) => {
       {chatList.map((chat) => {
         return chat.senderId === user.id ? (
           <Me key={chat.id}>
-            <div>
+            <NickAndDate>
               <Date>{chat.date}</Date>
               <Nickname>{chat.nickname}</Nickname>
-            </div>
+            </NickAndDate>
             <Message me>{chat.message}</Message>
           </Me>
         ) : (
@@ -44,9 +44,17 @@ const MessageWrap = styled.div`
 
 const Me = styled.div`
   align-self: flex-end;
+  margin-left: 10%;
 `;
-const You = styled.div``;
-
+const You = styled.div`
+  margin-right: 10%;
+`;
+const NickAndDate = styled.div`
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  margin-bottom: 10px;
+`;
 const Nickname = styled.div`
   font-size: ${({ theme }) => theme.fontSizes.l};
 `;

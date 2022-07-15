@@ -19,6 +19,8 @@ const Lookbook = () => {
   const dispatch = useDispatch();
   const postList = useSelector((state) => state.post.PostList);
   const loadedEverything = useSelector((state) => state.post.loadedEverything);
+  const isLogin = useSelector((state) => state.user.isLogin);
+  const user = useSelector((state) => state.user.user);
 
   const [sort, setSort] = useState("likeCount");
   const [category, setCategory] = useState("all");
@@ -69,9 +71,11 @@ const Lookbook = () => {
         </LCategory>
         <Sort setSort={setSort} sort={sort} />
       </TopWrap>
-      <Link to="/write/lookbook">
-        <MainBtn style={{ marginBottom: "30px" }}>룩북 올리기</MainBtn>
-      </Link>
+      {isLogin && +user.userType === 1 && (
+        <Link to="/write/lookbook">
+          <MainBtn style={{ marginBottom: "30px" }}>룩북 올리기</MainBtn>
+        </Link>
+      )}
       <Grid>
         {postList.map((postObj, index) =>
           index === postList.length - 1 ? (

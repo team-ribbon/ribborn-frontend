@@ -16,6 +16,7 @@ import RegionSelect from "../components/RegionSelect";
 import ProcessSelect from "../components/ProcessSelect";
 
 function ReformList() {
+  const isLogin = useSelector((state) => state.user.isLogin);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -29,6 +30,7 @@ function ReformList() {
 
   const postlists = useSelector((state) => state.post.PostList);
   const loadedEverything = useSelector((state) => state.post.loadedEverything);
+  const user = useSelector((state) => state.user.user);
 
   const onClickCategory = (event) => {
     setCategory(event.target.id);
@@ -73,15 +75,17 @@ function ReformList() {
           );
         })}
       </LCategory>
-      <SelectDiv>
+      <SelectDiv isLogin={isLogin && +user.userType === 0}>
         <ProcessSelect setProcess={setProcess} process={process} />
         <RegionSelect setRegion={setRegion} region={region} />
       </SelectDiv>
       <PostCoverDiv>
         <MainBtnDiv>
-          <Link to="/write/reform">
-            <MainBtn style={{ marginBottom: "20px" }}>견적 요청하기</MainBtn>
-          </Link>
+          {isLogin && +user.userType === 0 && (
+            <Link to="/write/reform">
+              <MainBtn style={{ marginBottom: "20px" }}>견적 요청하기</MainBtn>
+            </Link>
+          )}
         </MainBtnDiv>
 
         {postlists.map((v, i) => {
@@ -120,6 +124,7 @@ const SelectDiv = styled.div`
   max-width: 1100px;
   margin-top: 42px;
   margin-left: auto;
+  margin-bottom: ${(props) => (props.isLogin ? "0" : "30px")};
 `;
 
 const PostCoverDiv = styled.div`

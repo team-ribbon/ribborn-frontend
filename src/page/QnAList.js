@@ -25,6 +25,7 @@ function QnAList() {
 
   const postlists = useSelector((state) => state.post.PostList);
   const loadedEverything = useSelector((state) => state.post.loadedEverything);
+  const isLogin = useSelector((state) => state.user.isLogin);
 
   const onClickCategory = (event) => {
     setCategory(event.target.id);
@@ -67,9 +68,11 @@ function QnAList() {
         })}
       </Category>
       <Buttons>
-        <Link to="/write/qna">
-          <MainBtn>글쓰기</MainBtn>
-        </Link>
+        {isLogin && (
+          <Link to="/write/qna">
+            <MainBtn>글쓰기</MainBtn>
+          </Link>
+        )}
         <Sort setSort={setSort} sort={sort} />
       </Buttons>
       <PostCoverDiv>

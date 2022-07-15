@@ -125,6 +125,7 @@ const ID = styled.p`
   font-size: 14px;
   line-height: 18px;
   color: #afb0b3;
+  cursor: pointer;
 `;
 
 const CircleDiv = styled.div`

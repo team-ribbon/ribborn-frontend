@@ -7,7 +7,7 @@ import { CommentSVG, HeartSVG } from "../elements/SVG";
 const CardA = ({ postObj, type, reform, inViewRef }) => {
   const navigate = useNavigate();
   return (
-    <article
+    <Article
       onClick={() => {
         reform
           ? navigate(`/reformdetail/${postObj.id}`)
@@ -48,9 +48,12 @@ const CardA = ({ postObj, type, reform, inViewRef }) => {
         )}
         {type === "C" && <span>{postObj.region}</span>}
       </Content>
-    </article>
+    </Article>
   );
 };
+const Article = styled.article`
+  cursor: pointer;
+`;
 const ImageWrap = styled.div`
   position: relative;
   overflow: hidden;

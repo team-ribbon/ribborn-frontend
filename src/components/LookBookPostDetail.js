@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 import PostRightBtn from "../components/PostRightBtn";
 
-const LookBookPostDetail = ({ post, userId, postId }) => {
+const LookBookPostDetail = ({ post, userId, postId, userType }) => {
   window.onscroll = function () {
     document.getElementById("navbar").style.top =
       window.pageYOffset - 350 + "px";
@@ -64,7 +64,7 @@ const LookBookPostDetail = ({ post, userId, postId }) => {
                 region={post.addressCategory}
                 category={post.category}
               />
-              <ChattingBtn>채팅하기</ChattingBtn>
+              {+userType === 0 ? <ChattingBtn>채팅하기</ChattingBtn> : null}
               <PostRightBtn
                 noshare={false}
                 id={postId}

@@ -14,6 +14,7 @@ const LookBookDetail = () => {
 
   const post = useSelector((state) => state.post.Post);
   const userId = useSelector((state) => state.user.user.id);
+  const userType = useSelector((state) => state.user.user.userType);
 
   React.useEffect(() => {
     dispatch(getLookbookPostDB(params.postId));
@@ -27,7 +28,12 @@ const LookBookDetail = () => {
 
   return (
     <Template>
-      <LookBookPostDetail post={post} userId={userId} postId={params.postId} />
+      <LookBookPostDetail
+        post={post}
+        userId={userId}
+        postId={params.postId}
+        userType={userType}
+      />
     </Template>
   );
 };

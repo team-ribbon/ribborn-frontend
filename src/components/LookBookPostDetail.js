@@ -3,8 +3,13 @@ import MyPostButtons from "./MyPostButtons";
 import moment from "moment";
 import InfoSection from "./InfoSection";
 import { MainBtn } from "../elements/Buttons";
+import { apis } from "../shared/api";
 
 const LookBookPostDetail = ({ post, userId }) => {
+  const onClickChat = async () => {
+    await apis.addRoom(post.userid);
+  };
+
   return (
     post && (
       <Wrap>
@@ -54,7 +59,7 @@ const LookBookPostDetail = ({ post, userId }) => {
               region={post.addressCategory}
               category={post.category}
             />
-            <ChattingBtn>채팅하기</ChattingBtn>
+            <ChattingBtn onClick={onClickChat}>채팅하기</ChattingBtn>
           </RightPostDiv>
         </BodyWrap>
       </Wrap>

@@ -69,6 +69,7 @@ const WritePost = () => {
 
   const files = useSelector((state) => state.image.fileList);
   const intro = useSelector((state) => state.post.techIntro);
+  const isLogin = useSelector((state) => state.user.isLogin);
 
   const [title, setTitle] = useState("");
   const [introduction, setIntroduction] = useState(intro);
@@ -77,6 +78,12 @@ const WritePost = () => {
 
   const { type } = useParams();
   const { id } = useParams();
+
+  React.useEffect(() => {
+    if (!isLogin) {
+      navigate("/");
+    }
+  }, [isLogin]);
 
   React.useEffect(() => {
     setIntroduction(intro);

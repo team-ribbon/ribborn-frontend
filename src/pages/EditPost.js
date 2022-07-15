@@ -76,6 +76,7 @@ const EditPost = () => {
   const files = useSelector((state) => state.image.fileList);
   const previewList = useSelector((state) => state.image.previewList);
   const post = useSelector((state) => state.post.Post);
+  const isLogin = useSelector((state) => state.user.isLogin);
 
   const [title, setTitle] = useState("");
   const [introduction, setIntroduction] = useState("");
@@ -85,6 +86,12 @@ const EditPost = () => {
 
   const { type } = useParams();
   const { id } = useParams();
+
+  React.useEffect(() => {
+    if (!isLogin) {
+      navigate("/");
+    }
+  }, [isLogin]);
 
   React.useEffect(() => {
     if (post) {

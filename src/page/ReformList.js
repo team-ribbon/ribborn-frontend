@@ -2,8 +2,13 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
+import { useInView } from "react-intersection-observer";
 
-import { getReformListDB, cleanUpPostList } from "../modules/post";
+import {
+  getReformListDB,
+  cleanUpPostList,
+  loadDoneReset,
+} from "../modules/post";
 import TextCard from "../components/TextCard";
 import Categories from "../shared/Categories";
 import { SubBtn, Category, MainBtn } from "../elements/Buttons";
@@ -18,18 +23,33 @@ function ReformList() {
   const [category, setCategory] = React.useState("all");
   const [process, setProcess] = React.useState("all");
   const [region, setRegion] = React.useState("all");
+  const [loading, setLoading] = React.useState(true);
+
+  const [inViewRef, inView] = useInView();
+
   const postlists = useSelector((state) => state.post.PostList);
+  const loadedEverything = useSelector((state) => state.post.loadedEverything);
 
   const onClickCategory = (event) => {
     setCategory(event.target.id);
   };
 
   useEffect(() => {
+    dispatch(loadDoneReset());
     setPage(0);
   }, [category, region, process]);
 
   React.useEffect(() => {
-    dispatch(getReformListDB(category, region, process, page));
+    if (inView && !loading && !loadedEverything) {
+      setPage(page + 1);
+    }
+  }, [inView]);
+
+  React.useEffect(() => {
+    setLoading(true);
+    dispatch(getReformListDB(category, region, process, page)).then((res) => {
+      setLoading(false);
+    });
   }, [category, region, process, page]);
 
   React.useEffect(() => {
@@ -58,11 +78,23 @@ function ReformList() {
         <RegionSelect setRegion={setRegion} region={region} />
       </SelectDiv>
       <PostCoverDiv>
-        <Link to="/write/reform">
-          <MainBtn style={{ marginBottom: "20px" }}>견적 요청하기</MainBtn>
-        </Link>
-        {postlists.map((v) => {
-          return <TextCard postObj={v} key={"post" + v.id} reform={true} />;
+        <MainBtnDiv>
+          <Link to="/write/reform">
+            <MainBtn style={{ marginBottom: "20px" }}>견적 요청하기</MainBtn>
+          </Link>
+        </MainBtnDiv>
+
+        {postlists.map((v, i) => {
+          return i === postlists.length - 1 ? (
+            <TextCard
+              postObj={v}
+              key={"post" + v.id}
+              reform={true}
+              inViewRef={inViewRef}
+            />
+          ) : (
+            <TextCard postObj={v} key={"post" + v.id} reform={true} />
+          );
         })}
       </PostCoverDiv>
     </Wrap>
@@ -94,6 +126,10 @@ const PostCoverDiv = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
+`;
+
+const MainBtnDiv = styled.div`
+  width: fit-content;
 `;
 
 export default ReformList;

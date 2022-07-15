@@ -2,8 +2,10 @@ import styled from "styled-components";
 import MyPostButtons from "./MyPostButtons";
 import TimeCalculator from "../shared/TimeCalculator";
 import InfoSection from "./InfoSection";
+import { useNavigate } from "react-router-dom";
 
 const ReformPostDetail = ({ post, userId }) => {
+  const navigate = useNavigate();
   let process = null;
   switch (post && post.process) {
     case undefined:
@@ -25,7 +27,9 @@ const ReformPostDetail = ({ post, userId }) => {
           <Community>견적</Community>
           <Title>{post.title}</Title>
           <IDDiv>
-            <ID>@{post.nickname}</ID>
+            <ID onClick={() => navigate(`/userdetail/${post.userid}`)}>
+              @{post.nickname}
+            </ID>
             <CircleDiv />
             <Time>{TimeCalculator(post.createAt)}</Time>
           </IDDiv>

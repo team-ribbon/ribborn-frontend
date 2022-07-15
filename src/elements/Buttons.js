@@ -34,9 +34,9 @@ export const SubBtnActive = css`
 
 export const Category = styled.div`
   display: flex;
-  justify-content: space-between;
-  width: 850px;
-  margin: 10px auto 0px auto;
+  justify-content: ${(props) => (props.userpage ? "left" : "space-between")};
+  width: ${(props) => (props.userpage ? "100%" : "850px")};
+  margin: ${(props) => (props.userpage ? "0 0 0 0px" : "10px auto 0px auto")};
   #all {
     ${({ category }) => category === "all" && SubBtnActive}
   }
@@ -57,5 +57,17 @@ export const Category = styled.div`
   }
   #diy {
     ${({ category }) => category === "diy" && SubBtnActive}
+  }
+  #review {
+    ${({ category }) => category === "review" && SubBtnActive}
+  }
+  #qna {
+    ${({ category }) => category === "qna" && SubBtnActive}
+  }
+  #reform {
+    ${({ category }) => category === "reform" && SubBtnActive}
+  }
+  #lookbook {
+    ${({ category }) => category === "lookbook" && SubBtnActive}
   }
 `;

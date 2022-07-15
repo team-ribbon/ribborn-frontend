@@ -19,6 +19,7 @@ import ReformDetail from "../page/ReformDetail";
 import LookBookDetail from "../page/LookBookDetail";
 import Lookbook from "../pages/Lookbook";
 import WritePost from "../pages/WritePost";
+import EditPost from "../pages/EditPost";
 import styled from "styled-components";
 import Footer from "./Footer";
 import ChatFloat from "./ChatFloat";
@@ -43,7 +44,7 @@ export default function Router() {
           <Route path="/qna" element={<QnAList />} />
           <Route path="/reform" element={<ReformList />} />
           <Route path="write/:type" element={<WritePost />} />
-          <Route path="edit/:type/:id" element={<WritePost />} />
+          <Route path="edit/:type/:id" element={<EditPost />} />
           <Route path="mypage" element={<MyPage />} />
           <Route path="userdetail/:userId" element={<UserDetail />} />
           <Route path="qnadetail/:postId" element={<QnADetail />} />

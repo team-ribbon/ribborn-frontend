@@ -9,7 +9,7 @@ import { TagTextColor } from "../elements/TagTextColor";
 const CardB = ({ postObj, hot, isMain, inViewRef }) => {
   const navigate = useNavigate();
   return (
-    <article
+    <Article
       onClick={() => {
         navigate(`/lookbookdetail/${postObj.id}`);
       }}
@@ -45,9 +45,12 @@ const CardB = ({ postObj, hot, isMain, inViewRef }) => {
           </div>
         </Content>
       )}
-    </article>
+    </Article>
   );
 };
+const Article = styled.article`
+  cursor: pointer;
+`;
 const ImageWrap = styled.div`
   position: relative;
   overflow: hidden;

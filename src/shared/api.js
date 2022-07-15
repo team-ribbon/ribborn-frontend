@@ -4,6 +4,7 @@ const token = localStorage.getItem("token");
 
 const api = axios.create({
   baseURL: "http://3.35.49.121:8080",
+  // baseURL: "http://13.125.117.133:8888",
   headers: {
     "content-type": "application/json;charset=UTF-8",
     accept: "application/json,",
@@ -18,13 +19,19 @@ const formDataApi = axios.create({
 });
 
 const chatApi = axios.create({
-  baseURL: "",
+  baseURL: "http://13.125.117.133:8888",
   headers: {
     "content-type": "application/json;charset=UTF-8",
     accept: "application/json,",
   },
 });
 
+chatApi.interceptors.request.use(function (config) {
+  if (token !== undefined) {
+    config.headers.common["Authorization"] = token;
+  }
+  return config;
+});
 api.interceptors.request.use(function (config) {
   if (token !== undefined) {
     config.headers.common["Authorization"] = token;
@@ -43,7 +50,7 @@ export const apis = {
   // 회원정보
   login: (username, password) =>
     api.post("/api/users/login", { username, password }),
-  signupUser: (userObj) => api.post("/api/users/register/users", { userObj }),
+  signupUser: (userObj) => api.post("/api/users/register/users", userObj),
   usernameCheck: (username) =>
     api.post("/api/users/register/idCheck", { username }),
   loadUserInfo: () => api.get("/api/users/auth"),
@@ -119,10 +126,13 @@ export const apis = {
     api.get(`/api/users/mypage?postCategory=${category}`),
   loadUserDetail: (id) => api.get(`/api/users/userinfo/${id}`),
   changeUserInfo: (data) => api.put("/api/users/mypage", data),
+
   // 채팅
-  getRoom: () => chatApi.get("/chat/rooms"),
+  getRoomList: () => chatApi.get("/chat/rooms"),
+  getMessageList: (roomId) => chatApi.get("/chat/room/" + roomId),
+
   addRoom: (username) => chatApi.post("/chat/room", { userId: username }),
+
   enterRoom: (roomId) => chatApi.get(`/chat/room/${roomId}`),
-  getMessage: (roomId) => chatApi.get(`/chat/room/${roomId}`),
   exitRoom: (roomId) => chatApi.get(`chat/room/exit/${roomId}`),
 };

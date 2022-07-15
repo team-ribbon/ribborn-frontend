@@ -96,7 +96,7 @@ const Lookbook = () => {
   );
 };
 const Wrap = styled.div`
-  max-width: ${({ theme }) => theme.width.maxWidth};
+  max-width: ${({ theme }) => theme.width.listWidth};
   margin: 0 auto 60px auto;
   padding: 0 40px;
 `;

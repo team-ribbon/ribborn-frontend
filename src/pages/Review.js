@@ -94,7 +94,7 @@ const Review = () => {
   );
 };
 const Wrap = styled.div`
-  max-width: ${({ theme }) => theme.width.maxWidth};
+  max-width: ${({ theme }) => theme.width.listWidth};
   margin: 0 auto;
   padding: 0 40px;
 `;

@@ -6,11 +6,16 @@ import { useNavigate } from "react-router-dom";
 
 import { changeMyDataDB } from "../modules/UserPage";
 import { AddressCategory } from "../shared/AddressCategory";
+import { Textarea } from "../elements/Textarea";
+import { HelpText, Input, InputTitle, Required } from "../elements/Inputs";
+import CustomSelect from "../elements/CustomSelect";
+import { BlackBtn } from "../elements/Buttons";
 
 const InfoChange = ({ change, user }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate;
   const [passwordChange, setPasswordChange] = useState(false);
+  const [selectError, setSelectError] = useState("");
 
   const {
     register,
@@ -20,6 +25,7 @@ const InfoChange = ({ change, user }) => {
   } = useForm();
 
   const onValid = (data) => {
+    console.log("startCheck");
     let sendData = null;
     if (passwordChange) {
       // password validation check
@@ -124,12 +130,14 @@ const InfoChange = ({ change, user }) => {
   return (
     <Template>
       <Form onSubmit={handleSubmit(onValid)}>
-        <span>이메일 주소</span>
-        <span>{user.username}</span>
-        <span>
+        <InputTitle>이메일 주소</InputTitle>
+        <DisabledInput disabled value={user.userName} />
+        <HelpText></HelpText>
+        <InputTitle>
           {user.userType === 1 ? "이름 또는 업체이름 (닉네임 가능)" : "닉네임"}
-        </span>
-        <input
+          <Required>●</Required>
+        </InputTitle>
+        <Input
           {...register("nickname", {
             required:
               user.userType === 1
@@ -151,83 +159,84 @@ const InfoChange = ({ change, user }) => {
           defaultValue={user.nickname}
           autoComplete="off"
         />
-        <span>{errors?.nickname?.message}</span>
+        <HelpText>{errors?.nickname?.message}</HelpText>
         {user.userType === 1 ? (
           <div>
-            <span>연락처</span>
-            <input
+            <InputTitle>
+              연락처<Required>●</Required>
+            </InputTitle>
+            <Input
               {...register("phoneNum", {
                 required: "연락처를 입력해주세요.",
                 pattern: {
-                  value: /^([0-9]{2,3})-([0-9]{3,4})-([0-9]{4})$/,
-                  message:
-                    "전화번호 형식이 아닙니다. -를 포함하여 입력해주세요.",
+                  value: /^([0-9]{9,11})$/,
+                  message: "전화번호 형식이 아닙니다.",
                 },
               })}
               defaultValue={user.phoneNum}
               autoComplete="off"
             />
-            <span>{errors?.phoneNum?.message}</span>
+            <HelpText>{errors?.phoneNum?.message}</HelpText>
 
-            <span>사업자등록번호</span>
-            <input
+            <InputTitle>
+              사업자등록번호<Required>●</Required>
+            </InputTitle>
+            <Input
               {...register("companyNum", {
                 required: "사업자등록번호를 입력해주세요.",
                 pattern: {
-                  value: /^\d\d\d-\d\d-\d\d\d\d\d$/,
-                  message:
-                    "사업자등록번호 형식이 아닙니다. -를 포함하여 입력해주세요.",
+                  value: /^\d\d\d\d\d\d\d\d\d\d$/,
+                  message: "사업자등록번호 형식이 아닙니다.",
                 },
               })}
               defaultValue={user.companyNum}
               autoComplete="off"
             />
-            <span>{errors?.companyNum?.message}</span>
+            <HelpText>{errors?.companyNum?.message}</HelpText>
 
-            <span>사업자 위치</span>
-            <select
+            <InputTitle>
+              사업자 위치<Required>●</Required>
+            </InputTitle>
+            <CustomSelect
+              options={AddressCategory}
               defaultValue={user.addressCategory}
-              {...register("addressCategory", {
-                required: "지역을 선택해주세요.",
-              })}
-            >
-              {AddressCategory.map((element, index) => (
-                <option value={element} key={index}>
-                  {element}
-                </option>
-              ))}
-            </select>
-
-            <span>상세주소</span>
-            <input
+              setSelectError={setSelectError}
+            />
+            <HelpText />
+            <InputTitle>상세주소</InputTitle>
+            <Input
               {...register("addressDetail", {
                 required: "상세주소를 입력해주세요.",
               })}
               defaultValue={user.addressDetail}
               autoComplete="off"
             />
+            <HelpText />
 
-            <span>브랜드/자기소개</span>
-            <textarea
+            <InputTitle>브랜드/자기소개</InputTitle>
+            <Textarea
               {...register("introduction", {})}
               defaultValue={user.introduction}
               autoComplete="off"
             />
           </div>
         ) : null}
-
-        <input
-          type="button"
-          onClick={() => {
-            setPasswordChange(!passwordChange);
-          }}
-          value={passwordChange ? "비밀번호 수정취소" : "비밀번호 수정"}
-        />
+        <ButtonDiv>
+          <FakeButton
+            onClick={() => {
+              setPasswordChange(!passwordChange);
+            }}
+          >
+            {passwordChange ? "비밀번호 수정취소" : "비밀번호 수정"}
+          </FakeButton>
+        </ButtonDiv>
 
         {passwordChange ? (
           <div>
-            <span>현재 비밀번호</span>
-            <input
+            <InputTitle>
+              현재 비밀번호<Required>●</Required>
+            </InputTitle>
+            <Input
               {...register("currentPassword", {
                 pattern: {
                   value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d!@#$%^&*()-_=+]{1,}$/,
@@ -245,10 +254,12 @@ const InfoChange = ({ change, user }) => {
               type="password"
               placeholder="현재 비밀번호"
             />
-            <span>{errors?.currentPassword?.message}</span>
+            <HelpText>{errors?.currentPassword?.message}</HelpText>
 
-            <span>변경 비밀번호</span>
-            <input
+            <InputTitle>
+              변경 비밀번호<Required>●</Required>
+            </InputTitle>
+            <Input
               {...register("newPassword", {
                 pattern: {
                   value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d!@#$%^&*()-_=+]{1,}$/,
@@ -266,28 +277,30 @@ const InfoChange = ({ change, user }) => {
               type="password"
               placeholder="변경 비밀번호"
             />
-            <span>{errors?.newPassword?.message}</span>
+            <HelpText>{errors?.newPassword?.message}</HelpText>
 
-            <span>변경 비밀번호 확인</span>
-            <input
+            <InputTitle>
+              변경 비밀번호 확인<Required>●</Required>
+            </InputTitle>
+            <Input
               {...register("newPasswordCheck", {})}
               placeholder="변경 비밀번호 확인"
               type="password"
             />
-            <span>{errors?.newPasswordCheck?.message}</span>
+            <HelpText>{errors?.newPasswordCheck?.message}</HelpText>
           </div>
         ) : null}
 
         <ButtonDiv>
           <FakeButton
-            type="button"
             onClick={() => {
               change(false);
             }}
-            value="수정취소"
-          />
+          >
+            수정취소
+          </FakeButton>
 
-          <Button>회원정보 수정</Button>
+          <BlackBtn>회원정보 수정</BlackBtn>
         </ButtonDiv>
       </Form>
     </Template>
@@ -302,23 +315,30 @@ const Template = styled.div`
   padding-top: 40px;
 `;
 
+const DisabledInput = styled(Input)`
+  color: #afb0b3;
+`;
+
 const Form = styled.form`
+  width: 700px;
+`;
+
+const ButtonDiv = styled.div`
+  margin: 40px 0;
   display: flex;
-  flex-direction: column;
 `;
 
-const ButtonDiv = styled.div``;
+const FakeButton = styled.div`
+  border-radius: 15px;
+  padding: 25px 60px;
+  margin-right: 50px;
+  width: fit-content;
+  border: none;
+  color: #fff;
+  background-color: ${({ theme }) => theme.colors.black};
 
-const FakeButton = styled.input`
-  width: 100px;
-  height: 40px;
-  margin: auto 10px;
-`;
-
-const Button = styled.button`
-  width: 100px;
-  height: 40px;
-  margin: auto 10px;
+  font-size: ${({ theme }) => theme.fontSizes.l};
+  cursor: pointer;
 `;
 
 export default InfoChange;

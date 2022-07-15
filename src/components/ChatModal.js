@@ -42,56 +42,68 @@ const ChatModal = ({ setChatToggle }) => {
   }, []);
 
   return (
-    <Wrap>
-      <ListWrap>
-        <Title>채팅</Title>
-        {roomList.map((room) => (
-          <Link
-            to={"/chat/" + room.roomId}
-            key={room.roomId}
-            state={{ backgroundLocation: location.state.backgroundLocation }}
-          >
-            <List>
-              <Nickname>{room.nickname}</Nickname>
-              <Date>{room.date}</Date>
-              <Message>{room.message}</Message>
-            </List>
-          </Link>
-        ))}
-      </ListWrap>
-      <RoomWrap>
-        <CloseBtn onClick={onClickClose}>
-          <svg
-            width="17"
-            height="17"
-            viewBox="0 0 17 17"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path d="M16 1L1 16M16 16L1 1" stroke="#222222" />
-          </svg>
-        </CloseBtn>
-        {match && (
-          <HelpMessage>
-            <div>
-              <OrangeChatSVG />
-            </div>
-            {roomList.length > 0 ? (
-              <>
-                왼쪽 채팅 목록을 클릭하여 <br />
-                채팅 내용을 확인해주세요!
-              </>
-            ) : (
-              "채팅 내역이 없습니다."
-            )}
-          </HelpMessage>
-        )}
-        {roomId && <ChatRoom roomId={roomId} />}
-      </RoomWrap>
-    </Wrap>
+    <>
+      <Dim />
+      <Wrap>
+        <ListWrap>
+          <Title>채팅</Title>
+          {roomList.map((room) => (
+            <Link
+              to={"/chat/" + room.roomId}
+              key={room.roomId}
+              state={{ backgroundLocation: location.state.backgroundLocation }}
+            >
+              <List>
+                <Nickname>{room.nickname}</Nickname>
+                <Date>{room.date}</Date>
+                <Message>{room.message}</Message>
+              </List>
+            </Link>
+          ))}
+        </ListWrap>
+        <RoomWrap>
+          <CloseBtn onClick={onClickClose}>
+            <svg
+              width="17"
+              height="17"
+              viewBox="0 0 17 17"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path d="M16 1L1 16M16 16L1 1" stroke="#222222" />
+            </svg>
+          </CloseBtn>
+          {match && (
+            <HelpMessage>
+              <div>
+                <OrangeChatSVG />
+              </div>
+              {roomList.length > 0 ? (
+                <>
+                  왼쪽 채팅 목록을 클릭하여 <br />
+                  채팅 내용을 확인해주세요!
+                </>
+              ) : (
+                "채팅 내역이 없습니다."
+              )}
+            </HelpMessage>
+          )}
+          {roomId && <ChatRoom roomId={roomId} />}
+        </RoomWrap>
+      </Wrap>
+    </>
   );
 };
-
+const Dim = styled.div`
+  box-sizing: border-box;
+  display: "block";
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+`;
 const Wrap = styled.div`
   position: fixed;
   top: 50%;
@@ -152,7 +164,7 @@ const CloseBtn = styled.div`
 const HelpMessage = styled.div`
   font-size: ${({ theme }) => theme.fontSizes.xl};
   text-align: center;
-  padding-bottom: 40%;
+  padding-bottom: 50%;
 `;
 
 export default ChatModal;

@@ -25,7 +25,6 @@ const ChatFloat = () => {
         )}
       </Link>
       <ChatWrap>
-        <Dim chatToggle={chatToggle} />
         {chatToggle && <ChatModal setChatToggle={setChatToggle} />}
       </ChatWrap>
     </FloatWrap>
@@ -42,18 +41,6 @@ const FloatWrap = styled.div`
 const ChatWrap = styled.div`
   position: relative;
 `;
-
-const Dim = styled.div`
-  box-sizing: border-box;
-  display: ${({ chatToggle }) => (chatToggle ? "block" : "none")};
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  background-color: rgba(0, 0, 0, 0.6);
-`;
-
 const ChatButton = styled.div`
   width: 100px;
   height: 100px;

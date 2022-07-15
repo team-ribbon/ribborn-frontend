@@ -7,9 +7,15 @@ import { clearUserInfo } from "../redux/modules/user";
 const Header = () => {
   const isReview = useMatch("/review");
   const isQna = useMatch("/qna");
-  const isCommunity = isReview || isQna;
-  const isLookbook = useMatch("/lookbook");
-  const isReform = useMatch("/reform");
+  const isReviewDetail = useMatch("/reviewdetail/:postId");
+  const isQnaDetail = useMatch("/qnadetail/:postId");
+  const isCommunity = isReview || isQna || isReviewDetail || isQnaDetail;
+  const isLookbook1 = useMatch("/lookbook");
+  const isLookbook2 = useMatch("lookbookdetail/:postId");
+  const isLookbook = isLookbook1 || isLookbook2;
+  const isReform1 = useMatch("/reform");
+  const isReform2 = useMatch("reformdetail/:postId");
+  const isReform = isReform1 || isReform2;
 
   const dispatch = useDispatch();
   const isLogin = useSelector((state) => state.user.isLogin);

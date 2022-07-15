@@ -5,6 +5,8 @@ import { apis } from "../shared/api";
 // Action
 const GET_MAIN = "GET_MAIN";
 const GET_POST_LIST = "GET_POST_LIST";
+const GET_MORE_POST_LIST = "GET_MORE_POST_LIST";
+const LOAD_DONE = "LOAD_DONE";
 
 const GET_TECH_INTRO = "GET_TECH_INTRO";
 
@@ -24,6 +26,10 @@ const CLEANUP_POST = "CLEANUP_POST";
 // Action Creator
 const getMain = createAction(GET_MAIN, (mainContents) => ({ mainContents }));
 const getPostList = createAction(GET_POST_LIST, (PostList) => ({ PostList }));
+const getMorePostList = createAction(GET_MORE_POST_LIST, (PostList) => ({
+  PostList,
+}));
+const loadDone = createAction(LOAD_DONE);
 const getTechIntro = createAction(GET_TECH_INTRO, (intro) => ({ intro }));
 
 const getPost = createAction(GET_POST, (Post) => ({ Post }));
@@ -49,6 +55,7 @@ export const cleanUpPost = createAction(CLEANUP_POST);
 
 // InitialState
 const initialState = {
+  loadedEverything: false,
   techIntro: "",
   PostList: [],
   Post: null,
@@ -86,7 +93,14 @@ export const getQnAListDB = (category, sort, page) => {
   return async function (dispatch) {
     try {
       const response = await apis.loadQnAList(category, sort, page);
-      dispatch(getPostList(response.data));
+      if (response.data.length < 6) {
+        dispatch(loadDone());
+      }
+      if (page === 0) {
+        dispatch(getPostList(response.data));
+      } else {
+        dispatch(getMorePostList(response.data));
+      }
     } catch (error) {
       console.log(error);
     }
@@ -320,6 +334,14 @@ export default handleActions(
       produce(state, (draft) => {
         draft.PostList = payload.PostList;
       }),
+    [GET_MORE_POST_LIST]: (state, { payload }) =>
+      produce(state, (draft) => {
+        draft.PostList.push(...payload.PostList);
+      }),
+    [LOAD_DONE]: (state) =>
+      produce(state, (draft) => {
+        draft.loadedEverything = true;
+      }),
     [GET_POST]: (state, { payload }) =>
       produce(state, (draft) => {
         draft.Post = payload.Post.post;
@@ -366,11 +388,13 @@ export default handleActions(
     [CLEANUP_POST_LIST]: (state) =>
       produce(state, (draft) => {
         draft.PostList = initialState.PostList;
+        draft.loadedEverything = false;
       }),
     [CLEANUP_POST]: (state) =>
       produce(state, (draft) => {
         draft.Post = initialState.Post;
         draft.Comments = initialState.Comments;
+        draft.loadedEverything = false;
       }),
   },
   initialState

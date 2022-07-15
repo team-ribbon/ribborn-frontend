@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { useInView } from "react-intersection-observer";
 
 import { getQnAListDB, cleanUpPostList } from "../modules/post";
 import TextCard from "../components/TextCard";
@@ -18,7 +19,12 @@ function QnAList() {
   const [category, setCategory] = React.useState("all");
   const [sort, setSort] = React.useState("createAt");
   const [page, setPage] = React.useState(0);
+  const [loading, setLoading] = React.useState(true);
+
+  const [inViewRef, inView] = useInView();
+
   const postlists = useSelector((state) => state.post.PostList);
+  const loadedEverything = useSelector((state) => state.post.loadedEverything);
 
   const onClickCategory = (event) => {
     setCategory(event.target.id);
@@ -29,7 +35,18 @@ function QnAList() {
   }, [category, sort]);
 
   React.useEffect(() => {
-    dispatch(getQnAListDB(category, sort, page));
+    if (inView && !loading && !loadedEverything) {
+      setPage(page + 1);
+      console.log("changePage");
+    }
+    console.log(page);
+  }, [inView]);
+
+  React.useEffect(() => {
+    setLoading(true);
+    dispatch(getQnAListDB(category, sort, page)).then((res) => {
+      setLoading(false);
+    });
   }, [category, sort, page]);
 
   React.useEffect(() => {
@@ -57,8 +74,12 @@ function QnAList() {
         <Sort setSort={setSort} sort={sort} />
       </Buttons>
       <PostCoverDiv>
-        {postlists.map((v) => {
-          return <TextCard postObj={v} key={"post" + v.id} />;
+        {postlists.map((v, i) => {
+          return i === postlists.length - 1 ? (
+            <TextCard postObj={v} key={"post" + v.id} inViewRef={inViewRef} />
+          ) : (
+            <TextCard postObj={v} key={"post" + v.id} />
+          );
         })}
       </PostCoverDiv>
     </Wrap>

@@ -4,53 +4,91 @@ import Categories from "../shared/Categories";
 import TimeCalculator from "../shared/TimeCalculator";
 import { TagTextColor } from "../elements/TagTextColor";
 import { useNavigate } from "react-router-dom";
+import PostRightBtn from "./PostRightBtn";
 
-const PostDetail = ({ qna, post, userId }) => {
+const PostDetail = ({ qna, post, userId, postId }) => {
+  window.onscroll = function () {
+    document.getElementById("navbar").style.top =
+      window.pageYOffset + 100 + "px";
+  };
   const navigate = useNavigate();
   return (
     post && (
-      <CenterPostDiv>
-        <Community>{qna ? "질문과 답변" : "리폼 후기"}</Community>
-        <Title>{post.title}</Title>
-        <IDDiv>
-          <ID onClick={() => navigate(`/userdetail/${post.userid}`)}>
-            @{post.nickname}
-          </ID>
-          <CircleDiv />
-          <Time>{TimeCalculator(post.createAt)}</Time>
-          {userId === post.userid ? (
-            <MyPostButtons postType={qna ? "qna" : "review"} id={post.id} />
+      <PostWrap>
+        <LeftPostDiv />
+        <CenterPostDiv>
+          <Community>{qna ? "질문과 답변" : "리폼 후기"}</Community>
+          <Title>{post.title}</Title>
+          <IDDiv>
+            <ID onClick={() => navigate(`/userdetail/${post.userid}`)}>
+              @{post.nickname}
+            </ID>
+            <CircleDiv />
+            <Time>{TimeCalculator(post.createAt)}</Time>
+            {userId === post.userid ? (
+              <MyPostButtons postType={qna ? "qna" : "review"} id={post.id} />
+            ) : null}
+          </IDDiv>
+          <TagDiv>
+            {qna ? (
+              Categories.map((v) => {
+                return v.value === post.category ? (
+                  <Category key={"category" + v.value}>{v.text}</Category>
+                ) : null;
+              })
+            ) : (
+              <Tag>
+                <TagTextColor>{post.category.toUpperCase()}</TagTextColor>
+              </Tag>
+            )}
+          </TagDiv>
+          {post.image[0] !== null ? (
+            <Image alt="card" src={post.image[0]} />
           ) : null}
-        </IDDiv>
-        <TagDiv>
-          {qna ? (
-            Categories.map((v) => {
-              return v.value === post.category ? (
-                <Category key={"category" + v.value}>{v.text}</Category>
-              ) : null;
-            })
-          ) : (
-            <Tag>
-              <TagTextColor>{post.category.toUpperCase()}</TagTextColor>
-            </Tag>
-          )}
-        </TagDiv>
-        {post.image[0] !== null ? (
-          <Image alt="card" src={post.image[0]} />
-        ) : null}
-        <TextArea noImage={post.image[0] === null}>{post.content}</TextArea>
-        {post.image.map((v, i) => {
-          return i !== 0 ? <Image alt="card" src={v} /> : null;
-        })}
-      </CenterPostDiv>
+          <TextArea noImage={post.image[0] === null}>{post.content}</TextArea>
+          {post.image.map((v, i) => {
+            return i !== 0 ? <Image alt="card" src={v} /> : null;
+          })}
+        </CenterPostDiv>
+        <RightPostDiv>
+          <Navbar id="navbar">
+            <PostRightBtn
+              noshare={false}
+              id={postId}
+              liked={post && post.liked}
+              likeCount={post && post.likeCount}
+            />
+          </Navbar>
+        </RightPostDiv>
+      </PostWrap>
     )
   );
 };
 
+const PostWrap = styled.div`
+  max-width: ${({ theme }) => theme.width.maxWidth};
+  display: grid;
+  grid-template-columns: 1fr 700px 1fr;
+`;
+
+const LeftPostDiv = styled.div`
+  min-width: 60px;
+`;
+
 const CenterPostDiv = styled.div`
   margin-top: 60px;
   width: 700px;
-  margin-left: calc(50vw - 350px);
+`;
+
+const RightPostDiv = styled.div`
+  position: relative;
+  min-width: 60px;
+`;
+
+const Navbar = styled.div`
+  position: absolute;
+  top: 100px;
+  width: 100%;
 `;
 
 const Community = styled.p`

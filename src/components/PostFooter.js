@@ -9,7 +9,19 @@ import {
   modifyCommentDB,
 } from "../modules/post";
 
-const PostFooter = ({ commentsList, id, userId, commentCount, page }) => {
+const PostFooter = ({
+  commentsList,
+  id,
+  userId,
+  commentCount,
+  page,
+  inViewRef,
+  setPage,
+  loadDoneReset,
+  setLoading,
+  inView,
+  loadedEverything,
+}) => {
   const inputCurrent = React.useRef(null);
   const modifyInputCurrent = React.useRef(null);
   const dispatch = useDispatch();
@@ -21,7 +33,21 @@ const PostFooter = ({ commentsList, id, userId, commentCount, page }) => {
       return false;
     }
     if (isLogin) {
-      dispatch(PostCommentDB(id, inputCurrent.current.value, page));
+      dispatch(PostCommentDB(id, inputCurrent.current.value, page)).then(() => {
+        dispatch(loadDoneReset());
+        if (page === 0) {
+          setLoading(true);
+          dispatch(GetCommentDB(id, page, 5)).then((res) => {
+            if (inView && !loadedEverything) {
+              setPage(page + 1);
+            } else {
+              setLoading(false);
+            }
+          });
+        } else {
+          setPage(0);
+        }
+      });
       document.getElementById("messageInput").value = "";
     } else {
       alert("댓글을 달려면 로그인을 해주세요!");
@@ -29,7 +55,21 @@ const PostFooter = ({ commentsList, id, userId, commentCount, page }) => {
   };
 
   const deleteComment = (commentId) => {
-    dispatch(deleteCommentDB(id, commentId));
+    dispatch(deleteCommentDB(id, commentId)).then(() => {
+      dispatch(loadDoneReset());
+      if (page === 0) {
+        setLoading(true);
+        dispatch(GetCommentDB(id, 0, 5)).then((res) => {
+          if (inView && !loadedEverything) {
+            setPage(page + 1);
+          } else {
+            setLoading(false);
+          }
+        });
+      } else {
+        setPage(0);
+      }
+    });
   };
 
   const modifyComment = (commentId) => {
@@ -54,7 +94,10 @@ const PostFooter = ({ commentsList, id, userId, commentCount, page }) => {
           {commentsList.map((v, i) => {
             const myComment = userId === v.userid;
             return (
-              <Comment modify={myComment}>
+              <Comment
+                modify={myComment}
+                ref={commentsList.length - 1 === i ? inViewRef : null}
+              >
                 <CommentFistLine>
                   <CommentNickname>@{v.nickname}</CommentNickname>
                   <CommentContent>{v.comment}</CommentContent>

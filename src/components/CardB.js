@@ -6,7 +6,7 @@ import { HeartSVG } from "../elements/SVG";
 import { TagTextColor } from "../elements/TagTextColor";
 
 // 메인, LOOKBOOK 게시판에 사용되는 카드
-const CardB = ({ postObj, hot, isMain }) => {
+const CardB = ({ postObj, hot, isMain, inViewRef }) => {
   const navigate = useNavigate();
   return (
     <article
@@ -14,7 +14,7 @@ const CardB = ({ postObj, hot, isMain }) => {
         navigate(`/lookbookdetail/${postObj.id}`);
       }}
     >
-      <ImageWrap isMain={isMain}>
+      <ImageWrap isMain={isMain} ref={inViewRef}>
         <ImageDim />
         <Image alt="lookbook" src={postObj.image} />
         <Title>

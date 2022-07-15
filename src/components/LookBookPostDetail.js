@@ -3,9 +3,12 @@ import MyPostButtons from "./MyPostButtons";
 import moment from "moment";
 import InfoSection from "./InfoSection";
 import { MainBtn } from "../elements/Buttons";
+import { useNavigate } from "react-router-dom";
 import { apis } from "../shared/api";
 
 const LookBookPostDetail = ({ post, userId }) => {
+  const navigate = useNavigate();
+
   const onClickChat = async () => {
     await apis.addRoom(post.userid);
   };
@@ -14,7 +17,7 @@ const LookBookPostDetail = ({ post, userId }) => {
     post && (
       <Wrap>
         <HeaderWrap>
-          <TitleWrap>
+          <TitleWrap onClick={() => navigate(`/userdetail/${post.userid}`)}>
             <Title weight={700}>{post.nickname}</Title>
             <Title weight={400}>님의 작업</Title>
           </TitleWrap>
@@ -46,12 +49,13 @@ const LookBookPostDetail = ({ post, userId }) => {
                   : "http://openimage.interpark.com/goods_image_big/1/4/1/9/9090461419_l.jpg"
               }
             />
-            <TextArea noImage={post.image[0] === null}>{post.content}</TextArea>
+            <TextArea>{post.introduction}</TextArea>
             <Grid>
               {post.image.map((v, i) => {
                 return i !== 0 ? <Image alt="card" src={v} /> : null;
               })}
             </Grid>
+            <TextArea white={true}>{post.content}</TextArea>
           </CenterPostDiv>
           <RightPostDiv>
             <InfoSection
@@ -78,13 +82,6 @@ const HeaderWrap = styled.div`
   align-items: center;
 `;
 
-const Community = styled.p`
-  font-weight: 400;
-  font-size: 18px;
-  line-height: 24px;
-  color: #222222;
-`;
-
 const TitleWrap = styled.div`
   display: flex;
   flex-direction: row;
@@ -95,7 +92,7 @@ const Title = styled.p`
   font-weight: ${(props) => props.weight};
   font-size: 45px;
   line-height: 60px;
-  margin-left: ${(props) => (props.weight === 400 ? "10px" : 0)}; ;
+  margin-left: ${(props) => (props.weight === 400 ? "10px" : 0)};
 `;
 
 const Date = styled.span`
@@ -114,6 +111,7 @@ const BodyWrap = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
+  margin-top: 90px;
 `;
 
 const LeftPostDiv = styled.div`
@@ -149,17 +147,18 @@ const Grid = styled.div`
 `;
 
 const TextArea = styled.div`
+  text-align: ${(props) => (props.white ? "left" : "center")};
   border: none;
   width: 100%;
   height: auto;
-  padding: 40px 20px;
+  padding: ${(props) => (props.white ? "40px 0" : "40px 20px")};
   resize: none;
   overflow: hidden;
   font-weight: 400;
   font-size: 18px;
   line-height: 28px;
-  background-color: #222;
-  color: #fff;
+  background-color: ${(props) => (props.white ? "" : "#222")};
+  color: ${(props) => (props.white ? "#222" : "#fff")};
 `;
 
 export default LookBookPostDetail;

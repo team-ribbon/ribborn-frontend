@@ -54,6 +54,7 @@
 | react-hook-form |7.33.0|
 | react-icons |4.4.0|
 | moment |2.29.4|
+| react-intersection-observer |9.3.5|
   
 </div>
 

@@ -6,7 +6,7 @@ import Regions from "../shared/Regions";
 import { HiOutlineHeart } from "react-icons/hi";
 import { IoChatbubbleOutline } from "react-icons/io5";
 
-const TextCard = ({ postObj, noWriter, reform }) => {
+const TextCard = ({ postObj, noWriter, reform, inViewRef }) => {
   const navigate = useNavigate();
 
   let process = null;
@@ -32,6 +32,7 @@ const TextCard = ({ postObj, noWriter, reform }) => {
           ? navigate(`/reformdetail/${postObj.id}`)
           : navigate(`/qnadetail/${postObj.id}`);
       }}
+      ref={inViewRef}
     >
       <TextDiv>
         <TitleContentWrap>

@@ -2,12 +2,14 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { cleanUpMyPage, getMyPageDB } from "../modules/UserPage";
+import { useNavigate } from "react-router-dom";
 
 import UserInfoCard from "../components/UserInfoCard";
 import UserPost from "../components/UserPost";
 import InfoChange from "../components/InfoChange";
 
 function MyPage() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.UserPage.myPage.users);
   const qna = useSelector((state) => state.UserPage.myPage.qnaList);
@@ -15,10 +17,16 @@ function MyPage() {
   const review = useSelector((state) => state.UserPage.myPage.reviewList);
   const reform = useSelector((state) => state.UserPage.myPage.reformList);
   const categoriedPosts = useSelector((state) => state.UserPage.myPage.posts);
+  const isLogin = useSelector((state) => state.user.isLogin);
 
   const [infoChange, SetInfoChange] = useState(false);
   const [category, setCategory] = useState("all");
 
+  React.useEffect(() => {
+    if (!isLogin) {
+      navigate("/");
+    }
+  }, [isLogin]);
   React.useEffect(() => {
     dispatch(getMyPageDB(category));
   }, [category]);

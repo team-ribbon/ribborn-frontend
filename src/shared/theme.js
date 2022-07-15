@@ -19,6 +19,7 @@ const fontSizes = {
 
 const width = {
   maxWidth: "1440px",
+  listWidth: "1106px",
 };
 
 const theme = {

@@ -18,6 +18,7 @@ const Review = () => {
   const dispatch = useDispatch();
   const postList = useSelector((state) => state.post.PostList);
   const loadedEverything = useSelector((state) => state.post.loadedEverything);
+  const isLogin = useSelector((state) => state.user.isLogin);
   const param = useParams();
   // console.log(postList);
 
@@ -71,9 +72,11 @@ const Review = () => {
         })}
       </Category>
       <Buttons>
-        <Link to="/write/review">
-          <MainBtn>글쓰기</MainBtn>
-        </Link>
+        {isLogin && (
+          <Link to="/write/review">
+            <MainBtn>글쓰기</MainBtn>
+          </Link>
+        )}
         <Sort setSort={setSort} sort={sort} />
       </Buttons>
       <Grid>
@@ -94,7 +97,7 @@ const Review = () => {
   );
 };
 const Wrap = styled.div`
-  max-width: ${({ theme }) => theme.width.maxWidth};
+  max-width: ${({ theme }) => theme.width.listWidth};
   margin: 0 auto;
   padding: 0 40px;
 `;

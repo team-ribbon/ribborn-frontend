@@ -16,11 +16,11 @@ const UserInfoCard = ({ myPage, user, change }) => {
             <ContentText>{user.companyNum}</ContentText>
           </div>
         ) : null}
-        <BookmarkDiv>
+        {/* <BookmarkDiv>
           <BsBookmark size="24" />
           <TitleText top={true}>관심</TitleText>
           <ContentText>88</ContentText>
-        </BookmarkDiv>
+        </BookmarkDiv> */}
       </CardDiv>
       {myPage ? (
         <ModifyBtn

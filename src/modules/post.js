@@ -255,7 +255,6 @@ export const PostCommentDB = (id, comment, page) => {
       .then((res) => {
         console.log(res);
         dispatch(newComment());
-        dispatch(GetCommentDB(id, 0, (page + 1) * 5));
       })
       .catch((error) => {
         console.log(error);
@@ -294,6 +293,9 @@ export const GetCommentDB = (id, page, num) => {
   return async function (dispatch) {
     try {
       const response = await apis.loadComments(id, page, num).then((res) => {
+        if (res.data.content.length < 5) {
+          dispatch(loadDone());
+        }
         if (page === 0) {
           console.log(res.data);
           dispatch(newCommentLoad(res.data));

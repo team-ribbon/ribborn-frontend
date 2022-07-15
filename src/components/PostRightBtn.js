@@ -45,10 +45,11 @@ const PostRightBtn = ({ noshare, id, liked, likeCount, lookbook }) => {
 };
 
 const Cover = styled.div`
-  position: fixed;
-  top: 50%;
-  right: 200px;
+  display: flex;
+  flex-direction: column;
   text-align: center;
+  align-items: center;
+  margin-top: 50px;
 `;
 
 const Button = styled.div`

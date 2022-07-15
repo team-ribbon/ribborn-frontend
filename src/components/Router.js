@@ -51,6 +51,7 @@ export default function Router() {
           <Route path="reviewdetail/:postId" element={<ReviewDetail />} />
           <Route path="reformdetail/:postId" element={<ReformDetail />} />
           <Route path="lookbookdetail/:postId" element={<LookBookDetail />} />
+          <Route path="*" element={<Main />} />
         </Routes>
       </MainWrap>
       <Footer />

@@ -1,3 +1,4 @@
+import React from "react";
 import styled from "styled-components";
 import MyPostButtons from "./MyPostButtons";
 import TimeCalculator from "../shared/TimeCalculator";
@@ -6,12 +7,18 @@ import { useNavigate } from "react-router-dom";
 import { MainBtn } from "../elements/Buttons";
 
 const ReformPostDetail = ({ post, userId, userType }) => {
-  window.onscroll = function () {
+  const scrollEvent = () => {
     document.getElementById("navbar1").style.top =
       window.pageYOffset - 100 + "px";
     document.getElementById("navbar2").style.top =
       window.pageYOffset - 100 + "px";
   };
+  React.useEffect(() => {
+    window.addEventListener("scroll", scrollEvent);
+    return () => {
+      window.removeEventListener("scroll", scrollEvent);
+    };
+  }, []);
   const navigate = useNavigate();
   let process = null;
   switch (post && post.process) {

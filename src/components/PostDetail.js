@@ -5,12 +5,20 @@ import TimeCalculator from "../shared/TimeCalculator";
 import { TagTextColor } from "../elements/TagTextColor";
 import { useNavigate } from "react-router-dom";
 import PostRightBtn from "./PostRightBtn";
+import React from "react";
 
 const PostDetail = ({ qna, post, userId, postId }) => {
-  window.onscroll = function () {
+  const scrollEvent = () => {
     document.getElementById("navbar").style.top =
       window.pageYOffset + 100 + "px";
   };
+  React.useEffect(() => {
+    window.addEventListener("scroll", scrollEvent);
+    return () => {
+      window.removeEventListener("scroll", scrollEvent);
+    };
+  }, []);
+
   const navigate = useNavigate();
   return (
     post && (

@@ -1,3 +1,4 @@
+import React from "react";
 import styled from "styled-components";
 import MyPostButtons from "./MyPostButtons";
 import moment from "moment";
@@ -8,10 +9,21 @@ import { useNavigate } from "react-router-dom";
 import PostRightBtn from "../components/PostRightBtn";
 
 const LookBookPostDetail = ({ post, userId, postId, userType }) => {
-  window.onscroll = function () {
-    document.getElementById("navbar").style.top =
-      window.pageYOffset - 350 + "px";
+  const scrollEvent = () => {
+    if (post && userId === post.userid) {
+      document.getElementById("navbar").style.top =
+        window.pageYOffset - 350 + "px";
+    } else {
+      document.getElementById("navbar").style.top =
+        window.pageYOffset - 250 + "px";
+    }
   };
+  React.useEffect(() => {
+    window.addEventListener("scroll", scrollEvent);
+    return () => {
+      window.removeEventListener("scroll", scrollEvent);
+    };
+  }, []);
   const navigate = useNavigate();
   return (
     post && (
@@ -58,7 +70,7 @@ const LookBookPostDetail = ({ post, userId, postId, userType }) => {
             <TextArea white={true}>{post.content}</TextArea>
           </CenterPostDiv>
           <RightPostDiv>
-            <Navbar id="navbar">
+            <Navbar id="navbar" myPost={post && userId === post.userid}>
               <InfoSection
                 reform={false}
                 region={post.addressCategory}
@@ -134,7 +146,7 @@ const RightPostDiv = styled.div`
 
 const Navbar = styled.div`
   position: absolute;
-  top: -350px;
+  top: ${(props) => (props.myPost ? "-350px" : "-250px")};
 `;
 
 const MyButtonsWrap = styled.div`

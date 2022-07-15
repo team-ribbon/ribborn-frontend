@@ -138,7 +138,14 @@ export const getReviewListDB = (category, sort, page) => {
   return async (dispatch) => {
     try {
       const response = await apis.loadReviewList(category, sort, page);
-      dispatch(getPostList(response.data));
+      if (response.data.length < 6) {
+        dispatch(loadDone());
+      }
+      if (page === 0) {
+        dispatch(getPostList(response.data));
+      } else {
+        dispatch(getMorePostList(response.data));
+      }
     } catch (error) {
       console.log(error);
     }
@@ -152,7 +159,14 @@ export const getLookbookListDB = (category, sort, page) => {
       const response = await apis
         .loadLookbookList(category, sort, page)
         .then((res) => {
-          dispatch(getPostList(res.data));
+          if (res.data.length < 6) {
+            dispatch(loadDone());
+          }
+          if (page === 0) {
+            dispatch(getPostList(res.data));
+          } else {
+            dispatch(getMorePostList(res.data));
+          }
         });
     } catch (error) {
       console.log(error);

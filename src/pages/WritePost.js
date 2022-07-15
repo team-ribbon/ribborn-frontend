@@ -79,9 +79,7 @@ const WritePost = () => {
   const { id } = useParams();
 
   React.useEffect(() => {
-    if (document.getElementById("introduction")) {
-      document.getElementById("introduction").value = intro;
-    }
+    setIntroduction(intro);
   }, [intro]);
 
   let frm = new FormData();
@@ -235,7 +233,7 @@ const WritePost = () => {
               onChange={onChangeIntro}
               ref={introRef}
             />
-            <IntroLength>{introduction.length}/100</IntroLength>
+            <IntroLength>{introduction && introduction.length}/100</IntroLength>
           </IntroDiv>
         )}
         {type !== "lookbook" && (

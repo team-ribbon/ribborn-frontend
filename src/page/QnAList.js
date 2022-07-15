@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { useInView } from "react-intersection-observer";
 
-import { getQnAListDB, cleanUpPostList } from "../modules/post";
+import { getQnAListDB, cleanUpPostList, loadDoneReset } from "../modules/post";
 import TextCard from "../components/TextCard";
 import TabWrap from "../components/TabWrap";
 import Sort from "../components/Sort";
@@ -31,15 +31,14 @@ function QnAList() {
   };
 
   React.useEffect(() => {
+    dispatch(loadDoneReset());
     setPage(0);
   }, [category, sort]);
 
   React.useEffect(() => {
     if (inView && !loading && !loadedEverything) {
       setPage(page + 1);
-      console.log("changePage");
     }
-    console.log(page);
   }, [inView]);
 
   React.useEffect(() => {

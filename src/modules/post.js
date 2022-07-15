@@ -7,6 +7,7 @@ const GET_MAIN = "GET_MAIN";
 const GET_POST_LIST = "GET_POST_LIST";
 const GET_MORE_POST_LIST = "GET_MORE_POST_LIST";
 const LOAD_DONE = "LOAD_DONE";
+const LOAD_DONE_RESET = "LOAD_DONE_RESET";
 
 const GET_TECH_INTRO = "GET_TECH_INTRO";
 
@@ -30,6 +31,7 @@ const getMorePostList = createAction(GET_MORE_POST_LIST, (PostList) => ({
   PostList,
 }));
 const loadDone = createAction(LOAD_DONE);
+export const loadDoneReset = createAction(LOAD_DONE_RESET);
 const getTechIntro = createAction(GET_TECH_INTRO, (intro) => ({ intro }));
 
 const getPost = createAction(GET_POST, (Post) => ({ Post }));
@@ -117,7 +119,14 @@ export const getReformListDB = (category, region, process, page) => {
         process,
         page
       );
-      dispatch(getPostList(response.data));
+      if (response.data.length < 6) {
+        dispatch(loadDone());
+      }
+      if (page === 0) {
+        dispatch(getPostList(response.data));
+      } else {
+        dispatch(getMorePostList(response.data));
+      }
     } catch (error) {
       console.log(error);
     }
@@ -342,6 +351,11 @@ export default handleActions(
       produce(state, (draft) => {
         draft.loadedEverything = true;
       }),
+    [LOAD_DONE_RESET]: (state) =>
+      produce(state, (draft) => {
+        draft.loadedEverything = false;
+      }),
+
     [GET_POST]: (state, { payload }) =>
       produce(state, (draft) => {
         draft.Post = payload.Post.post;

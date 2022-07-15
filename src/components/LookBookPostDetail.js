@@ -5,7 +5,13 @@ import InfoSection from "./InfoSection";
 import { MainBtn } from "../elements/Buttons";
 import { useNavigate } from "react-router-dom";
 
-const LookBookPostDetail = ({ post, userId }) => {
+import PostRightBtn from "../components/PostRightBtn";
+
+const LookBookPostDetail = ({ post, userId, postId }) => {
+  window.onscroll = function () {
+    document.getElementById("navbar").style.top =
+      window.pageYOffset - 350 + "px";
+  };
   const navigate = useNavigate();
   return (
     post && (
@@ -52,12 +58,21 @@ const LookBookPostDetail = ({ post, userId }) => {
             <TextArea white={true}>{post.content}</TextArea>
           </CenterPostDiv>
           <RightPostDiv>
-            <InfoSection
-              reform={false}
-              region={post.addressCategory}
-              category={post.category}
-            />
-            <ChattingBtn>채팅하기</ChattingBtn>
+            <Navbar id="navbar">
+              <InfoSection
+                reform={false}
+                region={post.addressCategory}
+                category={post.category}
+              />
+              <ChattingBtn>채팅하기</ChattingBtn>
+              <PostRightBtn
+                noshare={false}
+                id={postId}
+                liked={post && post.liked}
+                likeCount={post && post.likeCount}
+                lookbook={true}
+              />
+            </Navbar>
           </RightPostDiv>
         </BodyWrap>
       </Wrap>
@@ -112,7 +127,15 @@ const LeftPostDiv = styled.div`
   width: 314px;
 `;
 
-const RightPostDiv = styled.div``;
+const RightPostDiv = styled.div`
+  width: 314px;
+  position: relative;
+`;
+
+const Navbar = styled.div`
+  position: absolute;
+  top: -350px;
+`;
 
 const MyButtonsWrap = styled.div`
   display: flex;

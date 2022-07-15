@@ -30,7 +30,9 @@ const PostDetail = ({ qna, post, userId }) => {
               ) : null;
             })
           ) : (
-            <TagTextColor>{post.category.toUpperCase()}</TagTextColor>
+            <Tag>
+              <TagTextColor>{post.category.toUpperCase()}</TagTextColor>
+            </Tag>
           )}
         </TagDiv>
         {post.image[0] !== null ? (
@@ -98,6 +100,13 @@ const TagDiv = styled.div`
   display: flex;
   gap: 10px;
   margin-top: 30px;
+`;
+
+const Tag = styled.div`
+  font-weight: 700;
+  padding: 8px 15px;
+  border-radius: 8px;
+  background-color: ${({ theme }) => theme.colors.lighterGray};
 `;
 
 const Category = styled.button`

@@ -24,13 +24,18 @@ import styled from "styled-components";
 import Footer from "./Footer";
 import ChatFloat from "./ChatFloat";
 import ChatModal from "./ChatModal";
-import ChatRoom from "./ChatRoom";
 
 export default function Router() {
   const location = useLocation();
 
   return (
     <>
+      {location.state?.backgroundLocation && (
+        <Routes>
+          <Route path="chat" element={<ChatModal />} />
+          <Route path="chat/:roomId" element={<ChatModal />} />
+        </Routes>
+      )}
       <Header />
       <MainWrap>
         <ChatFloat />
@@ -55,12 +60,6 @@ export default function Router() {
           <Route path="reviewdetail/:postId" element={<ReviewDetail />} />
           <Route path="reformdetail/:postId" element={<ReformDetail />} />
           <Route path="lookbookdetail/:postId" element={<LookBookDetail />} />
-          {location.state?.backgroundLocation && (
-            <>
-              <Route path="chat" element={<ChatModal />} />
-              <Route path="chat/:id" element={<ChatRoom />} />
-            </>
-          )}
         </Routes>
       </MainWrap>
       <Footer />

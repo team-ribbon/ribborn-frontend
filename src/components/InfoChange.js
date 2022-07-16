@@ -91,7 +91,7 @@ const InfoChange = ({ change, user }) => {
         // 비밀번호 변경 안 하고 일반 유저
         sendData = {
           nickname: data.nickname === user.nickname ? null : data.nickname,
-          currentPassword: null,
+          currentPassword: data.currentPassword,
           newPassword: null,
           companyNum: null,
           phoneNum: null,
@@ -103,7 +103,7 @@ const InfoChange = ({ change, user }) => {
         // 비밀번호 변경 안 하고 기술자 유저
         sendData = {
           nickname: data.nickname === user.nickname ? null : data.nickname,
-          currentPassword: null,
+          currentPassword: data.currentPassword,
           newPassword: null,
           companyNum:
             data.companyNum === user.companyNum ? null : data.companyNum,
@@ -221,6 +221,29 @@ const InfoChange = ({ change, user }) => {
             />
           </div>
         ) : null}
+
+        <InputTitle>
+          현재 비밀번호<Required>●</Required>
+        </InputTitle>
+        <Input
+          {...register("currentPassword", {
+            pattern: {
+              value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d!@#$%^&*()-_=+]{1,}$/,
+              message: "영문과 숫자가 반드시 포함되어야 합니다.",
+            },
+            minLength: {
+              value: 8,
+              message: "8자 이상 입력해주세요.",
+            },
+            maxLength: {
+              value: 16,
+              message: "16자까지만 입력할 수 있습니다.",
+            },
+          })}
+          type="password"
+          placeholder="현재 비밀번호"
+        />
+        <HelpText>{errors?.currentPassword?.message}</HelpText>
         <ButtonDiv>
           <FakeButton
             onClick={() => {
@@ -233,29 +256,6 @@ const InfoChange = ({ change, user }) => {
 
         {passwordChange ? (
           <div>
-            <InputTitle>
-              현재 비밀번호<Required>●</Required>
-            </InputTitle>
-            <Input
-              {...register("currentPassword", {
-                pattern: {
-                  value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d!@#$%^&*()-_=+]{1,}$/,
-                  message: "영문과 숫자가 반드시 포함되어야 합니다.",
-                },
-                minLength: {
-                  value: 8,
-                  message: "8자 이상 입력해주세요.",
-                },
-                maxLength: {
-                  value: 16,
-                  message: "16자까지만 입력할 수 있습니다.",
-                },
-              })}
-              type="password"
-              placeholder="현재 비밀번호"
-            />
-            <HelpText>{errors?.currentPassword?.message}</HelpText>
-
             <InputTitle>
               변경 비밀번호<Required>●</Required>
             </InputTitle>

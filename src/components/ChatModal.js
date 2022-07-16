@@ -1,32 +1,36 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useLocation, useMatch, useNavigate } from "react-router-dom";
+import {
+  Link,
+  useLocation,
+  useMatch,
+  useNavigate,
+  useParams,
+} from "react-router-dom";
 import styled from "styled-components";
-import { OrangeChatSVG } from "../elements/SVG";
+
 import { getRoomListDB } from "../redux/modules/chat";
 import ChatRoom from "./ChatRoom";
 
-const ChatModal = ({ setChatToggle }) => {
+import { OrangeChatSVG, XSVG } from "../elements/SVG";
+
+// 채팅 모달
+const ChatModal = () => {
   const dispatch = useDispatch();
-  const match = useMatch("/chat");
-  const location = useLocation();
   const navigate = useNavigate();
+  const location = useLocation();
+  const isMatchChat = useMatch("/chat");
+  const { roomId } = useParams();
+
   const roomList = useSelector((state) => state.chat.roomList);
-  const roomId = location.pathname.split("/")[2];
 
   const onClickClose = () => {
-    setChatToggle((prev) => !prev);
     navigate(location.state.backgroundLocation);
   };
 
   useEffect(() => {
-    // dispatch(getRoomListDB());
-  }, []);
-  useEffect(() => {
-    if (!(location.pathname.split("/")[1] === "chat")) {
-      setChatToggle(false);
-    }
-  }, [location, setChatToggle]);
+    dispatch(getRoomListDB());
+  }, [dispatch]);
 
   useEffect(() => {
     document.body.style.cssText = `
@@ -42,38 +46,34 @@ const ChatModal = ({ setChatToggle }) => {
   }, []);
 
   return (
-    <>
+    <FloatWrap>
       <Dim />
       <Wrap>
-        <ListWrap>
+        <LeftWrap>
           <Title>채팅</Title>
-          {roomList.map((room) => (
-            <Link
-              to={"/chat/" + room.roomId}
-              key={room.roomId}
-              state={{ backgroundLocation: location.state.backgroundLocation }}
-            >
-              <List>
-                <Nickname>{room.nickname}</Nickname>
-                <Date>{room.date}</Date>
-                <Message>{room.message}</Message>
-              </List>
-            </Link>
-          ))}
-        </ListWrap>
+          <ListWrap>
+            {roomList.map((room) => (
+              <Link
+                to={`/chat/${room.roomId}`}
+                key={room.roomId}
+                state={{
+                  backgroundLocation: location.state.backgroundLocation,
+                }}
+              >
+                <List>
+                  <Nickname>{room?.nickname}</Nickname>
+                  <Date>{room?.date}</Date>
+                  <Message>{room?.message}</Message>
+                </List>
+              </Link>
+            ))}
+          </ListWrap>
+        </LeftWrap>
         <RoomWrap>
           <CloseBtn onClick={onClickClose}>
-            <svg
-              width="17"
-              height="17"
-              viewBox="0 0 17 17"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path d="M16 1L1 16M16 16L1 1" stroke="#222222" />
-            </svg>
+            <XSVG />
           </CloseBtn>
-          {match && (
+          {isMatchChat && (
             <HelpMessage>
               <div>
                 <OrangeChatSVG />
@@ -91,9 +91,15 @@ const ChatModal = ({ setChatToggle }) => {
           {roomId && <ChatRoom roomId={roomId} />}
         </RoomWrap>
       </Wrap>
-    </>
+    </FloatWrap>
   );
 };
+const FloatWrap = styled.div`
+  z-index: 99;
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+`;
 const Dim = styled.div`
   box-sizing: border-box;
   display: "block";
@@ -124,10 +130,13 @@ const Title = styled.div`
   font-weight: 700;
   font-size: ${({ theme }) => theme.fontSizes.xl};
 `;
-const ListWrap = styled.div`
+const LeftWrap = styled.div`
   width: 33%;
-  height: fit-content;
-  border-bottom: 1px solid ${({ theme }) => theme.colors.gray};
+`;
+const ListWrap = styled.div`
+  height: 80%;
+  overflow-y: auto;
+  border-top: 1px solid ${({ theme }) => theme.colors.gray};
 `;
 const List = styled.div`
   display: flex;
@@ -135,7 +144,7 @@ const List = styled.div`
   justify-content: space-between;
   gap: 20px;
   padding: 30px;
-  border-top: 1px solid ${({ theme }) => theme.colors.gray};
+  border-bottom: 1px solid ${({ theme }) => theme.colors.gray};
 `;
 const Nickname = styled.div`
   font-size: ${({ theme }) => theme.fontSizes.l};
@@ -164,7 +173,8 @@ const CloseBtn = styled.div`
 const HelpMessage = styled.div`
   font-size: ${({ theme }) => theme.fontSizes.xl};
   text-align: center;
-  padding-bottom: 50%;
+  line-height: 1.2;
+  margin: auto 0;
 `;
 
 export default ChatModal;

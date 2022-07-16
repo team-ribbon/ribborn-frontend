@@ -1,33 +1,28 @@
-import { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useMatch } from "react-router-dom";
 import styled from "styled-components";
-import { SmileChatSVG } from "../elements/SVG";
-import ChatModal from "./ChatModal";
 
+import { SmileChatSVG } from "../elements/SVG";
+
+// 우측 하단 채팅 플로팅 버튼
 const ChatFloat = () => {
   const location = useLocation();
+  const isChatModalOn = useMatch("/chat/*");
 
-  const [chatToggle, setChatToggle] = useState(false);
-
-  const onClickToggle = () => {
-    setChatToggle((prev) => !prev);
-  };
   return (
-    <FloatWrap>
-      <Link to="/chat" state={{ backgroundLocation: location }}>
-        {!chatToggle && (
-          <ChatButton onClick={onClickToggle}>
-            <div>
-              <SmileChatSVG />
-              <span>채팅</span>
-            </div>
-          </ChatButton>
-        )}
-      </Link>
-      <ChatWrap>
-        {chatToggle && <ChatModal setChatToggle={setChatToggle} />}
-      </ChatWrap>
-    </FloatWrap>
+    <>
+      {!isChatModalOn && (
+        <FloatWrap>
+          <Link to="/chat" state={{ backgroundLocation: location }}>
+            <ChatButton>
+              <div>
+                <SmileChatSVG />
+                <span>채팅</span>
+              </div>
+            </ChatButton>
+          </Link>
+        </FloatWrap>
+      )}
+    </>
   );
 };
 
@@ -36,10 +31,6 @@ const FloatWrap = styled.div`
   position: fixed;
   bottom: 30px;
   right: 30px;
-`;
-
-const ChatWrap = styled.div`
-  position: relative;
 `;
 const ChatButton = styled.div`
   width: 100px;

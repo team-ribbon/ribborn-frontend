@@ -28,8 +28,10 @@ function MyPage() {
     }
   }, [isLogin]);
   React.useEffect(() => {
-    dispatch(getMyPageDB(category));
-  }, [category]);
+    if (!infoChange) {
+      dispatch(getMyPageDB(category));
+    }
+  }, [category, infoChange]);
   React.useEffect(() => {
     return () => {
       dispatch(cleanUpMyPage());
@@ -37,7 +39,7 @@ function MyPage() {
   }, []);
 
   return infoChange ? (
-    <InfoChange change={SetInfoChange} user={user} />
+    <InfoChange change={SetInfoChange} user={user} setCategory={setCategory} />
   ) : (
     <Template>
       <UserInfoCard user={user} myPage={true} change={SetInfoChange} />

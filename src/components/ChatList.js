@@ -1,36 +1,45 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { getMessageListDB } from "../redux/modules/chat";
-const ChatList = ({ roomId }) => {
-  const chatList = useSelector((state) => state.chat.chatList);
-  const user = useSelector((state) => state.user.user);
+
+// 채팅 모달 > 채팅방 > 채팅 내역
+const ChatList = () => {
   const dispatch = useDispatch();
+  const { roomId } = useParams();
+  const scrollRef = useRef();
+  const messageList = useSelector((state) => state.chat.messageList);
+  const user = useSelector((state) => state.user.user);
 
   useEffect(() => {
-    console.log(user, roomId);
     dispatch(getMessageListDB(roomId));
   }, []);
 
+  useEffect(() => {
+    scrollRef.current.scrollIntoView({ behavior: "smooth", block: "end" });
+  }, [messageList]);
+
   return (
     <MessageWrap>
-      {chatList.map((chat) => {
+      {messageList.map((chat) => {
         return chat.senderId === user.id ? (
           <Me key={chat.id}>
             <NickAndDate>
-              <Date>{chat.date}</Date>
-              <Nickname>{chat.nickname}</Nickname>
+              <Date me>{chat?.date}</Date>
+              <Nickname>{chat?.nickname}</Nickname>
             </NickAndDate>
-            <Message me>{chat.message}</Message>
+            <Message me>{chat?.message}</Message>
           </Me>
         ) : (
-          <You key={chat.id}>
-            <Nickname>{chat.nickname}</Nickname>
-            <Date>{chat.date}</Date>
-            <Message>{chat.message}</Message>
+          <You key={chat?.id}>
+            <Nickname>{chat?.nickname}</Nickname>
+            <Date you>{chat?.date}</Date>
+            <Message>{chat?.message}</Message>
           </You>
         );
       })}
+      <div ref={scrollRef} />
     </MessageWrap>
   );
 };
@@ -40,6 +49,8 @@ const MessageWrap = styled.div`
   flex-flow: column;
   gap: 20px;
   padding: 30px 30px 0 30px;
+  overflow-y: auto;
+  height: 58vh;
 `;
 
 const Me = styled.div`
@@ -60,6 +71,8 @@ const Nickname = styled.div`
 `;
 const Date = styled.span`
   color: ${({ theme }) => theme.colors.gray};
+  margin-right: ${({ me }) => me && "20px"};
+  margin-left: ${({ you }) => you && "20px"};
 `;
 const Message = styled.div`
   width: fit-content;

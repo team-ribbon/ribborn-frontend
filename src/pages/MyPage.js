@@ -11,12 +11,12 @@ import InfoChange from "../components/InfoChange";
 function MyPage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.UserPage.myPage.users);
-  const qna = useSelector((state) => state.UserPage.myPage.qnaList);
-  const lookbook = useSelector((state) => state.UserPage.myPage.lookbookList);
-  const review = useSelector((state) => state.UserPage.myPage.reviewList);
-  const reform = useSelector((state) => state.UserPage.myPage.reformList);
-  const categoriedPosts = useSelector((state) => state.UserPage.myPage.posts);
+  const user = useSelector((state) => state.userPage.myPage.users);
+  const qna = useSelector((state) => state.userPage.myPage.qnaList);
+  const lookbook = useSelector((state) => state.userPage.myPage.lookbookList);
+  const review = useSelector((state) => state.userPage.myPage.reviewList);
+  const reform = useSelector((state) => state.userPage.myPage.reformList);
+  const categoriedPosts = useSelector((state) => state.userPage.myPage.posts);
   const isLogin = useSelector((state) => state.user.isLogin);
 
   const [infoChange, SetInfoChange] = useState(false);

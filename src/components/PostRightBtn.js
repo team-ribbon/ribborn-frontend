@@ -34,6 +34,7 @@ const PostRightBtn = ({ noshare, id, liked, likeCount, lookbook }) => {
     textarea.select();
     document.execCommand("copy");
     document.body.removeChild(textarea);
+    alert("URL이 복사되었습니다.");
   };
   return (
     <Cover lookbook={lookbook}>
@@ -63,10 +64,24 @@ const PostRightBtn = ({ noshare, id, liked, likeCount, lookbook }) => {
           </Button>
           {shareClicked ? (
             <ShareClickedDiv>
-              <Button small={true} color="#1977F3" onClick={shareFaceBook}>
+              <Button
+                small={true}
+                color="#1977F3"
+                onClick={() => {
+                  shareFaceBook();
+                  setShareClicked(false);
+                }}
+              >
                 <FaFacebookF size="26" color="white" />
               </Button>
-              <Button small={true} color="#322F5A" onClick={copyLink}>
+              <Button
+                small={true}
+                color="#322F5A"
+                onClick={() => {
+                  copyLink();
+                  setShareClicked(false);
+                }}
+              >
                 <AiOutlineCopy size="26" color="white" />
               </Button>
             </ShareClickedDiv>

@@ -6,7 +6,6 @@ import { useParams } from "react-router-dom";
 import { getLookbookPostDB, cleanUpPost } from "../modules/post";
 
 import LookBookPostDetail from "../components/LookBookPostDetail";
-import PostRightBtn from "../components/PostRightBtn";
 
 const LookBookDetail = () => {
   const dispatch = useDispatch();
@@ -15,6 +14,7 @@ const LookBookDetail = () => {
 
   const post = useSelector((state) => state.post.Post);
   const userId = useSelector((state) => state.user.user.id);
+  const userType = useSelector((state) => state.user.user.userType);
 
   React.useEffect(() => {
     dispatch(getLookbookPostDB(params.postId));
@@ -28,13 +28,11 @@ const LookBookDetail = () => {
 
   return (
     <Template>
-      <LookBookPostDetail post={post} userId={userId} />
-      <PostRightBtn
-        noshare={false}
-        id={params.postId}
-        liked={post && post.liked}
-        likeCount={post && post.likeCount}
-        lookbook={true}
+      <LookBookPostDetail
+        post={post}
+        userId={userId}
+        postId={params.postId}
+        userType={userType}
       />
     </Template>
   );

@@ -34,31 +34,41 @@ const Main = () => {
           </Link>
           <Link to="/review/clothes">
             <div>
-              <NavButton />
+              <NavButton>
+                <ClothesImg src="./Clothes.png" />
+              </NavButton>
               <span>옷 리뷰</span>
             </div>
           </Link>
           <Link to="/review/furniture">
             <div>
-              <NavButton />
+              <NavButton>
+                <FurnituresImg src="./Furnitures.png" />
+              </NavButton>
               <span>가구 리뷰</span>
             </div>
           </Link>
           <Link to="/review/shoes">
             <div>
-              <NavButton />
+              <NavButton>
+                <ShoesImg src="./Shoes.png" />
+              </NavButton>
               <span>신발 리뷰</span>
             </div>
           </Link>
           <Link to="/review/bags">
             <div>
-              <NavButton />
+              <NavButton>
+                <BagsImg src="./Bags.png" />
+              </NavButton>
               <span>가방 리뷰</span>
             </div>
           </Link>
           <Link to="/review/goods">
             <div>
-              <NavButton />
+              <NavButton>
+                <GoodsImg src="./Goods.png" />
+              </NavButton>
               <span>기타 리뷰</span>
             </div>
           </Link>
@@ -116,14 +126,14 @@ const Main = () => {
 const MainWrap = styled.div`
   max-width: ${({ theme }) => theme.width.maxWidth};
   padding: 50px 40px 0 40px;
-  margin: 0 auto;
+  margin: 0 auto 0 auto;
   font-weight: 400;
   font-size: ${({ theme }) => theme.fontSizes.m};
   line-height: 18px;
 `;
 const BannerWrap = styled.div`
   max-width: ${({ theme }) => theme.width.maxWidth};
-  margin: 0 auto;
+  margin: 10px auto 0 auto;
 `;
 const Banner = styled.img`
   height: ${({ type }) => (type === "A" ? "480px" : "350px")};
@@ -174,6 +184,52 @@ const NavButton = styled.div`
   font-size: ${({ theme }) => theme.fontSizes.l};
   line-height: 32px;
   padding-top: 35px;
+  position: relative;
+`;
+
+const ClothesImg = styled.img`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 108px;
+  height: 55px;
+`;
+
+const FurnituresImg = styled.img`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 94px;
+  height: 70px;
+`;
+
+const ShoesImg = styled.img`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 88px;
+  height: 70px;
+`;
+
+const BagsImg = styled.img`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 95px;
+  height: 70px;
+`;
+
+const GoodsImg = styled.img`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 71px;
+  height: 73px;
 `;
 
 const CO2 = styled.div`

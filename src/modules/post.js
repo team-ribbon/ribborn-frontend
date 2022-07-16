@@ -5,6 +5,9 @@ import { apis } from "../shared/api";
 // Action
 const GET_MAIN = "GET_MAIN";
 const GET_POST_LIST = "GET_POST_LIST";
+const GET_MORE_POST_LIST = "GET_MORE_POST_LIST";
+const LOAD_DONE = "LOAD_DONE";
+const LOAD_DONE_RESET = "LOAD_DONE_RESET";
 
 const GET_TECH_INTRO = "GET_TECH_INTRO";
 
@@ -24,6 +27,11 @@ const CLEANUP_POST = "CLEANUP_POST";
 // Action Creator
 const getMain = createAction(GET_MAIN, (mainContents) => ({ mainContents }));
 const getPostList = createAction(GET_POST_LIST, (PostList) => ({ PostList }));
+const getMorePostList = createAction(GET_MORE_POST_LIST, (PostList) => ({
+  PostList,
+}));
+const loadDone = createAction(LOAD_DONE);
+export const loadDoneReset = createAction(LOAD_DONE_RESET);
 const getTechIntro = createAction(GET_TECH_INTRO, (intro) => ({ intro }));
 
 const getPost = createAction(GET_POST, (Post) => ({ Post }));
@@ -49,6 +57,7 @@ export const cleanUpPost = createAction(CLEANUP_POST);
 
 // InitialState
 const initialState = {
+  loadedEverything: false,
   techIntro: "",
   PostList: [],
   Post: null,
@@ -86,7 +95,14 @@ export const getQnAListDB = (category, sort, page) => {
   return async function (dispatch) {
     try {
       const response = await apis.loadQnAList(category, sort, page);
-      dispatch(getPostList(response.data));
+      if (response.data.length < 6) {
+        dispatch(loadDone());
+      }
+      if (page === 0) {
+        dispatch(getPostList(response.data));
+      } else {
+        dispatch(getMorePostList(response.data));
+      }
     } catch (error) {
       console.log(error);
     }
@@ -103,7 +119,14 @@ export const getReformListDB = (category, region, process, page) => {
         process,
         page
       );
-      dispatch(getPostList(response.data));
+      if (response.data.length < 6) {
+        dispatch(loadDone());
+      }
+      if (page === 0) {
+        dispatch(getPostList(response.data));
+      } else {
+        dispatch(getMorePostList(response.data));
+      }
     } catch (error) {
       console.log(error);
     }
@@ -115,7 +138,14 @@ export const getReviewListDB = (category, sort, page) => {
   return async (dispatch) => {
     try {
       const response = await apis.loadReviewList(category, sort, page);
-      dispatch(getPostList(response.data));
+      if (response.data.length < 6) {
+        dispatch(loadDone());
+      }
+      if (page === 0) {
+        dispatch(getPostList(response.data));
+      } else {
+        dispatch(getMorePostList(response.data));
+      }
     } catch (error) {
       console.log(error);
     }
@@ -129,7 +159,14 @@ export const getLookbookListDB = (category, sort, page) => {
       const response = await apis
         .loadLookbookList(category, sort, page)
         .then((res) => {
-          dispatch(getPostList(res.data));
+          if (res.data.length < 6) {
+            dispatch(loadDone());
+          }
+          if (page === 0) {
+            dispatch(getPostList(res.data));
+          } else {
+            dispatch(getMorePostList(res.data));
+          }
         });
     } catch (error) {
       console.log(error);
@@ -211,18 +248,18 @@ export const deletePostDB = (id) => {
 };
 
 // 댓글달기
-export const PostCommentDB = (id, comment) => {
-  let success = null;
-  return async (dispatch) => {
-    try {
-      await apis.uploadComment(id, comment);
-      dispatch(newComment());
-      success = true;
-    } catch (error) {
-      console.log(error);
-      success = false;
-    }
-    return success;
+export const PostCommentDB = (id, comment, page) => {
+  return async function (dispatch) {
+    await apis
+      .uploadComment(id, comment)
+      .then((res) => {
+        console.log(res);
+        dispatch(newComment());
+      })
+      .catch((error) => {
+        console.log(error);
+        alert("실패했어요!");
+      });
   };
 };
 
@@ -256,6 +293,9 @@ export const GetCommentDB = (id, page, num) => {
   return async function (dispatch) {
     try {
       const response = await apis.loadComments(id, page, num).then((res) => {
+        if (res.data.content.length < 5) {
+          dispatch(loadDone());
+        }
         if (page === 0) {
           console.log(res.data);
           dispatch(newCommentLoad(res.data));
@@ -274,7 +314,7 @@ export const getTechIntroDB = () => {
   return async (dispatch) => {
     try {
       const response = await apis.loadIntro();
-      dispatch(getTechIntro(response));
+      dispatch(getTechIntro(response.data));
     } catch (error) {
       console.log(error);
     }
@@ -295,6 +335,19 @@ export const postDB = (formData, type) => {
   };
 };
 
+export const EditPostDB = (formData, type, id) => {
+  return async () => {
+    try {
+      if (type === "review") await apis.editReview(formData, id);
+      if (type === "lookbook") await apis.editLookbook(formData, id);
+      if (type === "qna") await apis.editQna(formData, id);
+      if (type === "reform") await apis.editReform(formData, id);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
 // Reducer
 export default handleActions(
   {
@@ -306,6 +359,19 @@ export default handleActions(
       produce(state, (draft) => {
         draft.PostList = payload.PostList;
       }),
+    [GET_MORE_POST_LIST]: (state, { payload }) =>
+      produce(state, (draft) => {
+        draft.PostList.push(...payload.PostList);
+      }),
+    [LOAD_DONE]: (state) =>
+      produce(state, (draft) => {
+        draft.loadedEverything = true;
+      }),
+    [LOAD_DONE_RESET]: (state) =>
+      produce(state, (draft) => {
+        draft.loadedEverything = false;
+      }),
+
     [GET_POST]: (state, { payload }) =>
       produce(state, (draft) => {
         draft.Post = payload.Post.post;
@@ -346,17 +412,19 @@ export default handleActions(
       }),
     [GET_TECH_INTRO]: (state, { payload }) =>
       produce(state, (draft) => {
-        draft.techIntro = payload.intro;
+        draft.techIntro = payload.intro.introduction;
       }),
     // Cleanup Reducer
     [CLEANUP_POST_LIST]: (state) =>
       produce(state, (draft) => {
         draft.PostList = initialState.PostList;
+        draft.loadedEverything = false;
       }),
     [CLEANUP_POST]: (state) =>
       produce(state, (draft) => {
         draft.Post = initialState.Post;
         draft.Comments = initialState.Comments;
+        draft.loadedEverything = false;
       }),
   },
   initialState

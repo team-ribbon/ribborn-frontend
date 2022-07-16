@@ -21,13 +21,17 @@ const InfoSection = ({ reform, region, category }) => {
           <InfoTitleSpan>
             {reform ? "📍 의뢰 위치" : "📍 스튜디오 위치"}
           </InfoTitleSpan>
-          {Regions.map((w) => {
-            return w.value === region ? (
-              <InfoContentSpan key={"detailRegion" + w.value}>
-                {w.text}
-              </InfoContentSpan>
-            ) : null;
-          })}
+          {reform ? (
+            Regions.map((w) => {
+              return w.value === region ? (
+                <InfoContentSpan key={"detailRegion" + w.value}>
+                  {w.text}
+                </InfoContentSpan>
+              ) : null;
+            })
+          ) : (
+            <InfoContentSpan>{region}</InfoContentSpan>
+          )}
         </LocationDiv>
       </TopInfoDiv>
       {reform ? (

@@ -1,9 +1,25 @@
+import React from "react";
 import styled from "styled-components";
 import MyPostButtons from "./MyPostButtons";
 import TimeCalculator from "../shared/TimeCalculator";
 import InfoSection from "./InfoSection";
+import { useNavigate } from "react-router-dom";
+import { MainBtn } from "../elements/Buttons";
 
-const ReformPostDetail = ({ post, userId }) => {
+const ReformPostDetail = ({ post, userId, userType }) => {
+  const scrollEvent = () => {
+    document.getElementById("navbar1").style.top =
+      window.pageYOffset - 100 + "px";
+    document.getElementById("navbar2").style.top =
+      window.pageYOffset - 100 + "px";
+  };
+  React.useEffect(() => {
+    window.addEventListener("scroll", scrollEvent);
+    return () => {
+      window.removeEventListener("scroll", scrollEvent);
+    };
+  }, []);
+  const navigate = useNavigate();
   let process = null;
   switch (post && post.process) {
     case undefined:
@@ -25,7 +41,9 @@ const ReformPostDetail = ({ post, userId }) => {
           <Community>견적</Community>
           <Title>{post.title}</Title>
           <IDDiv>
-            <ID>@{post.nickname}</ID>
+            <ID onClick={() => navigate(`/userdetail/${post.userid}`)}>
+              @{post.nickname}
+            </ID>
             <CircleDiv />
             <Time>{TimeCalculator(post.createAt)}</Time>
           </IDDiv>
@@ -33,16 +51,19 @@ const ReformPostDetail = ({ post, userId }) => {
         </HeaderWrap>
         <BodyWrap>
           <LeftPostDiv>
-            <InfoSection
-              reform={true}
-              region={post.region}
-              category={post.category}
-            />
-            <MyButtonsWrap>
-              {userId === post.userid ? (
-                <MyPostButtons postType="lookbook" id={post.id} />
-              ) : null}
-            </MyButtonsWrap>
+            <Navbar id="navbar1">
+              <InfoSection
+                reform={true}
+                region={post.region}
+                category={post.category}
+              />
+              <MyButtonsWrap>
+                {userId === post.userid ? (
+                  <MyPostButtons postType="lookbook" id={post.id} />
+                ) : null}
+              </MyButtonsWrap>
+              {+userType === 1 ? <ChattingBtn>채팅하기</ChattingBtn> : null}
+            </Navbar>
           </LeftPostDiv>
           <CenterPostDiv>
             <Image
@@ -58,7 +79,9 @@ const ReformPostDetail = ({ post, userId }) => {
             })}
           </CenterPostDiv>
           <RightPostDiv>
-            <TextArea>{post.content}</TextArea>
+            <Navbar id="navbar2">
+              <TextArea>{post.content}</TextArea>
+            </Navbar>
           </RightPostDiv>
         </BodyWrap>
       </Wrap>
@@ -67,6 +90,8 @@ const ReformPostDetail = ({ post, userId }) => {
 };
 
 const Wrap = styled.div`
+  width: 1314px;
+  max-width: ${({ theme }) => theme.width.maxWidth};
   margin-top: 60px;
 `;
 
@@ -140,19 +165,30 @@ const PostProcess = styled.button`
 `;
 
 const BodyWrap = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: 346px 700px 346px;
 `;
 
-const LeftPostDiv = styled.div``;
+const LeftPostDiv = styled.div`
+  position: relative;
+`;
+
+const Navbar = styled.div`
+  position: absolute;
+  top: -100px;
+`;
 
 const MyButtonsWrap = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
   gap: 16px;
-  margin-top: 30px;
+  margin: 30px 0;
+`;
+
+const ChattingBtn = styled(MainBtn)`
+  margin: 0 0 0 16px;
+  width: 314px;
 `;
 
 const CenterPostDiv = styled.div`
@@ -161,7 +197,7 @@ const CenterPostDiv = styled.div`
 `;
 
 const RightPostDiv = styled.div`
-  max-width: 495px;
+  position: relative;
 `;
 
 const Image = styled.img`

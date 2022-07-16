@@ -4,17 +4,17 @@ import { useNavigate } from "react-router-dom";
 import { CommentSVG, HeartSVG } from "../elements/SVG";
 
 // 메인, 커뮤니티 > 리폼 리뷰 게시판에 사용되는 카드
-const CardA = ({ postObj, type, reform }) => {
+const CardA = ({ postObj, type, reform, inViewRef }) => {
   const navigate = useNavigate();
   return (
-    <article
+    <Article
       onClick={() => {
         reform
           ? navigate(`/reformdetail/${postObj.id}`)
           : navigate(`/reviewdetail/${postObj.id}`);
       }}
     >
-      <ImageWrap>
+      <ImageWrap ref={inViewRef}>
         <Image
           alt="card"
           src={
@@ -48,9 +48,12 @@ const CardA = ({ postObj, type, reform }) => {
         )}
         {type === "C" && <span>{postObj.region}</span>}
       </Content>
-    </article>
+    </Article>
   );
 };
+const Article = styled.article`
+  cursor: pointer;
+`;
 const ImageWrap = styled.div`
   position: relative;
   overflow: hidden;

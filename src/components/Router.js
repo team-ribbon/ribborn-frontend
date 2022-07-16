@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 
-import VideoChat from "../page/VideoChat";
+// import VideoChat from "../page/VideoChat";
 import QnAList from "../page/QnAList";
 import ReformList from "../page/ReformList";
 import Header from "./Header";
@@ -19,6 +19,7 @@ import ReformDetail from "../page/ReformDetail";
 import LookBookDetail from "../page/LookBookDetail";
 import Lookbook from "../pages/Lookbook";
 import WritePost from "../pages/WritePost";
+import EditPost from "../pages/EditPost";
 import styled from "styled-components";
 import Footer from "./Footer";
 import ChatFloat from "./ChatFloat";
@@ -43,13 +44,14 @@ export default function Router() {
           <Route path="/qna" element={<QnAList />} />
           <Route path="/reform" element={<ReformList />} />
           <Route path="write/:type" element={<WritePost />} />
-          <Route path="edit/:type/:id" element={<WritePost />} />
+          <Route path="edit/:type/:id" element={<EditPost />} />
           <Route path="mypage" element={<MyPage />} />
           <Route path="userdetail/:userId" element={<UserDetail />} />
           <Route path="qnadetail/:postId" element={<QnADetail />} />
           <Route path="reviewdetail/:postId" element={<ReviewDetail />} />
           <Route path="reformdetail/:postId" element={<ReformDetail />} />
           <Route path="lookbookdetail/:postId" element={<LookBookDetail />} />
+          <Route path="*" element={<Main />} />
         </Routes>
       </MainWrap>
       <Footer />

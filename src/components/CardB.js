@@ -6,15 +6,15 @@ import { HeartSVG } from "../elements/SVG";
 import { TagTextColor } from "../elements/TagTextColor";
 
 // 메인, LOOKBOOK 게시판에 사용되는 카드
-const CardB = ({ postObj, hot, isMain }) => {
+const CardB = ({ postObj, hot, isMain, inViewRef }) => {
   const navigate = useNavigate();
   return (
-    <article
+    <Article
       onClick={() => {
         navigate(`/lookbookdetail/${postObj.id}`);
       }}
     >
-      <ImageWrap isMain={isMain}>
+      <ImageWrap isMain={isMain} ref={inViewRef}>
         <ImageDim />
         <Image alt="lookbook" src={postObj.image} />
         <Title>
@@ -45,9 +45,12 @@ const CardB = ({ postObj, hot, isMain }) => {
           </div>
         </Content>
       )}
-    </article>
+    </Article>
   );
 };
+const Article = styled.article`
+  cursor: pointer;
+`;
 const ImageWrap = styled.div`
   position: relative;
   overflow: hidden;

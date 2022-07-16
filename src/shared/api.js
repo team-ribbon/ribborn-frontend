@@ -1,7 +1,5 @@
 import axios from "axios";
 
-const token = localStorage.getItem("token");
-
 const api = axios.create({
   baseURL: "http://3.35.49.121:8080",
   headers: {
@@ -26,6 +24,7 @@ const chatApi = axios.create({
 });
 
 api.interceptors.request.use(function (config) {
+  const token = localStorage.getItem("token");
   if (token !== undefined) {
     config.headers.common["Authorization"] = token;
   }
@@ -33,6 +32,7 @@ api.interceptors.request.use(function (config) {
 });
 
 formDataApi.interceptors.request.use(function (config) {
+  const token = localStorage.getItem("token");
   if (token !== undefined) {
     config.headers.common["Authorization"] = token;
   }
@@ -43,7 +43,7 @@ export const apis = {
   // 회원정보
   login: (username, password) =>
     api.post("/api/users/login", { username, password }),
-  signupUser: (userObj) => api.post("/api/users/register/users", { userObj }),
+  signupUser: (userObj) => api.post("/api/users/register/users", userObj),
   usernameCheck: (username) =>
     api.post("/api/users/register/idCheck", { username }),
   loadUserInfo: () => api.get("/api/users/auth"),
@@ -85,19 +85,16 @@ export const apis = {
   // 댓글
   loadComments: (postId, page, num) =>
     api.get(`/api/comments/${postId}?page=${page}&size=${num}`),
-  uploadComment: (id, comment) => {
+  uploadComment: (id, comment) =>
     api.post(`/api/post/${id}/comment`, {
       comment: comment,
-    });
-  },
-  deleteComment: (postId, commentId) => {
-    api.delete(`/api/post/${postId}/comment/${commentId}`);
-  },
-  modifyComment: (id, commentId, comment) => {
+    }),
+  deleteComment: (postId, commentId) =>
+    api.delete(`/api/post/${postId}/comment/${commentId}`),
+  modifyComment: (id, commentId, comment) =>
     api.put(`/api/post/${id}/comment/${commentId}`, {
       comment: comment,
-    });
-  },
+    }),
 
   // 게시물 등록
   postQna: (formData) => formDataApi.post("/api/qnaPosts", formData),
@@ -106,18 +103,19 @@ export const apis = {
   postLookbook: (formData) => formDataApi.post("/api/lookPosts", formData),
 
   // 게시물 수정
-  editQna: (formData, id) => formDataApi.put("/api/qnaPosts/" + id, formData),
+  editQna: (formData, id) => formDataApi.put(`/api/qnaPosts/${id}`, formData),
   editReview: (formData, id) =>
-    formDataApi.put("/api/reviewPosts/" + id, formData),
+    formDataApi.put(`/api/reviewPosts/${id}`, formData),
   editReform: (formData, id) =>
-    formDataApi.put("/api/reformPosts/" + id, formData),
+    formDataApi.put(`/api/reformPosts/${id}`, formData),
   editLookbook: (formData, id) =>
-    formDataApi.put("/api/lookPosts/" + id, formData),
+    formDataApi.put(`/api/lookPosts/${id}`, formData),
 
   // 유저 상세페이지
   loadMyPage: (category) =>
     api.get(`/api/users/mypage?postCategory=${category}`),
-  loadUserDetail: (id) => api.get(`/api/users/userinfo/${id}`),
+  loadUserDetail: (id, category) =>
+    api.get(`/api/users/userinfo/${id}?postCategory=${category}`),
   changeUserInfo: (data) => api.put("/api/users/mypage", data),
   // 채팅
   getRoom: () => chatApi.get("/chat/rooms"),

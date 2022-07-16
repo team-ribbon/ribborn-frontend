@@ -1,13 +1,16 @@
 import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 import { deletePostDB } from "../modules/post";
 
 const MyPostButtons = ({ id, postType }) => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const deletePost = () => {
-    dispatch(deletePostDB(id));
+    dispatch(deletePostDB(id)).then((res) => {
+      navigate(`/${postType}`);
+    });
   };
 
   return (

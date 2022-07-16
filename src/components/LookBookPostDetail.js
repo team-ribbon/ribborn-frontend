@@ -1,15 +1,35 @@
+import React from "react";
 import styled from "styled-components";
 import MyPostButtons from "./MyPostButtons";
 import moment from "moment";
 import InfoSection from "./InfoSection";
 import { MainBtn } from "../elements/Buttons";
+import { useNavigate } from "react-router-dom";
 
-const LookBookPostDetail = ({ post, userId }) => {
+import PostRightBtn from "../components/PostRightBtn";
+
+const LookBookPostDetail = ({ post, userId, postId, userType }) => {
+  const scrollEvent = () => {
+    if (post && userId === post.userid) {
+      document.getElementById("navbar").style.top =
+        window.pageYOffset - 350 + "px";
+    } else {
+      document.getElementById("navbar").style.top =
+        window.pageYOffset - 250 + "px";
+    }
+  };
+  React.useEffect(() => {
+    window.addEventListener("scroll", scrollEvent);
+    return () => {
+      window.removeEventListener("scroll", scrollEvent);
+    };
+  }, []);
+  const navigate = useNavigate();
   return (
     post && (
       <Wrap>
         <HeaderWrap>
-          <TitleWrap>
+          <TitleWrap onClick={() => navigate(`/userdetail/${post.userid}`)}>
             <Title weight={700}>{post.nickname}</Title>
             <Title weight={400}>님의 작업</Title>
           </TitleWrap>
@@ -41,20 +61,30 @@ const LookBookPostDetail = ({ post, userId }) => {
                   : "http://openimage.interpark.com/goods_image_big/1/4/1/9/9090461419_l.jpg"
               }
             />
-            <TextArea noImage={post.image[0] === null}>{post.content}</TextArea>
+            <TextArea>{post.introduction}</TextArea>
             <Grid>
               {post.image.map((v, i) => {
                 return i !== 0 ? <Image alt="card" src={v} /> : null;
               })}
             </Grid>
+            <TextArea white={true}>{post.content}</TextArea>
           </CenterPostDiv>
           <RightPostDiv>
-            <InfoSection
-              reform={false}
-              region={post.addressCategory}
-              category={post.category}
-            />
-            <ChattingBtn>채팅하기</ChattingBtn>
+            <Navbar id="navbar" myPost={post && userId === post.userid}>
+              <InfoSection
+                reform={false}
+                region={post.addressCategory}
+                category={post.category}
+              />
+              {+userType === 0 ? <ChattingBtn>채팅하기</ChattingBtn> : null}
+              <PostRightBtn
+                noshare={false}
+                id={postId}
+                liked={post && post.liked}
+                likeCount={post && post.likeCount}
+                lookbook={true}
+              />
+            </Navbar>
           </RightPostDiv>
         </BodyWrap>
       </Wrap>
@@ -73,13 +103,6 @@ const HeaderWrap = styled.div`
   align-items: center;
 `;
 
-const Community = styled.p`
-  font-weight: 400;
-  font-size: 18px;
-  line-height: 24px;
-  color: #222222;
-`;
-
 const TitleWrap = styled.div`
   display: flex;
   flex-direction: row;
@@ -90,7 +113,7 @@ const Title = styled.p`
   font-weight: ${(props) => props.weight};
   font-size: 45px;
   line-height: 60px;
-  margin-left: ${(props) => (props.weight === 400 ? "10px" : 0)}; ;
+  margin-left: ${(props) => (props.weight === 400 ? "10px" : 0)};
 `;
 
 const Date = styled.span`
@@ -109,13 +132,22 @@ const BodyWrap = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
+  margin-top: 90px;
 `;
 
 const LeftPostDiv = styled.div`
   width: 314px;
 `;
 
-const RightPostDiv = styled.div``;
+const RightPostDiv = styled.div`
+  width: 314px;
+  position: relative;
+`;
+
+const Navbar = styled.div`
+  position: absolute;
+  top: ${(props) => (props.myPost ? "-350px" : "-250px")};
+`;
 
 const MyButtonsWrap = styled.div`
   display: flex;
@@ -144,17 +176,18 @@ const Grid = styled.div`
 `;
 
 const TextArea = styled.div`
+  text-align: ${(props) => (props.white ? "left" : "center")};
   border: none;
   width: 100%;
   height: auto;
-  padding: 40px 20px;
+  padding: ${(props) => (props.white ? "40px 0" : "40px 20px")};
   resize: none;
   overflow: hidden;
   font-weight: 400;
   font-size: 18px;
   line-height: 28px;
-  background-color: #222;
-  color: #fff;
+  background-color: ${(props) => (props.white ? "" : "#222")};
+  color: ${(props) => (props.white ? "#222" : "#fff")};
 `;
 
 export default LookBookPostDetail;

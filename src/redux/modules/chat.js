@@ -2,14 +2,14 @@ import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import { apis as chatApi } from "../../shared/api";
 
-const GET_CHAT_LIST = "GET_CHAT_LIST";
-const GET_MSG_LIST = "GET_MSG_LIST";
+const GET_ROOM_LIST = "GET_ROOM_LIST";
+const GET_MESSAGE_LIST = "GET_MESSAGE_LIST";
 const GET_ROOMID = "GET_ROOMID";
 const ADD_MESSAGE = "ADD_MESSAGE";
 const GET_CHAT_USER = "GET_CHAT_USER";
 
-const getChatList = createAction(GET_CHAT_LIST, (chatList) => ({ chatList }));
-const getMessageList = createAction(GET_MSG_LIST, (messageList) => ({
+const getRoomList = createAction(GET_ROOM_LIST, (roomList) => ({ roomList }));
+const getMessageList = createAction(GET_MESSAGE_LIST, (messageList) => ({
   messageList,
 }));
 export const addMessage = createAction(ADD_MESSAGE, (messageObj) => ({
@@ -39,7 +39,7 @@ const initialState = {
       date: "12:12",
     },
   ],
-  chatList: [],
+  messageList: [],
 };
 
 // 채팅 페이지에서 채팅 리스트 데이터 받아오기
@@ -54,7 +54,8 @@ export const getRoomListDB = () => {
 export const getMessageListDB = (roomId) => {
   return async (dispatch) => {
     const response = await chatApi.getMessageList(roomId);
-    console.log("get chat :", response);
+    console.log("get chat :", response.data);
+    dispatch(getMessageList(response.data));
   };
 };
 
@@ -103,14 +104,13 @@ const exitChatDB = (roomId) => {
 
 export default handleActions(
   {
-    [GET_CHAT_LIST]: (state, { payload }) =>
+    [GET_ROOM_LIST]: (state, { payload }) =>
       produce(state, (draft) => {
-        draft.chatList = payload.chatList;
+        draft.roomList = payload.roomList;
       }),
-    [GET_MSG_LIST]: (state, action) =>
+    [GET_MESSAGE_LIST]: (state, { payload }) =>
       produce(state, (draft) => {
-        // draft.msg.push(...action.payload.msg);
-        draft.msg = action.payload.msg;
+        draft.messageList = payload.messageList;
       }),
     [GET_ROOMID]: (state, action) =>
       produce(state, (draft) => {
@@ -118,7 +118,7 @@ export default handleActions(
       }),
     [ADD_MESSAGE]: (state, { payload }) =>
       produce(state, (draft) => {
-        draft.chatList.push(payload.messageObj);
+        draft.messageList.push(payload.messageObj);
       }),
     [GET_CHAT_USER]: (state, action) =>
       produce(state, (draft) => {

@@ -92,7 +92,7 @@ const ReformPostDetail = ({ post, userId, userType }) => {
 const Wrap = styled.div`
   width: 1314px;
   max-width: ${({ theme }) => theme.width.maxWidth};
-  margin-top: 60px;
+  margin: 60px auto 0 auto;
 `;
 
 const HeaderWrap = styled.div`

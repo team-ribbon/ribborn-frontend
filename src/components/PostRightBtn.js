@@ -34,6 +34,7 @@ const PostRightBtn = ({ noshare, id, liked, likeCount, lookbook }) => {
     textarea.select();
     document.execCommand("copy");
     document.body.removeChild(textarea);
+    alert("URL이 복사되었습니다.");
   };
   return (
     <Cover lookbook={lookbook}>

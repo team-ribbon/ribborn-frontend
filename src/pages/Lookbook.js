@@ -10,7 +10,7 @@ import {
   getLookbookListDB,
   cleanUpPostList,
   loadDoneReset,
-} from "../modules/post";
+} from "../redux/modules/post";
 import styled from "styled-components";
 import { MainBtn, SubBtn, Category } from "../elements/Buttons";
 import Categories from "../shared/Categories";

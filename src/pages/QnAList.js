@@ -5,7 +5,11 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { useInView } from "react-intersection-observer";
 
-import { getQnAListDB, cleanUpPostList, loadDoneReset } from "../modules/post";
+import {
+  getQnAListDB,
+  cleanUpPostList,
+  loadDoneReset,
+} from "../redux/modules/post";
 import TextCard from "../components/TextCard";
 import TabWrap from "../components/TabWrap";
 import Sort from "../components/Sort";

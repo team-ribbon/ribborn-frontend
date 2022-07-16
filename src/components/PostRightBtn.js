@@ -4,7 +4,7 @@ import { HiOutlineShare, HiOutlineHeart, HiHeart } from "react-icons/hi";
 import { AiOutlineCopy } from "react-icons/ai";
 import { FaFacebookF } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
-import { likePostDB } from "../modules/post";
+import { likePostDB } from "../redux/modules/post";
 
 const PostRightBtn = ({ noshare, id, liked, likeCount, lookbook }) => {
   const dispatch = useDispatch();

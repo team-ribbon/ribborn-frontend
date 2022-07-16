@@ -3,11 +3,11 @@ import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
-import { getLookbookPostDB, cleanUpPost } from "../modules/post";
+import { getReformPostDB, cleanUpPost } from "../redux/modules/post";
 
-import LookBookPostDetail from "../components/LookBookPostDetail";
+import ReformPostDetail from "../components/ReformPostDetail";
 
-const LookBookDetail = () => {
+const ReformDetail = () => {
   const dispatch = useDispatch();
   const params = useParams();
   console.log(params);
@@ -17,7 +17,7 @@ const LookBookDetail = () => {
   const userType = useSelector((state) => state.user.user.userType);
 
   React.useEffect(() => {
-    dispatch(getLookbookPostDB(params.postId));
+    dispatch(getReformPostDB(params.postId));
   }, []);
 
   React.useEffect(() => {
@@ -28,16 +28,11 @@ const LookBookDetail = () => {
 
   return (
     <Template>
-      <LookBookPostDetail
-        post={post}
-        userId={userId}
-        postId={params.postId}
-        userType={userType}
-      />
+      <ReformPostDetail post={post} userId={userId} userType={userType} />
     </Template>
   );
 };
 
 const Template = styled.div``;
 
-export default LookBookDetail;
+export default ReformDetail;

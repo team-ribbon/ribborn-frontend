@@ -8,7 +8,7 @@ import {
   getReformListDB,
   cleanUpPostList,
   loadDoneReset,
-} from "../modules/post";
+} from "../redux/modules/post";
 import TextCard from "../components/TextCard";
 import Categories from "../shared/Categories";
 import { SubBtn, Category, MainBtn } from "../elements/Buttons";

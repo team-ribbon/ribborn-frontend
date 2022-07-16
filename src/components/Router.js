@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 
 // import VideoChat from "../page/VideoChat";
 import QnAList from "../page/QnAList";
@@ -23,14 +23,23 @@ import EditPost from "../pages/EditPost";
 import styled from "styled-components";
 import Footer from "./Footer";
 import ChatFloat from "./ChatFloat";
+import ChatModal from "./ChatModal";
 
 export default function Router() {
+  const location = useLocation();
+
   return (
     <>
+      {location.state?.backgroundLocation && (
+        <Routes>
+          <Route path="chat" element={<ChatModal />} />
+          <Route path="chat/:roomId" element={<ChatModal />} />
+        </Routes>
+      )}
       <Header />
       <MainWrap>
-        {/* <ChatFloat /> */}
-        <Routes>
+        <ChatFloat />
+        <Routes location={location.state?.backgroundLocation || location}>
           {/* <Route path="/" element={<VideoChat />} /> */}
           <Route path="/" element={<Main />} />
           <Route path="login" element={<Login />} />

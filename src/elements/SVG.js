@@ -108,3 +108,103 @@ export const CheckSVG = () => {
     </svg>
   );
 };
+
+export const SmileChatSVG = () => {
+  return (
+    <svg
+      width="49"
+      height="52"
+      viewBox="0 0 49 52"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M48.8163 23.8857C48.8163 37.0773 37.8884 47.7713 24.4082 47.7713C23.775 47.7713 8.70969 52.6569 6.36735 51.9253C3.65422 51.078 13.87 46.0853 9.55102 42.8381C3.74342 38.4718 0 31.6065 0 23.8857C0 10.694 10.9279 0 24.4082 0C37.8884 0 48.8163 10.694 48.8163 23.8857Z"
+        fill="#222222"
+      />
+      <circle cx="14.8572" cy="20.1632" r="2.12245" fill="white" />
+      <path
+        d="M35.0204 27.5918C35.0204 32.8667 30.5067 37.1428 24.9388 37.1428C19.3709 37.1428 14.8572 32.8667 14.8572 27.5918"
+        stroke="white"
+        strokeLinecap="round"
+      />
+      <circle cx="36.0817" cy="21.2245" r="2.12245" fill="white" />
+    </svg>
+  );
+};
+export const OrangeChatSVG = () => {
+  return (
+    <svg
+      width="107"
+      height="111"
+      viewBox="0 0 107 111"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <g filter="url(#filter0_d_530_3180)">
+        <path
+          d="M92.3676 48.1252C92.3676 69.1811 74.925 86.2504 53.4084 86.2504C52.3977 86.2504 28.3512 94.0485 24.6125 92.8808C20.2819 91.5284 36.5879 83.5593 29.6941 78.3763C20.4243 71.4069 14.4492 60.4489 14.4492 48.1252C14.4492 27.0692 31.8918 10 53.4084 10C74.925 10 92.3676 27.0692 92.3676 48.1252Z"
+          fill="#FF8C28"
+        />
+        <circle cx="38.1631" cy="42.1837" r="3.38775" fill="white" />
+        <path
+          d="M70.3477 54.0408C70.3477 62.4603 63.1432 69.2857 54.2559 69.2857C45.3686 69.2857 38.1641 62.4603 38.1641 54.0408"
+          stroke="white"
+          strokeLinecap="round"
+        />
+        <circle cx="72.0401" cy="43.8776" r="3.38775" fill="white" />
+      </g>
+      <defs>
+        <filter
+          id="filter0_d_530_3180"
+          x="0.449219"
+          y="0"
+          width="105.918"
+          height="111"
+          filterUnits="userSpaceOnUse"
+          colorInterpolationFilters="sRGB"
+        >
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
+          <feColorMatrix
+            in="SourceAlpha"
+            type="matrix"
+            values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+            result="hardAlpha"
+          />
+          <feOffset dy="4" />
+          <feGaussianBlur stdDeviation="7" />
+          <feComposite in2="hardAlpha" operator="out" />
+          <feColorMatrix
+            type="matrix"
+            values="0 0 0 0 0.520833 0 0 0 0 0.242248 0 0 0 0 0 0 0 0 0.26 0"
+          />
+          <feBlend
+            mode="normal"
+            in2="BackgroundImageFix"
+            result="effect1_dropShadow_530_3180"
+          />
+          <feBlend
+            mode="normal"
+            in="SourceGraphic"
+            in2="effect1_dropShadow_530_3180"
+            result="shape"
+          />
+        </filter>
+      </defs>
+    </svg>
+  );
+};
+
+export const XSVG = () => {
+  return (
+    <svg
+      width="17"
+      height="17"
+      viewBox="0 0 17 17"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path d="M16 1L1 16M16 16L1 1" stroke="#222222" />
+    </svg>
+  );
+};

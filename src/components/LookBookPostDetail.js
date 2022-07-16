@@ -4,7 +4,8 @@ import MyPostButtons from "./MyPostButtons";
 import moment from "moment";
 import InfoSection from "./InfoSection";
 import { MainBtn } from "../elements/Buttons";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { apis } from "../shared/api";
 
 import PostRightBtn from "../components/PostRightBtn";
 
@@ -25,6 +26,24 @@ const LookBookPostDetail = ({ post, userId, postId, userType }) => {
     };
   }, []);
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const onClickChat = async () => {
+    if (post.userid === userId) {
+      alert("본인에게 채팅을 요청할 수 없습니다.");
+      return false;
+    }
+    if (!userId) {
+      alert("로그인 후에 이용할 수 있습니다.");
+      return false;
+    }
+    const response = await apis.addRoom(post.userid);
+    console.log(response);
+    navigate(`/chat/${response.data}`, {
+      state: { backgroundLocation: location },
+    });
+  };
+
   return (
     post && (
       <Wrap>
@@ -76,7 +95,9 @@ const LookBookPostDetail = ({ post, userId, postId, userType }) => {
                 region={post.addressCategory}
                 category={post.category}
               />
-              {+userType === 0 ? <ChattingBtn>채팅하기</ChattingBtn> : null}
+              {+userType === 0 ? (
+                <ChattingBtn onClick={onClickChat}>채팅하기</ChattingBtn>
+              ) : null}
               <PostRightBtn
                 noshare={false}
                 id={postId}

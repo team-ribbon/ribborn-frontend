@@ -8,15 +8,14 @@ import { addMessage } from "../redux/modules/chat";
 import ChatList from "./ChatList";
 import { Input } from "../elements/Inputs";
 import { MainBtn } from "../elements/Buttons";
+import { useParams } from "react-router-dom";
 
-const ChatRoom = ({ roomId }) => {
+// 채팅 모달 > 채팅방
+const ChatRoom = () => {
   const dispatch = useDispatch();
-  // const chatList = useSelector((state) => state.chat.chatList);
+  const { roomId } = useParams();
   const user = useSelector((state) => state.user.user);
-
   let stompClient = useRef(null);
-
-  console.log("roomId :", roomId);
 
   const socketConnect = () => {
     const webSocket = new SockJS("http://13.125.117.133:8888/ws-stomp");
@@ -24,7 +23,7 @@ const ChatRoom = ({ roomId }) => {
     stompClient.connect(
       {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
-        type: "IN",
+        type: "TALK",
       },
       () => {
         // console.log(client.ws.readyState);
@@ -42,15 +41,15 @@ const ChatRoom = ({ roomId }) => {
           },
           { Authorization: `Bearer ${localStorage.getItem("token")}` }
         );
-        const data = {
-          roomId: roomId,
-          type: "IN",
-        };
-        stompClient.send(
-          `/pub/chat/connect-status`,
-          { Authorization: `Bearer ${localStorage.getItem("token")}` },
-          JSON.stringify(data)
-        );
+        // const data = {
+        //   roomId: roomId,
+        //   type: "IN",
+        // };
+        // stompClient.send(
+        //   `/pub/chat/connect-status`,
+        //   { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        //   JSON.stringify(data)
+        // );
       }
     );
   };
@@ -59,6 +58,7 @@ const ChatRoom = ({ roomId }) => {
   };
   const sendMessage = (event) => {
     event.preventDefault();
+    if (event.target.chat.value === "") return false;
 
     const chatData = {
       roomId: roomId,
@@ -68,7 +68,7 @@ const ChatRoom = ({ roomId }) => {
     };
 
     stompClient.send(
-      `/pub/chat/connect-status`,
+      `/pub/chat/message`,
       { Authorization: `Bearer ${localStorage.getItem("token")}` },
       JSON.stringify(chatData)
     );

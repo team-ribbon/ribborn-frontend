@@ -25,11 +25,13 @@ const chatApi = axios.create({
 });
 
 chatApi.interceptors.request.use(function (config) {
+  const token = localStorage.getItem("token");
   if (token !== undefined) {
     config.headers.common["Authorization"] = token;
   }
   return config;
 });
+
 api.interceptors.request.use(function (config) {
   const token = localStorage.getItem("token");
   if (token !== undefined) {
@@ -132,7 +134,7 @@ export const apis = {
   getRoomList: () => chatApi.get("/chat/rooms"),
   getMessageList: (roomId) => chatApi.get("/chat/room/" + roomId),
 
-  addRoom: (username) => chatApi.post("/chat/room", { userId: username }),
+  addRoom: (userid) => chatApi.post("/chat/room", { userid }),
 
   enterRoom: (roomId) => chatApi.get(`/chat/room/${roomId}`),
   exitRoom: (roomId) => chatApi.get(`chat/room/exit/${roomId}`),

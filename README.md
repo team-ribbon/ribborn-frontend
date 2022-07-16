@@ -55,6 +55,10 @@
 | react-icons |4.4.0|
 | moment |2.29.4|
 | react-intersection-observer |9.3.5|
+| net |9.3.5|
+| sockjs-client |1.6.1|
+| stompjs |2.3.3|
+
   
 </div>
 

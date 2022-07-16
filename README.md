@@ -23,6 +23,7 @@
 <img src="https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=css3&logoColor=white">
 <img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black">
 <br>
+<img src="https://img.shields.io/badge/SockJS-008000?style=for-the-badge&logo=sockjs&logoColor=white">
 <img src="https://img.shields.io/badge/WebRtc-E2001A?style=for-the-badge&logo=WebRtc&logoColor=white">
 <img src="https://img.shields.io/badge/Styled Components-F893D1?style=for-the-badge&logo=styledComponents&logoColor=white">
 <img src="https://img.shields.io/badge/Redux-764ABC?style=for-the-badge&logo=Redux&logoColor=white"> 
@@ -30,7 +31,7 @@
 <br>
 <img src="https://img.shields.io/badge/Yarn-2C8EBB?style=for-the-badge&logo=Yarn&logoColor=white">
 <img src="https://img.shields.io/badge/Notion-000000?style=for-the-badge&logo=Notion&logoColor=white">
-<img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white">
+<img src="https://img.shields.io/badge/github-000000?style=for-the-badge&logo=github&logoColor=white">
 </div>
 
 <br>
@@ -55,6 +56,10 @@
 | react-icons |4.4.0|
 | moment |2.29.4|
 | react-intersection-observer |9.3.5|
+| net |9.3.5|
+| sockjs-client |1.6.1|
+| stompjs |2.3.3|
+
   
 </div>
 
@@ -66,10 +71,10 @@
 FEAT:    새로운 기능을 추가할 경우
 FIX:     버그를 고친 경우
 STYLE:   코드 포맷 변경, 간단한 수정, 코드 변경이 없는 경우
-REFATOR: 프로덕션 코드 리팩토링
-DOCS:    문서를 수정한 경우(ex> Swagger)
-Rename:  파일 혹은 폴더명 수정 및 이동
-Remove:  파일 삭제
+REFACTOR: 프로덕션 코드 리팩토링
+DOCS:    문서를 수정한 경우
+RENAME:  파일 혹은 폴더명 수정 및 이동
+REMOVE:  파일 삭제
 CHORE:    빌드 업무 수정(ex> dependency 추가)
 ```
 

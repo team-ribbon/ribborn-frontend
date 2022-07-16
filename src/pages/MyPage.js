@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
-import { cleanUpMyPage, getMyPageDB } from "../modules/UserPage";
+import { cleanUpMyPage, getMyPageDB } from "../redux/modules/userPage";
 import { useNavigate } from "react-router-dom";
 
 import UserInfoCard from "../components/UserInfoCard";
@@ -11,12 +11,12 @@ import InfoChange from "../components/InfoChange";
 function MyPage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.UserPage.myPage.users);
-  const qna = useSelector((state) => state.UserPage.myPage.qnaList);
-  const lookbook = useSelector((state) => state.UserPage.myPage.lookbookList);
-  const review = useSelector((state) => state.UserPage.myPage.reviewList);
-  const reform = useSelector((state) => state.UserPage.myPage.reformList);
-  const categoriedPosts = useSelector((state) => state.UserPage.myPage.posts);
+  const user = useSelector((state) => state.userPage.myPage.users);
+  const qna = useSelector((state) => state.userPage.myPage.qnaList);
+  const lookbook = useSelector((state) => state.userPage.myPage.lookbookList);
+  const review = useSelector((state) => state.userPage.myPage.reviewList);
+  const reform = useSelector((state) => state.userPage.myPage.reformList);
+  const categoriedPosts = useSelector((state) => state.userPage.myPage.posts);
   const isLogin = useSelector((state) => state.user.isLogin);
 
   const [infoChange, SetInfoChange] = useState(false);
@@ -28,8 +28,10 @@ function MyPage() {
     }
   }, [isLogin]);
   React.useEffect(() => {
-    dispatch(getMyPageDB(category));
-  }, [category]);
+    if (!infoChange) {
+      dispatch(getMyPageDB(category));
+    }
+  }, [category, infoChange]);
   React.useEffect(() => {
     return () => {
       dispatch(cleanUpMyPage());
@@ -37,7 +39,7 @@ function MyPage() {
   }, []);
 
   return infoChange ? (
-    <InfoChange change={SetInfoChange} user={user} />
+    <InfoChange change={SetInfoChange} user={user} setCategory={setCategory} />
   ) : (
     <Template>
       <UserInfoCard user={user} myPage={true} change={SetInfoChange} />

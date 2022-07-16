@@ -1,9 +1,9 @@
 import React from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 
 // import VideoChat from "../page/VideoChat";
-import QnAList from "../page/QnAList";
-import ReformList from "../page/ReformList";
+import QnAList from "../pages/QnAList";
+import ReformList from "../pages/ReformList";
 import Header from "./Header";
 import Main from "../pages/Main";
 import Login from "../pages/Login";
@@ -11,26 +11,35 @@ import Signup from "../pages/Signup";
 import SignupTech from "./SignupTech";
 import SignupUser from "./SignupUser";
 import Review from "../pages/Review";
-import MyPage from "../page/MyPage";
-import UserDetail from "../page/UserDetail";
-import QnADetail from "../page/QnADetail";
-import ReviewDetail from "../page/ReviewDetail";
-import ReformDetail from "../page/ReformDetail";
-import LookBookDetail from "../page/LookBookDetail";
+import MyPage from "../pages/MyPage";
+import UserDetail from "../pages/UserDetail";
+import QnADetail from "../pages/QnADetail";
+import ReviewDetail from "../pages/ReviewDetail";
+import ReformDetail from "../pages/ReformDetail";
+import LookBookDetail from "../pages/LookBookDetail";
 import Lookbook from "../pages/Lookbook";
 import WritePost from "../pages/WritePost";
 import EditPost from "../pages/EditPost";
 import styled from "styled-components";
 import Footer from "./Footer";
 import ChatFloat from "./ChatFloat";
+import ChatModal from "./ChatModal";
 
 export default function Router() {
+  const location = useLocation();
+
   return (
     <>
+      {location.state?.backgroundLocation && (
+        <Routes>
+          <Route path="chat" element={<ChatModal />} />
+          <Route path="chat/:roomId" element={<ChatModal />} />
+        </Routes>
+      )}
       <Header />
       <MainWrap>
-        {/* <ChatFloat /> */}
-        <Routes>
+        <ChatFloat />
+        <Routes location={location.state?.backgroundLocation || location}>
           {/* <Route path="/" element={<VideoChat />} /> */}
           <Route path="/" element={<Main />} />
           <Route path="login" element={<Login />} />

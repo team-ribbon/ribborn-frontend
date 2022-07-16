@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
-import { cleanUpMyPage, getUserDetailDB } from "../modules/UserPage";
+import { cleanUpMyPage, getUserDetailDB } from "../redux/modules/userPage";
 import { useParams } from "react-router-dom";
 
 import UserInfoCard from "../components/UserInfoCard";
@@ -12,12 +12,12 @@ function UserDetail() {
   const id = params.userId;
 
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.UserPage.myPage.users);
-  const qna = useSelector((state) => state.UserPage.myPage.qnaList);
-  const lookbook = useSelector((state) => state.UserPage.myPage.lookbookList);
-  const review = useSelector((state) => state.UserPage.myPage.reviewList);
-  const reform = useSelector((state) => state.UserPage.myPage.reformList);
-  const categoriedPosts = useSelector((state) => state.UserPage.myPage.posts);
+  const user = useSelector((state) => state.userPage.myPage.users);
+  const qna = useSelector((state) => state.userPage.myPage.qnaList);
+  const lookbook = useSelector((state) => state.userPage.myPage.lookbookList);
+  const review = useSelector((state) => state.userPage.myPage.reviewList);
+  const reform = useSelector((state) => state.userPage.myPage.reformList);
+  const categoriedPosts = useSelector((state) => state.userPage.myPage.posts);
   const myInfo = useSelector((state) => state.user.user);
   const isLogin = useSelector((state) => state.user.isLogin);
 

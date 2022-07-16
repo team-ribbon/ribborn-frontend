@@ -5,23 +5,23 @@ import { useParams } from "react-router-dom";
 import { useInView } from "react-intersection-observer";
 
 import {
-  getReviewPostDB,
+  getQnAPostDB,
   cleanUpPost,
   loadDoneReset,
   GetCommentDB,
-} from "../modules/post";
+} from "../redux/modules/post";
 
 import PostDetail from "../components/PostDetail";
 import PostFooter from "../components/PostFooter";
+import PostRightBtn from "../components/PostRightBtn";
 
-const ReviewDetail = () => {
+const QnADetail = () => {
   const dispatch = useDispatch();
   const params = useParams();
   const [page, setPage] = useState(0);
   const [loading, setLoading] = React.useState(true);
 
   const [inViewRef, inView] = useInView();
-
   console.log(params);
 
   const post = useSelector((state) => state.post.Post);
@@ -30,7 +30,7 @@ const ReviewDetail = () => {
   const loadedEverything = useSelector((state) => state.post.loadedEverything);
 
   React.useEffect(() => {
-    dispatch(getReviewPostDB(params.postId));
+    dispatch(getQnAPostDB(params.postId));
   }, []);
 
   React.useEffect(() => {
@@ -54,7 +54,7 @@ const ReviewDetail = () => {
 
   return (
     <Template>
-      <PostDetail post={post} userId={userId} postId={params.postId} />
+      <PostDetail qna={true} post={post} userId={userId} />
       <PostFooter
         id={params.postId}
         commentsList={commentsList}
@@ -68,10 +68,16 @@ const ReviewDetail = () => {
         inView={inView}
         loadedEverything={loadedEverything}
       />
+      <PostRightBtn
+        noshare={true}
+        id={params.postId}
+        liked={post && post.liked}
+        likeCount={post && post.likeCount}
+      />
     </Template>
   );
 };
 
 const Template = styled.div``;
 
-export default ReviewDetail;
+export default QnADetail;

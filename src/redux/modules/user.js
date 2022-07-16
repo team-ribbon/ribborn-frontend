@@ -13,7 +13,7 @@ export const clearUserInfo = createAction(CLEAR_USER_INFO);
 
 // initialState
 const initialState = {
-  user: {},
+  user: { id: 1 },
   isLogin: false,
 };
 

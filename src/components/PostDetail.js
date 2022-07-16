@@ -77,6 +77,7 @@ const PostWrap = styled.div`
   max-width: ${({ theme }) => theme.width.maxWidth};
   display: grid;
   grid-template-columns: 1fr 700px 1fr;
+  margin: 0 auto;
 `;
 
 const LeftPostDiv = styled.div`

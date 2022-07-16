@@ -4,14 +4,14 @@ import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-import { changeMyDataDB } from "../modules/UserPage";
+import { changeMyDataDB } from "../redux/modules/userPage";
 import { AddressCategory } from "../shared/AddressCategory";
 import { Textarea } from "../elements/Textarea";
 import { HelpText, Input, InputTitle, Required } from "../elements/Inputs";
 import CustomSelect from "../elements/CustomSelect";
 import { BlackBtn } from "../elements/Buttons";
 
-const InfoChange = ({ change, user }) => {
+const InfoChange = ({ change, user, setCategory }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate;
   const [passwordChange, setPasswordChange] = useState(false);
@@ -123,6 +123,7 @@ const InfoChange = ({ change, user }) => {
     }
     dispatch(changeMyDataDB(sendData)).then((res) => {
       console.log(sendData);
+      setCategory("all");
       change(false);
     });
   };

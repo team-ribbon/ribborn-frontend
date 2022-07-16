@@ -3,70 +3,87 @@ import MyPostButtons from "./MyPostButtons";
 import moment from "moment";
 import InfoSection from "./InfoSection";
 import { MainBtn } from "../elements/Buttons";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { apis } from "../shared/api";
 
 const LookBookPostDetail = ({ post, userId }) => {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const onClickChat = async () => {
-    await apis.addRoom(post.userid);
+    if (post.userid === userId) {
+      alert("본인에게 채팅을 요청할 수 없습니다.");
+      return false;
+    }
+    if (!userId) {
+      alert("로그인 후에 이용할 수 있습니다.");
+      return false;
+    }
+    const response = await apis.addRoom(post.userid);
+    console.log(response);
+    navigate(`/chat/${response.data}`, {
+      state: { backgroundLocation: location },
+    });
   };
 
   return (
     post && (
-      <Wrap>
-        <HeaderWrap>
-          <TitleWrap onClick={() => navigate(`/userdetail/${post.userid}`)}>
-            <Title weight={700}>{post.nickname}</Title>
-            <Title weight={400}>님의 작업</Title>
-          </TitleWrap>
-          <Date>
-            {post.createAt &&
-              moment(
-                post.createAt.split("T")[0] + "" + post.createAt.split("T")[1],
-                "YYYY-MM-DD HH:mm:ss"
-              )
-                .add(9, "hours")
-                .format()
-                .slice(0, 10)}
-          </Date>
-          <MyButtonsWrap>
-            {userId === post.userid ? (
-              <MyPostButtons postType="lookbook" id={post.id} />
-            ) : null}
-          </MyButtonsWrap>
-        </HeaderWrap>
-        <BodyWrap>
-          <LeftPostDiv />
-          <CenterPostDiv>
-            <Image
-              first={true}
-              alt="card"
-              src={
-                post.image[0] !== null
-                  ? post.image[0]
-                  : "http://openimage.interpark.com/goods_image_big/1/4/1/9/9090461419_l.jpg"
-              }
-            />
-            <TextArea>{post.introduction}</TextArea>
-            <Grid>
-              {post.image.map((v, i) => {
-                return i !== 0 ? <Image alt="card" src={v} /> : null;
-              })}
-            </Grid>
-            <TextArea white={true}>{post.content}</TextArea>
-          </CenterPostDiv>
-          <RightPostDiv>
-            <InfoSection
-              reform={false}
-              region={post.addressCategory}
-              category={post.category}
-            />
-            <ChattingBtn onClick={onClickChat}>채팅하기</ChattingBtn>
-          </RightPostDiv>
-        </BodyWrap>
-      </Wrap>
+      <>
+        <Wrap>
+          <HeaderWrap>
+            <TitleWrap onClick={() => navigate(`/userdetail/${post.userid}`)}>
+              <Title weight={700}>{post.nickname}</Title>
+              <Title weight={400}>님의 작업</Title>
+            </TitleWrap>
+            <Date>
+              {post.createAt &&
+                moment(
+                  post.createAt.split("T")[0] +
+                    "" +
+                    post.createAt.split("T")[1],
+                  "YYYY-MM-DD HH:mm:ss"
+                )
+                  .add(9, "hours")
+                  .format()
+                  .slice(0, 10)}
+            </Date>
+            <MyButtonsWrap>
+              {userId === post.userid ? (
+                <MyPostButtons postType="lookbook" id={post.id} />
+              ) : null}
+            </MyButtonsWrap>
+          </HeaderWrap>
+          <BodyWrap>
+            <LeftPostDiv />
+            <CenterPostDiv>
+              <Image
+                first={true}
+                alt="card"
+                src={
+                  post.image[0] !== null
+                    ? post.image[0]
+                    : "http://openimage.interpark.com/goods_image_big/1/4/1/9/9090461419_l.jpg"
+                }
+              />
+              <TextArea>{post.introduction}</TextArea>
+              <Grid>
+                {post.image.map((v, i) => {
+                  return i !== 0 ? <Image alt="card" src={v} /> : null;
+                })}
+              </Grid>
+              <TextArea white={true}>{post.content}</TextArea>
+            </CenterPostDiv>
+            <RightPostDiv>
+              <InfoSection
+                reform={false}
+                region={post.addressCategory}
+                category={post.category}
+              />
+              <ChattingBtn onClick={onClickChat}>채팅하기</ChattingBtn>
+            </RightPostDiv>
+          </BodyWrap>
+        </Wrap>
+      </>
     )
   );
 };

@@ -8,7 +8,7 @@ import {
   getReviewListDB,
   cleanUpPostList,
   loadDoneReset,
-} from "../modules/post";
+} from "../redux/modules/post";
 import { MainBtn, SubBtn, Category } from "../elements/Buttons";
 import Sort from "../components/Sort";
 import TabWrap from "../components/TabWrap";

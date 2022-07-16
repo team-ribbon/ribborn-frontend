@@ -1,16 +1,15 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
-import { cleanUpMyPage, getUserDetailDB } from "../modules/UserPage";
-import { useParams } from "react-router-dom";
+import { cleanUpMyPage, getMyPageDB } from "../redux/modules/userPage";
+import { useNavigate } from "react-router-dom";
 
 import UserInfoCard from "../components/UserInfoCard";
 import UserPost from "../components/UserPost";
+import InfoChange from "../components/InfoChange";
 
-function UserDetail() {
-  const params = useParams();
-  const id = params.userId;
-
+function MyPage() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.UserPage.myPage.users);
   const qna = useSelector((state) => state.UserPage.myPage.qnaList);
@@ -18,13 +17,18 @@ function UserDetail() {
   const review = useSelector((state) => state.UserPage.myPage.reviewList);
   const reform = useSelector((state) => state.UserPage.myPage.reformList);
   const categoriedPosts = useSelector((state) => state.UserPage.myPage.posts);
-  const myInfo = useSelector((state) => state.user.user);
   const isLogin = useSelector((state) => state.user.isLogin);
 
+  const [infoChange, SetInfoChange] = useState(false);
   const [category, setCategory] = useState("all");
 
   React.useEffect(() => {
-    dispatch(getUserDetailDB(id, category));
+    if (!isLogin) {
+      navigate("/");
+    }
+  }, [isLogin]);
+  React.useEffect(() => {
+    dispatch(getMyPageDB(category));
   }, [category]);
   React.useEffect(() => {
     return () => {
@@ -32,14 +36,11 @@ function UserDetail() {
     };
   }, []);
 
-  return (
+  return infoChange ? (
+    <InfoChange change={SetInfoChange} user={user} />
+  ) : (
     <Template>
-      <UserInfoCard
-        user={user}
-        myPage={false}
-        myInfo={myInfo}
-        isLogin={isLogin}
-      />
+      <UserInfoCard user={user} myPage={true} change={SetInfoChange} />
       <UserPost
         category={category}
         setCategory={setCategory}
@@ -63,4 +64,4 @@ const Template = styled.div`
   justify-content: center;
 `;
 
-export default UserDetail;
+export default MyPage;

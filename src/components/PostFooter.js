@@ -7,7 +7,7 @@ import {
   PostCommentDB,
   deleteCommentDB,
   modifyCommentDB,
-} from "../modules/post";
+} from "../redux/modules/post";
 
 const PostFooter = ({
   commentsList,

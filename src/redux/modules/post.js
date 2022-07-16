@@ -1,6 +1,6 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
-import { apis } from "../shared/api";
+import { apis } from "../../shared/api";
 
 // Action
 const GET_MAIN = "GET_MAIN";

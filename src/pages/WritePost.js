@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 
-import { getTechIntroDB, postDB } from "../modules/post";
+import { getTechIntroDB, postDB } from "../redux/modules/post";
 import { resetFile } from "../redux/modules/image";
 import CategorySelect from "../components/CategorySelect";
 

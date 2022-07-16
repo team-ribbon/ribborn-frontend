@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-import { changeMyDataDB } from "../modules/UserPage";
+import { changeMyDataDB } from "../redux/modules/userPage";
 import { AddressCategory } from "../shared/AddressCategory";
 import { Textarea } from "../elements/Textarea";
 import { HelpText, Input, InputTitle, Required } from "../elements/Inputs";

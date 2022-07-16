@@ -9,7 +9,7 @@ import {
   getQnAPostDB,
   getReformPostDB,
   getLookbookPostDB,
-} from "../modules/post";
+} from "../redux/modules/post";
 import { resetFile, uploadPreview } from "../redux/modules/image";
 import CategorySelect from "../components/CategorySelect";
 

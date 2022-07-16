@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import MainSection from "../components/MainSection";
 import DesignSection from "../components/DesignSection";
-import { getMainDB } from "../modules/post";
+import { getMainDB } from "../redux/modules/post";
 
 const Main = () => {
   const contents = useSelector((state) => state.post.mainContents);

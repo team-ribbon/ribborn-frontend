@@ -194,3 +194,17 @@ export const OrangeChatSVG = () => {
     </svg>
   );
 };
+
+export const XSVG = () => {
+  return (
+    <svg
+      width="17"
+      height="17"
+      viewBox="0 0 17 17"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path d="M16 1L1 16M16 16L1 1" stroke="#222222" />
+    </svg>
+  );
+};

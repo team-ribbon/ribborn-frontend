@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { BsBookmark } from "react-icons/bs";
 import { MainBtn } from "../elements/Buttons";
 
-const UserInfoCard = ({ myPage, user, change }) => {
+const UserInfoCard = ({ myPage, user, change, isLogin, myInfo }) => {
   return user ? (
     <div>
       <CardDiv userType={user.userType}>
@@ -16,11 +16,11 @@ const UserInfoCard = ({ myPage, user, change }) => {
             <ContentText>{user.companyNum}</ContentText>
           </div>
         ) : null}
-        <BookmarkDiv>
+        {/* <BookmarkDiv>
           <BsBookmark size="24" />
           <TitleText top={true}>관심</TitleText>
           <ContentText>88</ContentText>
-        </BookmarkDiv>
+        </BookmarkDiv> */}
       </CardDiv>
       {myPage ? (
         <ModifyBtn
@@ -30,9 +30,11 @@ const UserInfoCard = ({ myPage, user, change }) => {
         >
           수정하기
         </ModifyBtn>
-      ) : (
+      ) : isLogin &&
+        user.id !== myInfo.id &&
+        user.userType !== myInfo.userType ? (
         <ChatBtn>채팅하기</ChatBtn>
-      )}
+      ) : null}
     </div>
   ) : null;
 };

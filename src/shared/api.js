@@ -94,19 +94,16 @@ export const apis = {
   // 댓글
   loadComments: (postId, page, num) =>
     api.get(`/api/comments/${postId}?page=${page}&size=${num}`),
-  uploadComment: (id, comment) => {
+  uploadComment: (id, comment) =>
     api.post(`/api/post/${id}/comment`, {
       comment: comment,
-    });
-  },
-  deleteComment: (postId, commentId) => {
-    api.delete(`/api/post/${postId}/comment/${commentId}`);
-  },
-  modifyComment: (id, commentId, comment) => {
+    }),
+  deleteComment: (postId, commentId) =>
+    api.delete(`/api/post/${postId}/comment/${commentId}`),
+  modifyComment: (id, commentId, comment) =>
     api.put(`/api/post/${id}/comment/${commentId}`, {
       comment: comment,
-    });
-  },
+    }),
 
   // 게시물 등록
   postQna: (formData) => formDataApi.post("/api/qnaPosts", formData),

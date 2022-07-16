@@ -107,6 +107,7 @@ const PostDiv = styled.div`
   height: 256px;
   display: flex;
   flex-direction: row;
+  cursor: pointer;
 `;
 
 const TextDiv = styled.div`

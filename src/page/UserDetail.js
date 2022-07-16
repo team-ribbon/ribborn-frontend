@@ -18,6 +18,8 @@ function UserDetail() {
   const review = useSelector((state) => state.UserPage.myPage.reviewList);
   const reform = useSelector((state) => state.UserPage.myPage.reformList);
   const categoriedPosts = useSelector((state) => state.UserPage.myPage.posts);
+  const myInfo = useSelector((state) => state.user.user);
+  const isLogin = useSelector((state) => state.user.isLogin);
 
   const [category, setCategory] = useState("all");
 
@@ -32,7 +34,12 @@ function UserDetail() {
 
   return (
     <Template>
-      <UserInfoCard user={user} myPage={false} />
+      <UserInfoCard
+        user={user}
+        myPage={false}
+        myInfo={myInfo}
+        isLogin={isLogin}
+      />
       <UserPost
         category={category}
         setCategory={setCategory}

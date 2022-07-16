@@ -69,6 +69,7 @@ const Sort = ({ setSort, sort }) => {
 };
 const Wrap = styled.div`
   position: relative;
+  margin-left: auto;
 `;
 
 const ButtonWrap = styled.div`

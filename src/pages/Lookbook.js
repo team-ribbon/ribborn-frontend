@@ -35,7 +35,14 @@ const Lookbook = () => {
 
   useEffect(() => {
     dispatch(loadDoneReset());
-    setPage(0);
+    if (page === 0) {
+      setLoading(true);
+      dispatch(getLookbookListDB(category, sort, page)).then((res) => {
+        setLoading(false);
+      });
+    } else {
+      setPage(0);
+    }
   }, [category, sort]);
 
   useEffect(() => {
@@ -49,7 +56,7 @@ const Lookbook = () => {
     dispatch(getLookbookListDB(category, sort, page)).then((res) => {
       setLoading(false);
     });
-  }, [category, sort, page]);
+  }, [page]);
 
   React.useEffect(() => {
     return () => {

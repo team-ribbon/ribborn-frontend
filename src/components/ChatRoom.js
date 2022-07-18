@@ -18,7 +18,7 @@ const ChatRoom = () => {
   let stompClient = useRef(null);
 
   const socketConnect = () => {
-    const webSocket = new SockJS("http://13.125.117.133:8888/ws-stomp");
+    const webSocket = new SockJS(`${process.env.REACT_CHAT_URL}/ws-stomp`);
     stompClient = Stomp.over(webSocket);
     stompClient.connect(
       {

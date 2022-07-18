@@ -1,8 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://3.35.49.121:8080",
-  // baseURL: "http://13.125.117.133:8888",
+  baseURL: process.env.REACT_APP_BASE_URL,
   headers: {
     "content-type": "application/json;charset=UTF-8",
     accept: "application/json,",
@@ -10,14 +9,14 @@ const api = axios.create({
 });
 
 const formDataApi = axios.create({
-  baseURL: "http://3.35.49.121:8080",
+  baseURL: process.env.REACT_APP_BASE_URL,
   headers: {
     "content-type": "multipart/form-data",
   },
 });
 
 const chatApi = axios.create({
-  baseURL: "http://13.125.117.133:8888",
+  baseURL: process.env.REACT_APP_CHAT_URL,
   headers: {
     "content-type": "application/json;charset=UTF-8",
     accept: "application/json,",

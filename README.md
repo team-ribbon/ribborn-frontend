@@ -106,10 +106,12 @@ body는 필수 요소가 아니며 제목과 구분되도록 한칸 띄어서 �
  <h3 align="left">🤔FE Trouble Shooting</h3>  
  
   <details>
-    <summary>제목</summary>
+    <summary>무한스크롤 오류</summary>
       <div markdown="1">
         <br>
-      내용
+      문제현상: 카테고리나 정렬순을 변경하면 무한스크롤이 작동하지 않고 첫 페이지만 로딩되는 문제 <br>
+      문제이유: 카테고리나 정렬순을 변경하면 useEffect로 page가 0으로 변경되는데, 게시글을 불러오는 useEffect는 의존성배열에 카테고리, 정렬순, page가 모두 포함되어, 카테고리나 정렬순은 변경되었지만 page는 그대로인 요청 하나랑, 카테고리나 정렬순과 함께 page도 0으로 변경된 요청 하나가 감. 카테고리나 정렬순은 변경되었지만 page는 그대로인 요청은 빈배열로 오는 경우가 있고, 그 경우 모든 페이지가 로드되었다고 판단하고 loadedEverything 변수가 true가 되어 더이상 무한스크롤이 작동하지 않음 <br>
+      해결방안: 게시글을 불러오는 useEffect에 의존성배열을 page만 넣고, page가 0일 때 카테고리나 정렬순이 변경되면 게시글을 불러오도록 예외처리해줌
       </div>
    </details>
 

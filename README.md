@@ -63,6 +63,17 @@
   
 </div>
 
+### Git Flow
+
+---
+
+Branch 전략
+- master branch: 현재 서비스 중인 브랜치
+- release branch(main): master branch로 가기 전 merge 받아서 테스트해보는 브랜치
+~~- develop branch(현빈, 혜준 브랜치): 각자 개발하는 브랜치~~
+- develop branch(feature/#이슈번호 브랜치): 이슈에 대해 개발하는 브랜치
+- hotfix branch(hotfix/#이슈번호 브랜치): 긴급한 버그가 생길 시, master branch에서 pull을 해, 해당 버그만 수정하는 브랜치
+
 ### ✨Git 컨벤션
 
 ---

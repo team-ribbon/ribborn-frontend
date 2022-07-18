@@ -37,7 +37,14 @@ function QnAList() {
 
   React.useEffect(() => {
     dispatch(loadDoneReset());
-    setPage(0);
+    if (page === 0) {
+      setLoading(true);
+      dispatch(getQnAListDB(category, sort, page)).then((res) => {
+        setLoading(false);
+      });
+    } else {
+      setPage(0);
+    }
   }, [category, sort]);
 
   React.useEffect(() => {
@@ -51,7 +58,7 @@ function QnAList() {
     dispatch(getQnAListDB(category, sort, page)).then((res) => {
       setLoading(false);
     });
-  }, [category, sort, page]);
+  }, [page]);
 
   React.useEffect(() => {
     return () => {

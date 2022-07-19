@@ -1,3 +1,4 @@
+import { useSelector } from "react-redux";
 import { Link, useLocation, useMatch } from "react-router-dom";
 import styled from "styled-components";
 
@@ -7,10 +8,11 @@ import { SmileChatSVG } from "../elements/SVG";
 const ChatFloat = () => {
   const location = useLocation();
   const isChatModalOn = useMatch("/chat/*");
+  const user = useSelector((state) => state.user.user.username);
 
   return (
     <>
-      {!isChatModalOn && (
+      {user && !isChatModalOn && (
         <FloatWrap>
           <Link to="/chat" state={{ backgroundLocation: location }}>
             <ChatButton>

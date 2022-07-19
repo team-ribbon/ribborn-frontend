@@ -7,6 +7,7 @@ const GET_MESSAGE_LIST = "GET_MESSAGE_LIST";
 const GET_ROOMID = "GET_ROOMID";
 const ADD_MESSAGE = "ADD_MESSAGE";
 const GET_CHAT_USER = "GET_CHAT_USER";
+const CLEAN_UP_MESSAGE = "CLEAN_UP_MESSAGE";
 
 const getRoomList = createAction(GET_ROOM_LIST, (roomList) => ({ roomList }));
 const getMessageList = createAction(GET_MESSAGE_LIST, (messageList) => ({
@@ -17,6 +18,7 @@ export const addMessage = createAction(ADD_MESSAGE, (messageObj) => ({
 }));
 const getRoomId = createAction(GET_ROOMID, (id) => ({ id }));
 const getChatUser = createAction(GET_CHAT_USER, (user) => ({ user }));
+export const cleanUpMessage = createAction(CLEAN_UP_MESSAGE, () => ({}));
 
 const initialState = {
   roomList: [
@@ -33,7 +35,7 @@ const initialState = {
       date: "12:12",
     },
     {
-      roomId: 3,
+      roomId: 6,
       message: "가장최근채팅3",
       nickname: "이것은닉네임3",
       date: "12:12",
@@ -46,7 +48,7 @@ const initialState = {
 export const getRoomListDB = () => {
   return async (dispatch) => {
     const response = await chatApi.getRoomList();
-    console.log("get room :", response);
+    console.log("get room :", response.data);
   };
 };
 
@@ -123,6 +125,10 @@ export default handleActions(
     [GET_CHAT_USER]: (state, action) =>
       produce(state, (draft) => {
         draft.user = action.payload.user;
+      }),
+    [CLEAN_UP_MESSAGE]: (state, { payload }) =>
+      produce(state, (draft) => {
+        draft.messageList = initialState.messageList;
       }),
   },
   initialState

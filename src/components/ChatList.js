@@ -2,7 +2,8 @@ import React, { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import { getMessageListDB } from "../redux/modules/chat";
+import { cleanUpMessage, getMessageListDB } from "../redux/modules/chat";
+import moment from "moment";
 
 // 채팅 모달 > 채팅방 > 채팅 내역
 const ChatList = () => {
@@ -13,8 +14,9 @@ const ChatList = () => {
   const user = useSelector((state) => state.user.user);
 
   useEffect(() => {
+    dispatch(cleanUpMessage());
     dispatch(getMessageListDB(roomId));
-  }, []);
+  }, [roomId]);
 
   useEffect(() => {
     scrollRef.current.scrollIntoView({ behavior: "smooth", block: "end" });
@@ -22,21 +24,40 @@ const ChatList = () => {
 
   return (
     <MessageWrap>
-      {messageList.map((chat) => {
-        return chat.senderId === user.id ? (
-          <Me key={chat.id}>
-            <NickAndDate>
-              <Date me>{chat?.date}</Date>
-              <Nickname>{chat?.nickname}</Nickname>
-            </NickAndDate>
-            <Message me>{chat?.message}</Message>
-          </Me>
+      {messageList.map((chat, index) => {
+        const date = moment(chat.date).format("hh:mm");
+        return chat?.senderName === user?.username ? (
+          <>
+            {chat.date.split("T")[0] !==
+              messageList[index - 1]?.date?.split("T")[0] && (
+              <ChatListDate>
+                {moment(chat.date).format("YYYY.MM.DD")}
+              </ChatListDate>
+            )}
+            <Me key={chat.date}>
+              <NickAndDate me>
+                <Date me>{date}</Date>
+                <Nickname>{chat?.nickname}</Nickname>
+              </NickAndDate>
+              <Message me>{chat?.message}</Message>
+            </Me>
+          </>
         ) : (
-          <You key={chat?.id}>
-            <Nickname>{chat?.nickname}</Nickname>
-            <Date you>{chat?.date}</Date>
-            <Message>{chat?.message}</Message>
-          </You>
+          <>
+            {chat.date.split("T")[0] !==
+              messageList[index - 1]?.date?.split("T")[0] && (
+              <ChatListDate>
+                {moment(chat.date).format("YYYY.MM.DD")}
+              </ChatListDate>
+            )}
+            <You key={chat.date}>
+              <NickAndDate>
+                <Nickname>{chat?.nickname}</Nickname>
+                <Date you>{date}</Date>
+              </NickAndDate>
+              <Message>{chat?.message}</Message>
+            </You>
+          </>
         );
       })}
       <div ref={scrollRef} />
@@ -62,7 +83,7 @@ const You = styled.div`
 `;
 const NickAndDate = styled.div`
   display: flex;
-  justify-content: end;
+  justify-content: ${({ me }) => (me ? "end" : "start")};
   align-items: center;
   margin-bottom: 10px;
 `;
@@ -79,6 +100,11 @@ const Message = styled.div`
   background-color: #f2f2f2;
   border-radius: ${({ me }) => (me ? "15px 0 15px 15px" : "0 15px 15px 15px")};
   padding: 20px 30px;
+`;
+const ChatListDate = styled.div`
+  text-align: center;
+  margin: 30px 0;
+  font-size: ${({ theme }) => theme.fontSizes.l};
 `;
 
 export default ChatList;

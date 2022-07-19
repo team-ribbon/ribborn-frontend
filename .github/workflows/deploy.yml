@@ -8,13 +8,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout source code.
-        uses: actions/checkout@v2
+        uses: actions/checkout@main
 
-      - name: Check Node v
-        run: node -v
+      - name: Cache node modules
+        uses: actions/cache@v1
+        with:
+          path: node_modules
+          key: ${{ runner.OS }}-main-build-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.OS }}-build-
+            ${{ runner.OS }}-
 
       - name: Install Dependencies
-        run: yarn install
+        run: yarn
 
       - name: Build
         run: yarn build

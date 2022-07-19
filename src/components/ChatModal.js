@@ -44,7 +44,6 @@ const ChatModal = () => {
       window.scrollTo(0, parseInt(scrollY || "0", 10) * -1);
     };
   }, []);
-
   return (
     <FloatWrap>
       <Dim />
@@ -60,7 +59,7 @@ const ChatModal = () => {
                   backgroundLocation: location.state.backgroundLocation,
                 }}
               >
-                <List>
+                <List selected={+room.roomId === +roomId}>
                   <Nickname>{room?.nickname}</Nickname>
                   <Date>{room?.date}</Date>
                   <Message>{room?.message}</Message>
@@ -144,6 +143,8 @@ const List = styled.div`
   justify-content: space-between;
   gap: 20px;
   padding: 30px;
+  color: ${({ selected }) => selected && "#fff"};
+  background-color: ${({ selected, theme }) => selected && theme.colors.black};
   border-bottom: 1px solid ${({ theme }) => theme.colors.gray};
 `;
 const Nickname = styled.div`

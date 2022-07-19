@@ -38,7 +38,14 @@ function ReformList() {
 
   useEffect(() => {
     dispatch(loadDoneReset());
-    setPage(0);
+    if (page === 0) {
+      setLoading(true);
+      dispatch(getReformListDB(category, region, process, page)).then((res) => {
+        setLoading(false);
+      });
+    } else {
+      setPage(0);
+    }
   }, [category, region, process]);
 
   React.useEffect(() => {
@@ -52,7 +59,7 @@ function ReformList() {
     dispatch(getReformListDB(category, region, process, page)).then((res) => {
       setLoading(false);
     });
-  }, [category, region, process, page]);
+  }, [page]);
 
   React.useEffect(() => {
     return () => {

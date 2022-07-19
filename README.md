@@ -63,6 +63,17 @@
   
 </div>
 
+### 📩Git Flow
+
+---
+
+Branch 전략
+- master branch: 현재 서비스 중인 브랜치 <br>
+- release branch(main): master branch로 가기 전 merge 받아서 테스트해보는 브랜치 <br>
+~~- develop branch(현빈, 혜준 브랜치): 각자 개발하는 브랜치~~ <br>
+- develop branch(feature/#이슈번호/설명(설명은 필수 아님) 브랜치): 이슈에 대해 개발하는 브랜치 <br>
+- hotfix branch(hotfix/#이슈번호/설명(설명은 필수 아님) 브랜치): 긴급한 버그가 생길 시, master branch에서 pull을 해, 해당 버그만 수정하는 브랜치 <br>
+
 ### ✨Git 컨벤션
 
 ---
@@ -95,10 +106,12 @@ body는 필수 요소가 아니며 제목과 구분되도록 한칸 띄어서 �
  <h3 align="left">🤔FE Trouble Shooting</h3>  
  
   <details>
-    <summary>제목</summary>
+    <summary>무한스크롤 오류</summary>
       <div markdown="1">
         <br>
-      내용
+      문제 상황: 카테고리나 정렬순을 변경하면 무한스크롤이 작동하지 않고 첫 페이지만 로딩되는 문제 <br> <br>
+      문제 이유: 카테고리나 정렬순을 변경하면 useEffect로 page가 0으로 변경되는데, 게시글을 불러오는 useEffect는 의존성배열에 카테고리, 정렬순, page가 모두 포함되어, 카테고리나 정렬순은 변경되었지만 page는 그대로인 요청 하나랑, 카테고리나 정렬순과 함께 page도 0으로 변경된 요청 하나가 감. 카테고리나 정렬순은 변경되었지만 page는 그대로인 요청은 빈배열로 오는 경우가 있고, 그 경우 모든 페이지가 로드되었다고 판단하고 loadedEverything 변수가 true가 되어 더이상 무한스크롤이 작동하지 않음 <br> <br>
+      해결 방안: 게시글을 불러오는 useEffect에 의존성배열을 page만 넣고, page가 0일 때 카테고리나 정렬순이 변경되면 게시글을 불러오도록 예외처리해줌
       </div>
    </details>
 

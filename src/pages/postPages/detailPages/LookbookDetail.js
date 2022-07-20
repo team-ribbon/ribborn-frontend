@@ -3,11 +3,11 @@ import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
-import { getLookbookPostDB, cleanUpPost } from "../redux/modules/post";
+import { getLookbookPostDB, cleanUpPost } from "../../../redux/modules/post";
 
-import LookBookPostDetail from "../components/LookBookPostDetail";
+import LookBookPostDetail from "../../../components/LookBookPostDetail";
 
-const LookBookDetail = () => {
+const LookbookDetail = () => {
   const dispatch = useDispatch();
   const params = useParams();
   console.log(params);
@@ -40,4 +40,4 @@ const LookBookDetail = () => {
 
 const Template = styled.div``;
 
-export default LookBookDetail;
+export default LookbookDetail;

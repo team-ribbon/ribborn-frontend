@@ -1,7 +1,8 @@
 import React from "react";
 import { Link, Outlet, useMatch } from "react-router-dom";
 import styled from "styled-components";
-import { SubBtn, SubBtnActive } from "../elements/Buttons";
+
+import { SubBtn, SubBtnActive } from "../../elements/Buttons";
 
 const Signup = () => {
   const isMain = useMatch("/signup");

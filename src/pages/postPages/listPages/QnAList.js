@@ -9,12 +9,12 @@ import {
   getQnAListDB,
   cleanUpPostList,
   loadDoneReset,
-} from "../redux/modules/post";
-import TextCard from "../components/TextCard";
-import TabWrap from "../components/TabWrap";
-import Sort from "../components/Sort";
-import Categories from "../shared/Categories";
-import { MainBtn, SubBtn, Category } from "../elements/Buttons";
+} from "../../../redux/modules/post";
+import TextCard from "../../../components/TextCard";
+import TabWrap from "../../../components/TabWrap";
+import Sort from "../../../components/Sort";
+import Categories from "../../../shared/Categories";
+import { MainBtn, SubBtn, Category } from "../../../elements/Buttons";
 
 function QnAList() {
   const dispatch = useDispatch();

@@ -3,9 +3,9 @@ import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
-import { getReformPostDB, cleanUpPost } from "../redux/modules/post";
+import { getReformPostDB, cleanUpPost } from "../../../redux/modules/post";
 
-import ReformPostDetail from "../components/ReformPostDetail";
+import ReformPostDetail from "../../../components/ReformPostDetail";
 
 const ReformDetail = () => {
   const dispatch = useDispatch();

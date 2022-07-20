@@ -3,18 +3,19 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { useInView } from "react-intersection-observer";
 import styled, { css } from "styled-components";
-import CardA from "../components/CardA";
+
+import CardA from "../../../components/CardA";
 import {
   getReviewListDB,
   cleanUpPostList,
   loadDoneReset,
-} from "../redux/modules/post";
-import { MainBtn, SubBtn, Category } from "../elements/Buttons";
-import Sort from "../components/Sort";
-import TabWrap from "../components/TabWrap";
-import Categories from "../shared/Categories";
+} from "../../../redux/modules/post";
+import { MainBtn, SubBtn, Category } from "../../../elements/Buttons";
+import Sort from "../../../components/Sort";
+import TabWrap from "../../../components/TabWrap";
+import Categories from "../../../shared/Categories";
 
-const Review = () => {
+const ReviewList = () => {
   const dispatch = useDispatch();
   const postList = useSelector((state) => state.post.PostList);
   const loadedEverything = useSelector((state) => state.post.loadedEverything);
@@ -122,4 +123,4 @@ const Buttons = styled(Category)`
   align-items: center;
 `;
 
-export default Review;
+export default ReviewList;

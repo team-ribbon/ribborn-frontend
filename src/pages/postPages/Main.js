@@ -2,9 +2,10 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import MainSection from "../components/MainSection";
-import DesignSection from "../components/DesignSection";
-import { getMainDB } from "../redux/modules/post";
+
+import MainSection from "../../components/MainSection";
+import DesignSection from "../../components/DesignSection";
+import { getMainDB } from "../../redux/modules/post";
 
 const Main = () => {
   const contents = useSelector((state) => state.post.mainContents);

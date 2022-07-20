@@ -1,23 +1,16 @@
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 
-import {
-  EditPostDB,
-  getReviewPostDB,
-  getQnAPostDB,
-  getReformPostDB,
-  getLookbookPostDB,
-} from "../redux/modules/post";
-import { resetFile, uploadPreview } from "../redux/modules/image";
-import CategorySelect from "../components/CategorySelect";
+import { getTechIntroDB, postDB } from "../../redux/modules/post";
+import { resetFile } from "../../redux/modules/image";
+import CategorySelect from "../../components/CategorySelect";
 
-import ImageUpload from "../components/ImageUpload";
-import RegionSelect from "../components/RegionSelect";
-import React from "react";
+import ImageUpload from "../../components/ImageUpload";
+import RegionSelect from "../../components/RegionSelect";
 
-const EditPost = () => {
+const WritePost = () => {
   const info = {
     review: {
       title: "리폼 후기 게시물 작성 가이드",
@@ -74,15 +67,13 @@ const EditPost = () => {
   const introRef = useRef();
 
   const files = useSelector((state) => state.image.fileList);
-  const previewList = useSelector((state) => state.image.previewList);
-  const post = useSelector((state) => state.post.Post);
+  const intro = useSelector((state) => state.post.techIntro);
   const isLogin = useSelector((state) => state.user.isLogin);
 
   const [title, setTitle] = useState("");
-  const [introduction, setIntroduction] = useState("");
+  const [introduction, setIntroduction] = useState(intro);
   const [category, setCategory] = useState(0);
   const [region, setRegion] = useState(0);
-  const [imageNotLoaded, setImageNotLoaded] = useState(true);
 
   const { type } = useParams();
   const { id } = useParams();
@@ -94,30 +85,8 @@ const EditPost = () => {
   }, [isLogin]);
 
   React.useEffect(() => {
-    if (post) {
-      if (document.getElementById("introductionInput")) {
-        setIntroduction(post.introduction);
-      }
-      if (document.getElementById("titleInput")) {
-        setTitle(post.title);
-      }
-      if (document.getElementById("contentInput")) {
-        document.getElementById("contentInput").value = post.content;
-      }
-      if (post.category) {
-        setCategory(post.category);
-      }
-      if (post.region) {
-        setRegion(post.region);
-      }
-      if (imageNotLoaded && post.image) {
-        post.image.forEach((imageLink) => {
-          dispatch(uploadPreview(imageLink));
-        });
-        setImageNotLoaded(false);
-      }
-    }
-  }, [post]);
+    setIntroduction(intro);
+  }, [intro]);
 
   let frm = new FormData();
 
@@ -162,18 +131,7 @@ const EditPost = () => {
     });
     console.log(files);
 
-    let imageUrl = [];
-
-    previewList.forEach((previewUrl) => {
-      if (previewUrl.slice(0, 4) === "data") {
-        imageUrl.push("");
-      } else {
-        imageUrl.push(previewUrl);
-      }
-    });
-
     let key = {
-      imageUrl: imageUrl,
       postCategory: type,
       category: category,
       content: contentRef.current.value,
@@ -188,7 +146,6 @@ const EditPost = () => {
     if (type === "lookbook") {
       key = { ...key, introduction: introRef.current.value };
     }
-
     console.log(key);
 
     frm.append(
@@ -204,7 +161,7 @@ const EditPost = () => {
     // }
     // for (let v of frm.values()) console.log(v);
 
-    await dispatch(EditPostDB(frm, type, id)).then(() => {
+    await dispatch(postDB(frm, type)).then(() => {
       dispatch(resetFile());
       navigate("/" + type);
     });
@@ -224,18 +181,7 @@ const EditPost = () => {
   };
 
   useEffect(() => {
-    if (type === "lookbook") {
-      dispatch(getLookbookPostDB(id));
-    }
-    if (type === "reform") {
-      dispatch(getReformPostDB(id));
-    }
-    if (type === "qna") {
-      dispatch(getQnAPostDB(id));
-    }
-    if (type === "review") {
-      dispatch(getReviewPostDB(id));
-    }
+    dispatch(getTechIntroDB());
   }, []);
 
   useEffect(() => {
@@ -286,23 +232,20 @@ const EditPost = () => {
         {type === "lookbook" && (
           <IntroDiv>
             <IntroTextArea
-              id="introductionInput"
+              id="introduction"
               name="introduction"
               placeholder="브랜드 또는 디자이너에 대한 간단한 소개를 적어주세요."
               value={introduction}
               onChange={onChangeIntro}
               ref={introRef}
             />
-            <IntroLength>
-              {introduction ? introduction.length : 0}/100
-            </IntroLength>
+            <IntroLength>{introduction && introduction.length}/100</IntroLength>
           </IntroDiv>
         )}
         {type !== "lookbook" && (
           <TitleDiv>
             <TitleSpan>제목</TitleSpan>
             <TitleInput
-              id="titleInput"
               name="title"
               placeholder="제목을 입력해주세요"
               value={title}
@@ -312,10 +255,9 @@ const EditPost = () => {
             <TitleLength>{title.length}/15</TitleLength>
           </TitleDiv>
         )}
-        <ImageUpload edit={true} type={type} />
+        <ImageUpload type={type} />
         <TitleSpan>내용</TitleSpan>
         <TextArea
-          id="contentInput"
           name="content"
           placeholder="여기에 내용을 적어주세요"
           ref={contentRef}
@@ -482,4 +424,4 @@ const TextArea = styled.textarea`
   resize: none;
 `;
 
-export default EditPost;
+export default WritePost;

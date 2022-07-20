@@ -2,9 +2,9 @@ import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
-import { loginDB } from "../redux/modules/user";
-import { BlackBtn } from "../elements/Buttons";
-import { HelpText, Input, InputTitle } from "../elements/Inputs";
+import { loginDB } from "../../redux/modules/user";
+import { BlackBtn } from "../../elements/Buttons";
+import { HelpText, Input, InputTitle } from "../../elements/Inputs";
 
 const Login = () => {
   const dispatch = useDispatch();

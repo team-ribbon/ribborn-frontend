@@ -1,29 +1,33 @@
 import React from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
+import styled from "styled-components";
 
-// import VideoChat from "../page/VideoChat";
-import QnAList from "../pages/QnAList";
-import ReformList from "../pages/ReformList";
 import Header from "./Header";
-import Main from "../pages/Main";
-import Login from "../pages/Login";
-import Signup from "../pages/Signup";
+import Footer from "./Footer";
+
+import Main from "../pages/postPages/Main";
+import Login from "../pages/userPages/Login";
+import Signup from "../pages/userPages/Signup";
 import SignupTech from "./SignupTech";
 import SignupUser from "./SignupUser";
-import Review from "../pages/Review";
-import MyPage from "../pages/MyPage";
-import UserDetail from "../pages/UserDetail";
-import QnADetail from "../pages/QnADetail";
-import ReviewDetail from "../pages/ReviewDetail";
-import ReformDetail from "../pages/ReformDetail";
-import LookBookDetail from "../pages/LookBookDetail";
-import Lookbook from "../pages/Lookbook";
-import WritePost from "../pages/WritePost";
-import EditPost from "../pages/EditPost";
-import styled from "styled-components";
-import Footer from "./Footer";
+import MyPage from "../pages/userPages/MyPage";
+import UserDetail from "../pages/userPages/UserDetail";
+
+import ReformList from "../pages/postPages/listPages/ReformList";
+import ReviewList from "../pages/postPages/listPages/ReviewList";
+import QnAList from "../pages/postPages/listPages/QnAList";
+import LookbookList from "../pages/postPages/listPages/LookbookList";
+import QnADetail from "../pages/postPages/detailPages/QnADetail";
+import ReviewDetail from "../pages/postPages/detailPages/ReviewDetail";
+import ReformDetail from "../pages/postPages/detailPages/ReformDetail";
+import LookbookDetail from "../pages/postPages/detailPages/LookbookDetail";
+
+import WritePost from "../pages/postPages/WritePost";
+import EditPost from "../pages/postPages/EditPost";
+
 import ChatFloat from "./ChatFloat";
 import ChatModal from "./ChatModal";
+// import VideoChat from "../page/VideoChat";
 
 export default function Router() {
   const location = useLocation();
@@ -47,9 +51,9 @@ export default function Router() {
             <Route path="user" element={<SignupUser />} />
             <Route path="tech" element={<SignupTech />} />
           </Route>
-          <Route path="review" element={<Review />} />
-          <Route path="review/:category" element={<Review />} />
-          <Route path="lookbook" element={<Lookbook />} />
+          <Route path="review" element={<ReviewList />} />
+          <Route path="review/:category" element={<ReviewList />} />
+          <Route path="lookbook" element={<LookbookList />} />
           <Route path="/qna" element={<QnAList />} />
           <Route path="/reform" element={<ReformList />} />
           <Route path="write/:type" element={<WritePost />} />
@@ -59,7 +63,7 @@ export default function Router() {
           <Route path="qnadetail/:postId" element={<QnADetail />} />
           <Route path="reviewdetail/:postId" element={<ReviewDetail />} />
           <Route path="reformdetail/:postId" element={<ReformDetail />} />
-          <Route path="lookbookdetail/:postId" element={<LookBookDetail />} />
+          <Route path="lookbookdetail/:postId" element={<LookbookDetail />} />
           <Route path="*" element={<Main />} />
         </Routes>
       </MainWrap>

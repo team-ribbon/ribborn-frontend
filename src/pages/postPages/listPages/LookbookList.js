@@ -3,19 +3,19 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { useInView } from "react-intersection-observer";
+import styled from "styled-components";
 
-import CardB from "../components/CardB";
-import Sort from "../components/Sort";
+import CardB from "../../../components/CardB";
+import Sort from "../../../components/Sort";
 import {
   getLookbookListDB,
   cleanUpPostList,
   loadDoneReset,
-} from "../redux/modules/post";
-import styled from "styled-components";
-import { MainBtn, SubBtn, Category } from "../elements/Buttons";
-import Categories from "../shared/Categories";
+} from "../../../redux/modules/post";
+import { MainBtn, SubBtn, Category } from "../../../elements/Buttons";
+import Categories from "../../../shared/Categories";
 
-const Lookbook = () => {
+const LookbookList = () => {
   const dispatch = useDispatch();
   const postList = useSelector((state) => state.post.PostList);
   const loadedEverything = useSelector((state) => state.post.loadedEverything);
@@ -127,4 +127,4 @@ const Grid = styled.div`
   margin: 20px auto;
 `;
 
-export default Lookbook;
+export default LookbookList;

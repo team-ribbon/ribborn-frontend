@@ -8,12 +8,12 @@ import {
   getReformListDB,
   cleanUpPostList,
   loadDoneReset,
-} from "../redux/modules/post";
-import TextCard from "../components/TextCard";
-import Categories from "../shared/Categories";
-import { SubBtn, Category, MainBtn } from "../elements/Buttons";
-import RegionSelect from "../components/RegionSelect";
-import ProcessSelect from "../components/ProcessSelect";
+} from "../../../redux/modules/post";
+import TextCard from "../../../components/TextCard";
+import Categories from "../../../shared/Categories";
+import { SubBtn, Category, MainBtn } from "../../../elements/Buttons";
+import RegionSelect from "../../../components/RegionSelect";
+import ProcessSelect from "../../../components/ProcessSelect";
 
 function ReformList() {
   const isLogin = useSelector((state) => state.user.isLogin);

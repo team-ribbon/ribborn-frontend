@@ -46,7 +46,7 @@ const Footer = () => {
 };
 
 const Wrap = styled.footer`
-  height: 300px;
+  height: 401px;
   background-color: ${({ theme }) => theme.colors.lighterGray};
 `;
 
@@ -58,11 +58,17 @@ const Grid = styled.div`
   grid-template-columns: 1fr 1fr 1fr;
 `;
 
-const LeftDiv = styled.div``;
+const LeftDiv = styled.div`
+  margin-top: 86px;
+`;
 
-const MiddleDiv = styled.div``;
+const MiddleDiv = styled.div`
+  margin-top: 86px;
+`;
 
-const RightDiv = styled.div``;
+const RightDiv = styled.div`
+  margin-top: 86px;
+`;
 
 const Title = styled.span`
   font-weight: 700;

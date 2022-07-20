@@ -1,14 +1,14 @@
 import SockJS from "sockjs-client";
 import Stomp from "stompjs";
-
-import { useDispatch, useSelector } from "react-redux";
-import styled from "styled-components";
 import { useEffect, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import styled from "styled-components";
+
 import { addMessage } from "../redux/modules/chat";
 import ChatList from "./ChatList";
 import { Input } from "../elements/Inputs";
 import { MainBtn } from "../elements/Buttons";
-import { useParams } from "react-router-dom";
 
 // 채팅 모달 > 채팅방
 const ChatRoom = () => {
@@ -81,8 +81,7 @@ const ChatRoom = () => {
   }, [roomId]);
 
   return (
-    <div>
-      <ChatList />
+    <>
       <ChatInputWrap>
         <form onSubmit={sendMessage}>
           <ChatInput
@@ -93,7 +92,8 @@ const ChatRoom = () => {
           <SendButton>보내기</SendButton>
         </form>
       </ChatInputWrap>
-    </div>
+      <ChatList />
+    </>
   );
 };
 

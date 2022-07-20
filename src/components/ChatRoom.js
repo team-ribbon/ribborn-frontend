@@ -17,7 +17,7 @@ const ChatRoom = () => {
   const user = useSelector((state) => state.user.user);
   let stompClient = useRef(null);
 
-  // 웹소켓 연결 요청 후 구독 요청
+  // 웹소켓 연결 요청 & 구독 요청
   const socketConnect = () => {
     const webSocket = new SockJS(`${process.env.REACT_APP_CHAT_URL}/ws-stomp`);
     stompClient = Stomp.over(webSocket);

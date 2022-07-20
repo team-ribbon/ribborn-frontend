@@ -8,7 +8,9 @@ function App() {
   const isLogin = useSelector((state) => state.user.isLogin);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(loadUserInfoDB());
+    if (localStorage.getItem("token")) {
+      dispatch(loadUserInfoDB());
+    }
   }, [isLogin]);
   return (
     <>

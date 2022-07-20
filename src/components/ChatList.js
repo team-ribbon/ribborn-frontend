@@ -25,7 +25,7 @@ const ChatList = () => {
   return (
     <MessageWrap>
       {messageList.map((chat, index) => {
-        const date = moment(chat.date).format("hh:mm");
+        const date = moment(chat.date).format("HH:mm");
         const isMe = chat?.senderName === user?.username;
         return (
           <>
@@ -38,7 +38,7 @@ const ChatList = () => {
             <Message key={chat.messageId} me={isMe}>
               {(chat.senderName !== messageList[index - 1]?.senderName ||
                 date !==
-                  moment(messageList[index - 1]?.date).format("hh:mm")) && (
+                  moment(messageList[index - 1]?.date).format("HH:mm")) && (
                 <NickAndDate me={isMe}>
                   <Date me={isMe}>{date}</Date>
                   <Nickname>{chat?.senderNickname}</Nickname>
@@ -60,7 +60,6 @@ const MessageWrap = styled.div`
   gap: 10px;
   padding: 30px 30px 0 30px;
   overflow-y: auto;
-  height: 58vh;
 `;
 const Message = styled.div`
   align-self: ${({ me }) => me && "flex-end"};

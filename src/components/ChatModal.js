@@ -69,9 +69,6 @@ const ChatModal = () => {
           </ListWrap>
         </LeftWrap>
         <RoomWrap>
-          <CloseBtn onClick={onClickClose}>
-            <XSVG />
-          </CloseBtn>
           {isMatchChat && (
             <HelpMessage>
               <div>
@@ -88,6 +85,11 @@ const ChatModal = () => {
             </HelpMessage>
           )}
           {roomId && <ChatRoom roomId={roomId} />}
+          <CloseBtn>
+            <div onClick={onClickClose}>
+              <XSVG />
+            </div>
+          </CloseBtn>
         </RoomWrap>
       </Wrap>
     </FloatWrap>
@@ -159,17 +161,22 @@ const Message = styled.div`
   color: ${({ theme }) => theme.colors.gray};
 `;
 const RoomWrap = styled.div`
-  position: relative;
   width: 67%;
   display: flex;
   flex-direction: column-reverse;
   border-left: 1px solid ${({ theme }) => theme.colors.gray};
 `;
 const CloseBtn = styled.div`
-  position: absolute;
-  right: 30px;
-  top: 30px;
-  cursor: pointer;
+  background-color: #fff;
+  width: 99%;
+  display: flex;
+  flex-direction: row-reverse;
+
+  padding: 20px 20px 5px 0;
+  border-radius: 30px;
+  div {
+    cursor: pointer;
+  }
 `;
 const HelpMessage = styled.div`
   font-size: ${({ theme }) => theme.fontSizes.xl};

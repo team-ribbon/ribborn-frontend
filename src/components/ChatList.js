@@ -26,37 +26,26 @@ const ChatList = () => {
     <MessageWrap>
       {messageList.map((chat, index) => {
         const date = moment(chat.date).format("hh:mm");
-        return chat?.senderName === user?.username ? (
+        const isMe = chat?.senderName === user?.username;
+        return (
           <>
             {chat.date.split("T")[0] !==
               messageList[index - 1]?.date?.split("T")[0] && (
-              <ChatListDate>
+              <ChatListDate key={chat.date}>
                 {moment(chat.date).format("YYYY.MM.DD")}
               </ChatListDate>
             )}
-            <Me key={chat.date}>
-              <NickAndDate me>
-                <Date me>{date}</Date>
-                <Nickname>{chat?.nickname}</Nickname>
-              </NickAndDate>
-              <Message me>{chat?.message}</Message>
-            </Me>
-          </>
-        ) : (
-          <>
-            {chat.date.split("T")[0] !==
-              messageList[index - 1]?.date?.split("T")[0] && (
-              <ChatListDate>
-                {moment(chat.date).format("YYYY.MM.DD")}
-              </ChatListDate>
-            )}
-            <You key={chat.date}>
-              <NickAndDate>
-                <Nickname>{chat?.nickname}</Nickname>
-                <Date you>{date}</Date>
-              </NickAndDate>
-              <Message>{chat?.message}</Message>
-            </You>
+            <Message key={chat.messageId} me={isMe}>
+              {(chat.senderName !== messageList[index - 1]?.senderName ||
+                date !==
+                  moment(messageList[index - 1]?.date).format("hh:mm")) && (
+                <NickAndDate me={isMe}>
+                  <Date me={isMe}>{date}</Date>
+                  <Nickname>{chat?.senderNickname}</Nickname>
+                </NickAndDate>
+              )}
+              <Bubble me={isMe}>{chat?.message}</Bubble>
+            </Message>
           </>
         );
       })}
@@ -68,34 +57,30 @@ const ChatList = () => {
 const MessageWrap = styled.div`
   display: flex;
   flex-flow: column;
-  gap: 20px;
+  gap: 10px;
   padding: 30px 30px 0 30px;
   overflow-y: auto;
   height: 58vh;
 `;
-
-const Me = styled.div`
-  align-self: flex-end;
-  margin-left: 10%;
-`;
-const You = styled.div`
-  margin-right: 10%;
+const Message = styled.div`
+  align-self: ${({ me }) => me && "flex-end"};
+  margin: ${({ me }) => (me ? "0 0 0 10%" : "0 10% 0 0")};
 `;
 const NickAndDate = styled.div`
   display: flex;
+  flex-direction: ${({ me }) => !me && "row-reverse"};
   justify-content: ${({ me }) => (me ? "end" : "start")};
   align-items: center;
-  margin-bottom: 10px;
+  margin: 10px 0;
 `;
 const Nickname = styled.div`
   font-size: ${({ theme }) => theme.fontSizes.l};
 `;
 const Date = styled.span`
   color: ${({ theme }) => theme.colors.gray};
-  margin-right: ${({ me }) => me && "20px"};
-  margin-left: ${({ you }) => you && "20px"};
+  margin: ${({ me }) => (me ? "0 20px 0 0" : "0 0 0 20px")};
 `;
-const Message = styled.div`
+const Bubble = styled.div`
   width: fit-content;
   background-color: #f2f2f2;
   border-radius: ${({ me }) => (me ? "15px 0 15px 15px" : "0 15px 15px 15px")};

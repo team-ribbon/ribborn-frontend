@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import MyPostButtons from "./MyPostButtons";
-import Categories from "../shared/Categories";
-import TimeCalculator from "../shared/TimeCalculator";
-import { TagTextColor } from "../elements/TagTextColor";
+import Categories from "../../shared/Categories";
+import TimeCalculator from "../../shared/TimeCalculator";
+import { TagTextColor } from "../../elements/TagTextColor";
 import { useNavigate } from "react-router-dom";
 import PostRightBtn from "./PostRightBtn";
 import React from "react";

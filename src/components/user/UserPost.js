@@ -1,9 +1,9 @@
 import styled from "styled-components";
-import CardA from "../components/CardA";
-import CardB from "../components/CardB";
-import NoPost from "../components/NoPost";
-import TextCard from "../components/TextCard";
-import { Category, SubBtn } from "../elements/Buttons";
+import CardA from "../card/CardA";
+import CardB from "../card/CardB";
+import NoPost from "./NoPost";
+import TextCard from "../card/TextCard";
+import { Category, SubBtn } from "../../elements/Buttons";
 
 const UserPost = ({
   category,

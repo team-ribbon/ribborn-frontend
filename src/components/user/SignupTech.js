@@ -3,17 +3,21 @@ import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { BlackBtn } from "../elements/Buttons";
-import { HelpText, Input, InputTitle, Required } from "../elements/Inputs";
-
-import { signupDB, usernameCheckDB } from "../redux/modules/user";
+import { signupDB, usernameCheckDB } from "../../redux/modules/user";
 import SignupAgree from "./SignupAgree";
+import { AddressCategory } from "../../shared/AddressCategory";
+import { HelpText, Input, InputTitle, Required } from "../../elements/Inputs";
+import { BlackBtn } from "../../elements/Buttons";
+import { Textarea } from "../../elements/Textarea";
+import CustomSelect from "../../elements/CustomSelect";
 
-// 일반 유저 회원가입
-const SignupUser = () => {
+// 기술자 회원가입
+const SignupTech = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const checkRef = useRef(false);
+  const selectRef = useRef();
+  const [selectError, setSelectError] = useState("");
   const [agreeError, setAgreeError] = useState("");
   const {
     register,
@@ -31,15 +35,22 @@ const SignupUser = () => {
       );
       return false;
     }
+    if (!selectRef.current) {
+      setSelectError("지역을 선택해주세요.");
+      return false;
+    }
     if (!checkRef.current?.checked) {
       setAgreeError("필수 항목에 모두 동의해주세요.");
       return false;
     }
     delete data.password2;
-    data.userType = 0;
+    data.addressCategory = selectRef.current;
+    data.userType = 1;
+    // console.log(data);
     dispatch(signupDB(data));
     navigate("/login");
   };
+
   return (
     <Wrap>
       <form onSubmit={handleSubmit(onValid)}>
@@ -64,11 +75,11 @@ const SignupUser = () => {
               else return true;
             },
           })}
-          invalid={errors?.username?.message}
           placeholder="ribborn@ribborn.co.kr"
           autoComplete="off"
         />
         <HelpText>{errors?.username?.message}</HelpText>
+
         <InputTitle>
           비밀번호<Required>●</Required>
         </InputTitle>
@@ -88,11 +99,11 @@ const SignupUser = () => {
               message: "16자까지만 입력할 수 있습니다.",
             },
           })}
-          invalid={errors?.password?.message}
           type="password"
           placeholder="영문과 숫자를 조합해서 입력해주세요.(8~16자)"
         />
         <HelpText>{errors?.password?.message}</HelpText>
+
         <InputTitle>
           비밀번호 확인<Required>●</Required>
         </InputTitle>
@@ -100,20 +111,20 @@ const SignupUser = () => {
           {...register("password2", {
             required: "비밀번호를 다시 입력해주세요.",
           })}
-          invalid={errors?.password2?.message}
           placeholder="비밀번호를 다시 한 번 입력해주세요."
           type="password"
         />
         <HelpText>{errors?.password2?.message}</HelpText>
+
         <InputTitle>
-          닉네임<Required>●</Required>
+          이름 또는 업체이름 (닉네임 가능)<Required>●</Required>
         </InputTitle>
         <Input
           {...register("nickname", {
-            required: "닉네임을 입력하세요.",
+            required: "이름 또는 업체이름을 입력하세요.",
             pattern: {
               value: /^[가-힣|a-z|A-Z|0-9|&*()]+$/,
-              message: "닉네임은 한글, 영어, 숫자, &*()만 입력 할 수 있습니다.",
+              message: "업체명은 한글, 영어, 숫자, &*()만 입력 할 수 있습니다.",
             },
             minLength: {
               value: 2,
@@ -124,11 +135,11 @@ const SignupUser = () => {
               message: "12자까지만 입력할 수 있습니다.",
             },
           })}
-          invalid={errors?.nickname?.message}
           placeholder="김리본"
           autoComplete="off"
         />
         <HelpText>{errors?.nickname?.message}</HelpText>
+
         <InputTitle>
           연락처<Required>●</Required>
         </InputTitle>
@@ -142,19 +153,74 @@ const SignupUser = () => {
                 "전화번호 형식이 아닙니다. -를 제외하고 숫자만 입력해주세요.",
             },
           })}
-          invalid={errors?.phoneNum?.message}
           placeholder="01012345678"
           autoComplete="off"
         />
         <HelpText>{errors?.phoneNum?.message}</HelpText>
+
+        <InputTitle>
+          사업자등록번호<Required>●</Required>
+        </InputTitle>
+        <Input
+          {...register("companyNum", {
+            required: "사업자등록번호를 입력해주세요.",
+            pattern: {
+              // value: /^\d\d\d-\d\d-\d\d\d\d\d$/,
+              value: /^([0-9]{10,10})$/,
+              message:
+                "사업자등록번호 형식이 아닙니다. -를 제외하고 숫자만 입력해주세요.",
+            },
+          })}
+          placeholder="1234567890"
+          autoComplete="off"
+        />
+        <HelpText>{errors?.companyNum?.message}</HelpText>
+
+        <InputTitle>
+          사업자 위치<Required>●</Required>
+        </InputTitle>
+        <CustomSelect
+          options={AddressCategory}
+          ref={selectRef}
+          setSelectError={setSelectError}
+        />
+        <HelpText>{selectError}</HelpText>
+
+        <InputTitle>
+          상세주소<Required>●</Required>
+        </InputTitle>
+        <Input
+          {...register("addressDetail", {
+            required: "상세주소를 입력해주세요.",
+          })}
+          placeholder="건물명, 호수 등"
+          autoComplete="off"
+        />
+        <HelpText>{errors?.addressDetail?.message}</HelpText>
+
+        <InputTitle>브랜드/자기소개</InputTitle>
+        <Textarea
+          {...register("introduction", {
+            maxLength: {
+              value: 200,
+              message: "200자까지만 입력할 수 있습니다.",
+            },
+          })}
+          placeholder="브랜드 또는 디자이너에 대한 간단한 소개를 이곳에 적어주세요."
+        />
+        <HelpText>{errors?.introduction?.message}</HelpText>
         <SignupAgree ref={checkRef} setAgreeError={setAgreeError} />
         <HelpText>{agreeError}</HelpText>
         <BlackBtn
           disabled={
-            errors.nickname ||
-            errors.password ||
             errors.username ||
-            errors.password2
+            errors.password ||
+            errors.password2 ||
+            errors.nickname ||
+            errors.phoneNum ||
+            errors.companyNum ||
+            errors.addressCategory ||
+            errors.addressDetail
           }
         >
           회원가입
@@ -168,4 +234,4 @@ const Wrap = styled.div`
   margin: 90px auto 0 auto;
 `;
 
-export default SignupUser;
+export default SignupTech;

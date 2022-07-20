@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect } from "react";
 import styled from "styled-components";
 import { IoIosArrowDown } from "react-icons/io";
 
-import Categories from "../shared/Categories";
+import Categories from "../../shared/Categories";
 
 const CategorySelect = ({ setCategory, category }) => {
   const [isModalOn, setIsModalOn] = useState(false);

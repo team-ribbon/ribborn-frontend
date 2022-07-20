@@ -2,9 +2,9 @@ import { forwardRef, useEffect, useState } from "react";
 import styled from "styled-components";
 
 import RuleModal from "./RuleModal";
-import { CheckSVG } from "../elements/SVG";
-import RuleText from "../shared/RuleText";
-import InfoText from "../shared/InfoText";
+import { CheckSVG } from "../../elements/SVG";
+import RuleText from "../../shared/RuleText";
+import InfoText from "../../shared/InfoText";
 
 const SignupAgree = forwardRef(({ setAgreeError }, ref) => {
   const [agreeAll, setAgreeAll] = useState(false);

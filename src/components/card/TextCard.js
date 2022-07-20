@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 
-import Categories from "../shared/Categories";
-import Regions from "../shared/Regions";
+import Categories from "../../shared/Categories";
+import Regions from "../../shared/Regions";
 import { HiOutlineHeart } from "react-icons/hi";
 import { IoChatbubbleOutline } from "react-icons/io5";
 

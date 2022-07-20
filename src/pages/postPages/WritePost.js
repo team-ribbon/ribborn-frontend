@@ -5,10 +5,10 @@ import styled from "styled-components";
 
 import { getTechIntroDB, postDB } from "../../redux/modules/post";
 import { resetFile } from "../../redux/modules/image";
-import CategorySelect from "../../components/CategorySelect";
+import CategorySelect from "../../components/category/CategorySelect";
 
 import ImageUpload from "../../components/ImageUpload";
-import RegionSelect from "../../components/RegionSelect";
+import RegionSelect from "../../components/category/RegionSelect";
 
 const WritePost = () => {
   const info = {

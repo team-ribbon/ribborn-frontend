@@ -11,8 +11,8 @@ import {
   GetCommentDB,
 } from "../../../redux/modules/post";
 
-import PostDetail from "../../../components/PostDetail";
-import PostFooter from "../../../components/PostFooter";
+import PostDetail from "../../../components/postDetail/PostDetail";
+import PostFooter from "../../../components/postDetail/PostFooter";
 
 const ReviewDetail = () => {
   const dispatch = useDispatch();

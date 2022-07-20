@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import Router from "./components/Router";
-import GlobalStyles from "./components/GlobalStyles";
+import Router from "./components/common/Router";
+import GlobalStyles from "./components/common/GlobalStyles";
 import { useDispatch, useSelector } from "react-redux";
 import { loadUserInfoDB } from "../src/redux/modules/user";
 

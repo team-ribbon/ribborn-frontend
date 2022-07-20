@@ -2,8 +2,8 @@ import React from "react";
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { HeartSVG } from "../elements/SVG";
-import { TagTextColor } from "../elements/TagTextColor";
+import { HeartSVG } from "../../elements/SVG";
+import { TagTextColor } from "../../elements/TagTextColor";
 
 // 메인, LOOKBOOK 게시판에 사용되는 카드
 const CardB = ({ postObj, hot, isMain, inViewRef }) => {

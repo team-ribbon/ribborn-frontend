@@ -1,8 +1,8 @@
 import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { ArrowLeftSVG, ArrowRightSVG } from "../elements/SVG";
-import CardB from "./CardB";
+import { ArrowLeftSVG, ArrowRightSVG } from "../../elements/SVG";
+import CardB from "../card/CardB";
 
 // 메인 > 놓치면 안되는 리폼 디자이너 섹션
 const DesignSection = ({ postList }) => {

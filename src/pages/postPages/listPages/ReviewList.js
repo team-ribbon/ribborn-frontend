@@ -4,15 +4,15 @@ import { Link, useParams } from "react-router-dom";
 import { useInView } from "react-intersection-observer";
 import styled, { css } from "styled-components";
 
-import CardA from "../../../components/CardA";
+import CardA from "../../../components/card/CardA";
 import {
   getReviewListDB,
   cleanUpPostList,
   loadDoneReset,
 } from "../../../redux/modules/post";
 import { MainBtn, SubBtn, Category } from "../../../elements/Buttons";
-import Sort from "../../../components/Sort";
-import TabWrap from "../../../components/TabWrap";
+import Sort from "../../../components/category/Sort";
+import TabWrap from "../../../components/category/TabWrap";
 import Categories from "../../../shared/Categories";
 
 const ReviewList = () => {

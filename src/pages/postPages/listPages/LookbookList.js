@@ -5,8 +5,8 @@ import { Link } from "react-router-dom";
 import { useInView } from "react-intersection-observer";
 import styled from "styled-components";
 
-import CardB from "../../../components/CardB";
-import Sort from "../../../components/Sort";
+import CardB from "../../../components/card/CardB";
+import Sort from "../../../components/category/Sort";
 import {
   getLookbookListDB,
   cleanUpPostList,

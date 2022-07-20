@@ -5,28 +5,28 @@ import styled from "styled-components";
 import Header from "./Header";
 import Footer from "./Footer";
 
-import Main from "../pages/postPages/Main";
-import Login from "../pages/userPages/Login";
-import Signup from "../pages/userPages/Signup";
-import SignupTech from "./SignupTech";
-import SignupUser from "./SignupUser";
-import MyPage from "../pages/userPages/MyPage";
-import UserDetail from "../pages/userPages/UserDetail";
+import Main from "../../pages/postPages/Main";
+import Login from "../../pages/userPages/Login";
+import Signup from "../../pages/userPages/Signup";
+import SignupTech from "../user/SignupTech";
+import SignupUser from "../user/SignupUser";
+import MyPage from "../../pages/userPages/MyPage";
+import UserDetail from "../../pages/userPages/UserDetail";
 
-import ReformList from "../pages/postPages/listPages/ReformList";
-import ReviewList from "../pages/postPages/listPages/ReviewList";
-import QnAList from "../pages/postPages/listPages/QnAList";
-import LookbookList from "../pages/postPages/listPages/LookbookList";
-import QnADetail from "../pages/postPages/detailPages/QnADetail";
-import ReviewDetail from "../pages/postPages/detailPages/ReviewDetail";
-import ReformDetail from "../pages/postPages/detailPages/ReformDetail";
-import LookbookDetail from "../pages/postPages/detailPages/LookbookDetail";
+import ReformList from "../../pages/postPages/listPages/ReformList";
+import ReviewList from "../../pages/postPages/listPages/ReviewList";
+import QnAList from "../../pages/postPages/listPages/QnAList";
+import LookbookList from "../../pages/postPages/listPages/LookbookList";
+import QnADetail from "../../pages/postPages/detailPages/QnADetail";
+import ReviewDetail from "../../pages/postPages/detailPages/ReviewDetail";
+import ReformDetail from "../../pages/postPages/detailPages/ReformDetail";
+import LookbookDetail from "../../pages/postPages/detailPages/LookbookDetail";
 
-import WritePost from "../pages/postPages/WritePost";
-import EditPost from "../pages/postPages/EditPost";
+import WritePost from "../../pages/postPages/WritePost";
+import EditPost from "../../pages/postPages/EditPost";
 
-import ChatFloat from "./ChatFloat";
-import ChatModal from "./ChatModal";
+import ChatFloat from "../ChatFloat";
+import ChatModal from "../ChatModal";
 // import VideoChat from "../page/VideoChat";
 
 export default function Router() {

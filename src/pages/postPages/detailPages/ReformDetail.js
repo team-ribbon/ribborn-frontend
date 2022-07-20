@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 
 import { getReformPostDB, cleanUpPost } from "../../../redux/modules/post";
 
-import ReformPostDetail from "../../../components/ReformPostDetail";
+import ReformPostDetail from "../../../components/postDetail/ReformPostDetail";
 
 const ReformDetail = () => {
   const dispatch = useDispatch();

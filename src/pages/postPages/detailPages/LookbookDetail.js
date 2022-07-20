@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 
 import { getLookbookPostDB, cleanUpPost } from "../../../redux/modules/post";
 
-import LookBookPostDetail from "../../../components/LookBookPostDetail";
+import LookBookPostDetail from "../../../components/postDetail/LookBookPostDetail";
 
 const LookbookDetail = () => {
   const dispatch = useDispatch();

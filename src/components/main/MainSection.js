@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import CardA from "./CardA";
-import CardB from "./CardB";
+import CardA from "../card/CardA";
+import CardB from "../card/CardB";
 
 // 메인 > 기본 섹션
 const MainSection = ({ type, title, url, postList }) => {

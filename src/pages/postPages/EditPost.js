@@ -11,10 +11,10 @@ import {
   getLookbookPostDB,
 } from "../../redux/modules/post";
 import { resetFile, uploadPreview } from "../../redux/modules/image";
-import CategorySelect from "../../components/CategorySelect";
+import CategorySelect from "../../components/category/CategorySelect";
 
 import ImageUpload from "../../components/ImageUpload";
-import RegionSelect from "../../components/RegionSelect";
+import RegionSelect from "../../components/category/RegionSelect";
 import React from "react";
 
 const EditPost = () => {

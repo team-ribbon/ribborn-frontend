@@ -2,7 +2,7 @@ import React from "react";
 import { Link, useMatch } from "react-router-dom";
 import styled, { css } from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
-import { clearUserInfo } from "../redux/modules/user";
+import { clearUserInfo } from "../../redux/modules/user";
 
 const Header = () => {
   const isReview = useMatch("/review");

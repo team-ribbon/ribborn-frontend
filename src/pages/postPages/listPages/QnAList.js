@@ -10,9 +10,9 @@ import {
   cleanUpPostList,
   loadDoneReset,
 } from "../../../redux/modules/post";
-import TextCard from "../../../components/TextCard";
-import TabWrap from "../../../components/TabWrap";
-import Sort from "../../../components/Sort";
+import TextCard from "../../../components/card/TextCard";
+import TabWrap from "../../../components/category/TabWrap";
+import Sort from "../../../components/category/Sort";
 import Categories from "../../../shared/Categories";
 import { MainBtn, SubBtn, Category } from "../../../elements/Buttons";
 

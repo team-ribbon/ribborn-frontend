@@ -3,11 +3,11 @@ import styled from "styled-components";
 import MyPostButtons from "./MyPostButtons";
 import moment from "moment";
 import InfoSection from "./InfoSection";
-import { MainBtn } from "../elements/Buttons";
+import { MainBtn } from "../../elements/Buttons";
 import { useLocation, useNavigate } from "react-router-dom";
-import { apis } from "../shared/api";
+import { apis } from "../../shared/api";
 
-import PostRightBtn from "../components/PostRightBtn";
+import PostRightBtn from "./PostRightBtn";
 
 const LookBookPostDetail = ({ post, userId, postId, userType }) => {
   const scrollEvent = () => {

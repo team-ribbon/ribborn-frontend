@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import Regions from "../shared/Regions";
-import Categories from "../shared/Categories";
+import Regions from "../../shared/Regions";
+import Categories from "../../shared/Categories";
 
 const InfoSection = ({ reform, region, category }) => {
   return (

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { BsBookmark } from "react-icons/bs";
-import { MainBtn } from "../elements/Buttons";
+import { MainBtn } from "../../elements/Buttons";
 
 const UserInfoCard = ({ myPage, user, change, isLogin, myInfo }) => {
   return user ? (

@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 import styled from "styled-components";
-import Regions from "../shared/Regions";
+import Regions from "../../shared/Regions";
 import { IoIosArrowDown } from "react-icons/io";
 
 const RegionSelect = ({ setRegion, region, write }) => {

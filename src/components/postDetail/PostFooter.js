@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
-import TimeCalculator from "../shared/TimeCalculator";
+import TimeCalculator from "../../shared/TimeCalculator";
 import {
   GetCommentDB,
   PostCommentDB,
   deleteCommentDB,
   modifyCommentDB,
-} from "../redux/modules/post";
+} from "../../redux/modules/post";
 
 const PostFooter = ({
   commentsList,

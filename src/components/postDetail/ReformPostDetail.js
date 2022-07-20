@@ -1,10 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 import MyPostButtons from "./MyPostButtons";
-import TimeCalculator from "../shared/TimeCalculator";
+import TimeCalculator from "../../shared/TimeCalculator";
 import InfoSection from "./InfoSection";
 import { useNavigate } from "react-router-dom";
-import { MainBtn } from "../elements/Buttons";
+import { MainBtn } from "../../elements/Buttons";
 
 const ReformPostDetail = ({ post, userId, userType }) => {
   const scrollEvent = () => {

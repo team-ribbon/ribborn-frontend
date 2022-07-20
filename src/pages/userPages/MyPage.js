@@ -4,9 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { cleanUpMyPage, getMyPageDB } from "../../redux/modules/userPage";
 import { useNavigate } from "react-router-dom";
 
-import UserInfoCard from "../../components/UserInfoCard";
-import UserPost from "../../components/UserPost";
-import InfoChange from "../../components/InfoChange";
+import UserInfoCard from "../../components/postDetail/UserInfoCard";
+import UserPost from "../../components/user/UserPost";
+import InfoChange from "../../components/user/InfoChange";
 
 function MyPage() {
   const navigate = useNavigate();

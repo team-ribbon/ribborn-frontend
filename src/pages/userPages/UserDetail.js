@@ -4,8 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { cleanUpMyPage, getUserDetailDB } from "../../redux/modules/userPage";
 import { useParams } from "react-router-dom";
 
-import UserInfoCard from "../../components/UserInfoCard";
-import UserPost from "../../components/UserPost";
+import UserInfoCard from "../../components/postDetail/UserInfoCard";
+import UserPost from "../../components/user/UserPost";
 
 function UserDetail() {
   const params = useParams();

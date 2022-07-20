@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import InfoText from "../shared/InfoText";
+import InfoText from "../../shared/InfoText";
 
 const Info = (props) => {
   const CloseModal = () => {

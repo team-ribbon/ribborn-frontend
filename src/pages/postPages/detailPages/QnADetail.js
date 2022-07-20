@@ -11,9 +11,9 @@ import {
   GetCommentDB,
 } from "../../../redux/modules/post";
 
-import PostDetail from "../../../components/PostDetail";
-import PostFooter from "../../../components/PostFooter";
-import PostRightBtn from "../../../components/PostRightBtn";
+import PostDetail from "../../../components/postDetail/PostDetail";
+import PostFooter from "../../../components/postDetail/PostFooter";
+import PostRightBtn from "../../../components/postDetail/PostRightBtn";
 
 const QnADetail = () => {
   const dispatch = useDispatch();

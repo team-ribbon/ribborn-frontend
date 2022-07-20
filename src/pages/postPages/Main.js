@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-import MainSection from "../../components/MainSection";
-import DesignSection from "../../components/DesignSection";
+import MainSection from "../../components/main/MainSection";
+import DesignSection from "../../components/main/DesignSection";
 import { getMainDB } from "../../redux/modules/post";
 
 const Main = () => {

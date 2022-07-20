@@ -8,6 +8,8 @@ jobs:
     runs-on: ubuntu-18.04
     env:
       CI: false
+      REACT_APP_BASE_URL: ${{ secrets.REACT_APP_BASE_URL }}
+      REACT_APP_CHAT_URL: ${{ secrets.REACT_APP_CHAT_URL }}
     steps:
       - name: Checkout source code.
         uses: actions/checkout@master

@@ -62,8 +62,11 @@ const Template = styled.div`
   margin: 0 auto;
   padding: 40px 40px 0 40px;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
+  @media ${({ theme }) => theme.device.mobile} {
+    flex-direction: row;
+  }
 `;
 
 export default MyPage;

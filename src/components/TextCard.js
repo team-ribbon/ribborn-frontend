@@ -6,8 +6,9 @@ import Regions from "../shared/Regions";
 import { HiOutlineHeart } from "react-icons/hi";
 import { IoChatbubbleOutline } from "react-icons/io5";
 
-const TextCard = ({ postObj, noWriter, reform, inViewRef }) => {
+const TextCard = ({ postObj, noWriter, reform, inViewRef, userPost }) => {
   const navigate = useNavigate();
+  console.log(userPost);
 
   let process = null;
   switch (postObj.process) {

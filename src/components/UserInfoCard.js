@@ -42,11 +42,14 @@ const UserInfoCard = ({ myPage, user, change, isLogin, myInfo }) => {
 const CardDiv = styled.div`
   background: #fafafa;
   border-radius: 8px;
-  width: 314px;
+  width: 100%;
   height: fit-content;
   text-align: center;
   padding: ${(props) =>
     props.userType === 1 ? "17px 0 19px 0" : "30px 0 40px 0"};
+  @media ${({ theme }) => theme.device.mobile} {
+    width: 314px;
+  }
 `;
 
 const TitleText = styled.p`

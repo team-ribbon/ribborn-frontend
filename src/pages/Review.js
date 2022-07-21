@@ -111,8 +111,11 @@ const Wrap = styled.div`
 const Grid = styled.div`
   display: grid;
   grid-gap: 40px;
-  grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+  grid-template-columns: 1fr;
   margin: 20px 0;
+  @media ${({ theme }) => theme.device.mobile} {
+    grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+  }
 `;
 
 const Buttons = styled(Category)`

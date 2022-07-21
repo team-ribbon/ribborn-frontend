@@ -38,7 +38,9 @@ const DesignSection = ({ postList }) => {
   return (
     <Wrap>
       <TopWrap>
-        <Title>놓치면 안되는 리폼 디자이너 🔥</Title>
+        <DesktopTitle>놓치면 안되는 리폼 디자이너 🔥</DesktopTitle>
+        <MobileTitle>놓치면 안되는</MobileTitle>
+        <MobileTitle> 리폼 디자이너 🔥</MobileTitle>
         <More
           onClick={() => {
             navigate("/lookbook");
@@ -99,17 +101,33 @@ const TopWrap = styled.div`
   flex-wrap: wrap;
   margin-left: 50px;
 `;
-const Title = styled.div`
+const DesktopTitle = styled.div`
+  display: none;
   color: #fff;
   font-size: ${({ theme }) => theme.fontSizes.xl};
+  line-height: 32px;
   font-weight: 700;
   width: 380px;
   margin: 0 auto;
+  @media all and (min-width: 563px) {
+    display: inherit;
+  }
+`;
+const MobileTitle = styled.div`
+  color: #fff;
+  font-size: ${({ theme }) => theme.fontSizes.xl};
+  font-weight: 700;
+  line-height: 32px;
+  width: 380px;
+  @media all and (min-width: 563px) {
+    display: none;
+  }
 `;
 const More = styled.div`
   color: ${({ theme }) => theme.colors.orange};
   font-size: ${({ theme }) => theme.fontSizes.l};
   font-weight: 700;
+  line-height: 24px;
   cursor: pointer;
 `;
 const SliderWrap = styled.div`
@@ -136,14 +154,20 @@ const Slider = styled.div`
 `;
 const PostWrap = styled.div`
   display: inline-block;
-  width: 450px;
+  width: 80%;
   margin-right: 40px;
+  @media all and (min-width: 500px) {
+    width: 450px;
+  }
 `;
 const ArrowLeft = styled.div`
   z-index: 1;
   position: absolute;
-  top: 43%;
+  top: 35vw;
   padding: 0 40px;
+  @media all and (min-width: 500px) {
+    top: 43%;
+  }
 `;
 const ArrowRight = styled(ArrowLeft)`
   right: 0;

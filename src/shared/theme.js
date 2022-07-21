@@ -22,10 +22,20 @@ const width = {
   listWidth: "1106px",
 };
 
+const deviceSizes = {
+  mobile: "768px",
+  laptop: "1024px",
+};
+
+const device = {
+  mobile: `screen and (min-width: ${deviceSizes.mobile})`,
+};
+
 const theme = {
   colors,
   fontSizes,
   width,
+  device,
 };
 
 export default theme;

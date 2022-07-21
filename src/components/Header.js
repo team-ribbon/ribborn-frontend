@@ -3,6 +3,7 @@ import { Link, useMatch } from "react-router-dom";
 import styled, { css } from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { clearUserInfo } from "../redux/modules/user";
+import HeaderModal from "./HeaderModal";
 
 const Header = () => {
   const isReview = useMatch("/review");
@@ -64,6 +65,23 @@ const Header = () => {
           </Reform>
         </div>
       </CategoryNav>
+      <MobileWrap>
+        <TopWrap>
+          <Link to="/">RIBBORN</Link>
+          <HeaderModal isLogin={isLogin} />
+        </TopWrap>
+        <BottomWrap>
+          <Community isCommunity={isCommunity}>
+            <Link to="/review">커뮤니티</Link>
+          </Community>
+          <Lookbook isLookbook={isLookbook}>
+            <Link to="/lookbook">LOOKBOOK</Link>
+          </Lookbook>
+          <Reform isReform={isReform}>
+            <Link to="/reform">견적</Link>
+          </Reform>
+        </BottomWrap>
+      </MobileWrap>
     </HeaderWrap>
   );
 };
@@ -74,7 +92,9 @@ const HeaderWrap = styled.header`
   width: 100%;
   z-index: 10;
   background-color: #fff;
-  border-bottom: 1px solid ${({ theme }) => theme.colors.lightGray};
+  @media ${({ theme }) => theme.device.mobile} {
+    border-bottom: 1px solid ${({ theme }) => theme.colors.lightGray};
+  }
 `;
 
 const UserNav = styled.nav`
@@ -87,9 +107,13 @@ const NavWrap = styled.div`
   border-bottom: 1px solid ${({ theme }) => theme.colors.lightGray};
   padding: 8px 0;
   text-align: end;
+  display: none;
   font-size: ${({ theme }) => theme.fontSizes.s};
   span {
     margin-left: 24px;
+  }
+  @media ${({ theme }) => theme.device.mobile} {
+    display: inherit;
   }
 `;
 
@@ -106,12 +130,15 @@ const CategoryNav = styled.nav`
   max-width: ${({ theme }) => theme.width.maxWidth};
   margin: 0 auto;
   padding: 30px 40px;
-  display: flex;
+  display: none;
   justify-content: space-between;
   font-size: ${({ theme }) => theme.fontSizes.l};
   span {
     margin-left: 40px;
     padding-bottom: 7px;
+  }
+  @media ${({ theme }) => theme.device.mobile} {
+    display: flex;
   }
 `;
 const Active = css`
@@ -126,6 +153,26 @@ const Lookbook = styled.span`
 `;
 const Reform = styled.span`
   ${({ isReform }) => isReform && Active}
+`;
+
+const MobileWrap = styled.div`
+  padding: 54px 16px 0 16px;
+  margin-bottom: 10px;
+  @media ${({ theme }) => theme.device.mobile} {
+    display: none;
+  }
+`;
+
+const TopWrap = styled.div`
+  padding-bottom: 10px;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.lightGray};
+`;
+
+const BottomWrap = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 15px;
 `;
 
 export default Header;

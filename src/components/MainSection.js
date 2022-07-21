@@ -35,10 +35,14 @@ const MainSection = ({ type, title, url, postList }) => {
 const Grid = styled.div`
   display: grid;
   grid-gap: 40px;
-  grid-template-columns: ${({ type }) =>
-    type === "B"
-      ? "repeat(auto-fill, minmax(650px, 1fr))"
-      : "repeat(auto-fill, minmax(330px, 1fr))"};
+  grid-template-columns: 1fr;
+  @media ${({ theme }) => theme.device.mobile} {
+    grid-template-columns: ${({ type }) =>
+      type === "B"
+        ? "repeat(auto-fill, minmax(650px, 1fr))"
+        : "repeat(auto-fill, minmax(330px, 1fr))"};
+  }
+
   margin: 20px 0 50px 0;
 `;
 const Header = styled.div`

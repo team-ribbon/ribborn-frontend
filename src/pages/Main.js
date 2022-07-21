@@ -29,7 +29,11 @@ const Main = () => {
               <TrendButton>
                 <NewTrend>NEW TREND</NewTrend>
               </TrendButton>
-              <span>뉴 트렌드 리폼 🎵</span>
+              <MobileTrendButton>
+                <NewTrend>NEW</NewTrend>
+              </MobileTrendButton>
+              <DesktopNavSpan>뉴 트렌드 리폼 🎵</DesktopNavSpan>
+              <MobileNavSpan>뉴 트렌드 리폼</MobileNavSpan>
             </div>
           </Link>
           <Link to="/review/clothes">
@@ -37,7 +41,7 @@ const Main = () => {
               <NavButton>
                 <ClothesImg src="./Clothes.png" />
               </NavButton>
-              <span>옷 리뷰</span>
+              <NavSpan>옷 리뷰</NavSpan>
             </div>
           </Link>
           <Link to="/review/furniture">
@@ -45,7 +49,7 @@ const Main = () => {
               <NavButton>
                 <FurnituresImg src="./Furnitures.png" />
               </NavButton>
-              <span>가구 리뷰</span>
+              <NavSpan>가구 리뷰</NavSpan>
             </div>
           </Link>
           <Link to="/review/shoes">
@@ -53,7 +57,7 @@ const Main = () => {
               <NavButton>
                 <ShoesImg src="./Shoes.png" />
               </NavButton>
-              <span>신발 리뷰</span>
+              <NavSpan>신발 리뷰</NavSpan>
             </div>
           </Link>
           <Link to="/review/bags">
@@ -61,7 +65,7 @@ const Main = () => {
               <NavButton>
                 <BagsImg src="./Bags.png" />
               </NavButton>
-              <span>가방 리뷰</span>
+              <NavSpan>가방 리뷰</NavSpan>
             </div>
           </Link>
           <Link to="/review/goods">
@@ -69,15 +73,16 @@ const Main = () => {
               <NavButton>
                 <GoodsImg src="./Goods.png" />
               </NavButton>
-              <span>기타 리뷰</span>
+              <NavSpan>기타 리뷰</NavSpan>
             </div>
           </Link>
           <Link to="/qna">
             <div>
               <NavButton>
-                <Community>COMMUNITY</Community>
+                <DesktopCommunity>COMMUNITY</DesktopCommunity>
+                <MobileCommunity>COMM- UNITY</MobileCommunity>
               </NavButton>
-              <span>질문과 답변</span>
+              <NavSpan>질문과 답변</NavSpan>
             </div>
           </Link>
           <Link to="/">
@@ -85,7 +90,8 @@ const Main = () => {
               <NavButton>
                 <Community>Service Guide</Community>
               </NavButton>
-              <span>리본 이용 가이드</span>
+              <DesktopNavSpan>리본 이용 가이드</DesktopNavSpan>
+              <MobileNavSpan>이용 가이드</MobileNavSpan>
             </div>
           </Link>
         </Nav>
@@ -144,12 +150,55 @@ const Banner = styled.img`
 const Nav = styled.nav`
   display: grid;
   grid-gap: 16px;
-  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
   text-align: center;
   margin-bottom: 50px;
+  justify-content: center;
+  grid-template-columns: 75px 75px 75px 75px;
+  @media all and (max-width: 370px) {
+    grid-template-columns: repeat(auto-fill, 75px);
+  }
+  @media all and (min-width: 768px) and (max-width: 900px) {
+    grid-template-columns: 140px 140px 140px 140px;
+  }
+  @media all and (min-width: 900px) and (max-width: 1312px) {
+    grid-template-columns: 180px 180px 180px 180px;
+  }
+  @media all and (min-width: 1312px) {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  }
+`;
+
+const NavSpan = styled.span`
+  font-weight: 400;
+  font-size: ${({ theme }) => theme.fontSizes.s};
+  line-height: 14px;
+  @media ${({ theme }) => theme.device.mobile} {
+    font-size: ${({ theme }) => theme.fontSizes.m};
+    line-height: 18px;
+  }
+`;
+
+const DesktopNavSpan = styled.div`
+  display: none;
+  font-weight: 400;
+  font-size: ${({ theme }) => theme.fontSizes.m};
+  line-height: 18px;
+  @media ${({ theme }) => theme.device.mobile} {
+    display: initial;
+  }
+`;
+
+const MobileNavSpan = styled.div`
+  font-weight: 400;
+  font-size: ${({ theme }) => theme.fontSizes.s};
+  line-height: 14px;
+  @media ${({ theme }) => theme.device.mobile} {
+    display: none;
+  }
 `;
 
 const TrendButton = styled.div`
+  display: none;
   background: linear-gradient(
     263.38deg,
     #322f5a 4.35%,
@@ -162,7 +211,30 @@ const TrendButton = styled.div`
   height: 100px;
   margin-bottom: 24px;
   padding-top: 35px;
+  @media ${({ theme }) => theme.device.mobile} {
+    display: inherit;
+  }
 `;
+
+const MobileTrendButton = styled.div`
+  display: inherit;
+  background: linear-gradient(
+    263.38deg,
+    #322f5a 4.35%,
+    #fc8d28 20.95%,
+    #f28e28 31.89%,
+    #07ad1f 102.29%
+  );
+  border-radius: 63px;
+  width: 63px;
+  height: 63px;
+  margin-bottom: 24px;
+  padding-top: 16px;
+  @media ${({ theme }) => theme.device.mobile} {
+    display: none;
+  }
+`;
+
 const NewTrend = styled.span`
   font-weight: 700;
   font-size: ${({ theme }) => theme.fontSizes.l};
@@ -171,20 +243,51 @@ const NewTrend = styled.span`
 `;
 const Community = styled.span`
   font-weight: 700;
-  font-size: ${({ theme }) => theme.fontSizes.l};
-  line-height: 32px;
+  font-size: ${({ theme }) => theme.fontSizes.s};
+  line-height: 14px;
+  @media ${({ theme }) => theme.device.mobile} {
+    font-size: ${({ theme }) => theme.fontSizes.l};
+    line-height: 32px;
+  }
 `;
+
+const DesktopCommunity = styled.span`
+  display: none;
+  @media ${({ theme }) => theme.device.mobile} {
+    display: inherit;
+    font-weight: 700;
+    font-size: ${({ theme }) => theme.fontSizes.l};
+    line-height: 32px;
+  }
+`;
+
+const MobileCommunity = styled.span`
+  font-weight: 700;
+  font-size: ${({ theme }) => theme.fontSizes.s};
+  line-height: 14px;
+  @media ${({ theme }) => theme.device.mobile} {
+    display: none;
+  }
+`;
+
 const NavButton = styled.div`
+  width: 63px;
+  height: 63px;
+  border-radius: 63px;
   background-color: ${({ theme }) => theme.colors.lightGray};
-  border-radius: 15px;
-  width: 100%;
-  height: 100px;
   margin-bottom: 24px;
   font-weight: 700;
   font-size: ${({ theme }) => theme.fontSizes.l};
-  line-height: 32px;
-  padding-top: 35px;
+  line-height: 16px;
+  padding-top: 15px;
   position: relative;
+  @media ${({ theme }) => theme.device.mobile} {
+    width: 100%;
+    height: 100px;
+    border-radius: 15px;
+    padding-top: 35px;
+    line-height: 32px;
+  }
 `;
 
 const ClothesImg = styled.img`
@@ -192,8 +295,12 @@ const ClothesImg = styled.img`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 108px;
-  height: 55px;
+  width: 43px;
+  height: 22px;
+  @media ${({ theme }) => theme.device.mobile} {
+    width: 108px;
+    height: 55px;
+  }
 `;
 
 const FurnituresImg = styled.img`
@@ -201,8 +308,12 @@ const FurnituresImg = styled.img`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 94px;
-  height: 70px;
+  width: 43px;
+  height: 23px;
+  @media ${({ theme }) => theme.device.mobile} {
+    width: 94px;
+    height: 70px;
+  }
 `;
 
 const ShoesImg = styled.img`
@@ -210,8 +321,12 @@ const ShoesImg = styled.img`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 88px;
-  height: 70px;
+  width: 42px;
+  height: 30px;
+  @media ${({ theme }) => theme.device.mobile} {
+    width: 88px;
+    height: 70px;
+  }
 `;
 
 const BagsImg = styled.img`
@@ -219,8 +334,12 @@ const BagsImg = styled.img`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 95px;
-  height: 70px;
+  width: 37px;
+  height: 23px;
+  @media ${({ theme }) => theme.device.mobile} {
+    width: 95px;
+    height: 70px;
+  }
 `;
 
 const GoodsImg = styled.img`
@@ -228,8 +347,12 @@ const GoodsImg = styled.img`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 71px;
-  height: 73px;
+  width: 38px;
+  height: 28px;
+  @media ${({ theme }) => theme.device.mobile} {
+    width: 71px;
+    height: 73px;
+  }
 `;
 
 const CO2 = styled.div`

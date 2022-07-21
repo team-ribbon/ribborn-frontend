@@ -131,7 +131,10 @@ const SelectDiv = styled.div`
   max-width: 1100px;
   margin-top: 42px;
   margin-left: auto;
-  margin-bottom: ${(props) => (props.isLogin ? "0" : "30px")};
+  margin-bottom: 30px;
+  @media ${({ theme }) => theme.device.mobile} {
+    margin-bottom: ${(props) => (props.isLogin ? "0" : "30px")};
+  }
 `;
 
 const PostCoverDiv = styled.div`

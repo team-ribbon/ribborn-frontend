@@ -116,6 +116,10 @@ const TopWrap = styled.div`
   justify-content: space-between;
   align-items: center;
   margin-bottom: 60px;
+  flex-direction: column;
+  @media all and (min-width: 1050px) {
+    flex-direction: row;
+  }
 `;
 const LCategory = styled(Category)`
   margin: 30px 0;
@@ -123,8 +127,11 @@ const LCategory = styled(Category)`
 const Grid = styled.div`
   display: grid;
   grid-gap: 40px;
-  grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
+  grid-template-columns: 1fr;
   margin: 20px auto;
+  @media ${({ theme }) => theme.device.mobile} {
+    grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
+  }
 `;
 
 export default Lookbook;

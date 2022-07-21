@@ -106,6 +106,9 @@ const Title = styled.div`
   span {
     font-weight: 400;
   }
+  @media all and (max-width: 330px) {
+    font-size: ${({ theme }) => theme.fontSizes.m};
+  }
 `;
 const Date = styled.div`
   position: absolute;

@@ -152,6 +152,9 @@ const List = styled.div`
 const Nickname = styled.div`
   font-size: ${({ theme }) => theme.fontSizes.l};
   font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 const Date = styled.div`
   color: ${({ theme }) => theme.colors.gray};
@@ -159,21 +162,27 @@ const Date = styled.div`
 const Message = styled.div`
   width: 100%;
   color: ${({ theme }) => theme.colors.gray};
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 const RoomWrap = styled.div`
+  padding-top: 45px;
   width: 67%;
   display: flex;
   flex-direction: column-reverse;
   border-left: 1px solid ${({ theme }) => theme.colors.gray};
+  position: relative;
 `;
 const CloseBtn = styled.div`
   background-color: #fff;
   width: 99%;
   display: flex;
   flex-direction: row-reverse;
-
+  position: absolute;
   padding: 20px 20px 5px 0;
-  border-radius: 30px;
+  border-radius: 0 30px 0 0;
+  top: 0;
   div {
     cursor: pointer;
   }

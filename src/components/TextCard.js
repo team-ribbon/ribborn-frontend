@@ -33,6 +33,7 @@ const TextCard = ({ postObj, noWriter, reform, inViewRef }) => {
           : navigate(`/qnadetail/${postObj.id}`);
       }}
       ref={inViewRef}
+      reform={reform}
     >
       <TextDiv>
         <TitleContentWrap>
@@ -48,15 +49,15 @@ const TextCard = ({ postObj, noWriter, reform, inViewRef }) => {
         <PostFooter>
           {noWriter ? null : <PostUserId>@{postObj.nickname}</PostUserId>}
           {reform ? null : (
-            <>
+            <LikeDiv>
               <HiOutlineHeart size="16" /> <Like>{postObj.likeCount}</Like>
-            </>
+            </LikeDiv>
           )}
           {reform ? null : (
-            <>
+            <LikeDiv>
               <IoChatbubbleOutline size="16" />
               <Comment>{postObj.commentCount}</Comment>
-            </>
+            </LikeDiv>
           )}
           {reform
             ? Categories.map((w) => {
@@ -104,14 +105,20 @@ const PostDiv = styled.div`
   width: 100%;
   border-bottom: 1px solid #ccc;
   margin-bottom: 20px;
-  height: 256px;
+  height: ${(props) => (props.reform ? "315px" : "286px")};
   display: flex;
   flex-direction: row;
   cursor: pointer;
+  @media all and (min-width: 450px) {
+    height: 256px;
+  }
 `;
 
 const TextDiv = styled.div`
-  width: 80%;
+  width: 70%;
+  @media all and (min-width: 650px) {
+    width: 80%;
+  }
 `;
 
 const TitleContentWrap = styled.div`
@@ -162,7 +169,13 @@ const Content = styled.p`
 const PostFooter = styled.div`
   margin: 20px auto;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  gap: 5px;
+  @media all and (min-width: 450px) {
+    flex-direction: row;
+    align-items: center;
+    gap: 0px;
+  }
 `;
 
 const Like = styled.p`
@@ -171,6 +184,11 @@ const Like = styled.p`
   line-height: 14px;
   margin-right: 20px;
   margin-left: 8px;
+`;
+
+const LikeDiv = styled.div`
+  display: flex;
+  flex-direction: row;
 `;
 
 const Comment = styled.p`
@@ -185,7 +203,10 @@ const PostUserId = styled.p`
   font-weight: 700;
   font-size: 15px;
   line-height: 18px;
-  margin-right: 40px;
+  margin-right: 10px;
+  @media ${({ theme }) => theme.device.mobile} {
+    margin-right: 40px;
+  }
 `;
 
 const PostCategory = styled.button`
@@ -201,18 +222,31 @@ const PostCategory = styled.button`
 `;
 
 const PictureDiv = styled.div`
-  width: 276px;
-  height: 217px;
+  width: 30vw;
+  height: 30vw;
+  margin-top: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
+  @media all and (min-width: 650px) {
+    margin-top: 0px;
+  }
+  @media ${({ theme }) => theme.device.mobile} {
+    width: 276px;
+    height: 217px;
+    margin-top: 0px;
+  }
 `;
 
 const Picture = styled.img`
-  width: 276px;
-  height: 217px;
+  width: 30vw;
+  height: 30vw;
   margin: auto;
   border-radius: 15px;
+  @media ${({ theme }) => theme.device.mobile} {
+    width: 276px;
+    height: 217px;
+  }
 `;
 
 export default TextCard;

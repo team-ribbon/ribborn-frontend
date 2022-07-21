@@ -20,8 +20,12 @@ const TabWrapCover = styled.div`
 `;
 
 const Tab = styled.span`
-  font-size: ${({ theme }) => theme.fontSizes.xl};
-  margin: 0 25px;
+  @media ${({ theme }) => theme.device.mobile} {
+    font-size: ${({ theme }) => theme.fontSizes.xl};
+    margin: 0 25px;
+  }
+  font-size: ${({ theme }) => theme.fontSizes.m};
+  margin: 0 10px;
 `;
 
 const ActiveTab = styled(Tab)`

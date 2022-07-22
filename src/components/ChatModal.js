@@ -8,6 +8,7 @@ import {
   useParams,
 } from "react-router-dom";
 import styled from "styled-components";
+import moment from "moment";
 
 import { getRoomListDB } from "../redux/modules/chat";
 import ChatRoom from "./ChatRoom";
@@ -61,7 +62,7 @@ const ChatModal = () => {
               >
                 <List selected={+room.roomId === +roomId}>
                   <Nickname>{room?.nickname}</Nickname>
-                  <Date>{room?.date}</Date>
+                  <Date>{moment(room.date).format("HH:mm")}</Date>
                   <Message>{room?.message}</Message>
                 </List>
               </Link>

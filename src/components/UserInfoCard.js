@@ -1,8 +1,24 @@
 import styled from "styled-components";
 import { BsBookmark } from "react-icons/bs";
 import { MainBtn } from "../elements/Buttons";
+import { apis } from "../shared/api";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const UserInfoCard = ({ myPage, user, change, isLogin, myInfo }) => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const onClickChat = async () => {
+    try {
+      const response = await apis.addRoom(myPage.id);
+      navigate(`/chat/${response.data}`, {
+        state: { backgroundLocation: location },
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return user ? (
     <div>
       <CardDiv userType={user.userType}>
@@ -33,7 +49,7 @@ const UserInfoCard = ({ myPage, user, change, isLogin, myInfo }) => {
       ) : isLogin &&
         user.id !== myInfo.id &&
         user.userType !== myInfo.userType ? (
-        <ChatBtn>채팅하기</ChatBtn>
+        <ChatBtn onClick={onClickChat}>채팅하기</ChatBtn>
       ) : null}
     </div>
   ) : null;

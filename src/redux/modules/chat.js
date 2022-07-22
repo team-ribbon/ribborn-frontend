@@ -5,6 +5,7 @@ import { apis as chatApi } from "../../shared/api";
 const GET_ROOM_LIST = "GET_ROOM_LIST";
 const GET_MESSAGE_LIST = "GET_MESSAGE_LIST";
 const ADD_MESSAGE = "ADD_MESSAGE";
+const UPDATE_ROOM_MESSAGE = "UPDATE_ROOM_MESSAGE";
 const CLEAN_UP_MESSAGE = "CLEAN_UP_MESSAGE";
 
 const getRoomList = createAction(GET_ROOM_LIST, (roomList) => ({ roomList }));
@@ -14,6 +15,12 @@ const getMessageList = createAction(GET_MESSAGE_LIST, (messageList) => ({
 export const addMessage = createAction(ADD_MESSAGE, (messageObj) => ({
   messageObj,
 }));
+export const updateRoomMessage = createAction(
+  UPDATE_ROOM_MESSAGE,
+  (messageObj) => ({
+    messageObj,
+  })
+);
 export const cleanUpMessage = createAction(CLEAN_UP_MESSAGE, () => ({}));
 
 const initialState = {
@@ -64,6 +71,12 @@ export default handleActions(
     [ADD_MESSAGE]: (state, { payload }) =>
       produce(state, (draft) => {
         draft.messageList.push(payload.messageObj);
+      }),
+    [UPDATE_ROOM_MESSAGE]: (state, { payload }) =>
+      produce(state, (draft) => {
+        draft.roomList[payload.messageObj.index].message =
+          payload.messageObj.message;
+        draft.roomList[payload.messageObj.index].date = payload.messageObj.date;
       }),
     [CLEAN_UP_MESSAGE]: (state, { payload }) =>
       produce(state, (draft) => {

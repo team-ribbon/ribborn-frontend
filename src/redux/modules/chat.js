@@ -17,26 +17,7 @@ export const addMessage = createAction(ADD_MESSAGE, (messageObj) => ({
 export const cleanUpMessage = createAction(CLEAN_UP_MESSAGE, () => ({}));
 
 const initialState = {
-  roomList: [
-    {
-      roomId: 1,
-      message: "가장최근채팅1",
-      nickname: "이것은닉네임1",
-      date: "12:12",
-    },
-    {
-      roomId: 2,
-      message: "가장최근채팅2",
-      nickname: "이것은닉네임2",
-      date: "12:12",
-    },
-    {
-      roomId: 6,
-      message: "가장최근채팅3",
-      nickname: "이것은닉네임3",
-      date: "12:12",
-    },
-  ],
+  roomList: [],
   messageList: [],
 };
 
@@ -44,8 +25,7 @@ const initialState = {
 export const getRoomListDB = () => {
   return async (dispatch) => {
     const response = await chatApi.getRoomList();
-    console.log("get room :", response.data);
-    // dispatch(getRoomList(response.data));
+    dispatch(getRoomList(response.data));
   };
 };
 

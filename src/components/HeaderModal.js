@@ -28,15 +28,15 @@ const HeaderModal = ({ isLogin, user }) => {
   }, [isModalOn]);
 
   return (
-    <Wrap ref={outsideRef}>
+    <Wrap>
       <ButtonWrap onClick={() => setIsModalOn(true)}>
         <HRs />
         <HRs />
         <HRs />
       </ButtonWrap>
       {isModalOn && (
-        <>
-          <Modal>
+        <Dim isModalOn={isModalOn}>
+          <Modal ref={outsideRef}>
             <XDiv>
               <GrClose
                 size="15"
@@ -112,11 +112,24 @@ const HeaderModal = ({ isLogin, user }) => {
               </div>
             )}
           </Modal>
-        </>
+        </Dim>
       )}
     </Wrap>
   );
 };
+
+const Dim = styled.div`
+  z-index: 100;
+  box-sizing: border-box;
+  display: ${({ isModalOn }) => (isModalOn ? "block" : "none")};
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+`;
+
 const Wrap = styled.div`
   float: right;
 `;

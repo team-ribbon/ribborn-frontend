@@ -1,19 +1,18 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import {
-  Link,
   useLocation,
   useMatch,
   useNavigate,
   useParams,
 } from "react-router-dom";
 import styled from "styled-components";
-import moment from "moment";
 
 import { getRoomListDB } from "../redux/modules/chat";
 import ChatRoom from "./ChatRoom";
 
 import { OrangeChatSVG, XSVG } from "../elements/SVG";
+import ChatRoomList from "./ChatRoomList";
 
 // 채팅 모달
 const ChatModal = () => {
@@ -22,8 +21,7 @@ const ChatModal = () => {
   const location = useLocation();
   const isMatchChat = useMatch("/chat");
   const { roomId } = useParams();
-
-  const roomList = useSelector((state) => state.chat.roomList);
+  const [isEmpty, setIsEmpty] = useState(false);
 
   const onClickClose = () => {
     navigate(location.state.backgroundLocation);
@@ -52,21 +50,11 @@ const ChatModal = () => {
         <LeftWrap>
           <Title>채팅</Title>
           <ListWrap>
-            {roomList.map((room) => (
-              <Link
-                to={`/chat/${room.roomId}`}
-                key={room.roomId}
-                state={{
-                  backgroundLocation: location.state.backgroundLocation,
-                }}
-              >
-                <List selected={+room.roomId === +roomId}>
-                  <Nickname>{room?.nickname}</Nickname>
-                  <Date>{moment(room.date).format("HH:mm")}</Date>
-                  <Message>{room?.message}</Message>
-                </List>
-              </Link>
-            ))}
+            <ChatRoomList
+              location={location}
+              roomId={roomId}
+              setIsEmpty={setIsEmpty}
+            />
           </ListWrap>
         </LeftWrap>
         <RoomWrap>
@@ -75,13 +63,13 @@ const ChatModal = () => {
               <div>
                 <OrangeChatSVG />
               </div>
-              {roomList.length > 0 ? (
+              {isEmpty ? (
+                <>채팅 내역이 없습니다.</>
+              ) : (
                 <>
                   왼쪽 채팅 목록을 클릭하여 <br />
                   채팅 내용을 확인해주세요!
                 </>
-              ) : (
-                "채팅 내역이 없습니다."
               )}
             </HelpMessage>
           )}
@@ -139,33 +127,6 @@ const ListWrap = styled.div`
   height: 80%;
   overflow-y: auto;
   border-top: 1px solid ${({ theme }) => theme.colors.gray};
-`;
-const List = styled.div`
-  display: flex;
-  flex-flow: wrap;
-  justify-content: space-between;
-  gap: 20px;
-  padding: 30px;
-  color: ${({ selected }) => selected && "#fff"};
-  background-color: ${({ selected, theme }) => selected && theme.colors.black};
-  border-bottom: 1px solid ${({ theme }) => theme.colors.gray};
-`;
-const Nickname = styled.div`
-  font-size: ${({ theme }) => theme.fontSizes.l};
-  font-weight: 700;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-`;
-const Date = styled.div`
-  color: ${({ theme }) => theme.colors.gray};
-`;
-const Message = styled.div`
-  width: 100%;
-  color: ${({ theme }) => theme.colors.gray};
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 `;
 const RoomWrap = styled.div`
   padding-top: 45px;

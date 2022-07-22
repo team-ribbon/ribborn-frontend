@@ -208,7 +208,6 @@ const UserPost = ({
                   categoriedPosts.map((thisPost) => {
                     return (
                       <TextCard
-                        userPost={true}
                         key={"qna" + thisPost.id}
                         postObj={thisPost}
                         noWriter={true}
@@ -232,7 +231,6 @@ const UserPost = ({
                       categoriedPosts.map((thisPost) => {
                         return (
                           <TextCard
-                            userPost={true}
                             key={"reform" + thisPost.id}
                             postObj={thisPost}
                             noWriter={true}

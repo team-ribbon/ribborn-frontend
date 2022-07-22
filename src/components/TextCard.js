@@ -6,9 +6,8 @@ import Regions from "../shared/Regions";
 import { HiOutlineHeart } from "react-icons/hi";
 import { IoChatbubbleOutline } from "react-icons/io5";
 
-const TextCard = ({ postObj, noWriter, reform, inViewRef, userPost }) => {
+const TextCard = ({ postObj, noWriter, reform, inViewRef }) => {
   const navigate = useNavigate();
-  console.log(userPost);
 
   let process = null;
   switch (postObj.process) {
@@ -34,7 +33,6 @@ const TextCard = ({ postObj, noWriter, reform, inViewRef, userPost }) => {
           : navigate(`/qnadetail/${postObj.id}`);
       }}
       ref={inViewRef}
-      reform={reform}
     >
       <TextDiv>
         <TitleContentWrap>
@@ -46,48 +44,49 @@ const TextCard = ({ postObj, noWriter, reform, inViewRef, userPost }) => {
           </TitleDiv>
           <Content>{postObj.content}</Content>
         </TitleContentWrap>
-
         <PostFooter>
           {noWriter ? null : <PostUserId>@{postObj.nickname}</PostUserId>}
           {reform ? null : (
-            <LikeDiv>
-              <HiOutlineHeart size="16" /> <Like>{postObj.likeCount}</Like>
-            </LikeDiv>
+            <RowFlexDiv>
+              <LikeDiv>
+                <HiOutlineHeart size="16" /> <Like>{postObj.likeCount}</Like>
+              </LikeDiv>
+              <LikeDiv>
+                <IoChatbubbleOutline size="16" />
+                <Comment>{postObj.commentCount}</Comment>
+              </LikeDiv>
+            </RowFlexDiv>
           )}
-          {reform ? null : (
-            <LikeDiv>
-              <IoChatbubbleOutline size="16" />
-              <Comment>{postObj.commentCount}</Comment>
-            </LikeDiv>
-          )}
-          {reform
-            ? Categories.map((w) => {
-                return w.value === postObj.category ? (
-                  <PostCategory key={"postCategory" + w.value}>
-                    {w.text}
-                  </PostCategory>
-                ) : null;
-              })
-            : null}
-          {reform
-            ? Regions.map((w) => {
-                return w.value === postObj.region ? (
-                  <PostCategory key={"postRegion" + w.value}>
-                    {w.text}
-                  </PostCategory>
-                ) : null;
-              })
-            : null}
+          <RowFlexDiv>
+            {reform
+              ? Categories.map((w) => {
+                  return w.value === postObj.category ? (
+                    <PostCategory key={"postCategory" + w.value}>
+                      {w.text}
+                    </PostCategory>
+                  ) : null;
+                })
+              : null}
+            {reform
+              ? Regions.map((w) => {
+                  return w.value === postObj.region ? (
+                    <PostCategory key={"postRegion" + w.value}>
+                      {w.text}
+                    </PostCategory>
+                  ) : null;
+                })
+              : null}
+            {reform
+              ? null
+              : Categories.map((w) => {
+                  return w.value === postObj.category ? (
+                    <PostCategory key={"postCategory" + w.value}>
+                      {w.text}
+                    </PostCategory>
+                  ) : null;
+                })}
+          </RowFlexDiv>
         </PostFooter>
-        {reform
-          ? null
-          : Categories.map((w) => {
-              return w.value === postObj.category ? (
-                <PostCategory key={"postCategory" + w.value}>
-                  {w.text}
-                </PostCategory>
-              ) : null;
-            })}
       </TextDiv>
       <PictureDiv>
         <Picture
@@ -106,11 +105,11 @@ const PostDiv = styled.div`
   width: 100%;
   border-bottom: 1px solid #ccc;
   margin-bottom: 20px;
-  height: ${(props) => (props.reform ? "315px" : "286px")};
+  height: fit-content;
   display: flex;
   flex-direction: row;
   cursor: pointer;
-  @media all and (min-width: 450px) {
+  @media all and (min-width: 650px) {
     height: 256px;
   }
 `;
@@ -127,13 +126,22 @@ const TitleContentWrap = styled.div`
   flex-direction: column;
 `;
 
-const TitleDiv = styled.div``;
+const TitleDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  @media ${({ theme }) => theme.device.mobile} {
+    flex-direction: row;
+  }
+`;
 
 const Title = styled.p`
-  font-size: 18px;
+  font-size: ${({ theme }) => theme.fontSizes.m};
   font-weight: 700;
-  margin: 20px auto 10px;
+  margin: 20px 5px 10px 0;
   float: left;
+  @media ${({ theme }) => theme.device.mobile} {
+    font-size: ${({ theme }) => theme.fontSizes.l};
+  }
 `;
 
 const PostProcess = styled.button`
@@ -155,27 +163,40 @@ const PostProcess = styled.button`
 `;
 
 const Content = styled.p`
+  display: none;
   font-weight: 400;
   font-size: 15px;
   line-height: 28px;
   overflow: hidden;
   height: 80px;
   width: 80%;
-  display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   color: #222222;
+  @media ${({ theme }) => theme.device.mobile} {
+    display: -webkit-box;
+  }
 `;
 
 const PostFooter = styled.div`
-  margin: 20px auto;
+  margin: 0px auto;
   display: flex;
   flex-direction: column;
-  gap: 5px;
-  @media all and (min-width: 450px) {
+  gap: 16px;
+  @media ${({ theme }) => theme.device.mobile} {
+    margin: 20px auto;
     flex-direction: row;
     align-items: center;
     gap: 0px;
+  }
+`;
+
+const RowFlexDiv = styled.div`
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 17px;
+  @media ${({ theme }) => theme.device.mobile} {
+    margin-bottom: 0;
   }
 `;
 
@@ -219,23 +240,26 @@ const PostCategory = styled.button`
   background-color: #f2f2f2;
   border: none;
   border-radius: 8px;
-  margin-right: 30px;
+  margin-right: 10px;
+  @media ${({ theme }) => theme.device.mobile} {
+    margin-right: 30px;
+  }
 `;
 
 const PictureDiv = styled.div`
   width: 30vw;
   height: 30vw;
-  margin-top: 50px;
+  margin: 15px auto;
   display: flex;
   justify-content: center;
   align-items: center;
   @media all and (min-width: 650px) {
-    margin-top: 0px;
+    margin: 0px auto;
   }
   @media ${({ theme }) => theme.device.mobile} {
     width: 276px;
     height: 217px;
-    margin-top: 0px;
+    margin: 0px auto;
   }
 `;
 

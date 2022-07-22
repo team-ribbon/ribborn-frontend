@@ -24,7 +24,6 @@ const width = {
 
 const deviceSizes = {
   mobile: "768px",
-  laptop: "1024px",
 };
 
 const device = {

@@ -64,7 +64,7 @@ const Template = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  @media ${({ theme }) => theme.device.mobile} {
+  @media all and (min-width: 1000px) {
     flex-direction: row;
   }
 `;

@@ -298,7 +298,7 @@ const InfoChange = ({ change, user, setCategory }) => {
               change(false);
             }}
           >
-            수정취소
+            수정 취소
           </FakeButton>
 
           <NewBlackBtn>회원정보 수정</NewBlackBtn>
@@ -309,6 +309,8 @@ const InfoChange = ({ change, user, setCategory }) => {
 };
 
 const Template = styled.div`
+  max-width: 740px;
+  padding: 0 20px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -322,10 +324,7 @@ const DisabledInput = styled(Input)`
 `;
 
 const Form = styled.form`
-  max-width: 700px;
-  @media ${({ theme }) => theme.device.mobile} {
-    width: 700px;
-  }
+  width: 100%;
 `;
 
 const ButtonDiv = styled.div`
@@ -334,6 +333,7 @@ const ButtonDiv = styled.div`
 `;
 
 const FakeButton = styled.div`
+  word-break: keep-all;
   border-radius: 10px;
   width: 90px;
   height: 50px;
@@ -349,7 +349,7 @@ const FakeButton = styled.div`
     width: fit-content;
     height: fit-content;
     border-radius: 15px;
-    padding: 15px 40px;
+    padding: 15px 30px;
     font-size: ${({ theme }) => theme.fontSizes.m};
     line-height: 18px;
   }
@@ -364,11 +364,12 @@ const FakeButton = styled.div`
 `;
 
 const NewBlackBtn = styled(BlackBtn)`
+  word-break: keep-all;
   @media all and (min-width: 345px) {
     width: fit-content;
     height: fit-content;
     border-radius: 15px;
-    padding: 15px 40px;
+    padding: 15px 30px;
     font-size: ${({ theme }) => theme.fontSizes.m};
     line-height: 18px;
   }

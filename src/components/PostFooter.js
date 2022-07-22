@@ -174,14 +174,21 @@ const CommentCount = styled.span`
 `;
 
 const HR = styled.hr`
+  display: none;
   width: 700px;
   color: #f2f2f2;
+  @media ${({ theme }) => theme.device.mobile} {
+    display: inherit;
+  }
 `;
 
 const CommentDiv = styled.div`
-  width: 700px;
+  width: calc(100% - 20px);
   margin: ${(props) =>
     props.modify ? "0px auto 19px auto" : "0px auto 30px auto"};
+  @media ${({ theme }) => theme.device.mobile} {
+    width: 700px;
+  }
 `;
 
 const MessageCover = styled.section`
@@ -204,9 +211,13 @@ const MessageInput = styled.input`
   border: transparent;
   background-color: transparent;
   transform: translate(0%, -50%);
+  font-size: 11px;
   &:focus {
     outline: none;
     box-shadow: none;
+  }
+  @media ${({ theme }) => theme.device.mobile} {
+    font-size: ${({ theme }) => theme.fontSizes.m};
   }
 `;
 

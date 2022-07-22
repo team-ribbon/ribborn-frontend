@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useInView } from "react-intersection-observer";
 
 import CardB from "../components/CardB";
@@ -17,6 +17,7 @@ import Categories from "../shared/Categories";
 
 const Lookbook = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const postList = useSelector((state) => state.post.PostList);
   const loadedEverything = useSelector((state) => state.post.loadedEverything);
   const isLogin = useSelector((state) => state.user.isLogin);
@@ -78,11 +79,22 @@ const Lookbook = () => {
         </LCategory>
         <Sort setSort={setSort} sort={sort} />
       </TopWrap>
-      {isLogin && +user.userType === 1 && (
-        <Link to="/write/lookbook">
-          <MainBtn style={{ marginBottom: "30px" }}>룩북 올리기</MainBtn>
-        </Link>
-      )}
+      <MainBtn
+        onClick={() => {
+          if (!isLogin) {
+            navigate("/login");
+            return false;
+          }
+          if (+user.userType !== 1) {
+            alert("기술자 회원만 작성할 수 있는 페이지입니다!");
+            return false;
+          }
+          navigate("/write/lookbook");
+        }}
+        style={{ marginBottom: "30px" }}
+      >
+        룩북 올리기
+      </MainBtn>
       <Grid>
         {postList.map((postObj, index) =>
           index === postList.length - 1 ? (

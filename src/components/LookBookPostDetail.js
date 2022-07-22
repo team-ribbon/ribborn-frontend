@@ -48,8 +48,13 @@ const LookBookPostDetail = ({ post, userId, postId, userType }) => {
     post && (
       <Wrap>
         <HeaderWrap>
-          <TitleWrap onClick={() => navigate(`/userdetail/${post.userid}`)}>
-            <Title weight={700}>{post.nickname}</Title>
+          <TitleWrap>
+            <ClickTitle
+              onClick={() => navigate(`/userdetail/${post.userid}`)}
+              weight={700}
+            >
+              {post.nickname}
+            </ClickTitle>
             <Title weight={400}>님의 작업</Title>
           </TitleWrap>
           <Date>
@@ -62,11 +67,21 @@ const LookBookPostDetail = ({ post, userId, postId, userType }) => {
                 .format()
                 .slice(0, 10)}
           </Date>
-          <MyButtonsWrap>
-            {userId === post.userid ? (
+          {userId === post.userid ? (
+            <MyButtonsWrap>
               <MyPostButtons postType="lookbook" id={post.id} />
+            </MyButtonsWrap>
+          ) : null}
+          <MobileInfoSection>
+            <InfoSection
+              reform={false}
+              region={post.addressCategory}
+              category={post.category}
+            />
+            {+userType === 0 ? (
+              <ChattingBtn onClick={onClickChat}>채팅하기</ChattingBtn>
             ) : null}
-          </MyButtonsWrap>
+          </MobileInfoSection>
         </HeaderWrap>
         <BodyWrap>
           <LeftPostDiv />
@@ -108,13 +123,26 @@ const LookBookPostDetail = ({ post, userId, postId, userType }) => {
             </Navbar>
           </RightPostDiv>
         </BodyWrap>
+        <MobilePostRightBtnWrap>
+          <PostRightBtn
+            noshare={false}
+            id={postId}
+            liked={post && post.liked}
+            likeCount={post && post.likeCount}
+            lookbook={true}
+          />
+        </MobilePostRightBtnWrap>
       </Wrap>
     )
   );
 };
 
 const Wrap = styled.div`
-  margin-top: 60px;
+  margin: 60px auto 0 auto;
+  width: 100%;
+  @media ${({ theme }) => theme.device.mobile} {
+    width: 1360px;
+  }
 `;
 
 const HeaderWrap = styled.div`
@@ -132,9 +160,19 @@ const TitleWrap = styled.div`
 
 const Title = styled.p`
   font-weight: ${(props) => props.weight};
-  font-size: 45px;
-  line-height: 60px;
+  font-size: ${({ theme }) => theme.fontSizes.l};
+  line-height: 30px;
   margin-left: ${(props) => (props.weight === 400 ? "10px" : 0)};
+  @media ${({ theme }) => theme.device.mobile} {
+    font-size: 45px;
+    line-height: 60px;
+  }
+`;
+
+const ClickTitle = styled(Title)`
+  :hover {
+    cursor: pointer;
+  }
 `;
 
 const Date = styled.span`
@@ -153,21 +191,42 @@ const BodyWrap = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
-  margin-top: 90px;
+  margin-top: 40px;
+  @media ${({ theme }) => theme.device.mobile} {
+    margin-top: 90px;
+  }
 `;
 
 const LeftPostDiv = styled.div`
-  width: 314px;
+  display: none;
+  @media ${({ theme }) => theme.device.mobile} {
+    width: 330px;
+    display: initial;
+  }
 `;
 
 const RightPostDiv = styled.div`
-  width: 314px;
-  position: relative;
+  display: none;
+  @media ${({ theme }) => theme.device.mobile} {
+    display: initial;
+    width: 330px;
+    position: relative;
+  }
 `;
 
 const Navbar = styled.div`
   position: absolute;
   top: ${(props) => (props.myPost ? "-350px" : "-250px")};
+`;
+
+const MobilePostRightBtnWrap = styled.div`
+  position: fixed;
+  right: 80px;
+  bottom: 180px;
+  transform: translate(50%, 0);
+  @media ${({ theme }) => theme.device.mobile} {
+    display: none;
+  }
 `;
 
 const MyButtonsWrap = styled.div`
@@ -176,6 +235,12 @@ const MyButtonsWrap = styled.div`
   justify-content: center;
   gap: 16px;
   margin-top: 30px;
+`;
+
+const MobileInfoSection = styled.div`
+  @media ${({ theme }) => theme.device.mobile} {
+    display: none;
+  }
 `;
 
 const CenterPostDiv = styled.div`
@@ -201,7 +266,7 @@ const TextArea = styled.div`
   border: none;
   width: 100%;
   height: auto;
-  padding: ${(props) => (props.white ? "40px 0" : "40px 20px")};
+  padding: ${(props) => (props.white ? "40px 16px" : "40px 20px")};
   resize: none;
   overflow: hidden;
   font-weight: 400;
@@ -209,6 +274,9 @@ const TextArea = styled.div`
   line-height: 28px;
   background-color: ${(props) => (props.white ? "" : "#222")};
   color: ${(props) => (props.white ? "#222" : "#fff")};
+  @media all and (min-width: 850px) {
+    padding: ${(props) => (props.white ? "40px 0" : "40px 20px")};
+  }
 `;
 
 export default LookBookPostDetail;

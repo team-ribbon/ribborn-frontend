@@ -204,7 +204,11 @@ const WritePost = () => {
           />
         </SubmitBtnDiv>
         <SelectDiv>
-          <CategorySelect setCategory={setCategory} category={category} />
+          <CategorySelect
+            write={true}
+            setCategory={setCategory}
+            category={category}
+          />
           {type === "reform" && (
             <RegionSelect write={true} setRegion={setRegion} region={region} />
           )}
@@ -273,21 +277,28 @@ const Wrap = styled.div`
   flex-direction: column;
   align-items: center;
   max-width: ${({ theme }) => theme.width.maxWidth};
-  min-width: 1230px;
   margin: 24px auto;
+  @media all and (min-width: 1250px) {
+    min-width: 1230px;
+  }
 `;
 
 const FormWrap = styled.div`
-  width: 700px;
+  width: calc(100vw - 40px);
   margin: 0 auto;
   display: flex;
   flex-direction: column;
+  @media ${({ theme }) => theme.device.mobile} {
+    width: 700px;
+  }
 `;
 
-const SubmitBtnDiv = styled.div``;
+const SubmitBtnDiv = styled.div`
+  margin-left: auto;
+  width: fit-content;
+`;
 
 const SubmitBtn = styled.input`
-  margin-left: 530px;
   border-radius: 15px;
   padding: 25px 60px;
   width: 170px;
@@ -317,25 +328,39 @@ const GuideTitleDiv = styled.div`
 `;
 
 const GreenBox = styled.div`
+  display: none;
   width: 28px;
   height: 28px;
   background: rgba(0, 174, 30, 0.43);
   border-radius: 5px;
-  margin: auto 24px auto 20px;
+  margin: auto 14px auto 20px;
+  @media ${({ theme }) => theme.device.mobile} {
+    display: inherit;
+  }
 `;
 
 const GuideTitle = styled.span`
+  word-break: keep-all;
+  margin-left: 10px;
   font-weight: 400;
-  font-size: ${({ theme }) => theme.fontSizes.l};
-  line-height: 24px;
+  font-size: ${({ theme }) => theme.fontSizes.m};
+  line-height: 20px;
+  @media all and (min-width: 600px) {
+    font-size: ${({ theme }) => theme.fontSizes.l};
+    line-height: 24px;
+  }
 `;
 
 const GuideSubTitle = styled.span`
+  word-break: keep-all;
   margin-left: 15px;
   font-weight: 400;
-  font-size: ${({ theme }) => theme.fontSizes.m};
+  font-size: ${({ theme }) => theme.fontSizes.s};
   line-height: 15px;
   color: #afb0b3;
+  @media all and (min-width: 600px) {
+    font-size: ${({ theme }) => theme.fontSizes.m};
+  }
 `;
 
 const GuideContentDiv = styled.div`
@@ -347,11 +372,16 @@ const GuideContentDiv = styled.div`
 `;
 
 const GuideContent = styled.span`
+  word-break: keep-all;
   font-weight: 400;
-  line-height: ${({ theme }) => theme.fontSizes.m};
-  line-height: 28px;
+  line-height: ${({ theme }) => theme.fontSizes.s};
+  line-height: 22px;
   color: rgba(34, 34, 34, 0.7);
   margin-left: ${(props) => (props.indent ? "20px" : "")};
+  @media all and (min-width: 600px) {
+    font-size: ${({ theme }) => theme.fontSizes.m};
+    line-height: 28px;
+  }
 `;
 
 const IntroDiv = styled.div`
@@ -360,7 +390,7 @@ const IntroDiv = styled.div`
 
 const IntroTextArea = styled.textarea`
   padding: 30px 20px;
-  width: 700px;
+  width: 100%;
   height: 208px;
   border: 1px solid #afb0b3;
   border-radius: 15px;
@@ -396,7 +426,7 @@ const TitleInput = styled.input`
   padding-left: 20px;
   border: 1px solid #afb0b3;
   border-radius: 15px;
-  width: 700px;
+  width: 100%;
   height: 84px;
   font-weight: 400;
   font-size: ${({ theme }) => theme.fontSizes.l};
@@ -415,7 +445,7 @@ const TitleLength = styled.span`
 
 const TextArea = styled.textarea`
   padding: 30px 20px;
-  width: 700px;
+  width: 100%;
   height: 761px;
   border: 1px solid #afb0b3;
   border-radius: 15px;

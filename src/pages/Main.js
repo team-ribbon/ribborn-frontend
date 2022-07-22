@@ -22,7 +22,7 @@ const Main = () => {
         <Banner src={contents.banner} type="A" />
       </BannerWrap>
       {/* </Link> */}
-      <MainWrap>
+      <MainNavWrap>
         <Nav>
           <Link to="/lookbook">
             <LinkDiv>
@@ -95,7 +95,7 @@ const Main = () => {
             </LinkDiv>
           </Link>
         </Nav>
-      </MainWrap>
+      </MainNavWrap>
       <CO2>
         <CO2Span>
           누적 {contents.co2Count}건의 리본으로 인해
@@ -137,6 +137,14 @@ const MainWrap = styled.div`
   font-size: ${({ theme }) => theme.fontSizes.m};
   line-height: 18px;
 `;
+const MainNavWrap = styled.div`
+  max-width: ${({ theme }) => theme.width.maxWidth};
+  padding: 50px 16px 0 16px;
+  margin: 0 auto 0 auto;
+  font-weight: 400;
+  font-size: ${({ theme }) => theme.fontSizes.m};
+  line-height: 18px;
+`;
 const BannerWrap = styled.div`
   max-width: ${({ theme }) => theme.width.maxWidth};
   margin: 10px auto 0 auto;
@@ -149,22 +157,26 @@ const Banner = styled.img`
 
 const Nav = styled.nav`
   display: grid;
-  grid-gap: 16px;
+  grid-column-gap: 0;
+  grid-row-gap: 16px;
   text-align: center;
   margin-bottom: 50px;
   justify-content: center;
-  grid-template-columns: 75px 75px 75px 75px;
-  @media all and (max-width: 370px) {
-    grid-template-columns: repeat(auto-fill, 75px);
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  @media all and (max-width: 300px) {
+    grid-template-columns: 1fr 1fr;
   }
   @media all and (min-width: 768px) and (max-width: 900px) {
     grid-template-columns: 140px 140px 140px 140px;
+    grid-column-gap: 16px;
   }
   @media all and (min-width: 900px) and (max-width: 1312px) {
     grid-template-columns: 180px 180px 180px 180px;
+    grid-column-gap: 16px;
   }
   @media all and (min-width: 1312px) {
     grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    grid-column-gap: 16px;
   }
 `;
 

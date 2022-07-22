@@ -1,22 +1,30 @@
 import styled, { css } from "styled-components";
 
 export const MainBtn = styled.button`
+  font-weight: 700;
   border-radius: 10px;
-  width: 90px;
-  height: 50px;
-  font-size: ${({ theme }) => theme.fontSizes.s};
+  line-height: 14px;
+  padding: 10px 5px;
+  font-size: ${({ theme }) => theme.fontSizes.m};
   border: none;
   color: #fff;
   background-color: ${({ theme }) => theme.colors.orange};
   cursor: pointer;
-  @media all and (min-width: 345px) {
+  @media all and (min-width: 300px) {
+    border-radius: 10px;
+    line-height: 17px;
+    padding: 10px 20px;
+    font-size: ${({ theme }) => theme.fontSizes.m};
+  }
+  @media all and (min-width: 320px) {
     width: fit-content;
     height: fit-content;
     border-radius: 15px;
-    padding: 15px 40px;
+    line-height: 17px;
+    padding: 20px 30px;
     font-size: ${({ theme }) => theme.fontSizes.m};
   }
-  @media all and (min-width: 385px) {
+  @media all and (min-width: 450px) {
     width: fit-content;
     height: fit-content;
     border-radius: 15px;
@@ -26,6 +34,26 @@ export const MainBtn = styled.button`
 `;
 
 export const BlackBtn = styled(MainBtn)`
+  background-color: ${({ theme }) => theme.colors.black};
+  &:disabled {
+    background-color: #f2f2f2;
+    cursor: default;
+  }
+`;
+
+export const FixedSizeMainBtn = styled.button`
+  border: none;
+  color: #fff;
+  background-color: ${({ theme }) => theme.colors.orange};
+  cursor: pointer;
+  width: fit-content;
+  height: fit-content;
+  border-radius: 15px;
+  padding: 25px 60px;
+  font-size: ${({ theme }) => theme.fontSizes.l};
+`;
+
+export const FixedSizeBlackBtn = styled(FixedSizeMainBtn)`
   background-color: ${({ theme }) => theme.colors.black};
   &:disabled {
     background-color: #f2f2f2;
@@ -53,6 +81,14 @@ export const SubBtnActive = css`
   background-color: ${({ theme }) => theme.colors.black};
   color: #fff;
   border: none;
+`;
+export const FixedSizeSubBtn = styled.button`
+  border-radius: 25px;
+  padding: 20px 30px;
+  font-size: ${({ theme }) => theme.fontSizes.l};
+  border: 1px solid #afb0b3;
+  background-color: #fff;
+  cursor: pointer;
 `;
 
 export const Category = styled.div`

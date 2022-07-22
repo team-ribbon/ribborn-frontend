@@ -89,9 +89,12 @@ const DesignSection = ({ postList }) => {
 const Wrap = styled.section`
   max-width: ${({ theme }) => theme.width.maxWidth};
   background-color: ${({ theme }) => theme.colors.darkBlue};
-  height: 776px;
+  height: calc(346px + 80vw);
   margin: 70px auto 90px auto;
   z-index: -10;
+  @media all and (min-width: 500px) {
+    height: 776px;
+  }
 `;
 const TopWrap = styled.div`
   display: flex;
@@ -135,8 +138,11 @@ const SliderWrap = styled.div`
 `;
 const Box = styled.div`
   content: "";
-  width: 120px;
+  width: 60px;
   display: inline-block;
+  @media all and (min-width: 563px) {
+    width: 120px;
+  }
 `;
 const Slider = styled.div`
   height: 450px;

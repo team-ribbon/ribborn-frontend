@@ -1,14 +1,15 @@
 import React, { useRef, useState, useEffect } from "react";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { GrClose } from "react-icons/gr";
 import { clearUserInfo } from "../redux/modules/user";
 
-const HeaderModal = ({ isLogin }) => {
+const HeaderModal = ({ isLogin, user }) => {
   const [isModalOn, setIsModalOn] = useState(false);
   const outsideRef = useRef();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const clickOutside = (e) => {
@@ -46,28 +47,53 @@ const HeaderModal = ({ isLogin }) => {
                 X
               </GrClose>
             </XDiv>
+            <span
+              onClick={() => {
+                setIsModalOn(false);
+              }}
+            >
+              알림
+            </span>
+            <HR />
             {isLogin ? (
-              <>
-                <span
-                  onClick={() => {
-                    setIsModalOn(false);
-                  }}
-                >
-                  <Link to="/mypage">마이페이지</Link>
-                </span>
-                <HR />
-                <span
-                  onClick={() => {
-                    localStorage.removeItem("token");
-                    dispatch(clearUserInfo());
-                    setIsModalOn(false);
-                  }}
-                >
-                  로그아웃
-                </span>
-              </>
+              <span
+                onClick={() => {
+                  setIsModalOn(false);
+                }}
+              >
+                <Link to="/mypage">{user.nickname}님의 마이페이지</Link>
+              </span>
             ) : (
-              <>
+              <span
+                onClick={() => {
+                  setIsModalOn(false);
+                }}
+              >
+                <Link to="/login">마이페이지</Link>
+              </span>
+            )}
+            <HR />
+            <span
+              onClick={() => {
+                setIsModalOn(false);
+                isLogin ? navigate("/userpage") : navigate("/login");
+              }}
+            >
+              관심 리폼
+            </span>
+            <HR />
+            {isLogin ? (
+              <span
+                onClick={() => {
+                  localStorage.removeItem("token");
+                  dispatch(clearUserInfo());
+                  setIsModalOn(false);
+                }}
+              >
+                로그아웃
+              </span>
+            ) : (
+              <div>
                 <span
                   onClick={() => {
                     setIsModalOn(false);
@@ -83,7 +109,7 @@ const HeaderModal = ({ isLogin }) => {
                   <HR />
                   <Link to="/login">로그인</Link>
                 </span>
-              </>
+              </div>
             )}
           </Modal>
         </>
@@ -119,8 +145,11 @@ const Modal = styled.div`
   flex-direction: column;
   span {
     font-size: ${({ theme }) => theme.fontSizes.m};
+    line-height: 18px;
     cursor: pointer;
     margin-left: 16px;
+    display: block;
+    word-break: keep-all;
   }
 
   /* &::after {

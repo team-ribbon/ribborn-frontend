@@ -2,10 +2,10 @@ import SockJS from "sockjs-client";
 import Stomp from "stompjs";
 import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import styled from "styled-components";
 
-import { addMessage } from "../redux/modules/chat";
+import { addMessage, updateRoomMessage } from "../redux/modules/chat";
 import ChatList from "./ChatList";
 import { Input } from "../elements/Inputs";
 import { MainBtn } from "../elements/Buttons";
@@ -13,6 +13,7 @@ import { MainBtn } from "../elements/Buttons";
 // 채팅 모달 > 채팅방
 const ChatRoom = () => {
   const dispatch = useDispatch();
+  const location = useLocation();
   const { roomId } = useParams();
   const user = useSelector((state) => state.user.user);
   let stompClient = useRef(null);
@@ -31,7 +32,6 @@ const ChatRoom = () => {
           `/sub/chat/room/${roomId}`,
           (response) => {
             const messageFromServer = JSON.parse(response.body);
-            console.log("messageFromServer", messageFromServer);
             dispatch(addMessage(messageFromServer));
           },
           { Authorization: `Bearer ${localStorage.getItem("token")}` }
@@ -42,7 +42,7 @@ const ChatRoom = () => {
 
   // 웹소켓 연결 해제
   const socketDisconnect = () => {
-    if (stompClient) stompClient.disconnect();
+    stompClient.disconnect();
   };
 
   // 메시지 전송
@@ -50,7 +50,7 @@ const ChatRoom = () => {
     event.preventDefault();
     if (event.target.chat.value === "") return false;
 
-    const chatData = {
+    const messageObj = {
       roomId: roomId,
       senderId: user.id,
       message: event.target.chat.value,
@@ -61,9 +61,9 @@ const ChatRoom = () => {
     stompClient.send(
       `/pub/chat/message`,
       { Authorization: `Bearer ${localStorage.getItem("token")}` },
-      JSON.stringify(chatData)
+      JSON.stringify(messageObj)
     );
-
+    dispatch(updateRoomMessage({ ...messageObj, index: location.state.index }));
     event.target.chat.value = null;
   };
 

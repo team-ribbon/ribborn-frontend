@@ -5,9 +5,13 @@ import moment from "moment";
 
 const ChatRoomList = ({ location, roomId, setIsEmpty }) => {
   const roomList = useSelector((state) => state.chat.roomList);
-  if (roomList.length < 1) {
+
+  if (roomList.length === 0) {
     setIsEmpty(true);
+  } else {
+    setIsEmpty(false);
   }
+
   return (
     <>
       {roomList.map((room, index) => (

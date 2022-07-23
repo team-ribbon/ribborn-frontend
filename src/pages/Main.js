@@ -22,10 +22,10 @@ const Main = () => {
         <Banner src={contents.banner} type="A" />
       </BannerWrap>
       {/* </Link> */}
-      <MainWrap>
+      <MainNavWrap>
         <Nav>
           <Link to="/lookbook">
-            <div>
+            <LinkDiv>
               <TrendButton>
                 <NewTrend>NEW TREND</NewTrend>
               </TrendButton>
@@ -34,74 +34,74 @@ const Main = () => {
               </MobileTrendButton>
               <DesktopNavSpan>뉴 트렌드 리폼 🎵</DesktopNavSpan>
               <MobileNavSpan>뉴 트렌드 리폼</MobileNavSpan>
-            </div>
+            </LinkDiv>
           </Link>
           <Link to="/review/clothes">
-            <div>
+            <LinkDiv>
               <NavButton>
                 <ClothesImg src="./Clothes.png" />
               </NavButton>
               <NavSpan>옷 리뷰</NavSpan>
-            </div>
+            </LinkDiv>
           </Link>
           <Link to="/review/furniture">
-            <div>
+            <LinkDiv>
               <NavButton>
                 <FurnituresImg src="./Furnitures.png" />
               </NavButton>
               <NavSpan>가구 리뷰</NavSpan>
-            </div>
+            </LinkDiv>
           </Link>
           <Link to="/review/shoes">
-            <div>
+            <LinkDiv>
               <NavButton>
                 <ShoesImg src="./Shoes.png" />
               </NavButton>
               <NavSpan>신발 리뷰</NavSpan>
-            </div>
+            </LinkDiv>
           </Link>
           <Link to="/review/bags">
-            <div>
+            <LinkDiv>
               <NavButton>
                 <BagsImg src="./Bags.png" />
               </NavButton>
               <NavSpan>가방 리뷰</NavSpan>
-            </div>
+            </LinkDiv>
           </Link>
           <Link to="/review/goods">
-            <div>
+            <LinkDiv>
               <NavButton>
                 <GoodsImg src="./Goods.png" />
               </NavButton>
               <NavSpan>기타 리뷰</NavSpan>
-            </div>
+            </LinkDiv>
           </Link>
           <Link to="/qna">
-            <div>
+            <LinkDiv>
               <NavButton>
                 <DesktopCommunity>COMMUNITY</DesktopCommunity>
                 <MobileCommunity>COMM- UNITY</MobileCommunity>
               </NavButton>
               <NavSpan>질문과 답변</NavSpan>
-            </div>
+            </LinkDiv>
           </Link>
           <Link to="/">
-            <div>
+            <LinkDiv>
               <NavButton>
                 <Community>Service Guide</Community>
               </NavButton>
               <DesktopNavSpan>리본 이용 가이드</DesktopNavSpan>
               <MobileNavSpan>이용 가이드</MobileNavSpan>
-            </div>
+            </LinkDiv>
           </Link>
         </Nav>
-      </MainWrap>
+      </MainNavWrap>
       <CO2>
-        <span>
+        <CO2Span>
           누적 {contents.co2Count}건의 리본으로 인해
           <br />
           탄소배출을 {contents.co2Reduce}kg 줄였습니다.
-        </span>
+        </CO2Span>
       </CO2>
       <MainWrap>
         <MainSection
@@ -137,6 +137,14 @@ const MainWrap = styled.div`
   font-size: ${({ theme }) => theme.fontSizes.m};
   line-height: 18px;
 `;
+const MainNavWrap = styled.div`
+  max-width: ${({ theme }) => theme.width.maxWidth};
+  padding: 50px 16px 0 16px;
+  margin: 0 auto 0 auto;
+  font-weight: 400;
+  font-size: ${({ theme }) => theme.fontSizes.m};
+  line-height: 18px;
+`;
 const BannerWrap = styled.div`
   max-width: ${({ theme }) => theme.width.maxWidth};
   margin: 10px auto 0 auto;
@@ -149,23 +157,32 @@ const Banner = styled.img`
 
 const Nav = styled.nav`
   display: grid;
-  grid-gap: 16px;
+  grid-column-gap: 0;
+  grid-row-gap: 16px;
   text-align: center;
   margin-bottom: 50px;
   justify-content: center;
-  grid-template-columns: 75px 75px 75px 75px;
-  @media all and (max-width: 370px) {
-    grid-template-columns: repeat(auto-fill, 75px);
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  @media all and (max-width: 300px) {
+    grid-template-columns: 1fr 1fr;
   }
   @media all and (min-width: 768px) and (max-width: 900px) {
     grid-template-columns: 140px 140px 140px 140px;
+    grid-column-gap: 16px;
   }
   @media all and (min-width: 900px) and (max-width: 1312px) {
     grid-template-columns: 180px 180px 180px 180px;
+    grid-column-gap: 16px;
   }
   @media all and (min-width: 1312px) {
     grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    grid-column-gap: 16px;
   }
+`;
+
+const LinkDiv = styled.div`
+  justify-content: center;
+  text-align: center;
 `;
 
 const NavSpan = styled.span`
@@ -228,7 +245,7 @@ const MobileTrendButton = styled.div`
   border-radius: 63px;
   width: 63px;
   height: 63px;
-  margin-bottom: 24px;
+  margin: 0 auto 24px auto;
   padding-top: 16px;
   @media ${({ theme }) => theme.device.mobile} {
     display: none;
@@ -275,7 +292,7 @@ const NavButton = styled.div`
   height: 63px;
   border-radius: 63px;
   background-color: ${({ theme }) => theme.colors.lightGray};
-  margin-bottom: 24px;
+  margin: 0 auto 24px auto;
   font-weight: 700;
   font-size: ${({ theme }) => theme.fontSizes.l};
   line-height: 16px;
@@ -363,11 +380,22 @@ const CO2 = styled.div`
   position: relative;
   text-align: center;
   font-size: ${({ theme }) => theme.fontSizes.xl};
+`;
 
-  span {
-    position: absolute;
-    top: 50%;
-    transform: translate(-50%, -50%);
+const CO2Span = styled.span`
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: fit-content;
+  font-size: ${({ theme }) => theme.fontSizes.l};
+  line-height: 20px;
+  @media all and (min-width: 380px) {
+    font-size: 25px;
+    line-height: 32px;
+  }
+  @media all and (min-width: 500px) {
+    font-size: ${({ theme }) => theme.fontSizes.xl};
+    line-height: 36px;
   }
 `;
 

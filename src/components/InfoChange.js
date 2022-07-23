@@ -298,10 +298,10 @@ const InfoChange = ({ change, user, setCategory }) => {
               change(false);
             }}
           >
-            수정취소
+            수정 취소
           </FakeButton>
 
-          <BlackBtn>회원정보 수정</BlackBtn>
+          <NewBlackBtn>회원정보 수정</NewBlackBtn>
         </ButtonDiv>
       </Form>
     </Template>
@@ -309,11 +309,14 @@ const InfoChange = ({ change, user, setCategory }) => {
 };
 
 const Template = styled.div`
+  max-width: 740px;
+  padding: 0 20px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   padding-top: 40px;
+  max-width: ${({ theme }) => theme.width.maxWidth};
 `;
 
 const DisabledInput = styled(Input)`
@@ -321,7 +324,7 @@ const DisabledInput = styled(Input)`
 `;
 
 const Form = styled.form`
-  width: 700px;
+  width: 100%;
 `;
 
 const ButtonDiv = styled.div`
@@ -330,16 +333,54 @@ const ButtonDiv = styled.div`
 `;
 
 const FakeButton = styled.div`
-  border-radius: 15px;
-  padding: 25px 60px;
-  margin-right: 50px;
-  width: fit-content;
+  word-break: keep-all;
+  border-radius: 10px;
+  width: 90px;
+  height: 50px;
+  font-size: ${({ theme }) => theme.fontSizes.s};
+  margin-right: 30px;
+  text-align: center;
+  padding: 20px 0;
   border: none;
   color: #fff;
   background-color: ${({ theme }) => theme.colors.black};
-
-  font-size: ${({ theme }) => theme.fontSizes.l};
   cursor: pointer;
+  @media all and (min-width: 345px) {
+    width: fit-content;
+    height: fit-content;
+    border-radius: 15px;
+    padding: 15px 30px;
+    font-size: ${({ theme }) => theme.fontSizes.m};
+    line-height: 18px;
+  }
+  @media all and (min-width: 500px) {
+    width: fit-content;
+    height: fit-content;
+    border-radius: 15px;
+    padding: 25px 60px;
+    font-size: ${({ theme }) => theme.fontSizes.l};
+    line-height: 24px;
+  }
+`;
+
+const NewBlackBtn = styled(BlackBtn)`
+  word-break: keep-all;
+  @media all and (min-width: 345px) {
+    width: fit-content;
+    height: fit-content;
+    border-radius: 15px;
+    padding: 15px 30px;
+    font-size: ${({ theme }) => theme.fontSizes.m};
+    line-height: 18px;
+  }
+  @media all and (min-width: 500px) {
+    width: fit-content;
+    height: fit-content;
+    border-radius: 15px;
+    padding: 25px 60px;
+    font-size: ${({ theme }) => theme.fontSizes.l};
+    line-height: 24px;
+  }
 `;
 
 export default InfoChange;

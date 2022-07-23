@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { BlackBtn } from "../elements/Buttons";
+import { FixedSizeBlackBtn } from "../elements/Buttons";
 import { HelpText, Input, InputTitle, Required } from "../elements/Inputs";
 
 import { signupDB, usernameCheckDB } from "../redux/modules/user";
@@ -149,7 +149,7 @@ const SignupUser = () => {
         <HelpText>{errors?.phoneNum?.message}</HelpText>
         <SignupAgree ref={checkRef} setAgreeError={setAgreeError} />
         <HelpText>{agreeError}</HelpText>
-        <BlackBtn
+        <FixedSizeBlackBtn
           disabled={
             errors.nickname ||
             errors.password ||
@@ -158,7 +158,7 @@ const SignupUser = () => {
           }
         >
           회원가입
-        </BlackBtn>
+        </FixedSizeBlackBtn>
       </form>
     </Wrap>
   );

@@ -79,11 +79,17 @@ function QnAList() {
         })}
       </Category>
       <Buttons>
-        {isLogin && (
-          <Link to="/write/qna">
-            <MainBtn>글쓰기</MainBtn>
-          </Link>
-        )}
+        <MainBtn
+          onClick={() => {
+            if (!isLogin) {
+              navigate("/login");
+              return false;
+            }
+            navigate("/write/qna");
+          }}
+        >
+          글쓰기
+        </MainBtn>
         <Sort setSort={setSort} sort={sort} />
       </Buttons>
       <PostCoverDiv>

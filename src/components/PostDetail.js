@@ -67,6 +67,14 @@ const PostDetail = ({ qna, post, userId, postId }) => {
               likeCount={post && post.likeCount}
             />
           </Navbar>
+          <MobileNavbar>
+            <PostRightBtn
+              noshare={false}
+              id={postId}
+              liked={post && post.liked}
+              likeCount={post && post.likeCount}
+            />
+          </MobileNavbar>
         </RightPostDiv>
       </PostWrap>
     )
@@ -75,29 +83,65 @@ const PostDetail = ({ qna, post, userId, postId }) => {
 
 const PostWrap = styled.div`
   max-width: ${({ theme }) => theme.width.maxWidth};
-  display: grid;
-  grid-template-columns: 1fr 700px 1fr;
   margin: 0 auto;
+  @media ${({ theme }) => theme.device.mobile} and (max-width: 850px) {
+    display: grid;
+    grid-template-columns: 1fr calc(100vw - 150px) 1fr;
+  }
+  @media all and (min-width: 850px) {
+    display: grid;
+    grid-template-columns: 1fr 700px 1fr;
+  }
 `;
 
 const LeftPostDiv = styled.div`
-  min-width: 60px;
+  @media ${({ theme }) => theme.device.mobile} {
+    min-width: 60px;
+  }
 `;
 
 const CenterPostDiv = styled.div`
+  text-align: center;
   margin-top: 60px;
-  width: 700px;
+  width: 100%;
+  @media ${({ theme }) => theme.device.mobile} and (max-width: 850px) {
+    width: calc(100vw - 150px);
+    text-align: left;
+  }
+  @media all and (min-width: 850px) {
+    width: 700px;
+    text-align: left;
+  }
 `;
 
 const RightPostDiv = styled.div`
-  position: relative;
-  min-width: 60px;
+  @media ${({ theme }) => theme.device.mobile} {
+    position: relative;
+    min-width: 60px;
+  }
 `;
 
 const Navbar = styled.div`
+  height: fit-content;
   position: absolute;
-  top: 100px;
-  width: 100%;
+  display: none;
+  @media ${({ theme }) => theme.device.mobile} {
+    display: initial;
+    top: 100px;
+    right: 0px;
+    width: 100%;
+  }
+`;
+
+const MobileNavbar = styled.div`
+  height: fit-content;
+  position: fixed;
+  right: 80px;
+  bottom: 180px;
+  transform: translate(50%, 0);
+  @media ${({ theme }) => theme.device.mobile} {
+    display: none;
+  }
 `;
 
 const Community = styled.p`
@@ -105,6 +149,7 @@ const Community = styled.p`
   font-size: 18px;
   line-height: 24px;
   color: #222222;
+  margin-bottom: 16px;
 `;
 
 const Title = styled.p`
@@ -119,6 +164,10 @@ const IDDiv = styled.div`
   gap: 16px;
   margin-top: 16px;
   align-items: center;
+  justify-content: center;
+  @media ${({ theme }) => theme.device.mobile} {
+    justify-content: left;
+  }
 `;
 
 const ID = styled.p`
@@ -141,13 +190,19 @@ const Time = styled.p`
   font-size: 14px;
   line-height: 18px;
   color: #afb0b3;
-  margin-right: 34px;
+  @media ${({ theme }) => theme.device.mobile} {
+    margin-right: 34px;
+  }
 `;
 
 const TagDiv = styled.div`
   display: flex;
   gap: 10px;
   margin-top: 30px;
+  justify-content: center;
+  @media ${({ theme }) => theme.device.mobile} {
+    justify-content: left;
+  }
 `;
 
 const Tag = styled.div`

@@ -125,13 +125,15 @@ const Wrap = styled.div`
   flex-direction: column;
 `;
 const Label = styled.label`
-  position: absolute;
-  left: -264px;
+  margin: 20px 0 10px 0;
   width: 240px;
-  top: 32px;
+  @media all and (min-width: 1250px) {
+    position: absolute;
+    left: -264px;
+    top: 32px;
+  }
 `;
 const FileInput = styled.div`
-  margin-left: 49px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -142,6 +144,9 @@ const FileInput = styled.div`
   border-radius: 15px;
   /* display: ${(props) => (props.preview > 1 ? "none" : "flex")}; */
   cursor: pointer;
+  @media all and (min-width: 1250px) {
+    margin-left: 49px;
+  }
 `;
 const FileInputPlus = styled.span`
   font-size: ${({ theme }) => theme.fontSizes.xl};

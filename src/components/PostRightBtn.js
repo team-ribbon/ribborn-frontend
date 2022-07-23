@@ -111,13 +111,15 @@ const Button = styled.div`
   align-items: center;
   margin-bottom: 5px;
   cursor: pointer;
-  background-color: ${(props) => props.color}; ;
+  background-color: ${(props) => props.color};
+  z-index: 1;
 `;
 
 const LikeCount = styled.span`
   font-weight: 400;
   font-size: 14px;
   line-height: 14px;
+  z-index: 1;
 `;
 
 const HR = styled.hr`
@@ -127,6 +129,7 @@ const HR = styled.hr`
   border-left: none;
   border-right: none;
   margin: 30px auto 30px auto;
+  z-index: 1;
 `;
 
 const ShareClickedDiv = styled.div`

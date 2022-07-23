@@ -1,10 +1,14 @@
 import React from "react";
 import styled from "styled-components";
 import { AiFillFacebook, AiOutlineInstagram } from "react-icons/ai";
+import { useMatch } from "react-router-dom";
 
 const Footer = () => {
+  const isLookbook = useMatch("lookbookdetail/:postId");
+  const isReform = useMatch("reformdetail/:postId");
+
   return (
-    <Wrap>
+    <Wrap isLookbook={isLookbook} isReform={isReform}>
       <Grid>
         <BoxDiv>
           <Title>RIBBORN</Title>
@@ -90,10 +94,14 @@ const Footer = () => {
 };
 
 const Wrap = styled.footer`
+  width: 100%;
   height: 560px;
+  z-index: 10;
   background-color: ${({ theme }) => theme.colors.lighterGray};
   @media ${({ theme }) => theme.device.mobile} {
     height: 401px;
+    min-width: ${(props) =>
+      props.isLookbook ? "1360px" : props.isReform ? "1392px" : "100%"};
   }
 `;
 

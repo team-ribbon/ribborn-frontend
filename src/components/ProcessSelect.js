@@ -104,6 +104,7 @@ const ButtonWrap = styled.div`
   }
 `;
 const Text = styled.span`
+  word-break: keep-all;
   font-weight: 400;
   font-size: ${({ theme }) => theme.fontSizes.m};
   line-height: 20px;

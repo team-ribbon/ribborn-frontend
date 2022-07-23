@@ -62,6 +62,7 @@ export const FixedSizeBlackBtn = styled(FixedSizeMainBtn)`
 `;
 
 export const SubBtn = styled.button`
+  word-break: keep-all;
   border-radius: 25px;
   padding: 10px 10px;
   border: 1px solid #afb0b3;
@@ -130,7 +131,7 @@ export const Category = styled.div`
   #lookbook {
     ${({ category }) => category === "lookbook" && SubBtnActive}
   }
-  @media all and (max-width: 550px) {
+  @media all and (min-width: 376px) and (max-width: 550px) {
     display: grid;
     grid-gap: 20px;
     grid-template-columns: 1fr 1fr 1fr;
@@ -139,5 +140,10 @@ export const Category = styled.div`
     display: grid;
     grid-gap: 20px;
     grid-template-columns: 1fr 1fr;
+  }
+  @media all and (min-width: 551px) and (max-width: 768px) {
+    display: grid;
+    grid-gap: 20px;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
   }
 `;

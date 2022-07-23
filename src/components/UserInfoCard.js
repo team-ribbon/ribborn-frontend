@@ -87,6 +87,9 @@ const ModifyBtn = styled.button`
   padding: 25px 60px;
   border: 1px solid #afb0b3;
   background-color: ${({ theme }) => theme.colors.lighterGray};
+  @media ${({ theme }) => theme.device.mobile} {
+    width: 314px;
+  }
 `;
 
 export default UserInfoCard;

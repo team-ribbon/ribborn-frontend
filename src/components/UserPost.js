@@ -259,6 +259,11 @@ const UserPostDiv = styled.div`
     margin-left: 37px;
     width: calc(90vw - 200px);
   }
+  @media all and (min-width: 768px) and (max-width: 1000px) {
+    margin-top: 0px;
+    margin-left: 37px;
+    width: 100%;
+  }
 `;
 
 const UserCategoryBtn = styled(SubBtn)`
@@ -266,11 +271,9 @@ const UserCategoryBtn = styled(SubBtn)`
   @media ${({ theme }) => theme.device.mobile} {
     margin-right: 20px;
   }
-  @media all and (min-width: 768px) and (max-width: 899px) {
-    padding: 15px 10px;
-  }
-  @media all and (min-width: 900px) and (max-width: 1000px) {
-    padding: 15px 20px;
+  @media all and (min-width: 768px) and (max-width: 1000px) {
+    padding: 20px 30px;
+    margin-top: 30px;
   }
 `;
 

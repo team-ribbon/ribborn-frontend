@@ -2,7 +2,7 @@ import styled, { css } from "styled-components";
 
 export const MainBtn = styled.button`
   font-weight: 700;
-  border-radius: 10px;
+  border-radius: 8px;
   line-height: 14px;
   padding: 10px 5px;
   font-size: ${({ theme }) => theme.fontSizes.m};
@@ -63,7 +63,7 @@ export const FixedSizeBlackBtn = styled(FixedSizeMainBtn)`
 
 export const SubBtn = styled.button`
   word-break: keep-all;
-  border-radius: 25px;
+  border-radius: 8px;
   padding: 10px 10px;
   border: 1px solid #afb0b3;
   background-color: #fff;
@@ -72,10 +72,12 @@ export const SubBtn = styled.button`
   @media ${({ theme }) => theme.device.mobile} and (max-width: 900px) {
     padding: 10px 15px;
     font-size: ${({ theme }) => theme.fontSizes.l};
+    border-radius: 8px;
   }
   @media all and (min-width: 900px) {
     padding: 20px 30px;
     font-size: ${({ theme }) => theme.fontSizes.l};
+    border-radius: 25px;
   }
 `;
 export const SubBtnActive = css`

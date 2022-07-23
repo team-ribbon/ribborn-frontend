@@ -169,7 +169,7 @@ const PostFooterWrap = styled.div`
 
 const CommentCount = styled.span`
   font-weight: 400;
-  font-size: 18px;
+  font-size: ${({ theme }) => theme.fontSizes.l};
   line-height: 24px;
 `;
 
@@ -211,10 +211,13 @@ const MessageInput = styled.input`
   border: transparent;
   background-color: transparent;
   transform: translate(0%, -50%);
-  font-size: 11px;
+  font-size: ${({ theme }) => theme.fontSizes.s};
   &:focus {
     outline: none;
     box-shadow: none;
+  }
+  &::placeholder {
+    color: ${({ theme }) => theme.colors.gray};
   }
   @media ${({ theme }) => theme.device.mobile} {
     font-size: ${({ theme }) => theme.fontSizes.m};
@@ -253,14 +256,14 @@ const CommentFistLine = styled.div`
 
 const CommentNickname = styled.span`
   font-weight: 700;
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSizes.m};
   line-height: 18px;
   color: #222222;
 `;
 
 const CommentContent = styled.span`
   font-weight: 400;
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSizes.m};
   line-height: 18px;
   margin-left: 16px;
   color: #222222;
@@ -270,7 +273,7 @@ const CommentModifyBtn = styled.button`
   width: ${(props) => (props.moreWidth ? "86px" : "68px")};
   height: 29px;
   font-weight: 400;
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSizes.m};
   line-height: 18px;
   border: 1px solid #222222;
   border-radius: 8px;
@@ -283,7 +286,7 @@ const CommentModifyBtn = styled.button`
 
 const CreatedAt = styled.span`
   font-weight: 400;
-  font-size: 11px;
+  font-size: ${({ theme }) => theme.fontSizes.s};
   line-height: 14px;
   color: #afb0b3;
 `;

@@ -300,7 +300,6 @@ const InfoChange = ({ change, user, setCategory }) => {
           >
             수정 취소
           </FakeButton>
-
           <NewBlackBtn>회원정보 수정</NewBlackBtn>
         </ButtonDiv>
       </Form>
@@ -316,7 +315,7 @@ const Template = styled.div`
   justify-content: center;
   align-items: center;
   padding-top: 40px;
-  max-width: ${({ theme }) => theme.width.maxWidth};
+  margin: 0 auto;
 `;
 
 const DisabledInput = styled(Input)`
@@ -365,6 +364,7 @@ const FakeButton = styled.div`
 
 const NewBlackBtn = styled(BlackBtn)`
   word-break: keep-all;
+  font-weight: 400;
   @media all and (min-width: 345px) {
     width: fit-content;
     height: fit-content;

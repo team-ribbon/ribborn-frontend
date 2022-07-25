@@ -142,9 +142,11 @@ const EditPost = () => {
       return false;
     }
 
-    if ((type === "review" || type === "lookbook") && files.length < 1) {
-      alert("사진 없음");
-      return false;
+    if (type === "review" || type === "lookbook") {
+      if (files.length < 1) {
+        alert("사진 없음");
+        return false;
+      }
     }
 
     // 1번 방법 => api 설계서와 동일하게 보내기
@@ -173,11 +175,13 @@ const EditPost = () => {
     });
 
     let key = {
-      imageUrl: imageUrl,
       postCategory: type,
       category: category,
       content: contentRef.current.value,
     };
+    if (imageUrl.length > 0) {
+      key = { ...key, imageUrl: imageUrl };
+    }
 
     if (type === "reform") {
       key = { ...key, region: region, process: "before" };

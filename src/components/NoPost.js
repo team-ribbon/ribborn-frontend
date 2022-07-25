@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { BlackBtn } from "../elements/Buttons";
 
 const NoPost = ({ category }) => {
   const navigate = useNavigate();
@@ -33,16 +34,17 @@ const NoPost = ({ category }) => {
   return (
     <Cover>
       {text.map((v) => {
-        return v.category === category ? <Text>{text.text}</Text> : null;
+        return v.category === category ? <Text>{v.text}</Text> : null;
       })}
       {text.map((v) => {
         return v.category === category ? (
           <Button
+            key={"nopostBtn" + v.link}
             onClick={() => {
               navigate(v.link);
             }}
           >
-            {text.button}
+            {v.button}
           </Button>
         ) : null;
       })}
@@ -50,16 +52,22 @@ const NoPost = ({ category }) => {
   );
 };
 
-const Cover = styled.div`
-  justify-content: center;
-  text-align: center;
-`;
+const Cover = styled.div``;
 
 const Text = styled.p`
+  font-weight: 700;
+  font-size: ${({ theme }) => theme.fontSizes.l};
+  line-height: 24px;
   font-weight: bold;
-  margin-bottom: 30px;
+  margin: 30px 0 20px 0;
+  color: ${({ theme }) => theme.colors.gray};
 `;
 
-const Button = styled.button``;
+const Button = styled(BlackBtn)`
+  font-weight: 400;
+  font-size: ${({ theme }) => theme.fontSizes.m};
+  line-height: 18px;
+  padding: 20px 30px;
+`;
 
 export default NoPost;

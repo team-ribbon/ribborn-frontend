@@ -79,7 +79,7 @@ const UserPost = ({
                 </SeeMore>
               </PostCollectionTitleDiv>
               <Grid>
-                {lookbook === null ? (
+                {lookbook && lookbook.length === 0 ? (
                   <NoPost category="lookbook" />
                 ) : (
                   lookbook.slice(0, 3).map((thisPost) => {
@@ -106,7 +106,7 @@ const UserPost = ({
               </SeeMore>
             </PostCollectionTitleDiv>
             <Grid>
-              {review === null ? (
+              {review && review.length === 0 ? (
                 <NoPost category="review" />
               ) : (
                 review &&
@@ -136,7 +136,7 @@ const UserPost = ({
               </SeeMore>
             </PostCollectionTitleDiv>
             <TextCardDiv>
-              {qna === null ? (
+              {qna && qna.length === 0 ? (
                 <NoPost category="qna" />
               ) : (
                 qna &&
@@ -165,9 +165,10 @@ const UserPost = ({
                 </SeeMore>
               </PostCollectionTitleDiv>
               <TextCardDiv>
-                {reform === null ? (
+                {reform && reform.lenght === 0 ? (
                   <NoPost category="reform" />
                 ) : (
+                  reform &&
                   reform.slice(0, 3).map((thisPost) => {
                     return (
                       <TextCard

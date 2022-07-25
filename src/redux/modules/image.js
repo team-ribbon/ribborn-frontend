@@ -64,6 +64,7 @@ export default handleActions(
       produce(state, (draft) => {
         draft.fileList = initialState.fileList;
         draft.previewList = initialState.previewList;
+        draft.deleteList = initialState.deleteList;
       }),
   },
   initialState

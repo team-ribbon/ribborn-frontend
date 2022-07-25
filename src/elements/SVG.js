@@ -208,3 +208,41 @@ export const XSVG = () => {
     </svg>
   );
 };
+
+export const WriteGuideSVG = () => {
+  return (
+    <svg
+      width="28"
+      height="28"
+      viewBox="0 0 28 28"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <rect width="28" height="28" rx="5" fill="#00AE1E" fill-opacity="0.43" />
+      <line
+        x1="4.5"
+        y1="7.5"
+        x2="14.5"
+        y2="7.5"
+        stroke="white"
+        stroke-linecap="round"
+      />
+      <line
+        x1="4.5"
+        y1="13.5"
+        x2="24.5"
+        y2="13.5"
+        stroke="white"
+        stroke-linecap="round"
+      />
+      <line
+        x1="4.5"
+        y1="19.5"
+        x2="24.5"
+        y2="19.5"
+        stroke="white"
+        stroke-linecap="round"
+      />
+    </svg>
+  );
+};

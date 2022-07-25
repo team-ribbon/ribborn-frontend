@@ -68,44 +68,60 @@ function QnAList() {
 
   return (
     <Wrap>
-      <TabWrap review={false} />
-      <Category category={category}>
-        {Categories.map((v) => {
-          return (
-            <SubBtn id={v.value} onClick={onClickCategory}>
-              {v.text}
-            </SubBtn>
-          );
-        })}
-      </Category>
-      <Buttons>
-        <MainBtn
-          onClick={() => {
-            if (!isLogin) {
-              navigate("/login");
-              return false;
-            }
-            navigate("/write/qna");
-          }}
-        >
-          글쓰기
-        </MainBtn>
-        <Sort setSort={setSort} sort={sort} />
-      </Buttons>
-      <PostCoverDiv>
-        {postlists.map((v, i) => {
-          return i === postlists.length - 1 ? (
-            <TextCard postObj={v} key={"post" + v.id} inViewRef={inViewRef} />
-          ) : (
-            <TextCard postObj={v} key={"post" + v.id} />
-          );
-        })}
-      </PostCoverDiv>
+      <GreyWrap>
+        <WidthWrap>
+          <TabWrap review={false} />
+          <Category category={category}>
+            {Categories.map((v) => {
+              return (
+                <SubBtn id={v.value} onClick={onClickCategory}>
+                  {v.text}
+                </SubBtn>
+              );
+            })}
+          </Category>
+        </WidthWrap>
+      </GreyWrap>
+      <WidthWrap>
+        <Buttons>
+          <MainBtn
+            onClick={() => {
+              if (!isLogin) {
+                navigate("/login");
+                return false;
+              }
+              navigate("/write/qna");
+            }}
+          >
+            글쓰기
+          </MainBtn>
+          <Sort setSort={setSort} sort={sort} />
+        </Buttons>
+        <PostCoverDiv>
+          {postlists.map((v, i) => {
+            return i === postlists.length - 1 ? (
+              <TextCard postObj={v} key={"post" + v.id} inViewRef={inViewRef} />
+            ) : (
+              <TextCard postObj={v} key={"post" + v.id} />
+            );
+          })}
+        </PostCoverDiv>
+      </WidthWrap>
     </Wrap>
   );
 }
 
 const Wrap = styled.div`
+  margin: -20px auto;
+`;
+
+const GreyWrap = styled.div`
+  width: 100%;
+  padding: 20px 0 30px 0;
+  background-color: ${({ theme }) => theme.colors.lighterGray};
+`;
+
+const WidthWrap = styled.div`
   max-width: ${({ theme }) => theme.width.listWidth};
   margin: 0 auto;
   padding: 0 40px;
@@ -113,7 +129,7 @@ const Wrap = styled.div`
 
 const Buttons = styled(Category)`
   width: 100%;
-  margin: 50px auto;
+  margin: 20px auto;
   display: flex;
   align-items: center;
 `;

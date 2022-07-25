@@ -75,6 +75,7 @@ const EditPost = () => {
 
   const files = useSelector((state) => state.image.fileList);
   const previewList = useSelector((state) => state.image.previewList);
+  const deleteImage = useSelector((state) => state.image.deleteList);
   const post = useSelector((state) => state.post.Post);
   const isLogin = useSelector((state) => state.user.isLogin);
 
@@ -117,7 +118,7 @@ const EditPost = () => {
         setImageNotLoaded(false);
       }
     }
-  }, [post]);
+  }, []);
 
   let frm = new FormData();
 
@@ -142,9 +143,11 @@ const EditPost = () => {
       return false;
     }
 
-    if ((type === "review" || type === "lookbook") && files.length < 1) {
-      alert("사진 없음");
-      return false;
+    if (type === "review" || type === "lookbook") {
+      if (files.length < 1) {
+        alert("사진 없음");
+        return false;
+      }
     }
 
     // 1번 방법 => api 설계서와 동일하게 보내기
@@ -173,12 +176,16 @@ const EditPost = () => {
     });
 
     let key = {
-      imageUrl: imageUrl,
       postCategory: type,
       category: category,
       content: contentRef.current.value,
     };
-
+    if (imageUrl.length > 0) {
+      key = { ...key, imageUrl: imageUrl };
+    }
+    if (deleteImage.length > 0) {
+      key = { ...key, deleteImage: deleteImage };
+    }
     if (type === "reform") {
       key = { ...key, region: region, process: "before" };
     }

@@ -124,7 +124,10 @@ const GreyWrap = styled.div`
 const WidthWrap = styled.div`
   max-width: ${({ theme }) => theme.width.listWidth};
   margin: 0 auto;
-  padding: 0 40px;
+  padding: 0 16px;
+  @media ${({ theme }) => theme.device.mobile} {
+    padding: 0 40px;
+  }
 `;
 
 const Buttons = styled(Category)`

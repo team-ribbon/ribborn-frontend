@@ -96,6 +96,7 @@ const Footer = () => {
 const Wrap = styled.footer`
   width: 100%;
   height: 560px;
+  margin-top: 60px;
   z-index: 10;
   background-color: ${({ theme }) => theme.colors.lighterGray};
   @media ${({ theme }) => theme.device.mobile} {

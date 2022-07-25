@@ -37,61 +37,70 @@ const DesignSection = ({ postList }) => {
 
   return (
     <Wrap>
-      <TopWrap>
-        <DesktopTitle>놓치면 안되는 리폼 디자이너 🔥</DesktopTitle>
-        <MobileTitle>놓치면 안되는</MobileTitle>
-        <MobileTitle> 리폼 디자이너 🔥</MobileTitle>
-        <More
-          onClick={() => {
-            navigate("/lookbook");
-          }}
-        >
-          더보기
-        </More>
-      </TopWrap>
-      <SliderWrap>
-        <Slider
-          onMouseDown={onDragStart}
-          onMouseMove={onDragMove}
-          onMouseUp={onDragEnd}
-          onMouseLeave={onDragEnd}
-          ref={scrollRef}
-        >
-          <Box />
-          {postList.map((postObj) => {
-            return (
-              <PostWrap>
-                <CardB postObj={postObj} isMain hot ket={postObj.id} />
-              </PostWrap>
-            );
-          })}
-        </Slider>
+      <Background>
+        <TopWrap>
+          <DesktopTitle>놓치면 안되는 리폼 디자이너 🔥</DesktopTitle>
+          <MobileTitle>놓치면 안되는</MobileTitle>
+          <MobileTitle> 리폼 디자이너 🔥</MobileTitle>
+          <More
+            onClick={() => {
+              navigate("/lookbook");
+            }}
+          >
+            더보기
+          </More>
+        </TopWrap>
+        <SliderWrap>
+          <Slider
+            onMouseDown={onDragStart}
+            onMouseMove={onDragMove}
+            onMouseUp={onDragEnd}
+            onMouseLeave={onDragEnd}
+            ref={scrollRef}
+          >
+            <Box />
+            {postList.map((postObj) => {
+              return (
+                <PostWrap key={"design" + postObj.id}>
+                  <CardB postObj={postObj} isMain hot />
+                </PostWrap>
+              );
+            })}
+          </Slider>
 
-        <ArrowLeft
-          onClick={() => {
-            scrollRef.current.scrollLeft -= 500;
-          }}
-        >
-          <ArrowLeftSVG />
-        </ArrowLeft>
-        <ArrowRight
-          onClick={() => {
-            scrollRef.current.scrollLeft += 500;
-          }}
-        >
-          <ArrowRightSVG />
-        </ArrowRight>
-      </SliderWrap>
+          <ArrowLeft
+            onClick={() => {
+              scrollRef.current.scrollLeft -= 500;
+            }}
+          >
+            <ArrowLeftSVG />
+          </ArrowLeft>
+          <ArrowRight
+            onClick={() => {
+              scrollRef.current.scrollLeft += 500;
+            }}
+          >
+            <ArrowRightSVG />
+          </ArrowRight>
+        </SliderWrap>
+      </Background>
     </Wrap>
   );
 };
 
 const Wrap = styled.section`
   max-width: ${({ theme }) => theme.width.maxWidth};
-  background-color: ${({ theme }) => theme.colors.darkBlue};
+  background-image: url("./images/space.png");
   height: calc(346px + 80vw);
   margin: 70px auto 90px auto;
   z-index: -10;
+  @media all and (min-width: 500px) {
+    height: 776px;
+  }
+`;
+const Background = styled.div`
+  background-color: rgba(50, 47, 90, 0.55);
+  height: calc(346px + 80vw);
   @media all and (min-width: 500px) {
     height: 776px;
   }
@@ -143,6 +152,9 @@ const Box = styled.div`
   @media all and (min-width: 563px) {
     width: 120px;
   }
+  @media screen and (max-width: ${({ theme }) => theme.deviceSizes.mobile}) {
+    width: 20px;
+  }
 `;
 const Slider = styled.div`
   height: 450px;
@@ -150,7 +162,6 @@ const Slider = styled.div`
   overflow-x: scroll;
   overflow-y: hidden;
   white-space: nowrap;
-
   scroll-behavior: smooth;
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -165,6 +176,9 @@ const PostWrap = styled.div`
   @media all and (min-width: 500px) {
     width: 450px;
   }
+  @media screen and (max-width: ${({ theme }) => theme.deviceSizes.mobile}) {
+    margin-right: 20px;
+  }
 `;
 const ArrowLeft = styled.div`
   z-index: 1;
@@ -173,6 +187,9 @@ const ArrowLeft = styled.div`
   padding: 0 40px;
   @media all and (min-width: 500px) {
     top: 43%;
+  }
+  @media screen and (max-width: ${({ theme }) => theme.deviceSizes.mobile}) {
+    display: none;
   }
 `;
 const ArrowRight = styled(ArrowLeft)`

@@ -270,7 +270,7 @@ const TextArea = styled.div`
   resize: none;
   overflow: hidden;
   font-weight: 400;
-  font-size: 18px;
+  font-size: ${({ theme }) => theme.fontSizes.l};
   line-height: 28px;
   background-color: ${(props) => (props.white ? "" : "#222")};
   color: ${(props) => (props.white ? "#222" : "#fff")};

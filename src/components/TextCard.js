@@ -146,7 +146,7 @@ const Title = styled.p`
 
 const PostProcess = styled.button`
   font-weight: 400;
-  font-size: 12px;
+  font-size: ${({ theme }) => theme.fontSizes.s};
   line-height: 14px;
   height: 27px;
   width: 59px;
@@ -165,7 +165,7 @@ const PostProcess = styled.button`
 const Content = styled.p`
   display: none;
   font-weight: 400;
-  font-size: 15px;
+  font-size: ${({ theme }) => theme.fontSizes.m};
   line-height: 28px;
   overflow: hidden;
   height: 80px;
@@ -202,7 +202,7 @@ const RowFlexDiv = styled.div`
 
 const Like = styled.p`
   font-weight: 400;
-  font-size: 12px;
+  font-size: ${({ theme }) => theme.fontSizes.s};
   line-height: 14px;
   margin-right: 20px;
   margin-left: 8px;
@@ -215,7 +215,7 @@ const LikeDiv = styled.div`
 
 const Comment = styled.p`
   font-weight: 400;
-  font-size: 12px;
+  font-size: ${({ theme }) => theme.fontSizes.s};
   line-height: 14px;
   margin-right: 40px;
   margin-left: 8px;
@@ -223,17 +223,18 @@ const Comment = styled.p`
 
 const PostUserId = styled.p`
   font-weight: 700;
-  font-size: 15px;
+  font-size: ${({ theme }) => theme.fontSizes.s};
   line-height: 18px;
   margin-right: 10px;
   @media ${({ theme }) => theme.device.mobile} {
     margin-right: 40px;
+    font-size: ${({ theme }) => theme.fontSizes.l};
   }
 `;
 
 const PostCategory = styled.button`
   font-weight: 700;
-  font-size: 11px;
+  font-size: ${({ theme }) => theme.fontSizes.s};
   line-height: 14px;
   height: 29px;
   width: 77px;

@@ -39,7 +39,7 @@ const Main = () => {
           <Link to="/review/clothes">
             <LinkDiv>
               <NavButton>
-                <ClothesImg src="./Clothes.png" />
+                <ClothesImg src="./images/clothes.png" />
               </NavButton>
               <NavSpan>옷 리뷰</NavSpan>
             </LinkDiv>
@@ -47,7 +47,7 @@ const Main = () => {
           <Link to="/review/furniture">
             <LinkDiv>
               <NavButton>
-                <FurnituresImg src="./Furnitures.png" />
+                <FurnituresImg src="./images/furnitures.png" />
               </NavButton>
               <NavSpan>가구 리뷰</NavSpan>
             </LinkDiv>
@@ -55,7 +55,7 @@ const Main = () => {
           <Link to="/review/shoes">
             <LinkDiv>
               <NavButton>
-                <ShoesImg src="./Shoes.png" />
+                <ShoesImg src="./images/shoes.png" />
               </NavButton>
               <NavSpan>신발 리뷰</NavSpan>
             </LinkDiv>
@@ -63,7 +63,7 @@ const Main = () => {
           <Link to="/review/bags">
             <LinkDiv>
               <NavButton>
-                <BagsImg src="./Bags.png" />
+                <BagsImg src="./images/bags.png" />
               </NavButton>
               <NavSpan>가방 리뷰</NavSpan>
             </LinkDiv>
@@ -71,7 +71,7 @@ const Main = () => {
           <Link to="/review/goods">
             <LinkDiv>
               <NavButton>
-                <GoodsImg src="./Goods.png" />
+                <GoodsImg src="./images/goods.png" />
               </NavButton>
               <NavSpan>기타 리뷰</NavSpan>
             </LinkDiv>
@@ -131,11 +131,14 @@ const Main = () => {
 
 const MainWrap = styled.div`
   max-width: ${({ theme }) => theme.width.maxWidth};
-  padding: 50px 40px 0 40px;
+  padding: 50px 16px 0 16px;
   margin: 0 auto 0 auto;
   font-weight: 400;
   font-size: ${({ theme }) => theme.fontSizes.m};
   line-height: 18px;
+  @media ${({ theme }) => theme.device.mobile} {
+    padding: 50px 40px 0 40px;
+  }
 `;
 const MainNavWrap = styled.div`
   max-width: ${({ theme }) => theme.width.maxWidth};
@@ -147,7 +150,10 @@ const MainNavWrap = styled.div`
 `;
 const BannerWrap = styled.div`
   max-width: ${({ theme }) => theme.width.maxWidth};
-  margin: 10px auto 0 auto;
+  margin: 0 auto 0 auto;
+  @media ${({ theme }) => theme.device.mobile} {
+    margin: 10px auto 0 auto;
+  }
 `;
 const Banner = styled.img`
   height: ${({ type }) => (type === "A" ? "480px" : "350px")};
@@ -175,7 +181,7 @@ const Nav = styled.nav`
     grid-column-gap: 16px;
   }
   @media all and (min-width: 1312px) {
-    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    grid-template-columns: repeat(8, minmax(140px, 1fr));
     grid-column-gap: 16px;
   }
 `;

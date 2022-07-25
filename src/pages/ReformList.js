@@ -137,9 +137,10 @@ const WidthWrap = styled.div`
   max-width: ${({ theme }) => theme.width.listWidth};
   width: 100%;
   margin: 0 auto;
-  padding: 0 40px;
-  display: flex;
-  flex-direction: column;
+  padding: 0 16px;
+  @media ${({ theme }) => theme.device.mobile} {
+    padding: 0 40px;
+  }
 `;
 
 const LCategory = styled(Category)`

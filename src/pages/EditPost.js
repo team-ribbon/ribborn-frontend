@@ -75,6 +75,7 @@ const EditPost = () => {
 
   const files = useSelector((state) => state.image.fileList);
   const previewList = useSelector((state) => state.image.previewList);
+  const deleteImage = useSelector((state) => state.image.deleteList);
   const post = useSelector((state) => state.post.Post);
   const isLogin = useSelector((state) => state.user.isLogin);
 
@@ -117,7 +118,7 @@ const EditPost = () => {
         setImageNotLoaded(false);
       }
     }
-  }, [post]);
+  }, []);
 
   let frm = new FormData();
 
@@ -182,7 +183,9 @@ const EditPost = () => {
     if (imageUrl.length > 0) {
       key = { ...key, imageUrl: imageUrl };
     }
-
+    if (deleteImage.length > 0) {
+      key = { ...key, deleteImage: deleteImage };
+    }
     if (type === "reform") {
       key = { ...key, region: region, process: "before" };
     }

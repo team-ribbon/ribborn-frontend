@@ -208,7 +208,7 @@ const LeftPostDiv = styled.div`
 const RightPostDiv = styled.div`
   display: none;
   @media ${({ theme }) => theme.device.mobile} {
-    display: initial;
+    display: inherit;
     width: 330px;
     position: relative;
   }
@@ -216,7 +216,7 @@ const RightPostDiv = styled.div`
 
 const Navbar = styled.div`
   position: absolute;
-  top: ${(props) => (props.myPost ? "-350px" : "-250px")};
+  margin-top: 200px;
 `;
 
 const MobilePostRightBtnWrap = styled.div`
@@ -262,7 +262,7 @@ const Grid = styled.div`
 `;
 
 const TextArea = styled.div`
-  text-align: ${(props) => (props.white ? "left" : "center")};
+  text-align: left;
   border: none;
   width: 100%;
   height: auto;

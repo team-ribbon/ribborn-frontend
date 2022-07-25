@@ -96,12 +96,12 @@ const WritePost = () => {
     }
 
     if (type !== "lookbook" && title.length < 1) {
-      alert("제목 없음");
+      titleRef.current.focus();
       return false;
     }
 
     if (contentRef.current.value.length < 1) {
-      alert("내용 없음");
+      contentRef.current.focus();
       return false;
     }
 

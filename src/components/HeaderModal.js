@@ -56,21 +56,25 @@ const HeaderModal = ({ isLogin, user }) => {
             </span>
             <HR />
             {isLogin ? (
-              <span
-                onClick={() => {
-                  setIsModalOn(false);
-                }}
-              >
-                <Link to="/mypage">{user.nickname}님의 마이페이지</Link>
-              </span>
+              <Link to="/mypage">
+                <span
+                  onClick={() => {
+                    setIsModalOn(false);
+                  }}
+                >
+                  마이페이지
+                </span>
+              </Link>
             ) : (
-              <span
-                onClick={() => {
-                  setIsModalOn(false);
-                }}
-              >
-                <Link to="/login">마이페이지</Link>
-              </span>
+              <Link to="/login">
+                <span
+                  onClick={() => {
+                    setIsModalOn(false);
+                  }}
+                >
+                  마이페이지
+                </span>
+              </Link>
             )}
             <HR />
             <span
@@ -94,21 +98,25 @@ const HeaderModal = ({ isLogin, user }) => {
               </span>
             ) : (
               <div>
-                <span
-                  onClick={() => {
-                    setIsModalOn(false);
-                  }}
-                >
-                  <Link to="/signup">회원가입</Link>
-                </span>
-                <span
-                  onClick={() => {
-                    setIsModalOn(false);
-                  }}
-                >
-                  <HR />
-                  <Link to="/login">로그인</Link>
-                </span>
+                <Link to="/signup">
+                  <span
+                    onClick={() => {
+                      setIsModalOn(false);
+                    }}
+                  >
+                    회원가입
+                  </span>
+                </Link>
+                <HR />
+                <Link to="/login">
+                  <span
+                    onClick={() => {
+                      setIsModalOn(false);
+                    }}
+                  >
+                    로그인
+                  </span>
+                </Link>
               </div>
             )}
           </Modal>
@@ -132,6 +140,8 @@ const Dim = styled.div`
 
 const Wrap = styled.div`
   float: right;
+  overflow: hidden;
+  touch-action: none;
 `;
 
 const ButtonWrap = styled.div`
@@ -158,24 +168,12 @@ const Modal = styled.div`
   flex-direction: column;
   span {
     font-size: ${({ theme }) => theme.fontSizes.m};
-    line-height: 18px;
     cursor: pointer;
     margin-left: 16px;
     display: block;
     word-break: keep-all;
+    padding: 15px 0;
   }
-
-  /* &::after {
-    content: "";
-    position: absolute;
-    right: 50px;
-    margin-top: -25px;
-    border-top: 30px solid none;
-    border-bottom: 25px solid red;
-    border-right: 30px solid transparent;
-    border-left: 30px solid transparent;
-    box-shadow: 2px -2px 2px 0 rgba(178, 178, 178, 0.14);
-  } */
 `;
 
 const XDiv = styled.div`
@@ -183,7 +181,7 @@ const XDiv = styled.div`
 `;
 
 const HR = styled.div`
-  margin: 15px 0;
+  /* margin: 15px 0; */
   border-top: 1px solid #ececec;
 `;
 export default HeaderModal;

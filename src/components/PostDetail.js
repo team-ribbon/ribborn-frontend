@@ -28,13 +28,17 @@ const PostDetail = ({ qna, post, userId, postId }) => {
           <Community>{qna ? "질문과 답변" : "리폼 후기"}</Community>
           <Title>{post.title}</Title>
           <IDDiv>
-            <ID onClick={() => navigate(`/userdetail/${post.userid}`)}>
-              @{post.nickname}
-            </ID>
-            <CircleDiv />
-            <Time>{TimeCalculator(post.createAt)}</Time>
+            <RowDiv>
+              <ID onClick={() => navigate(`/userdetail/${post.userid}`)}>
+                @{post.nickname}
+              </ID>
+              <CircleDiv />
+              <Time>{TimeCalculator(post.createAt)}</Time>
+            </RowDiv>
             {userId === post.userid ? (
-              <MyPostButtons postType={qna ? "qna" : "review"} id={post.id} />
+              <RowDiv>
+                <MyPostButtons postType={qna ? "qna" : "review"} id={post.id} />
+              </RowDiv>
             ) : null}
           </IDDiv>
           <TagDiv>
@@ -165,9 +169,18 @@ const IDDiv = styled.div`
   margin-top: 16px;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
   @media ${({ theme }) => theme.device.mobile} {
     justify-content: left;
+    flex-direction: row;
   }
+`;
+
+const RowDiv = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
 `;
 
 const ID = styled.p`

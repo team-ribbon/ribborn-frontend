@@ -76,6 +76,55 @@ const PostFooter = ({
     dispatch(modifyCommentDB(id, commentId, modifyInputCurrent.current.value));
   };
 
+  const borderActive = () => {
+    const CommentSection = document.getElementById("commentSection");
+    CommentSection.style.border = "1px solid #222222";
+  };
+  const borderDisAbled = () => {
+    const CommentSection = document.getElementById("commentSection");
+    CommentSection.style.border = "1px solid #f2f2f2";
+  };
+  const modifyBorderActive = () => {
+    const CommentSection = document.getElementById("modifyCommentSection");
+    CommentSection.style.border = "1px solid #222222";
+  };
+  const modifyBorderDisAbled = () => {
+    const CommentSection = document.getElementById("modifyCommentSection");
+    CommentSection.style.border = "1px solid #f2f2f2";
+  };
+
+  React.useEffect(() => {
+    const CommentInput = document.getElementById("messageInput");
+    CommentInput.addEventListener("focus", borderActive);
+    CommentInput.addEventListener("blur", borderDisAbled);
+    return () => {
+      CommentInput.removeEventListener("focus", borderActive);
+      CommentInput.removeEventListener("blur", borderDisAbled);
+    };
+  }, []);
+
+  React.useEffect(() => {
+    const CommentInput = document.getElementById("modifyMessageInput");
+    if (CommentInput) {
+      CommentInput.addEventListener("focus", modifyBorderActive);
+      CommentInput.addEventListener("blur", modifyBorderDisAbled);
+    }
+    return () => {
+      if (CommentInput) {
+        CommentInput.removeEventListener("focus", modifyBorderActive);
+        CommentInput.removeEventListener("blur", modifyBorderDisAbled);
+      }
+    };
+  }, [changingComment]);
+
+  const modifyCommentCancel = () => {
+    const CommentInput = document.getElementById("modifyMessageInput");
+    if (CommentInput) {
+      CommentInput.removeEventListener("focus", modifyBorderActive);
+      CommentInput.removeEventListener("blur", modifyBorderDisAbled);
+    }
+  };
+
   return (
     commentsList && (
       <PostFooterWrap>
@@ -83,7 +132,7 @@ const PostFooter = ({
         <CommentDiv>
           <CommentCount>댓글 </CommentCount>
           <BoldCommentCount>{commentCount}</BoldCommentCount>
-          <MessageCover>
+          <MessageCover id="commentSection">
             <MessageInput
               placeholder="기분 좋은 말 한마디는 모두에게 긍정적인 에너지를 줘요 :)"
               id="messageInput"
@@ -119,6 +168,7 @@ const PostFooter = ({
                           left={true}
                           moreWidth={true}
                           onClick={() => {
+                            modifyCommentCancel();
                             setChangingComment(null);
                           }}
                         >
@@ -138,7 +188,7 @@ const PostFooter = ({
                 </CommentFistLine>
                 <CreatedAt>{TimeCalculator(v.createAt)}</CreatedAt>
                 {changingComment === i ? (
-                  <MessageCover>
+                  <MessageCover id="modifyCommentSection">
                     <MessageInput
                       defaultValue={v.comment}
                       id="modifyMessageInput"
@@ -148,6 +198,7 @@ const PostFooter = ({
                     <MessageBtn
                       onClick={() => {
                         modifyComment(v.id);
+                        modifyCommentCancel();
                         setChangingComment(null);
                       }}
                     >
@@ -213,9 +264,9 @@ const MessageCover = styled.section`
 const MessageInput = styled.input`
   position: absolute;
   top: 50%;
-  left: 2px;
+  left: 7px;
   height: 46px;
-  width: calc(100% - 67px);
+  width: calc(100% - 72px);
   border: transparent;
   background-color: transparent;
   transform: translate(0%, -50%);
@@ -223,6 +274,9 @@ const MessageInput = styled.input`
   &:focus {
     outline: none;
     box-shadow: none;
+  }
+  &::placeholder {
+    color: ${({ theme }) => theme.colors.gray};
   }
   @media ${({ theme }) => theme.device.mobile} {
     font-size: ${({ theme }) => theme.fontSizes.m};

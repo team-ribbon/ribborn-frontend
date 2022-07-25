@@ -1,7 +1,6 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import {
-  Link,
   useLocation,
   useMatch,
   useNavigate,
@@ -13,6 +12,7 @@ import { getRoomListDB } from "../redux/modules/chat";
 import ChatRoom from "./ChatRoom";
 
 import { OrangeChatSVG, XSVG } from "../elements/SVG";
+import ChatRoomList from "./ChatRoomList";
 
 // 채팅 모달
 const ChatModal = () => {
@@ -21,11 +21,16 @@ const ChatModal = () => {
   const location = useLocation();
   const isMatchChat = useMatch("/chat");
   const { roomId } = useParams();
-
-  const roomList = useSelector((state) => state.chat.roomList);
+  const [isEmpty, setIsEmpty] = useState(false);
 
   const onClickClose = () => {
     navigate(location.state.backgroundLocation);
+  };
+
+  const onClickBack = () => {
+    navigate("/chat", {
+      state: { backgroundLocation: location.state.backgroundLocation },
+    });
   };
 
   useEffect(() => {
@@ -49,46 +54,45 @@ const ChatModal = () => {
     <FloatWrap>
       <Dim />
       <Wrap>
-        <LeftWrap>
-          <Title>채팅</Title>
+        <LeftWrap isRoom={roomId}>
+          <Title>
+            채팅
+            <span onClick={onClickClose}>
+              <XSVG />
+            </span>
+          </Title>
           <ListWrap>
-            {roomList.map((room) => (
-              <Link
-                to={`/chat/${room.roomId}`}
-                key={room.roomId}
-                state={{
-                  backgroundLocation: location.state.backgroundLocation,
-                }}
-              >
-                <List>
-                  <Nickname>{room?.nickname}</Nickname>
-                  <Date>{room?.date}</Date>
-                  <Message>{room?.message}</Message>
-                </List>
-              </Link>
-            ))}
+            <ChatRoomList
+              location={location}
+              roomId={roomId}
+              setIsEmpty={setIsEmpty}
+              isEmpty={isEmpty}
+            />
           </ListWrap>
         </LeftWrap>
-        <RoomWrap>
-          <CloseBtn onClick={onClickClose}>
-            <XSVG />
-          </CloseBtn>
+        <RoomWrap isRoom={roomId}>
           {isMatchChat && (
             <HelpMessage>
               <div>
                 <OrangeChatSVG />
               </div>
-              {roomList.length > 0 ? (
+              {isEmpty ? (
+                <>채팅 내역이 없습니다.</>
+              ) : (
                 <>
                   왼쪽 채팅 목록을 클릭하여 <br />
                   채팅 내용을 확인해주세요!
                 </>
-              ) : (
-                "채팅 내역이 없습니다."
               )}
             </HelpMessage>
           )}
           {roomId && <ChatRoom roomId={roomId} />}
+          <Header isRoom={roomId}>
+            <span onClick={onClickClose}>
+              <XSVG />
+            </span>
+            {roomId && <div onClick={onClickBack}>{"<"}</div>}
+          </Header>
         </RoomWrap>
       </Wrap>
     </FloatWrap>
@@ -114,8 +118,6 @@ const Wrap = styled.div`
   position: fixed;
   top: 50%;
   left: 50%;
-  min-width: 468px;
-  min-height: 400px;
   width: 75%;
   height: 82%;
   max-width: 1360px;
@@ -124,51 +126,75 @@ const Wrap = styled.div`
   background-color: #fff;
   display: flex;
   border-radius: 24px;
+  @media screen and (max-width: 768px) {
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+  }
 `;
 const Title = styled.div`
   margin: 30px;
   font-weight: 700;
   font-size: ${({ theme }) => theme.fontSizes.xl};
+  display: flex;
+  justify-content: space-between;
+  span {
+    cursor: pointer;
+    @media screen and (min-width: 768px) {
+      display: none;
+    }
+  }
 `;
 const LeftWrap = styled.div`
   width: 33%;
+  @media screen and (max-width: 768px) {
+    display: ${({ isRoom }) => isRoom && "none"};
+    width: ${({ isRoom }) => !isRoom && "100%"};
+  }
 `;
 const ListWrap = styled.div`
   height: 80%;
   overflow-y: auto;
   border-top: 1px solid ${({ theme }) => theme.colors.gray};
 `;
-const List = styled.div`
-  display: flex;
-  flex-flow: wrap;
-  justify-content: space-between;
-  gap: 20px;
-  padding: 30px;
-  border-bottom: 1px solid ${({ theme }) => theme.colors.gray};
-`;
-const Nickname = styled.div`
-  font-size: ${({ theme }) => theme.fontSizes.l};
-  font-weight: 700;
-`;
-const Date = styled.div`
-  color: ${({ theme }) => theme.colors.gray};
-`;
-const Message = styled.div`
-  width: 100%;
-  color: ${({ theme }) => theme.colors.gray};
-`;
 const RoomWrap = styled.div`
-  position: relative;
+  padding-top: 45px;
   width: 67%;
   display: flex;
   flex-direction: column-reverse;
   border-left: 1px solid ${({ theme }) => theme.colors.gray};
+  position: relative;
+  @media screen and (max-width: 768px) {
+    display: ${({ isRoom }) => !isRoom && "none"};
+    width: ${({ isRoom }) => isRoom && "100%"};
+  }
 `;
-const CloseBtn = styled.div`
+const Header = styled.div`
+  background-color: #fff;
+  width: 100%;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
   position: absolute;
-  right: 30px;
-  top: 30px;
-  cursor: pointer;
+  padding: 20px 20px 15px 0;
+  border-radius: 30px 30px 0 0;
+  top: 0;
+  @media screen and (max-width: 768px) {
+    padding: 20px 20px 5px 0;
+  }
+  span {
+    cursor: pointer;
+    padding-top: 5px;
+  }
+  div {
+    cursor: pointer;
+    font-size: 35px;
+    font-weight: 100;
+    padding-left: 20px;
+    @media screen and (min-width: 768px) {
+      display: none;
+    }
+  }
 `;
 const HelpMessage = styled.div`
   font-size: ${({ theme }) => theme.fontSizes.xl};

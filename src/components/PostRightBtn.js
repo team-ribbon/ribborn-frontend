@@ -45,9 +45,9 @@ const PostRightBtn = ({ noshare, id, liked, likeCount, lookbook }) => {
         }}
       >
         {liked ? (
-          <HiHeart size="26" color="#FF8C28" />
+          <HiHeart size="24" color="#FF8C28" />
         ) : (
-          <HiOutlineHeart size="22" />
+          <HiOutlineHeart size="24" />
         )}
       </Button>
       <LikeCount>{likeCount}</LikeCount>
@@ -60,7 +60,7 @@ const PostRightBtn = ({ noshare, id, liked, likeCount, lookbook }) => {
               setShareClicked(!shareClicked);
             }}
           >
-            <HiOutlineShare size="24" color={shareClicked ? "white" : "#222"} />
+            <HiOutlineShare size="26" color={shareClicked ? "white" : "#222"} />
           </Button>
           {shareClicked ? (
             <ShareClickedDiv>

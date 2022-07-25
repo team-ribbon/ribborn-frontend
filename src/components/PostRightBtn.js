@@ -1,8 +1,13 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { HiOutlineShare, HiOutlineHeart, HiHeart } from "react-icons/hi";
-import { AiOutlineCopy } from "react-icons/ai";
 import { FaFacebookF } from "react-icons/fa";
+import {
+  LikeHeartSVG,
+  OrangeHeartSVG,
+  ShareSVG,
+  ShareClickedSVG,
+  LinkSVG,
+} from "../elements/SVG";
 import { useDispatch, useSelector } from "react-redux";
 import { likePostDB } from "../redux/modules/post";
 
@@ -44,11 +49,7 @@ const PostRightBtn = ({ noshare, id, liked, likeCount, lookbook }) => {
           likeIt();
         }}
       >
-        {liked ? (
-          <HiHeart size="24" color="#FF8C28" />
-        ) : (
-          <HiOutlineHeart size="24" />
-        )}
+        {liked ? <OrangeHeartSVG /> : <LikeHeartSVG />}
       </Button>
       <LikeCount>{likeCount}</LikeCount>
       {!noshare && (
@@ -60,7 +61,7 @@ const PostRightBtn = ({ noshare, id, liked, likeCount, lookbook }) => {
               setShareClicked(!shareClicked);
             }}
           >
-            <HiOutlineShare size="26" color={shareClicked ? "white" : "#222"} />
+            {shareClicked ? <ShareClickedSVG /> : <ShareSVG />}
           </Button>
           {shareClicked ? (
             <ShareClickedDiv>
@@ -72,7 +73,7 @@ const PostRightBtn = ({ noshare, id, liked, likeCount, lookbook }) => {
                   setShareClicked(false);
                 }}
               >
-                <FaFacebookF size="18" color="white" />
+                <FaFacebookF size="22" color="white" />
               </Button>
               <Button
                 small={true}
@@ -82,7 +83,7 @@ const PostRightBtn = ({ noshare, id, liked, likeCount, lookbook }) => {
                   setShareClicked(false);
                 }}
               >
-                <AiOutlineCopy size="18" color="white" />
+                <LinkSVG />
               </Button>
             </ShareClickedDiv>
           ) : null}

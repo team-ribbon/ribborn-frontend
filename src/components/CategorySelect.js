@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { IoIosArrowDown } from "react-icons/io";
 
 import Categories from "../shared/Categories";
+import { ThinArrowSVG } from "../elements/SVG";
 
 const CategorySelect = ({ setCategory, category, write }) => {
   const [isModalOn, setIsModalOn] = useState(false);
@@ -26,24 +27,25 @@ const CategorySelect = ({ setCategory, category, write }) => {
 
   return (
     <Wrap ref={outsideRef}>
-      <ButtonWrap onClick={() => setIsModalOn((prev) => !prev)}>
+      <ButtonWrap
+        onClick={() => setIsModalOn((prev) => !prev)}
+        isModalOn={isModalOn}
+      >
         {category === 0 && (
           <>
             <Text>리폼종류</Text>
-            <IoIosArrowDown
-              size="22"
-              style={{ marginLeft: "auto", marginRight: "10px" }}
-            />
+            <div>
+              <ThinArrowSVG />
+            </div>
           </>
         )}
         {Categories.map((v) => {
           return category === v.value ? (
             <>
               <Text>{v.text}</Text>
-              <IoIosArrowDown
-                size="22"
-                style={{ marginLeft: "auto", marginRight: "10px" }}
-              />
+              <div>
+                <ThinArrowSVG />
+              </div>
             </>
           ) : null;
         })}
@@ -79,23 +81,26 @@ const Wrap = styled.div`
 const ButtonWrap = styled.div`
   display: flex;
   cursor: pointer;
-  width: 100%;
+  width: 120px;
   height: 44px;
   border: 1px solid #afb0b3;
   border-radius: 15px;
-  :active {
-    border: none;
-  }
   outline: none;
-  text-align: center;
   align-items: center;
+  justify-content: space-between;
+  padding: 0 10px;
+  div {
+    transform: ${({ isModalOn }) =>
+      isModalOn ? "rotate(180deg)" : "rotate(0deg)"};
+  }
   @media all and (max-width: 320px) {
     height: 50px;
-    padding: 5px;
+    padding: 0 10px;
   }
   @media ${({ theme }) => theme.device.mobile} {
     width: ${(props) => (props.left ? "179px" : "187px")};
-    margin-left: ${(props) => (props.left ? "auto" : "30px")};
+    /* margin-left: ${(props) => (props.left ? "auto" : "30px")}; */
+    padding: 0 20px;
     height: 54px;
   }
 `;
@@ -104,10 +109,8 @@ const Text = styled.span`
   font-weight: 400;
   font-size: ${({ theme }) => theme.fontSizes.m};
   line-height: 20px;
-  margin: auto 5px auto 6px;
   @media ${({ theme }) => theme.device.mobile} {
     font-size: ${({ theme }) => theme.fontSizes.l};
-    margin: auto 48px auto 18px;
   }
 `;
 
@@ -130,7 +133,7 @@ const Modal = styled.div`
   @media ${({ theme }) => theme.device.mobile} {
     height: 270px;
     width: 170px;
-    left: 40px;
+    left: 10px;
     span {
       font-size: ${({ theme }) => theme.fontSizes.l};
       margin: 30px 0 0 30px;

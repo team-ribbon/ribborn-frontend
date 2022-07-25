@@ -37,7 +37,10 @@ const PostDetail = ({ qna, post, userId, postId }) => {
             </RowDiv>
             {userId === post.userid ? (
               <RowDiv>
-                <MyPostButtons postType={qna ? "qna" : "review"} id={post.id} />
+                <MyPostButtons
+                  postType={qna ? "qna" : "review"}
+                  id={post.userid}
+                />
               </RowDiv>
             ) : null}
           </IDDiv>

@@ -39,7 +39,7 @@ const Main = () => {
           <Link to="/review/clothes">
             <LinkDiv>
               <NavButton>
-                <ClothesImg src="./Clothes.png" />
+                <ClothesImg src="./images/clothes.png" />
               </NavButton>
               <NavSpan>옷 리뷰</NavSpan>
             </LinkDiv>
@@ -47,7 +47,7 @@ const Main = () => {
           <Link to="/review/furniture">
             <LinkDiv>
               <NavButton>
-                <FurnituresImg src="./Furnitures.png" />
+                <FurnituresImg src="./images/furnitures.png" />
               </NavButton>
               <NavSpan>가구 리뷰</NavSpan>
             </LinkDiv>
@@ -55,7 +55,7 @@ const Main = () => {
           <Link to="/review/shoes">
             <LinkDiv>
               <NavButton>
-                <ShoesImg src="./Shoes.png" />
+                <ShoesImg src="./images/shoes.png" />
               </NavButton>
               <NavSpan>신발 리뷰</NavSpan>
             </LinkDiv>
@@ -63,7 +63,7 @@ const Main = () => {
           <Link to="/review/bags">
             <LinkDiv>
               <NavButton>
-                <BagsImg src="./Bags.png" />
+                <BagsImg src="./images/bags.png" />
               </NavButton>
               <NavSpan>가방 리뷰</NavSpan>
             </LinkDiv>
@@ -71,7 +71,7 @@ const Main = () => {
           <Link to="/review/goods">
             <LinkDiv>
               <NavButton>
-                <GoodsImg src="./Goods.png" />
+                <GoodsImg src="./images/goods.png" />
               </NavButton>
               <NavSpan>기타 리뷰</NavSpan>
             </LinkDiv>

@@ -35,6 +35,7 @@ const theme = {
   fontSizes,
   width,
   device,
+  deviceSizes,
 };
 
 export default theme;

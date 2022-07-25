@@ -8,10 +8,8 @@ import { MainBtn } from "../elements/Buttons";
 
 const ReformPostDetail = ({ post, userId, userType }) => {
   const scrollEvent = () => {
-    document.getElementById("navbar1").style.top =
-      window.pageYOffset - 100 + "px";
-    document.getElementById("navbar2").style.top =
-      window.pageYOffset - 100 + "px";
+    document.getElementById("navbar1").style.top = window.pageYOffset + "px";
+    document.getElementById("navbar2").style.top = window.pageYOffset + "px";
   };
   React.useEffect(() => {
     window.addEventListener("scroll", scrollEvent);
@@ -201,7 +199,7 @@ const LeftPostDiv = styled.div`
 
 const Navbar = styled.div`
   position: absolute;
-  top: -100px;
+  top: 0;
 `;
 
 const MobileInfoWrap = styled.div`

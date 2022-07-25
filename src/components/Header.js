@@ -37,7 +37,7 @@ const Header = () => {
                 navigate("/mypage");
               }}
             >
-              {user.nickname}님의 마이페이지
+              마이페이지
             </HeaderUserSpan>
           ) : (
             <HeaderUserSpan
@@ -85,7 +85,7 @@ const Header = () => {
         </UserNav>
       </NavWrap>
       <CategoryNav>
-        <Link to="/">🌈로고✨</Link>
+        <Link to="/">RIBBORN</Link>
         <div>
           <Community isCommunity={isCommunity}>
             <Link to="/review">커뮤니티</Link>
@@ -137,8 +137,8 @@ const UserNav = styled.nav`
   display: flex;
   flex-direction: row;
   justify-content: right;
+  align-items: center;
 `;
-
 const NavWrap = styled.div`
   border-bottom: 1px solid ${({ theme }) => theme.colors.lightGray};
   padding: 8px 0 6px 0;
@@ -152,7 +152,6 @@ const NavWrap = styled.div`
     display: inherit;
   }
 `;
-
 const HeaderUserSpan = styled.span`
   margin-top: 2px;
   font-weight: 400;
@@ -162,8 +161,9 @@ const HeaderUserSpan = styled.span`
     cursor: pointer;
   }
 `;
-
-const HeaderBellDiv = styled.div``;
+const HeaderBellDiv = styled.div`
+  padding-top: 1px;
+`;
 
 const CategoryNav = styled.nav`
   max-width: ${({ theme }) => theme.width.maxWidth};
@@ -193,23 +193,17 @@ const Lookbook = styled.span`
 const Reform = styled.span`
   ${({ isReform }) => isReform && Active}
 `;
-
 const MobileWrap = styled.div`
   padding: 54px 0 0 0;
   margin-bottom: 10px;
-  span {
-    padding-bottom: 7px;
-  }
   @media ${({ theme }) => theme.device.mobile} {
     display: none;
   }
 `;
-
 const TopWrap = styled.div`
   padding: 0 16px 10px 16px;
   border-bottom: 1px solid ${({ theme }) => theme.colors.lightGray};
 `;
-
 const BottomWrap = styled.div`
   display: flex;
   justify-content: center;

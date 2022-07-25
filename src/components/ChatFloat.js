@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Link, useLocation, useMatch } from "react-router-dom";
 import styled from "styled-components";
@@ -8,7 +9,34 @@ import { SmileChatSVG } from "../elements/SVG";
 const ChatFloat = () => {
   const location = useLocation();
   const isChatModalOn = useMatch("/chat/*");
-  const user = useSelector((state) => state.user.user.username);
+  const user = useSelector((state) => state.user.user);
+
+  // useEffect(() => {
+  //   if (user) {
+  //     // 구독 요청
+  //     const eventSource = new EventSource(
+  //       `${process.env.REACT_APP_CHAT_URL}/user/subscribe/${user.id}`
+  //       // `${process.env.REACT_APP_CHAT_URL}/sub/notification/`
+  //     );
+
+  //     // 연결 성공 시 실행
+  //     eventSource.onopen = () => {
+  //       console.log("연결 성공");
+  //     };
+
+  //     // 에러 발생 시 실행
+  //     eventSource.onerror = (error) => {
+  //       console.log("에러 :", error);
+  //       eventSource.close();
+  //     };
+
+  //     // 서버에서 보내는 데이터 받기
+  //     eventSource.onmessage = (message) => {
+  //       const parsedData = JSON.parse(message.data);
+  //       console.log("parsedData", parsedData);
+  //     };
+  //   }
+  // }, [user]);
 
   return (
     <>
@@ -35,8 +63,8 @@ const FloatWrap = styled.div`
   right: 30px;
 `;
 const ChatButton = styled.div`
-  width: 100px;
-  height: 100px;
+  width: 67px;
+  height: 67px;
   border-radius: 50px;
   border: none;
   background: #ffffff;
@@ -45,7 +73,7 @@ const ChatButton = styled.div`
   cursor: pointer;
   div {
     text-align: center;
-    padding-top: 20px;
+    padding-top: 14px;
   }
   span {
     display: block;

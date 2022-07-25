@@ -1,24 +1,26 @@
 import SockJS from "sockjs-client";
 import Stomp from "stompjs";
-
-import { useDispatch, useSelector } from "react-redux";
-import styled from "styled-components";
 import { useEffect, useRef } from "react";
-import { addMessage } from "../redux/modules/chat";
+import { useDispatch, useSelector } from "react-redux";
+import { useLocation, useParams } from "react-router-dom";
+import styled from "styled-components";
+
+import { addMessage, updateRoomMessage } from "../redux/modules/chat";
 import ChatList from "./ChatList";
 import { Input } from "../elements/Inputs";
 import { MainBtn } from "../elements/Buttons";
-import { useParams } from "react-router-dom";
 
 // 채팅 모달 > 채팅방
 const ChatRoom = () => {
   const dispatch = useDispatch();
+  const location = useLocation();
   const { roomId } = useParams();
   const user = useSelector((state) => state.user.user);
   let stompClient = useRef(null);
 
+  // 웹소켓 연결 요청 & 구독 요청
   const socketConnect = () => {
-    const webSocket = new SockJS(`${process.env.REACT_CHAT_URL}/ws-stomp`);
+    const webSocket = new SockJS(`${process.env.REACT_APP_CHAT_URL}/ws-stomp`);
     stompClient = Stomp.over(webSocket);
     stompClient.connect(
       {
@@ -26,42 +28,31 @@ const ChatRoom = () => {
         type: "TALK",
       },
       () => {
-        // console.log(client.ws.readyState);
         stompClient.subscribe(
           `/sub/chat/room/${roomId}`,
           (response) => {
             const messageFromServer = JSON.parse(response.body);
-            console.log(messageFromServer);
-            //     //     // {"messageId":21,"senderId":2,"message":"fffff","date":"2022-05-09T21:58:58.756","isRead":false,"type":"TALK"}
-            //     //     if (messageFromServer.type === "TALK") {
-            //     //       // dispatch(addMessage(messageFromServer));
-            //     //     } else if (messageFromServer.type === "FULL") {
-            //     //       // dispatch(changeRoomtype('FULL'));
-            //     //     }
+            dispatch(addMessage(messageFromServer));
           },
           { Authorization: `Bearer ${localStorage.getItem("token")}` }
         );
-        // const data = {
-        //   roomId: roomId,
-        //   type: "IN",
-        // };
-        // stompClient.send(
-        //   `/pub/chat/connect-status`,
-        //   { Authorization: `Bearer ${localStorage.getItem("token")}` },
-        //   JSON.stringify(data)
-        // );
       }
     );
   };
+
+  // 웹소켓 연결 해제
   const socketDisconnect = () => {
-    if (stompClient) stompClient.disconnect();
+    stompClient.disconnect();
   };
+
+  // 메시지 전송
   const sendMessage = (event) => {
     event.preventDefault();
     if (event.target.chat.value === "") return false;
 
-    const chatData = {
+    const messageObj = {
       roomId: roomId,
+      senderId: user.id,
       message: event.target.chat.value,
       isRead: false,
       type: "TALK",
@@ -70,36 +61,27 @@ const ChatRoom = () => {
     stompClient.send(
       `/pub/chat/message`,
       { Authorization: `Bearer ${localStorage.getItem("token")}` },
-      JSON.stringify(chatData)
+      JSON.stringify(messageObj)
     );
-
-    const data = {
-      id: Math.random(),
-      senderId: user.id,
-      date: "12:12",
-      message: event.target.chat.value,
-      nickname: user.nickname,
-    };
-
-    dispatch(addMessage(data));
-
+    dispatch(updateRoomMessage({ ...messageObj, index: location.state.index }));
     event.target.chat.value = null;
   };
 
   useEffect(() => {
+    // 채팅방 전환 시 기존 연결 해제 후 새 연결 요청
     if (stompClient.current) {
-      console.log(stompClient);
       socketDisconnect();
     }
     socketConnect();
+
+    // 언마운트 시 연결 해제
     return () => {
       socketDisconnect();
     };
   }, [roomId]);
 
   return (
-    <div>
-      <ChatList roomId={roomId} />
+    <>
       <ChatInputWrap>
         <form onSubmit={sendMessage}>
           <ChatInput
@@ -110,7 +92,8 @@ const ChatRoom = () => {
           <SendButton>보내기</SendButton>
         </form>
       </ChatInputWrap>
-    </div>
+      <ChatList />
+    </>
   );
 };
 

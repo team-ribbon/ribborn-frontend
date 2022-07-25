@@ -37,11 +37,14 @@ const LookBookPostDetail = ({ post, userId, postId, userType }) => {
       alert("로그인 후에 이용할 수 있습니다.");
       return false;
     }
-    const response = await apis.addRoom(post.userid);
-    console.log(response);
-    navigate(`/chat/${response.data}`, {
-      state: { backgroundLocation: location },
-    });
+    try {
+      const response = await apis.addRoom(post.userid);
+      navigate(`/chat/${response.data}`, {
+        state: { backgroundLocation: location },
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

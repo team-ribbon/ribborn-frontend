@@ -11,7 +11,7 @@ const colors = {
 };
 
 const fontSizes = {
-  s: "11px",
+  s: "12px",
   m: "14px",
   l: "18px",
   xl: "27px",

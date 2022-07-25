@@ -68,12 +68,6 @@ const QnADetail = () => {
         inView={inView}
         loadedEverything={loadedEverything}
       />
-      <PostRightBtn
-        noshare={true}
-        id={params.postId}
-        liked={post && post.liked}
-        likeCount={post && post.likeCount}
-      />
     </Template>
   );
 };

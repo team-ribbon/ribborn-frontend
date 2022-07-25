@@ -131,11 +131,14 @@ const Main = () => {
 
 const MainWrap = styled.div`
   max-width: ${({ theme }) => theme.width.maxWidth};
-  padding: 50px 40px 0 40px;
+  padding: 50px 16px 0 16px;
   margin: 0 auto 0 auto;
   font-weight: 400;
   font-size: ${({ theme }) => theme.fontSizes.m};
   line-height: 18px;
+  @media ${({ theme }) => theme.device.mobile} {
+    padding: 50px 40px 0 40px;
+  }
 `;
 const MainNavWrap = styled.div`
   max-width: ${({ theme }) => theme.width.maxWidth};
@@ -147,7 +150,10 @@ const MainNavWrap = styled.div`
 `;
 const BannerWrap = styled.div`
   max-width: ${({ theme }) => theme.width.maxWidth};
-  margin: 10px auto 0 auto;
+  margin: 0 auto 0 auto;
+  @media ${({ theme }) => theme.device.mobile} {
+    margin: 10px auto 0 auto;
+  }
 `;
 const Banner = styled.img`
   height: ${({ type }) => (type === "A" ? "480px" : "350px")};
@@ -175,7 +181,7 @@ const Nav = styled.nav`
     grid-column-gap: 16px;
   }
   @media all and (min-width: 1312px) {
-    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    grid-template-columns: repeat(8, minmax(140px, 1fr));
     grid-column-gap: 16px;
   }
 `;

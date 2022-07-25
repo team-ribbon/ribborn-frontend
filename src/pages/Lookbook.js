@@ -121,7 +121,10 @@ const Lookbook = () => {
 const Wrap = styled.div`
   max-width: ${({ theme }) => theme.width.listWidth};
   margin: 0 auto 60px auto;
-  padding: 0 40px;
+  padding: 0 16px;
+  @media ${({ theme }) => theme.device.mobile} {
+    padding: 0 40px;
+  }
 `;
 const TopWrap = styled.div`
   display: flex;

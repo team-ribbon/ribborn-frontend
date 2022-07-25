@@ -140,9 +140,8 @@ const Navbar = styled.div`
 const MobileNavbar = styled.div`
   height: fit-content;
   position: fixed;
-  right: 80px;
-  bottom: 180px;
-  transform: translate(50%, 0);
+  right: 16px;
+  bottom: 30%;
   @media ${({ theme }) => theme.device.mobile} {
     display: none;
   }

@@ -112,14 +112,14 @@ const Button = styled.div`
   margin-bottom: 5px;
   cursor: pointer;
   background-color: ${(props) => props.color};
-  z-index: 1;
+  z-index: 20;
 `;
 
 const LikeCount = styled.span`
   font-weight: 400;
   font-size: ${({ theme }) => theme.fontSizes.m};
   line-height: 14px;
-  z-index: 1;
+  z-index: 20;
 `;
 
 const HR = styled.hr`
@@ -129,7 +129,7 @@ const HR = styled.hr`
   border-left: none;
   border-right: none;
   margin: 30px auto 30px auto;
-  z-index: 1;
+  z-index: 20;
 `;
 
 const ShareClickedDiv = styled.div`
@@ -137,6 +137,7 @@ const ShareClickedDiv = styled.div`
   flex-direction: row;
   margin-top: 12px;
   gap: 10px;
+  z-index: 20;
 `;
 
 export default PostRightBtn;

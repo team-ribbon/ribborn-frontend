@@ -242,7 +242,7 @@ const PostCategory = styled.button`
   border-radius: 8px;
   margin-right: 10px;
   @media ${({ theme }) => theme.device.mobile} {
-    margin-right: 30px;
+    margin-right: 16px;
   }
 `;
 

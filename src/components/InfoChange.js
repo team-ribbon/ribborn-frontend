@@ -124,7 +124,9 @@ const InfoChange = ({ change, user, setCategory }) => {
     dispatch(changeMyDataDB(sendData)).then((res) => {
       console.log(sendData);
       setCategory("all");
-      change(false);
+      if (res === true) {
+        change(false);
+      }
     });
   };
 

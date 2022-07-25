@@ -5,6 +5,7 @@ import styled from "styled-components";
 import {
   deleteFile,
   deletePreview,
+  collectDeleteInfo,
   uploadFile,
   uploadPreview,
 } from "../redux/modules/image";
@@ -67,6 +68,8 @@ const ImageUpload = ({ type, edit }) => {
   const onClickEditDelete = (file, index) => {
     if (file.slice(0, 4) === "data") {
       dispatch(deleteFile(index.toString()));
+    } else {
+      dispatch(collectDeleteInfo(file));
     }
     dispatch(deletePreview(index.toString()));
   };

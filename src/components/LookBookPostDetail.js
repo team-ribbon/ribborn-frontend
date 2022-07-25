@@ -262,7 +262,7 @@ const Grid = styled.div`
 `;
 
 const TextArea = styled.div`
-  text-align: ${(props) => (props.white ? "left" : "center")};
+  text-align: left;
   border: none;
   width: 100%;
   height: auto;

@@ -26,7 +26,7 @@ const QnADetail = () => {
 
   const post = useSelector((state) => state.post.Post);
   const commentsList = useSelector((state) => state.post.Comments);
-  const userId = useSelector((state) => state.user.user.id);
+  const userId = useSelector((state) => state.user.user?.id);
   const loadedEverything = useSelector((state) => state.post.loadedEverything);
 
   React.useEffect(() => {

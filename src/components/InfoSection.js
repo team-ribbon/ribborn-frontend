@@ -16,7 +16,7 @@ const InfoSection = ({ reform, region, category }) => {
             ) : null;
           })}
         </ReformCategoryDiv>
-        <VerticalLineDiv />
+        <VerticalLineDiv reform={reform} />
         <LocationDiv>
           <InfoTitleSpan>
             {reform ? "📍 의뢰 위치" : "📍 스튜디오 위치"}
@@ -83,7 +83,8 @@ const ReformCategoryDiv = styled.div`
 
 const VerticalLineDiv = styled.div`
   margin-top: 27px;
-  border-left: 1px solid #f2f2f2;
+  border-left: ${(props) =>
+    props.reform ? "1px solid #f2f2f2" : "1px solid #AFB0B3"};
   border-bottom: none;
   border-top: none;
   border-right: none;

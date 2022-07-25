@@ -57,10 +57,14 @@ function UserDetail() {
 const Template = styled.div`
   max-width: ${({ theme }) => theme.width.maxWidth};
   margin: 0 auto;
-  padding: 40px 40px 0 40px;
+  padding: 40px 16px 0 16px;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
+  @media ${({ theme }) => theme.device.mobile} {
+    flex-direction: row;
+    padding: 40px 40px 0 40px;
+  }
 `;
 
 export default UserDetail;

@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, Outlet, useMatch } from "react-router-dom";
 import styled from "styled-components";
-import { SubBtn, SubBtnActive } from "../elements/Buttons";
+import { FixedSizeSubBtn, SubBtnActive } from "../elements/Buttons";
 
 const Signup = () => {
   const isMain = useMatch("/signup");
@@ -28,8 +28,9 @@ const Signup = () => {
   );
 };
 const Wrap = styled.div`
-  max-width: 700px;
+  max-width: 740px;
   margin: 0 auto 150px auto;
+  padding: 0 20px;
   h1 {
     text-align: center;
     font-size: ${({ theme }) => theme.fontSizes.xl};
@@ -37,14 +38,15 @@ const Wrap = styled.div`
     margin: 90px 0 50px 0;
   }
 `;
-const TypeBtn = styled(SubBtn)`
+const TypeBtn = styled(FixedSizeSubBtn)`
   ${(props) => props?.isUser && SubBtnActive}
   ${(props) => props?.isTech && SubBtnActive}
   margin-right: 25px;
+  margin-bottom: 20px;
 `;
 const HelpWrap = styled.div`
   text-align: center;
-  margin: 70px 0 400px 0;
+  margin: 50px 0 400px 0;
 `;
 const Eye = styled.div`
   width: 130px;

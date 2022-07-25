@@ -40,7 +40,6 @@ const ImageUpload = ({ type, edit }) => {
         reader.onloadend = () => {
           dispatch(uploadPreview(reader.result));
         };
-        fileRef.current.value = null;
       }
     }
     function validation(obj) {
@@ -48,20 +47,25 @@ const ImageUpload = ({ type, edit }) => {
 
       if (obj.name.length > 100) {
         alert("파일명이 100자 이상인 파일은 업로드할 수 없습니다.");
+        fileRef.current.value = null;
         return false;
-      } else if (obj.size > 100 * 1024 * 1024) {
-        alert("100MB까지 업로드 가능합니다.");
+      } else if (obj.size > 20 * 1024 * 1024) {
+        alert("20MB까지 업로드 가능합니다.");
+        fileRef.current.value = null;
         return false;
       } else if (obj.name.lastIndexOf(".") === -1) {
         alert("JPEG, JPG, PNG, WEBP 파일만 업로드 가능합니다.");
+        fileRef.current.value = null;
         return false;
       } else if (!fileTypes.includes(obj.type)) {
         alert("JPEG, JPG, PNG, WEBP 파일만 업로드 가능합니다.");
+        fileRef.current.value = null;
         return false;
       } else {
         return true;
       }
     }
+    fileRef.current.value = null;
   };
 
   const onClickEditDelete = (file, index) => {
@@ -75,6 +79,7 @@ const ImageUpload = ({ type, edit }) => {
     dispatch(deleteFile(event.target.id));
     dispatch(deletePreview(event.target.id));
   };
+
   return (
     <div>
       <Wrap>
@@ -120,18 +125,19 @@ const ImageUpload = ({ type, edit }) => {
   );
 };
 const Wrap = styled.div`
-  position: relative;
   display: flex;
   flex-direction: column;
 `;
 const Label = styled.label`
-  position: absolute;
-  left: -264px;
-  width: 240px;
-  top: 32px;
+  margin: 20px 0 10px 0;
+  width: fit-content;
+  @media all and (min-width: 1250px) {
+    position: absolute;
+    left: -230px;
+    top: 35px;
+  }
 `;
 const FileInput = styled.div`
-  margin-left: 49px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -140,13 +146,12 @@ const FileInput = styled.div`
   height: 64px;
   border: 1px solid #afb0b3;
   border-radius: 15px;
-  /* display: ${(props) => (props.preview > 1 ? "none" : "flex")}; */
   cursor: pointer;
 `;
 const FileInputPlus = styled.span`
   font-size: ${({ theme }) => theme.fontSizes.xl};
   margin-right: 10px;
-  height: 32px;
+  font-weight: 100;
 `;
 const FileInputText = styled.span`
   font-weight: 400;
@@ -155,9 +160,8 @@ const FileInputText = styled.span`
 `;
 const FileText = styled.span`
   font-weight: 700;
-  font-size: 15px;
+  font-size: 14px;
   line-height: 28px;
-  text-align: right;
   color: rgba(34, 34, 34, 0.7);
 `;
 const PreviewWrap = styled.div`
@@ -169,12 +173,14 @@ const Preview = styled.img`
   width: 100%;
 `;
 const DeleteButton = styled.span`
-  background-color: #fff;
-  padding: 5px;
-
+  padding: 20px;
   position: absolute;
-  bottom: 3px;
-  right: 0;
+  bottom: 20px;
+  right: 20px;
+  background: rgba(34, 34, 34, 0.7);
+  border-radius: 15px;
+  color: #fff;
+  font-size: ${({ theme }) => theme.fontSizes.l};
   cursor: pointer;
 `;
 export default ImageUpload;

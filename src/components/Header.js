@@ -1,7 +1,8 @@
 import React from "react";
-import { Link, useMatch } from "react-router-dom";
+import { Link, useMatch, useNavigate } from "react-router-dom";
 import styled, { css } from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
+import { VscBell } from "react-icons/vsc";
 import { clearUserInfo } from "../redux/modules/user";
 import HeaderModal from "./HeaderModal";
 
@@ -19,35 +20,67 @@ const Header = () => {
   const isReform = isReform1 || isReform2;
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const isLogin = useSelector((state) => state.user.isLogin);
+  const user = useSelector((state) => state.user.user);
 
   return (
     <HeaderWrap>
       <NavWrap>
         <UserNav>
+          <HeaderBellDiv>
+            <VscBell size="18" />
+          </HeaderBellDiv>
           {isLogin ? (
-            <>
-              <HeaderUserSpan>
-                <Link to="/mypage">마이페이지</Link>
+            <HeaderUserSpan
+              onClick={() => {
+                navigate("/mypage");
+              }}
+            >
+              {user.nickname}님의 마이페이지
+            </HeaderUserSpan>
+          ) : (
+            <HeaderUserSpan
+              onClick={() => {
+                navigate("/login");
+              }}
+            >
+              마이페이지
+            </HeaderUserSpan>
+          )}
+          <HeaderUserSpan
+            onClick={() => {
+              isLogin ? navigate("/mypage") : navigate("/login");
+            }}
+          >
+            관심 리폼
+          </HeaderUserSpan>
+          {isLogin ? (
+            <HeaderUserSpan
+              onClick={() => {
+                localStorage.removeItem("token");
+                dispatch(clearUserInfo());
+              }}
+            >
+              로그아웃
+            </HeaderUserSpan>
+          ) : (
+            <div>
+              <HeaderUserSpan
+                onClick={() => {
+                  !isLogin && navigate("/signup");
+                }}
+              >
+                회원가입
               </HeaderUserSpan>
               <HeaderUserSpan
                 onClick={() => {
-                  localStorage.removeItem("token");
-                  dispatch(clearUserInfo());
+                  !isLogin && navigate("/login");
                 }}
               >
-                로그아웃
+                로그인
               </HeaderUserSpan>
-            </>
-          ) : (
-            <>
-              <HeaderUserSpan>
-                <Link to="/signup">회원가입</Link>
-              </HeaderUserSpan>
-              <HeaderUserSpan>
-                <Link to="/login">로그인</Link>
-              </HeaderUserSpan>
-            </>
+            </div>
           )}
         </UserNav>
       </NavWrap>
@@ -68,7 +101,7 @@ const Header = () => {
       <MobileWrap>
         <TopWrap>
           <Link to="/">RIBBORN</Link>
-          <HeaderModal isLogin={isLogin} />
+          <HeaderModal isLogin={isLogin} user={user} />
         </TopWrap>
         <BottomWrap>
           <Community isCommunity={isCommunity}>
@@ -101,11 +134,14 @@ const UserNav = styled.nav`
   max-width: ${({ theme }) => theme.width.maxWidth};
   margin: 10px auto;
   padding: 0 40px;
+  display: flex;
+  flex-direction: row;
+  justify-content: right;
 `;
 
 const NavWrap = styled.div`
   border-bottom: 1px solid ${({ theme }) => theme.colors.lightGray};
-  padding: 8px 0;
+  padding: 8px 0 6px 0;
   text-align: end;
   display: none;
   font-size: ${({ theme }) => theme.fontSizes.s};
@@ -118,13 +154,16 @@ const NavWrap = styled.div`
 `;
 
 const HeaderUserSpan = styled.span`
+  margin-top: 2px;
   font-weight: 400;
-  font-size: 11px;
+  font-size: ${({ theme }) => theme.fontSizes.s};
   line-height: 14px;
   :hover {
     cursor: pointer;
   }
 `;
+
+const HeaderBellDiv = styled.div``;
 
 const CategoryNav = styled.nav`
   max-width: ${({ theme }) => theme.width.maxWidth};
@@ -142,7 +181,7 @@ const CategoryNav = styled.nav`
   }
 `;
 const Active = css`
-  border-bottom: 2px solid black;
+  border-bottom: 2px solid ${({ theme }) => theme.colors.black};
   font-weight: 700;
 `;
 const Community = styled.span`
@@ -156,15 +195,18 @@ const Reform = styled.span`
 `;
 
 const MobileWrap = styled.div`
-  padding: 54px 16px 0 16px;
+  padding: 54px 0 0 0;
   margin-bottom: 10px;
+  span {
+    padding-bottom: 7px;
+  }
   @media ${({ theme }) => theme.device.mobile} {
     display: none;
   }
 `;
 
 const TopWrap = styled.div`
-  padding-bottom: 10px;
+  padding: 0 16px 10px 16px;
   border-bottom: 1px solid ${({ theme }) => theme.colors.lightGray};
 `;
 

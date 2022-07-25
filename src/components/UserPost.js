@@ -250,14 +250,31 @@ const UserPost = ({
 };
 
 const UserPostDiv = styled.div`
-  margin-left: 37px;
-  width: calc(90vw - 200px);
+  margin-top: 30px;
+  width: 100%;
   display: flex;
   flex-direction: column;
+  @media ${({ theme }) => theme.device.mobile} {
+    margin-top: 0px;
+    margin-left: 37px;
+    width: calc(90vw - 200px);
+  }
+  @media all and (min-width: 768px) and (max-width: 1000px) {
+    margin-top: 0px;
+    margin-left: 37px;
+    width: 100%;
+  }
 `;
 
 const UserCategoryBtn = styled(SubBtn)`
-  margin: 0 30px 0 0;
+  margin-right: 10px;
+  @media ${({ theme }) => theme.device.mobile} {
+    margin-right: 20px;
+  }
+  @media all and (min-width: 768px) and (max-width: 1000px) {
+    padding: 20px 30px;
+    margin-top: 30px;
+  }
 `;
 
 const PostCollection = styled.div`
@@ -287,9 +304,17 @@ const CategoryTitle = styled.span`
 const Grid = styled.div`
   width: 100%;
   display: grid;
-  grid-gap: 40px;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 20px;
+  grid-template-columns: 1fr;
   margin: 20px auto;
+  @media all and (min-width: 850px) {
+    grid-gap: 20px;
+    grid-template-columns: 1fr 1fr;
+  }
+  @media all and (min-width: 1000px) {
+    grid-gap: 40px;
+    grid-template-columns: 1fr 1fr 1fr;
+  }
 `;
 
 export default UserPost;

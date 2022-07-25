@@ -79,11 +79,17 @@ function QnAList() {
         })}
       </Category>
       <Buttons>
-        {isLogin && (
-          <Link to="/write/qna">
-            <MainBtn>글쓰기</MainBtn>
-          </Link>
-        )}
+        <MainBtn
+          onClick={() => {
+            if (!isLogin) {
+              navigate("/login");
+              return false;
+            }
+            navigate("/write/qna");
+          }}
+        >
+          글쓰기
+        </MainBtn>
         <Sort setSort={setSort} sort={sort} />
       </Buttons>
       <PostCoverDiv>
@@ -102,7 +108,10 @@ function QnAList() {
 const Wrap = styled.div`
   max-width: ${({ theme }) => theme.width.listWidth};
   margin: 0 auto;
-  padding: 0 40px;
+  padding: 0 16px;
+  @media ${({ theme }) => theme.device.mobile} {
+    padding: 0 40px;
+  }
 `;
 
 const Buttons = styled(Category)`

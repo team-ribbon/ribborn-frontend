@@ -47,7 +47,7 @@ const PostRightBtn = ({ noshare, id, liked, likeCount, lookbook }) => {
         {liked ? (
           <HiHeart size="26" color="#FF8C28" />
         ) : (
-          <HiOutlineHeart size="26" />
+          <HiOutlineHeart size="22" />
         )}
       </Button>
       <LikeCount>{likeCount}</LikeCount>
@@ -60,7 +60,7 @@ const PostRightBtn = ({ noshare, id, liked, likeCount, lookbook }) => {
               setShareClicked(!shareClicked);
             }}
           >
-            <HiOutlineShare size="28" color={shareClicked ? "white" : "#222"} />
+            <HiOutlineShare size="24" color={shareClicked ? "white" : "#222"} />
           </Button>
           {shareClicked ? (
             <ShareClickedDiv>
@@ -72,7 +72,7 @@ const PostRightBtn = ({ noshare, id, liked, likeCount, lookbook }) => {
                   setShareClicked(false);
                 }}
               >
-                <FaFacebookF size="26" color="white" />
+                <FaFacebookF size="18" color="white" />
               </Button>
               <Button
                 small={true}
@@ -82,7 +82,7 @@ const PostRightBtn = ({ noshare, id, liked, likeCount, lookbook }) => {
                   setShareClicked(false);
                 }}
               >
-                <AiOutlineCopy size="26" color="white" />
+                <AiOutlineCopy size="18" color="white" />
               </Button>
             </ShareClickedDiv>
           ) : null}
@@ -102,8 +102,8 @@ const Cover = styled.div`
 
 const Button = styled.div`
   background-color: rgba(242, 242, 242, 1);
-  width: ${(props) => (props.small ? "45px" : "60px")};
-  height: ${(props) => (props.small ? "45px" : "60px")};
+  width: ${(props) => (props.small ? "38px" : "50px")};
+  height: ${(props) => (props.small ? "38px" : "50px")};
   border-radius: 50px;
   display: flex;
   flex-direction: column;
@@ -111,13 +111,15 @@ const Button = styled.div`
   align-items: center;
   margin-bottom: 5px;
   cursor: pointer;
-  background-color: ${(props) => props.color}; ;
+  background-color: ${(props) => props.color};
+  z-index: 1;
 `;
 
 const LikeCount = styled.span`
   font-weight: 400;
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSizes.m};
   line-height: 14px;
+  z-index: 1;
 `;
 
 const HR = styled.hr`
@@ -127,6 +129,7 @@ const HR = styled.hr`
   border-left: none;
   border-right: none;
   margin: 30px auto 30px auto;
+  z-index: 1;
 `;
 
 const ShareClickedDiv = styled.div`

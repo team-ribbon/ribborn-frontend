@@ -88,13 +88,23 @@ function ReformList() {
       </SelectDiv>
       <PostCoverDiv>
         <MainBtnDiv>
-          {isLogin && +user.userType === 0 && (
-            <Link to="/write/reform">
-              <MainBtn style={{ marginBottom: "20px" }}>견적 요청하기</MainBtn>
-            </Link>
-          )}
+          <MainBtn
+            onClick={() => {
+              if (!isLogin) {
+                navigate("/login");
+                return false;
+              }
+              if (+user.userType !== 0) {
+                alert("일반 회원만 작성할 수 있는 페이지입니다!");
+                return false;
+              }
+              navigate("/write/reform");
+            }}
+            style={{ marginBottom: "20px" }}
+          >
+            견적 요청하기
+          </MainBtn>
         </MainBtnDiv>
-
         {postlists.map((v, i) => {
           return i === postlists.length - 1 ? (
             <TextCard
@@ -118,7 +128,10 @@ const Wrap = styled.div`
   align-items: center;
   max-width: ${({ theme }) => theme.width.listWidth};
   margin: 0 auto;
-  padding: 0 40px;
+  padding: 0 16px;
+  @media ${({ theme }) => theme.device.mobile} {
+    padding: 0 40px;
+  }
 `;
 
 const LCategory = styled(Category)`

@@ -72,7 +72,7 @@ const SignupAgree = forwardRef(({ setAgreeError }, ref) => {
             style={{ display: "none" }}
           />
           {agreeAll ? <CheckSVG /> : <CheckBox />}
-          <span>약관 전체동의</span>
+          <RuleSpan>약관 전체동의</RuleSpan>
         </Label>
 
         <Label htmlFor="agree1">
@@ -84,7 +84,7 @@ const SignupAgree = forwardRef(({ setAgreeError }, ref) => {
             style={{ display: "none" }}
           />
           {agree1 ? <CheckSVG /> : <CheckBox />}
-          <span>(필수) 만 14세 이상입니다.</span>
+          <RuleSpan>(필수) 만 14세 이상입니다.</RuleSpan>
         </Label>
         <div>
           <Label htmlFor="agree2">
@@ -96,9 +96,8 @@ const SignupAgree = forwardRef(({ setAgreeError }, ref) => {
               style={{ display: "none" }}
             />
             {agree2 ? <CheckSVG /> : <CheckBox />}
-            <span>(필수) 이용약관</span>
+            <RuleSpan>(필수) 이용약관</RuleSpan>
           </Label>
-
           <ShowContent
             onClick={() => {
               setRuleModal(true);
@@ -107,6 +106,13 @@ const SignupAgree = forwardRef(({ setAgreeError }, ref) => {
             내용보기
           </ShowContent>
         </div>
+        <MobileShowContent
+          onClick={() => {
+            setRuleModal(true);
+          }}
+        >
+          내용보기
+        </MobileShowContent>
         <div>
           <Label htmlFor="agree3">
             <input
@@ -117,7 +123,7 @@ const SignupAgree = forwardRef(({ setAgreeError }, ref) => {
               style={{ display: "none" }}
             />
             {agree3 ? <CheckSVG /> : <CheckBox />}
-            <span>(필수) 개인정보수집 및 이용동의</span>
+            <RuleSpan>(필수) 개인정보수집 및 이용동의</RuleSpan>
           </Label>
           <ShowContent
             onClick={() => {
@@ -127,6 +133,13 @@ const SignupAgree = forwardRef(({ setAgreeError }, ref) => {
             내용보기
           </ShowContent>
         </div>
+        <MobileShowContent
+          onClick={() => {
+            setInfoModal(true);
+          }}
+        >
+          내용보기
+        </MobileShowContent>
       </Wrap>
     </>
   );
@@ -157,12 +170,33 @@ const CheckBox = styled.span`
   border-radius: 8px;
 `;
 const ShowContent = styled.span`
+  display: none;
   text-decoration: underline;
   color: ${({ theme }) => theme.colors.gray};
   cursor: pointer;
+  @media ${({ theme }) => theme.device.mobile} {
+    display: inherit;
+  }
+`;
+const MobileShowContent = styled.span`
+  text-decoration: underline;
+  color: ${({ theme }) => theme.colors.gray};
+  cursor: pointer;
+  margin-left: 85px;
+  @media ${({ theme }) => theme.device.mobile} {
+    display: none;
+  }
 `;
 const ModalWrap = styled.div`
   position: relative;
+`;
+
+const RuleSpan = styled.span`
+  font-weight: 400;
+  font-size: ${({ theme }) => theme.fontSizes.l};
+  line-height: 24px;
+  word-break: keep-all;
+  max-width: calc(100vw - 135px);
 `;
 
 export default SignupAgree;

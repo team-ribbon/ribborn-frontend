@@ -11,7 +11,7 @@ const colors = {
 };
 
 const fontSizes = {
-  s: "11px",
+  s: "12px",
   m: "14px",
   l: "18px",
   xl: "27px",
@@ -24,7 +24,6 @@ const width = {
 
 const deviceSizes = {
   mobile: "768px",
-  laptop: "1024px",
 };
 
 const device = {
@@ -36,6 +35,7 @@ const theme = {
   fontSizes,
   width,
   device,
+  deviceSizes,
 };
 
 export default theme;

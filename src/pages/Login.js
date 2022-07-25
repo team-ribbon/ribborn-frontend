@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { loginDB } from "../redux/modules/user";
-import { BlackBtn } from "../elements/Buttons";
+import { FixedSizeBlackBtn } from "../elements/Buttons";
 import { HelpText, Input, InputTitle } from "../elements/Inputs";
 
 const Login = () => {
@@ -53,9 +53,9 @@ const Login = () => {
         />
         <HelpText>{errors?.password?.message}</HelpText>
         <ButtonWrap>
-          <BlackBtn disabled={errors?.password || errors?.username}>
+          <FixedSizeBlackBtn disabled={errors?.password || errors?.username}>
             로그인
-          </BlackBtn>
+          </FixedSizeBlackBtn>
         </ButtonWrap>
       </form>
       <ButtonWrap>
@@ -67,8 +67,9 @@ const Login = () => {
   );
 };
 const Wrap = styled.div`
-  max-width: 700px;
+  max-width: 740px;
   margin: 0 auto 150px auto;
+  padding: 0 20px;
   h1 {
     text-align: center;
     font-size: ${({ theme }) => theme.fontSizes.xl};

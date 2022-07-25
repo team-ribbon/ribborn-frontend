@@ -48,6 +48,19 @@ const ReformPostDetail = ({ post, userId, userType }) => {
             <Time>{TimeCalculator(post.createAt)}</Time>
           </IDDiv>
           <PostProcess process={post.process}>{process}</PostProcess>
+          <MobileInfoWrap>
+            <InfoSection
+              reform={true}
+              region={post.region}
+              category={post.category}
+            />
+            <MyButtonsWrap>
+              {userId === post.userid ? (
+                <MyPostButtons postType="lookbook" id={post.id} />
+              ) : null}
+            </MyButtonsWrap>
+            {+userType === 1 ? <ChattingBtn>채팅하기</ChattingBtn> : null}
+          </MobileInfoWrap>
         </HeaderWrap>
         <BodyWrap>
           <LeftPostDiv>
@@ -74,6 +87,7 @@ const ReformPostDetail = ({ post, userId, userType }) => {
                   : "http://openimage.interpark.com/goods_image_big/1/4/1/9/9090461419_l.jpg"
               }
             />
+            <MobileTextArea>{post.content}</MobileTextArea>
             {post.image.map((v, i) => {
               return i !== 0 ? <Image alt="card" src={v} /> : null;
             })}
@@ -90,9 +104,12 @@ const ReformPostDetail = ({ post, userId, userType }) => {
 };
 
 const Wrap = styled.div`
-  width: 1314px;
+  width: 100%;
   max-width: ${({ theme }) => theme.width.maxWidth};
   margin: 60px auto 0 auto;
+  @media ${({ theme }) => theme.device.mobile} {
+    width: 1392px;
+  }
 `;
 
 const HeaderWrap = styled.div`
@@ -104,7 +121,7 @@ const HeaderWrap = styled.div`
 
 const Community = styled.p`
   font-weight: 400;
-  font-size: 18px;
+  font-size: ${({ theme }) => theme.fontSizes.l};
   line-height: 24px;
   color: #222222;
 `;
@@ -126,9 +143,12 @@ const IDDiv = styled.div`
 
 const ID = styled.p`
   font-weight: 400;
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSizes.m};
   line-height: 18px;
   color: #afb0b3;
+  :hover {
+    cursor: pointer;
+  }
 `;
 
 const CircleDiv = styled.div`
@@ -140,7 +160,7 @@ const CircleDiv = styled.div`
 
 const Time = styled.p`
   font-weight: 400;
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSizes.m};
   line-height: 18px;
   color: #afb0b3;
   margin-right: 34px;
@@ -165,17 +185,29 @@ const PostProcess = styled.button`
 `;
 
 const BodyWrap = styled.div`
-  display: grid;
-  grid-template-columns: 346px 700px 346px;
+  @media ${({ theme }) => theme.device.mobile} {
+    display: grid;
+    grid-template-columns: 346px 700px 346px;
+  }
 `;
 
 const LeftPostDiv = styled.div`
-  position: relative;
+  display: none;
+  @media ${({ theme }) => theme.device.mobile} {
+    display: initial;
+    position: relative;
+  }
 `;
 
 const Navbar = styled.div`
   position: absolute;
   top: -100px;
+`;
+
+const MobileInfoWrap = styled.div`
+  @media ${({ theme }) => theme.device.mobile} {
+    display: none;
+  }
 `;
 
 const MyButtonsWrap = styled.div`
@@ -192,8 +224,13 @@ const ChattingBtn = styled(MainBtn)`
 `;
 
 const CenterPostDiv = styled.div`
-  width: 700px;
+  width: 100%;
+  max-width: 700px;
   text-align: center;
+  margin: 0 auto;
+  @media ${({ theme }) => theme.device.mobile} {
+    width: 700px;
+  }
 `;
 
 const RightPostDiv = styled.div`
@@ -208,14 +245,24 @@ const Image = styled.img`
 
 const TextArea = styled.div`
   border: none;
-  width: 100%;
+  width: calc(100% - 16px);
   height: auto;
   resize: none;
   overflow: hidden;
   font-weight: 400;
-  font-size: 18px;
+  font-size: ${({ theme }) => theme.fontSizes.l};
   line-height: 28px;
   margin: 48px 38px auto 16px;
+`;
+
+const MobileTextArea = styled.div`
+  width: calc(100% - 16px);
+  font-weight: 400;
+  font-size: ${({ theme }) => theme.fontSizes.l};
+  line-height: 28px;
+  @media ${({ theme }) => theme.device.mobile} {
+    display: none;
+  }
 `;
 
 export default ReformPostDetail;

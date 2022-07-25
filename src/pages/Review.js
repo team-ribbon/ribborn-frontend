@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useInView } from "react-intersection-observer";
 import styled, { css } from "styled-components";
 import CardA from "../components/CardA";
@@ -16,6 +16,7 @@ import Categories from "../shared/Categories";
 
 const Review = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const postList = useSelector((state) => state.post.PostList);
   const loadedEverything = useSelector((state) => state.post.loadedEverything);
   const isLogin = useSelector((state) => state.user.isLogin);
@@ -79,11 +80,17 @@ const Review = () => {
         })}
       </Category>
       <Buttons>
-        {isLogin && (
-          <Link to="/write/review">
-            <MainBtn>글쓰기</MainBtn>
-          </Link>
-        )}
+        <MainBtn
+          onClick={() => {
+            if (!isLogin) {
+              navigate("/login");
+              return false;
+            }
+            navigate("/write/review");
+          }}
+        >
+          글쓰기
+        </MainBtn>
         <Sort setSort={setSort} sort={sort} />
       </Buttons>
       <Grid>
@@ -106,7 +113,10 @@ const Review = () => {
 const Wrap = styled.div`
   max-width: ${({ theme }) => theme.width.listWidth};
   margin: 0 auto;
-  padding: 0 40px;
+  padding: 0 16px;
+  @media ${({ theme }) => theme.device.mobile} {
+    padding: 0 40px;
+  }
 `;
 const Grid = styled.div`
   display: grid;

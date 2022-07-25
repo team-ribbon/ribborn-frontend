@@ -69,7 +69,8 @@ const Dim = styled.div`
 `;
 const ModalCover = styled.div`
   z-index: 101;
-  width: 700px;
+  max-width: 700px;
+  width: calc(100% - 40px);
   height: 600px;
   position: absolute;
   top: 50%;

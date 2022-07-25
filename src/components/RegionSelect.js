@@ -80,10 +80,7 @@ const ButtonWrap = styled.div`
   width: 100%;
   height: 44px;
   border: 1px solid #afb0b3;
-  border-radius: 15px;
-  :active {
-    border: none;
-  }
+  border-radius: 8px;
   outline: none;
   text-align: center;
   align-items: center;
@@ -95,10 +92,12 @@ const ButtonWrap = styled.div`
     width: ${(props) => (props.left ? "179px" : "187px")};
     margin-left: ${(props) => (props.left ? "auto" : "30px")};
     height: 54px;
+    border-radius: 15px;
   }
 `;
 
 const Text = styled.span`
+  word-break: keep-all;
   font-weight: 400;
   font-size: ${({ theme }) => theme.fontSizes.m};
   line-height: 20px;

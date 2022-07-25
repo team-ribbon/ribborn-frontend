@@ -7,7 +7,7 @@ import { signupDB, usernameCheckDB } from "../redux/modules/user";
 import SignupAgree from "./SignupAgree";
 import { AddressCategory } from "../shared/AddressCategory";
 import { HelpText, Input, InputTitle, Required } from "../elements/Inputs";
-import { BlackBtn } from "../elements/Buttons";
+import { FixedSizeBlackBtn } from "../elements/Buttons";
 import { Textarea } from "../elements/Textarea";
 import CustomSelect from "../elements/CustomSelect";
 
@@ -211,7 +211,7 @@ const SignupTech = () => {
         <HelpText>{errors?.introduction?.message}</HelpText>
         <SignupAgree ref={checkRef} setAgreeError={setAgreeError} />
         <HelpText>{agreeError}</HelpText>
-        <BlackBtn
+        <FixedSizeBlackBtn
           disabled={
             errors.username ||
             errors.password ||
@@ -224,7 +224,7 @@ const SignupTech = () => {
           }
         >
           회원가입
-        </BlackBtn>
+        </FixedSizeBlackBtn>
       </form>
     </Wrap>
   );

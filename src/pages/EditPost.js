@@ -183,7 +183,7 @@ const EditPost = () => {
     if (imageUrl.length > 0) {
       key = { ...key, imageUrl: imageUrl };
     }
-    if (deleteImage.length > 0) {
+    if (files.length === 0 || deleteImage.length > 0) {
       key = { ...key, deleteImage: deleteImage };
     }
     if (type === "reform") {

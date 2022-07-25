@@ -69,54 +69,58 @@ function ReformList() {
 
   return (
     <Wrap>
-      <LCategory category={category}>
-        {Categories.map((v) => {
-          return (
-            <SubBtn
-              key={"categoryBtn" + v.value}
-              id={v.value}
-              onClick={onClickCategory}
-            >
-              {v.text}
-            </SubBtn>
-          );
-        })}
-      </LCategory>
-      <SelectDiv isLogin={isLogin && +user.userType === 0}>
-        <ProcessSelect setProcess={setProcess} process={process} />
-        <RegionSelect setRegion={setRegion} region={region} />
-      </SelectDiv>
+      <WidthWrap>
+        <LCategory category={category}>
+          {Categories.map((v) => {
+            return (
+              <SubBtn
+                key={"categoryBtn" + v.value}
+                id={v.value}
+                onClick={onClickCategory}
+              >
+                {v.text}
+              </SubBtn>
+            );
+          })}
+        </LCategory>
+        <SelectDiv isLogin={isLogin && +user.userType === 0}>
+          <ProcessSelect setProcess={setProcess} process={process} />
+          <RegionSelect setRegion={setRegion} region={region} />
+        </SelectDiv>
+      </WidthWrap>
       <PostCoverDiv>
-        <MainBtnDiv>
-          <MainBtn
-            onClick={() => {
-              if (!isLogin) {
-                navigate("/login");
-                return false;
-              }
-              if (+user.userType !== 0) {
-                alert("일반 회원만 작성할 수 있는 페이지입니다!");
-                return false;
-              }
-              navigate("/write/reform");
-            }}
-            style={{ marginBottom: "20px" }}
-          >
-            견적 요청하기
-          </MainBtn>
-        </MainBtnDiv>
-        {postlists.map((v, i) => {
-          return i === postlists.length - 1 ? (
-            <TextCard
-              postObj={v}
-              key={"post" + v.id}
-              reform={true}
-              inViewRef={inViewRef}
-            />
-          ) : (
-            <TextCard postObj={v} key={"post" + v.id} reform={true} />
-          );
-        })}
+        <WidthWrap>
+          <MainBtnDiv>
+            <MainBtn
+              onClick={() => {
+                if (!isLogin) {
+                  navigate("/login");
+                  return false;
+                }
+                if (+user.userType !== 0) {
+                  alert("일반 회원만 작성할 수 있는 페이지입니다!");
+                  return false;
+                }
+                navigate("/write/reform");
+              }}
+              style={{ marginBottom: "20px" }}
+            >
+              견적 요청하기
+            </MainBtn>
+          </MainBtnDiv>
+          {postlists.map((v, i) => {
+            return i === postlists.length - 1 ? (
+              <TextCard
+                postObj={v}
+                key={"post" + v.id}
+                reform={true}
+                inViewRef={inViewRef}
+              />
+            ) : (
+              <TextCard postObj={v} key={"post" + v.id} reform={true} />
+            );
+          })}
+        </WidthWrap>
       </PostCoverDiv>
     </Wrap>
   );
@@ -126,9 +130,16 @@ const Wrap = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin: 0 auto;
+`;
+
+const WidthWrap = styled.div`
   max-width: ${({ theme }) => theme.width.listWidth};
+  width: 100%;
   margin: 0 auto;
   padding: 0 40px;
+  display: flex;
+  flex-direction: column;
 `;
 
 const LCategory = styled(Category)`
@@ -142,15 +153,14 @@ const SelectDiv = styled.div`
   margin-top: 42px;
   margin-left: auto;
   margin-bottom: 30px;
-  @media ${({ theme }) => theme.device.mobile} {
-    margin-bottom: ${(props) => (props.isLogin ? "0" : "30px")};
-  }
 `;
 
 const PostCoverDiv = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
+  padding: 30px 0 0 0;
+  background-color: ${({ theme }) => theme.colors.lighterGray};
 `;
 
 const MainBtnDiv = styled.div`

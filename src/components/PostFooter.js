@@ -81,7 +81,8 @@ const PostFooter = ({
       <PostFooterWrap>
         <HR />
         <CommentDiv>
-          <CommentCount>댓글 {commentCount}</CommentCount>
+          <CommentCount>댓글 </CommentCount>
+          <BoldCommentCount>{commentCount}</BoldCommentCount>
           <MessageCover>
             <MessageInput
               placeholder="기분 좋은 말 한마디는 모두에게 긍정적인 에너지를 줘요 :)"
@@ -165,6 +166,7 @@ const PostFooter = ({
 
 const PostFooterWrap = styled.div`
   margin-top: 70px;
+  justify-content: center;
 `;
 
 const CommentCount = styled.span`
@@ -173,10 +175,16 @@ const CommentCount = styled.span`
   line-height: 24px;
 `;
 
-const HR = styled.hr`
-  display: none;
+const BoldCommentCount = styled.span`
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 24px;
+`;
+
+const HR = styled.div`
+  margin: 0 auto 30px auto;
   width: 700px;
-  color: #f2f2f2;
+  border-top: 1px solid #f2f2f2;
   @media ${({ theme }) => theme.device.mobile} {
     display: inherit;
   }

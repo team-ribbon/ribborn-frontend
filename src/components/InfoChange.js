@@ -130,6 +130,7 @@ const InfoChange = ({ change, user, setCategory }) => {
 
   return (
     <Template>
+      <ChangeTitle>회원 정보 수정</ChangeTitle>
       <Form onSubmit={handleSubmit(onValid)}>
         <InputTitle>이메일 주소</InputTitle>
         <DisabledInput disabled value={user.username} />
@@ -317,6 +318,13 @@ const Template = styled.div`
   align-items: center;
   padding-top: 40px;
   max-width: ${({ theme }) => theme.width.maxWidth};
+`;
+
+const ChangeTitle = styled.span`
+  font-weight: 700;
+  font-size: ${({ theme }) => theme.fontSizes.xl};
+  line-height: 36px;
+  margin: 40px 0 58px 0;
 `;
 
 const DisabledInput = styled(Input)`

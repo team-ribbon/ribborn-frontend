@@ -132,7 +132,7 @@ const InfoChange = ({ change, user, setCategory }) => {
     <Template>
       <Form onSubmit={handleSubmit(onValid)}>
         <InputTitle>이메일 주소</InputTitle>
-        <DisabledInput disabled value={user.userName} />
+        <DisabledInput disabled value={user.username} />
         <HelpText></HelpText>
         <InputTitle>
           {user.userType === 1 ? "이름 또는 업체이름 (닉네임 가능)" : "닉네임"}

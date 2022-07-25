@@ -1,20 +1,40 @@
+import { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 import { deletePostDB } from "../redux/modules/post";
+import AlertModal from "./AlertModal";
 
 const MyPostButtons = ({ id, postType }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const confirmRef = useRef(false);
+  const [isModalOn, setIsModalOn] = useState(false);
+
   const deletePost = () => {
-    dispatch(deletePostDB(id)).then((res) => {
-      navigate(`/${postType}`);
-    });
+    setIsModalOn(true);
   };
+
+  useEffect(() => {
+    if (confirmRef.current) {
+      dispatch(deletePostDB(id)).then(() => {
+        navigate(`/${postType}`);
+      });
+    }
+  }, [confirmRef.current]);
 
   return (
     <>
+      {isModalOn && (
+        <AlertModal
+          ref={confirmRef}
+          isModalOn={isModalOn}
+          setIsModalOn={setIsModalOn}
+          title="게시물을 삭제하시겠어요?"
+          content="삭제 후에는 복구할 수 없습니다."
+        />
+      )}
       <Link to={`/edit/${postType}/${id}`}>
         <MyPostButton>수정</MyPostButton>
       </Link>

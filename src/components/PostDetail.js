@@ -150,7 +150,7 @@ const MobileNavbar = styled.div`
 
 const Community = styled.p`
   font-weight: 400;
-  font-size: 18px;
+  font-size: ${({ theme }) => theme.fontSizes.l};
   line-height: 24px;
   color: #222222;
   margin-bottom: 16px;
@@ -185,7 +185,7 @@ const RowDiv = styled.div`
 
 const ID = styled.p`
   font-weight: 400;
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSizes.m};
   line-height: 18px;
   color: #afb0b3;
   cursor: pointer;
@@ -200,7 +200,7 @@ const CircleDiv = styled.div`
 
 const Time = styled.p`
   font-weight: 400;
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSizes.m};
   line-height: 18px;
   color: #afb0b3;
   @media ${({ theme }) => theme.device.mobile} {
@@ -227,7 +227,7 @@ const Tag = styled.div`
 
 const Category = styled.button`
   font-weight: 700;
-  font-size: 11px;
+  font-size: ${({ theme }) => theme.fontSizes.s};
   line-height: 14px;
   height: 29px;
   width: 77px;

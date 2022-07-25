@@ -141,7 +141,7 @@ const UserNav = styled.nav`
 
 const NavWrap = styled.div`
   border-bottom: 1px solid ${({ theme }) => theme.colors.lightGray};
-  padding: 8px 0;
+  padding: 8px 0 6px 0;
   text-align: end;
   display: none;
   font-size: ${({ theme }) => theme.fontSizes.s};
@@ -154,8 +154,9 @@ const NavWrap = styled.div`
 `;
 
 const HeaderUserSpan = styled.span`
+  margin-top: 2px;
   font-weight: 400;
-  font-size: 11px;
+  font-size: ${({ theme }) => theme.fontSizes.s};
   line-height: 14px;
   :hover {
     cursor: pointer;
@@ -180,7 +181,7 @@ const CategoryNav = styled.nav`
   }
 `;
 const Active = css`
-  border-bottom: 2px solid black;
+  border-bottom: 2px solid ${({ theme }) => theme.colors.black};
   font-weight: 700;
 `;
 const Community = styled.span`
@@ -196,6 +197,9 @@ const Reform = styled.span`
 const MobileWrap = styled.div`
   padding: 54px 0 0 0;
   margin-bottom: 10px;
+  span {
+    padding-bottom: 7px;
+  }
   @media ${({ theme }) => theme.device.mobile} {
     display: none;
   }

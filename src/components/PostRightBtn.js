@@ -117,7 +117,7 @@ const Button = styled.div`
 
 const LikeCount = styled.span`
   font-weight: 400;
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSizes.m};
   line-height: 14px;
   z-index: 1;
 `;

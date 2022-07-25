@@ -60,12 +60,13 @@ function MyPage() {
 const Template = styled.div`
   max-width: ${({ theme }) => theme.width.maxWidth};
   margin: 0 auto;
-  padding: 40px 40px 0 40px;
+  padding: 40px 16px 0 16px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   @media all and (min-width: 1000px) {
     flex-direction: row;
+    padding: 40px 40px 0 40px;
   }
 `;
 

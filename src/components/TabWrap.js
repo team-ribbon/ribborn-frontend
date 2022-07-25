@@ -20,16 +20,17 @@ const TabWrapCover = styled.div`
 `;
 
 const Tab = styled.span`
+  font-size: ${({ theme }) => theme.fontSizes.m};
+  padding-bottom: 7px;
+  margin: 0 10px;
   @media ${({ theme }) => theme.device.mobile} {
     font-size: ${({ theme }) => theme.fontSizes.xl};
     margin: 0 25px;
   }
-  font-size: ${({ theme }) => theme.fontSizes.m};
-  margin: 0 10px;
 `;
 
 const ActiveTab = styled(Tab)`
-  border-bottom: 3px solid black;
+  border-bottom: 2px solid ${({ theme }) => theme.colors.black};
   font-weight: 700;
   padding-bottom: 7px;
 `;

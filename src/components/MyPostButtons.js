@@ -29,7 +29,7 @@ const MyPostButton = styled.button`
   border: 1px solid #222222;
   border-radius: 8px;
   font-weight: 400;
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fontSizes.m};
   line-height: 18px;
   background-color: transparent;
   :hover {

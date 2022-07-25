@@ -128,7 +128,10 @@ const Wrap = styled.div`
   align-items: center;
   max-width: ${({ theme }) => theme.width.listWidth};
   margin: 0 auto;
-  padding: 0 40px;
+  padding: 0 16px;
+  @media ${({ theme }) => theme.device.mobile} {
+    padding: 0 40px;
+  }
 `;
 
 const LCategory = styled(Category)`

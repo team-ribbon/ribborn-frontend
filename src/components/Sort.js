@@ -96,8 +96,14 @@ const Modal = styled.div`
   flex-direction: column;
   span {
     font-size: ${({ theme }) => theme.fontSizes.l};
-    margin: 40px 0 0 30px;
+    margin-top: 20px;
+    padding-left: 30px;
+    line-height: 60px;
     cursor: pointer;
+    transition: background-color 0.2s ease-in;
+    &:hover {
+      background-color: ${({ theme }) => theme.colors.lightGray};
+    }
   }
 
   /* &::after {

@@ -101,7 +101,7 @@ const Lookbook = () => {
             <CardB
               postObj={postObj}
               key={"lookbookPosts" + postObj.id}
-              hot={index < 6 && sort === "popular"}
+              hot={index < 6 && sort === "likeCount"}
               isMain={false}
               inViewRef={inViewRef}
             />
@@ -109,7 +109,7 @@ const Lookbook = () => {
             <CardB
               postObj={postObj}
               key={"lookbookPosts" + postObj.id}
-              hot={index < 6 && sort === "popular"}
+              hot={index < 6 && sort === "likeCount"}
               isMain={false}
             />
           )

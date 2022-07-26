@@ -20,7 +20,7 @@ const TextCard = ({ postObj, noWriter, reform, inViewRef }) => {
     case "after":
       process = "완료";
       break;
-    case default:
+    default:
       break;
   }
 

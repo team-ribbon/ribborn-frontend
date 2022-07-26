@@ -79,6 +79,10 @@ const Image = styled.img`
   height: 100%;
   object-fit: cover;
   border-radius: 15px;
+  transition: all 0.1s linear;
+  &:hover {
+    transform: scale(1.05);
+  }
 `;
 const Bookmark = styled.button`
   position: absolute;

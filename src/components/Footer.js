@@ -9,6 +9,7 @@ import InfoText from "../shared/InfoText";
 const Footer = () => {
   const isLookbook = useMatch("lookbookdetail/:postId");
   const isReform = useMatch("reformdetail/:postId");
+  const isWhite = useMatch("/reform");
 
   const [ruleModal, setRuleModal] = useState(false);
   const [infoModal, setInfoModal] = useState(false);
@@ -142,7 +143,8 @@ const Wrap = styled.footer`
   height: 560px;
   margin-top: 60px;
   z-index: 10;
-  background-color: ${({ theme }) => theme.colors.lighterGray};
+  background-color: ${({ theme, isWhite }) =>
+    isWhite ? "#fff" : theme.colors.lighterGray};
   @media ${({ theme }) => theme.device.mobile} {
     height: 401px;
     min-width: ${(props) =>

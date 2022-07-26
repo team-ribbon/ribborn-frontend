@@ -9,11 +9,12 @@ import {
   cleanUpPostList,
   loadDoneReset,
 } from "../redux/modules/post";
+
 import TextCard from "../components/TextCard";
-import Categories from "../shared/Categories";
-import { SubBtn, Category, MainBtn } from "../elements/Buttons";
 import RegionSelect from "../components/RegionSelect";
 import ProcessSelect from "../components/ProcessSelect";
+import { SubBtn, Category, MainBtn } from "../elements/Buttons";
+import Categories from "../shared/Categories";
 
 function ReformList() {
   const isLogin = useSelector((state) => state.user.isLogin);
@@ -78,7 +79,7 @@ function ReformList() {
                 id={v.value}
                 onClick={onClickCategory}
               >
-                {v.text}
+                {v.text + " 견적"}
               </SubBtn>
             );
           })}
@@ -145,6 +146,8 @@ const WidthWrap = styled.div`
 
 const LCategory = styled(Category)`
   margin-top: 30px;
+  gap: 10px;
+  max-width: ${({ theme }) => theme.width.listWidth};
 `;
 
 const SelectDiv = styled.div`
@@ -154,6 +157,7 @@ const SelectDiv = styled.div`
   margin-top: 42px;
   margin-left: auto;
   margin-bottom: 30px;
+  justify-content: end;
 `;
 
 const PostCoverDiv = styled.div`

@@ -142,11 +142,14 @@ const MainWrap = styled.div`
 `;
 const MainNavWrap = styled.div`
   max-width: ${({ theme }) => theme.width.maxWidth};
-  padding: 50px 16px 0 16px;
+  padding: 50px 40px 0 40px;
   margin: 0 auto 0 auto;
   font-weight: 400;
   font-size: ${({ theme }) => theme.fontSizes.m};
   line-height: 18px;
+  @media screen and (max-width: ${({ theme }) => theme.deviceSizes.mobile}) {
+    padding: 50px 0 0 0;
+  }
 `;
 const BannerWrap = styled.div`
   max-width: ${({ theme }) => theme.width.maxWidth};

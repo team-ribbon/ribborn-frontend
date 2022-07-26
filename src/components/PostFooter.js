@@ -150,7 +150,29 @@ const PostFooter = ({
               >
                 <CommentFistLine>
                   <CommentNickname>@{v.nickname}</CommentNickname>
-                  <CommentContent>{v.comment}</CommentContent>
+                  {changingComment === i ? (
+                    <ModifyMessageCover id="modifyCommentSection">
+                      <ModifyMessageInput
+                        defaultValue={v.comment}
+                        id="modifyMessageInput"
+                        ref={modifyInputCurrent}
+                        autoComplete="off"
+                      />
+                      <MessageBtn
+                        onClick={() => {
+                          modifyComment(v.id);
+                          modifyCommentCancel();
+                          setChangingComment(null);
+                        }}
+                      >
+                        수정
+                      </MessageBtn>
+                    </ModifyMessageCover>
+                  ) : (
+                    <CommentContent myComment={myComment}>
+                      {v.comment}
+                    </CommentContent>
+                  )}
                   {myComment ? (
                     <>
                       {changingComment === null ? (
@@ -187,25 +209,6 @@ const PostFooter = ({
                   ) : null}
                 </CommentFistLine>
                 <CreatedAt>{TimeCalculator(v.createAt)}</CreatedAt>
-                {changingComment === i ? (
-                  <MessageCover id="modifyCommentSection">
-                    <MessageInput
-                      defaultValue={v.comment}
-                      id="modifyMessageInput"
-                      ref={modifyInputCurrent}
-                      autoComplete="off"
-                    />
-                    <MessageBtn
-                      onClick={() => {
-                        modifyComment(v.id);
-                        modifyCommentCancel();
-                        setChangingComment(null);
-                      }}
-                    >
-                      수정
-                    </MessageBtn>
-                  </MessageCover>
-                ) : null}
               </Comment>
             );
           })}
@@ -251,6 +254,7 @@ const CommentDiv = styled.div`
 `;
 
 const MessageCover = styled.section`
+  z-index: -1;
   width: 100%;
   height: 46px;
   margin: 16px auto 0px auto;
@@ -261,7 +265,41 @@ const MessageCover = styled.section`
   border-radius: 8px;
 `;
 
+const ModifyMessageCover = styled.section`
+  width: calc(100% - 286px);
+  height: 46px;
+  margin: -30px auto 0px auto;
+  position: relative;
+  border: none;
+  background: #ffffff;
+  border: 1px solid #f2f2f2;
+  border-radius: 8px;
+  transform: translate(0%, 50%);
+`;
+
 const MessageInput = styled.input`
+  position: absolute;
+  top: 50%;
+  left: 7px;
+  height: 46px;
+  width: calc(100% - 72px);
+  border: transparent;
+  background-color: transparent;
+  transform: translate(0%, -50%);
+  font-size: ${({ theme }) => theme.fontSizes.s};
+  &:focus {
+    outline: none;
+    box-shadow: none;
+  }
+  &::placeholder {
+    color: ${({ theme }) => theme.colors.gray};
+  }
+  @media ${({ theme }) => theme.device.mobile} {
+    font-size: ${({ theme }) => theme.fontSizes.m};
+  }
+`;
+
+const ModifyMessageInput = styled.input`
   position: absolute;
   top: 50%;
   left: 7px;
@@ -314,6 +352,7 @@ const CommentFistLine = styled.div`
 `;
 
 const CommentNickname = styled.span`
+  width: 100px;
   font-weight: 700;
   font-size: ${({ theme }) => theme.fontSizes.m};
   line-height: 18px;
@@ -326,6 +365,8 @@ const CommentContent = styled.span`
   line-height: 18px;
   margin-left: 16px;
   color: #222222;
+  width: ${(props) =>
+    props.myComment ? "calc(100% - 276px)" : "calc(100% - 116px)"};
 `;
 
 const CommentModifyBtn = styled.button`

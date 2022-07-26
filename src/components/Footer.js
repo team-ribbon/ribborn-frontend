@@ -1,98 +1,142 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { AiFillFacebook, AiOutlineInstagram } from "react-icons/ai";
 import { useMatch } from "react-router-dom";
+import RuleModal from "./RuleModal";
+import RuleText from "../shared/RuleText";
+import InfoText from "../shared/InfoText";
 
 const Footer = () => {
   const isLookbook = useMatch("lookbookdetail/:postId");
   const isReform = useMatch("reformdetail/:postId");
   const isWhite = useMatch("/reform");
 
+  const [ruleModal, setRuleModal] = useState(false);
+  const [infoModal, setInfoModal] = useState(false);
+
   return (
-    <Wrap isLookbook={isLookbook} isReform={isReform} isWhite={isWhite}>
-      <Grid>
-        <BoxDiv>
-          <Title>RIBBORN</Title>
-          <ContentDiv>
-            <Content>리본 주식회사 대표 이땡땡</Content> <br />
-            <Content>사업자등록번호:123-45-67891</Content> <br />
-            <Content>통신판매업신고번호:제2022-서울서초-0000호</Content> <br />
-            <Content>주소: 서울시 강남구 도산대로, 7층</Content> <br />
-            <Content>ribborn@ribborn.co.kr</Content> <br />
-          </ContentDiv>
-          <AiFillFacebook size="32" color="rgba(61, 62, 78)" />
-          <AiOutlineInstagram
-            style={{ marginLeft: "8px" }}
-            size="32"
-            color="rgba(61, 62, 78)"
+    <>
+      <ModalWrap>
+        {ruleModal && (
+          <RuleModal
+            isModalOn={ruleModal}
+            setIsModalOn={setRuleModal}
+            title="이용약관"
+            content={RuleText}
           />
-        </BoxDiv>
-        <BoxDiv>
-          <Title>이용안내</Title>
-          <ContentDiv>
-            <Content>이용약관</Content> <br />
-            <SpanMargin />
-            <Content>개인정보처리방침</Content>
-          </ContentDiv>
-        </BoxDiv>
-        <BoxDiv>
-          <Title>고객지원</Title>
-          <ContentDiv>
-            <Content>공지사항</Content> <br />
-            <SpanMargin />
-            <Content>서비스소개</Content> <br />
-            <SpanMargin />
-            <Content>FAQ</Content>
-          </ContentDiv>
-        </BoxDiv>
-      </Grid>
-      <MobileGrid>
-        <MobileBoxDiv>
-          <MobileTitle>이용안내</MobileTitle>
-          <ContentDiv>
-            <MobileContent>이용약관</MobileContent> <br />
-            <MobileSpanMargin />
-            <MobileContent>개인정보처리방침</MobileContent>
-          </ContentDiv>
-        </MobileBoxDiv>
-        <MobileBoxDiv>
-          <MobileTitle>고객지원</MobileTitle>
-          <ContentDiv>
-            <MobileContent>공지사항</MobileContent> <br />
-            <MobileSpanMargin />
-            <MobileContent>서비스소개</MobileContent> <br />
-            <MobileSpanMargin />
-            <MobileContent>FAQ</MobileContent>
-          </ContentDiv>
-        </MobileBoxDiv>
-      </MobileGrid>
-      <MobileBottomBoxDiv>
-        <MobileBottomSpanDiv>
-          <MobileContent>리본 주식회사 대표 이땡땡</MobileContent>
-          <MobileSpanMargin />
-          <MobileContent>사업자등록번호:123-45-67891</MobileContent>
-          <MobileSpanMargin />
-          <MobileContent>
-            통신판매업신고번호:제2022-서울서초-0000호
-          </MobileContent>
-          <MobileSpanMargin />
-          <MobileContent>주소: 서울시 강남구 도산대로, 7층</MobileContent>
-          <MobileSpanMargin />
-          <MobileContent>ribborn@ribborn.co.kr</MobileContent>
-        </MobileBottomSpanDiv>
-        <MobileIconDiv>
-          <AiFillFacebook size="28" color="rgba(61, 62, 78)" />
-          <AiOutlineInstagram
-            style={{ marginLeft: "8px" }}
-            size="28"
-            color="rgba(61, 62, 78)"
+        )}
+        {infoModal && (
+          <RuleModal
+            isModalOn={infoModal}
+            setIsModalOn={setInfoModal}
+            title="개인정보수집 및 이용동의"
+            content={InfoText}
           />
-        </MobileIconDiv>
-        <MobileCompanyName>RIBBORN</MobileCompanyName>
-      </MobileBottomBoxDiv>
-    </Wrap>
+        )}
+      </ModalWrap>
+      <Wrap isLookbook={isLookbook} isReform={isReform}>
+        <Grid>
+          <BoxDiv>
+            <Title>RIBBORN</Title>
+            <ContentDiv>
+              <Content>리본 주식회사 대표 이땡땡</Content> <br />
+              <Content>사업자등록번호:123-45-67891</Content> <br />
+              <Content>통신판매업신고번호:제2022-서울서초-0000호</Content>{" "}
+              <br />
+              <Content>주소: 서울시 강남구 도산대로, 7층</Content> <br />
+              <Content>ribborn@ribborn.co.kr</Content> <br />
+            </ContentDiv>
+            <AiFillFacebook size="32" color="rgba(61, 62, 78)" />
+            <AiOutlineInstagram
+              style={{ marginLeft: "8px" }}
+              size="32"
+              color="rgba(61, 62, 78)"
+            />
+          </BoxDiv>
+          <BoxDiv>
+            <Title>이용안내</Title>
+            <ContentDiv>
+              <ClickContent
+                onClick={() => {
+                  setRuleModal(true);
+                }}
+              >
+                이용약관
+              </ClickContent>{" "}
+              <br />
+              <SpanMargin />
+              <ClickContent
+                onClick={() => {
+                  setInfoModal(true);
+                }}
+              >
+                개인정보처리방침
+              </ClickContent>
+            </ContentDiv>
+          </BoxDiv>
+          <BoxDiv>
+            <Title>고객지원</Title>
+            <ContentDiv>
+              <ClickContent>공지사항</ClickContent> <br />
+              <SpanMargin />
+              <ClickContent>서비스소개</ClickContent> <br />
+              <SpanMargin />
+              <ClickContent>FAQ</ClickContent>
+            </ContentDiv>
+          </BoxDiv>
+        </Grid>
+        <MobileGrid>
+          <MobileBoxDiv>
+            <MobileTitle>이용안내</MobileTitle>
+            <ContentDiv>
+              <MobileContent>이용약관</MobileContent> <br />
+              <MobileSpanMargin />
+              <MobileContent>개인정보 수집 및 이용 안내</MobileContent>
+            </ContentDiv>
+          </MobileBoxDiv>
+          <MobileBoxDiv>
+            <MobileTitle>고객지원</MobileTitle>
+            <ContentDiv>
+              <MobileContent>공지사항</MobileContent> <br />
+              <MobileSpanMargin />
+              <MobileContent>서비스소개</MobileContent> <br />
+              <MobileSpanMargin />
+              <MobileContent>FAQ</MobileContent>
+            </ContentDiv>
+          </MobileBoxDiv>
+        </MobileGrid>
+        <MobileBottomBoxDiv>
+          <MobileBottomSpanDiv>
+            <MobileContent>리본 주식회사 대표 이땡땡</MobileContent>
+            <MobileSpanMargin />
+            <MobileContent>사업자등록번호:123-45-67891</MobileContent>
+            <MobileSpanMargin />
+            <MobileContent>
+              통신판매업신고번호:제2022-서울서초-0000호
+            </MobileContent>
+            <MobileSpanMargin />
+            <MobileContent>주소: 서울시 강남구 도산대로, 7층</MobileContent>
+            <MobileSpanMargin />
+            <MobileContent>ribborn@ribborn.co.kr</MobileContent>
+          </MobileBottomSpanDiv>
+          <MobileIconDiv>
+            <AiFillFacebook size="28" color="rgba(61, 62, 78)" />
+            <AiOutlineInstagram
+              style={{ marginLeft: "8px" }}
+              size="28"
+              color="rgba(61, 62, 78)"
+            />
+          </MobileIconDiv>
+          <MobileCompanyName>RIBBORN</MobileCompanyName>
+        </MobileBottomBoxDiv>
+      </Wrap>
+    </>
   );
 };
+
+const ModalWrap = styled.div`
+  position: relative;
+`;
 
 const Wrap = styled.footer`
   width: 100%;
@@ -156,6 +200,10 @@ const Content = styled.span`
   font-size: ${({ theme }) => theme.fontSizes.m};
   line-height: 24px;
   color: #afb0b3;
+`;
+
+const ClickContent = styled(Content)`
+  cursor: pointer;
 `;
 
 const MobileTitle = styled.span`

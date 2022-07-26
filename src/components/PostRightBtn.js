@@ -1,8 +1,13 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { HiOutlineShare, HiOutlineHeart, HiHeart } from "react-icons/hi";
-import { AiOutlineCopy } from "react-icons/ai";
 import { FaFacebookF } from "react-icons/fa";
+import {
+  LikeHeartSVG,
+  OrangeHeartSVG,
+  ShareSVG,
+  ShareClickedSVG,
+  LinkSVG,
+} from "../elements/SVG";
 import { useDispatch, useSelector } from "react-redux";
 import { likePostDB } from "../redux/modules/post";
 
@@ -44,11 +49,7 @@ const PostRightBtn = ({ noshare, id, liked, likeCount, lookbook }) => {
           likeIt();
         }}
       >
-        {liked ? (
-          <HiHeart size="24" color="#FF8C28" />
-        ) : (
-          <HiOutlineHeart size="24" />
-        )}
+        {liked ? <OrangeHeartSVG /> : <LikeHeartSVG />}
       </Button>
       <LikeCount>{likeCount}</LikeCount>
       {!noshare && (
@@ -60,7 +61,7 @@ const PostRightBtn = ({ noshare, id, liked, likeCount, lookbook }) => {
               setShareClicked(!shareClicked);
             }}
           >
-            <HiOutlineShare size="26" color={shareClicked ? "white" : "#222"} />
+            {shareClicked ? <ShareClickedSVG /> : <ShareSVG />}
           </Button>
           {shareClicked ? (
             <ShareClickedDiv>
@@ -72,7 +73,7 @@ const PostRightBtn = ({ noshare, id, liked, likeCount, lookbook }) => {
                   setShareClicked(false);
                 }}
               >
-                <FaFacebookF size="18" color="white" />
+                <FaFacebookF size="22" color="white" />
               </Button>
               <Button
                 small={true}
@@ -82,7 +83,7 @@ const PostRightBtn = ({ noshare, id, liked, likeCount, lookbook }) => {
                   setShareClicked(false);
                 }}
               >
-                <AiOutlineCopy size="18" color="white" />
+                <LinkSVG />
               </Button>
             </ShareClickedDiv>
           ) : null}
@@ -112,14 +113,14 @@ const Button = styled.div`
   margin-bottom: 5px;
   cursor: pointer;
   background-color: ${(props) => props.color};
-  z-index: 1;
+  z-index: 20;
 `;
 
 const LikeCount = styled.span`
   font-weight: 400;
   font-size: ${({ theme }) => theme.fontSizes.m};
   line-height: 14px;
-  z-index: 1;
+  z-index: 20;
 `;
 
 const HR = styled.hr`
@@ -129,7 +130,7 @@ const HR = styled.hr`
   border-left: none;
   border-right: none;
   margin: 30px auto 30px auto;
-  z-index: 1;
+  z-index: 20;
 `;
 
 const ShareClickedDiv = styled.div`
@@ -137,6 +138,7 @@ const ShareClickedDiv = styled.div`
   flex-direction: row;
   margin-top: 12px;
   gap: 10px;
+  z-index: 20;
 `;
 
 export default PostRightBtn;

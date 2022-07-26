@@ -13,7 +13,7 @@ const ReformDetail = () => {
   console.log(params);
 
   const post = useSelector((state) => state.post.Post);
-  const userId = useSelector((state) => state.user.user.id);
+  const userId = useSelector((state) => state.user.user?.id);
   const userType = useSelector((state) => state.user.user.userType);
 
   React.useEffect(() => {

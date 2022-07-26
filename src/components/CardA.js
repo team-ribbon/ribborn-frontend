@@ -2,10 +2,12 @@ import React from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { CommentSVG, HeartSVG } from "../elements/SVG";
+import Regions from "../shared/Regions";
 
 // 메인, 커뮤니티 > 리폼 리뷰 게시판에 사용되는 카드
 const CardA = ({ postObj, type, reform, inViewRef }) => {
   const navigate = useNavigate();
+
   return (
     <Article
       onClick={() => {
@@ -18,7 +20,7 @@ const CardA = ({ postObj, type, reform, inViewRef }) => {
         <Image
           alt="card"
           src={
-            postObj.image !== null
+            postObj?.image
               ? postObj.image
               : "http://openimage.interpark.com/goods_image_big/1/4/1/9/9090461419_l.jpg"
           }
@@ -46,7 +48,13 @@ const CardA = ({ postObj, type, reform, inViewRef }) => {
             <span>{postObj.commentCount}</span>
           </div>
         )}
-        {type === "C" && <span>{postObj.region}</span>}
+        {type === "C" && (
+          <Region>
+            {Regions.map((element) => {
+              return element.value === postObj.region && element.text;
+            })}
+          </Region>
+        )}
       </Content>
     </Article>
   );
@@ -97,12 +105,17 @@ const Content = styled.div`
     font-weight: 700;
   }
 `;
+const Region = styled.div`
+  margin: -10px;
+  padding-left: 10px;
+  font-size: ${({ theme }) => theme.fontSizes.s};
+`;
 const Title = styled.p`
   font-size: ${({ theme }) => theme.fontSizes.l};
 `;
 const Tag = styled.div`
   font-size: ${({ theme }) => theme.fontSizes.s};
-  padding: 6.5px 13.5px;
+  padding: 7px 13.5px 6px 13.5px;
   border-radius: 8px;
   background-color: ${({ process }) =>
     process === "after"

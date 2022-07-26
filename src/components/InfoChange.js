@@ -124,15 +124,18 @@ const InfoChange = ({ change, user, setCategory }) => {
     dispatch(changeMyDataDB(sendData)).then((res) => {
       console.log(sendData);
       setCategory("all");
-      change(false);
+      if (res === true) {
+        change(false);
+      }
     });
   };
 
   return (
     <Template>
+      <ChangeTitle>회원 정보 수정</ChangeTitle>
       <Form onSubmit={handleSubmit(onValid)}>
         <InputTitle>이메일 주소</InputTitle>
-        <DisabledInput disabled value={user.userName} />
+        <DisabledInput disabled value={user.username} />
         <HelpText></HelpText>
         <InputTitle>
           {user.userType === 1 ? "이름 또는 업체이름 (닉네임 가능)" : "닉네임"}
@@ -316,6 +319,13 @@ const Template = styled.div`
   align-items: center;
   padding-top: 40px;
   margin: 0 auto;
+`;
+
+const ChangeTitle = styled.span`
+  font-weight: 700;
+  font-size: ${({ theme }) => theme.fontSizes.xl};
+  line-height: 36px;
+  margin: 40px 0 58px 0;
 `;
 
 const DisabledInput = styled(Input)`

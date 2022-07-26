@@ -42,13 +42,18 @@ export const getMyPageDB = (category) => {
 
 export const changeMyDataDB = (data) => {
   return async function (dispatch) {
+    let success = null;
     try {
       const response = await apis.changeUserInfo(data).then((res) => {
         getMyPageDB();
+        success = true;
       });
     } catch (error) {
+      alert("입력하신 정보를 다시 확인해주세요!");
       console.log(error);
+      success = false;
     }
+    return success;
   };
 };
 

@@ -34,7 +34,7 @@ const Footer = () => {
           />
         )}
       </ModalWrap>
-      <Wrap isLookbook={isLookbook} isReform={isReform}>
+      <Wrap isLookbook={isLookbook} isReform={isReform} isWhite={isWhite}>
         <Grid>
           <BoxDiv>
             <Title>RIBBORN</Title>

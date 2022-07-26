@@ -90,11 +90,8 @@ const TextCard = ({ postObj, noWriter, reform, inViewRef }) => {
       </TextDiv>
       <PictureDiv>
         <Picture
-          src={
-            postObj.image !== null
-              ? postObj.image
-              : "http://openimage.interpark.com/goods_image_big/1/4/1/9/9090461419_l.jpg"
-          }
+          hasImage={postObj?.image}
+          src={postObj?.image || "/images/textLogo.png"}
         />
       </PictureDiv>
     </PostDiv>
@@ -269,6 +266,8 @@ const Picture = styled.img`
   height: 30vw;
   margin: auto;
   border-radius: 15px;
+  object-fit: cover;
+  opacity: ${({ hasImage }) => !hasImage && "0.15"};
   @media ${({ theme }) => theme.device.mobile} {
     width: 276px;
     height: 217px;

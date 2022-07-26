@@ -71,7 +71,6 @@ const Wrap = styled.div`
   position: relative;
   margin-left: auto;
 `;
-
 const ButtonWrap = styled.div`
   display: flex;
   cursor: pointer;
@@ -91,7 +90,6 @@ const Modal = styled.div`
   background: #ffffff;
   box-shadow: 3px 4px 11px rgba(0, 0, 0, 0.14);
   border-radius: 11px;
-
   display: flex;
   flex-direction: column;
   span {
@@ -105,17 +103,5 @@ const Modal = styled.div`
       background-color: ${({ theme }) => theme.colors.lightGray};
     }
   }
-
-  /* &::after {
-    content: "";
-    position: absolute;
-    right: 50px;
-    margin-top: -25px;
-    border-top: 30px solid none;
-    border-bottom: 25px solid red;
-    border-right: 30px solid transparent;
-    border-left: 30px solid transparent;
-    box-shadow: 2px -2px 2px 0 rgba(178, 178, 178, 0.14);
-  } */
 `;
 export default Sort;

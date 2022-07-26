@@ -6,9 +6,10 @@ import { useMatch } from "react-router-dom";
 const Footer = () => {
   const isLookbook = useMatch("lookbookdetail/:postId");
   const isReform = useMatch("reformdetail/:postId");
+  const isWhite = useMatch("/reform");
 
   return (
-    <Wrap isLookbook={isLookbook} isReform={isReform}>
+    <Wrap isLookbook={isLookbook} isReform={isReform} isWhite={isWhite}>
       <Grid>
         <BoxDiv>
           <Title>RIBBORN</Title>
@@ -98,7 +99,8 @@ const Wrap = styled.footer`
   height: 560px;
   margin-top: 60px;
   z-index: 10;
-  background-color: ${({ theme }) => theme.colors.lighterGray};
+  background-color: ${({ theme, isWhite }) =>
+    isWhite ? "#fff" : theme.colors.lighterGray};
   @media ${({ theme }) => theme.device.mobile} {
     height: 401px;
     min-width: ${(props) =>

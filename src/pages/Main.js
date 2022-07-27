@@ -17,11 +17,11 @@ const Main = () => {
 
   return (
     <main>
-      {/* <Link to={contents.banner.toUrl}> */}
-      <BannerWrap>
-        <Banner src={contents.banner} type="A" />
-      </BannerWrap>
-      {/* </Link> */}
+      <Link to={contents.banner[0].url}>
+        <BannerWrap>
+          <Banner src={contents && contents.banner[0].image} type="A" />
+        </BannerWrap>
+      </Link>
       <MainNavWrap>
         <Nav>
           <Link to="/lookbook">
@@ -112,11 +112,11 @@ const Main = () => {
         />
       </MainWrap>
       <DesignSection postList={contents.lookbookList} />
-      {/* <Link to={contents.banner.toUrl}> */}
-      <BannerWrap>
-        <Banner src={contents.banner} type="B" />
-      </BannerWrap>
-      {/* </Link> */}
+      <Link to={contents.banner[0].url}>
+        <BannerWrap>
+          <Banner src={contents.banner[0].image} type="B" />
+        </BannerWrap>
+      </Link>
       <MainWrap>
         <MainSection
           type="C"

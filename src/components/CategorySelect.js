@@ -1,11 +1,10 @@
 import React, { useRef, useState, useEffect } from "react";
 import styled from "styled-components";
-import { IoIosArrowDown } from "react-icons/io";
 
 import Categories from "../shared/Categories";
 import { ThinArrowSVG } from "../elements/SVG";
 
-const CategorySelect = ({ setCategory, category, write }) => {
+const CategorySelect = ({ setCategory, category, write, setError, error }) => {
   const [isModalOn, setIsModalOn] = useState(false);
   const outsideRef = useRef();
 
@@ -30,6 +29,7 @@ const CategorySelect = ({ setCategory, category, write }) => {
       <ButtonWrap
         onClick={() => setIsModalOn((prev) => !prev)}
         isModalOn={isModalOn}
+        invalid={error.categoryError}
       >
         {category === 0 && (
           <>
@@ -42,7 +42,7 @@ const CategorySelect = ({ setCategory, category, write }) => {
         {Categories.map((v) => {
           return category === v.value ? (
             <>
-              <Text>{v.text}</Text>
+              <Text key={category}>{v.text}</Text>
               <div>
                 <ThinArrowSVG />
               </div>
@@ -61,6 +61,7 @@ const CategorySelect = ({ setCategory, category, write }) => {
                     onClick={() => {
                       setCategory(v.value);
                       setIsModalOn(false);
+                      setError({ ...error, categoryError: null });
                     }}
                   >
                     {v.text}
@@ -83,7 +84,8 @@ const ButtonWrap = styled.div`
   cursor: pointer;
   width: 120px;
   height: 44px;
-  border: 1px solid #afb0b3;
+  border: 1px solid
+    ${({ invalid, theme }) => (invalid ? theme.colors.orange : "#afb0b3")};
   border-radius: 15px;
   outline: none;
   align-items: center;

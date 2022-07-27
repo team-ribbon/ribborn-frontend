@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+import { HelpText as Help } from "../elements/Inputs";
 
 import {
   deleteFile,
@@ -10,7 +11,7 @@ import {
   uploadPreview,
 } from "../redux/modules/image";
 
-const ImageUpload = ({ type, edit }) => {
+const ImageUpload = ({ type, edit, error, setError }) => {
   const dispatch = useDispatch();
 
   const fileRef = useRef();
@@ -18,6 +19,7 @@ const ImageUpload = ({ type, edit }) => {
   const previewList = useSelector((state) => state.image.previewList);
 
   const onChangeFile = (event) => {
+    setError({ ...error, fileError: null });
     const { files } = event.target;
 
     const maxFileCnt = type === "lookbook" ? 20 : 5;
@@ -96,10 +98,11 @@ const ImageUpload = ({ type, edit }) => {
           ref={fileRef}
         />
         <Label htmlFor="file">
-          <FileInput>
+          <FileInput invalid={error.fileError}>
             <FileInputPlus>+</FileInputPlus>
             <FileInputText>사진 추가하기</FileInputText>
           </FileInput>
+          {error.fileError && <HelpText>{error.fileError}</HelpText>}
           <FileText>*권장 사이즈: 700*508 (1:1.3비율)</FileText>
         </Label>
         {previewList.map((file, index) => {
@@ -147,7 +150,9 @@ const FileInput = styled.div`
   justify-content: center;
   width: 191px;
   height: 64px;
-  border: 1px solid #afb0b3;
+  border: 1px solid
+    ${({ invalid, theme }) => (invalid ? theme.colors.orange : "#afb0b3")};
+  color: ${({ invalid, theme }) => invalid && theme.colors.orange};
   border-radius: 15px;
   cursor: pointer;
 `;
@@ -185,5 +190,8 @@ const DeleteButton = styled.span`
   color: #fff;
   font-size: ${({ theme }) => theme.fontSizes.l};
   cursor: pointer;
+`;
+const HelpText = styled(Help)`
+  margin-bottom: 5px;
 `;
 export default ImageUpload;

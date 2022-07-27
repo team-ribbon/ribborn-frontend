@@ -5,29 +5,27 @@ import styled from "styled-components";
 import { loginDB } from "../redux/modules/user";
 import { FixedSizeBlackBtn } from "../elements/Buttons";
 import { HelpText, Input, InputTitle } from "../elements/Inputs";
+import { useState } from "react";
 
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [loginError, setLoginError] = useState(null);
   const {
     register,
     handleSubmit,
-    setError,
     formState: { errors },
+    formState,
   } = useForm();
 
   const onValid = (loginObj) => {
     dispatch(loginDB(loginObj.username, loginObj.password)).then((result) => {
       if (!result) {
-        console.log(result);
-        setError("password", {
-          message: "이메일 또는 비밀번호를 잘못 입력했습니다.",
-        });
+        setLoginError("이메일 또는 비밀번호를 잘못 입력했습니다.");
         return false;
       }
       navigate("/");
     });
-    console.log(loginObj);
   };
   return (
     <Wrap>
@@ -51,9 +49,9 @@ const Login = () => {
           invalid={errors?.password?.message}
           type="password"
         />
-        <HelpText>{errors?.password?.message}</HelpText>
+        <HelpText>{errors?.password?.message || loginError}</HelpText>
         <ButtonWrap>
-          <FixedSizeBlackBtn disabled={errors?.password || errors?.username}>
+          <FixedSizeBlackBtn disabled={errors?.password && errors?.username}>
             로그인
           </FixedSizeBlackBtn>
         </ButtonWrap>

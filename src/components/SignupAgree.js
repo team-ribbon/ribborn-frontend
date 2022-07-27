@@ -54,6 +54,7 @@ const SignupAgree = forwardRef(({ setAgreeError }, ref) => {
         )}
         {infoModal && (
           <RuleModal
+            info
             isModalOn={infoModal}
             setIsModalOn={setInfoModal}
             title="개인정보수집 및 이용동의"

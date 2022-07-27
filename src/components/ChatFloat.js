@@ -63,8 +63,8 @@ const FloatWrap = styled.div`
   right: 30px;
 `;
 const ChatButton = styled.div`
-  width: 67px;
-  height: 67px;
+  width: 57px;
+  height: 57px;
   border-radius: 50px;
   border: none;
   background: #ffffff;
@@ -78,6 +78,10 @@ const ChatButton = styled.div`
   span {
     display: block;
     padding-top: 5px;
+  }
+  @media ${({ theme }) => theme.device.mobile} {
+    width: 67px;
+    height: 67px;
   }
 `;
 

@@ -68,9 +68,18 @@ const UserPost = ({
         <PostDiv>
           {user && user !== null && +user.userType === 1 ? (
             <PostCollection>
-              <CategoryTitle>{user.nickname}님의 룩북</CategoryTitle>
+              <PostCollectionTitleDiv>
+                <CategoryTitle>{user.nickname}님의 룩북</CategoryTitle>
+                <SeeMore
+                  onClick={() => {
+                    setCategory("lookbook");
+                  }}
+                >
+                  더보기
+                </SeeMore>
+              </PostCollectionTitleDiv>
               <Grid>
-                {lookbook === null ? (
+                {lookbook && lookbook.length === 0 ? (
                   <NoPost category="lookbook" />
                 ) : (
                   lookbook.slice(0, 3).map((thisPost) => {
@@ -86,9 +95,18 @@ const UserPost = ({
             </PostCollection>
           ) : null}
           <PostCollection>
-            <CategoryTitle>{user && user.nickname}님이 쓴 후기</CategoryTitle>
+            <PostCollectionTitleDiv>
+              <CategoryTitle>{user && user.nickname}님이 쓴 후기</CategoryTitle>
+              <SeeMore
+                onClick={() => {
+                  setCategory("review");
+                }}
+              >
+                더보기
+              </SeeMore>
+            </PostCollectionTitleDiv>
             <Grid>
-              {review === null ? (
+              {review && review.length === 0 ? (
                 <NoPost category="review" />
               ) : (
                 review &&
@@ -105,11 +123,20 @@ const UserPost = ({
             </Grid>
           </PostCollection>
           <PostCollection>
-            <CategoryTitle>
-              {user && user.nickname}님의 질문과 답변
-            </CategoryTitle>
+            <PostCollectionTitleDiv>
+              <CategoryTitle>
+                {user && user.nickname}님의 질문과 답변
+              </CategoryTitle>
+              <SeeMore
+                onClick={() => {
+                  setCategory("qna");
+                }}
+              >
+                더보기
+              </SeeMore>
+            </PostCollectionTitleDiv>
             <TextCardDiv>
-              {qna === null ? (
+              {qna && qna.length === 0 ? (
                 <NoPost category="qna" />
               ) : (
                 qna &&
@@ -127,11 +154,21 @@ const UserPost = ({
           </PostCollection>
           {user && +user.userType === 0 ? (
             <PostCollection>
-              <CategoryTitle>{user.nickname}님의 견적</CategoryTitle>
+              <PostCollectionTitleDiv>
+                <CategoryTitle>{user.nickname}님의 견적</CategoryTitle>
+                <SeeMore
+                  onClick={() => {
+                    setCategory("reform");
+                  }}
+                >
+                  더보기
+                </SeeMore>
+              </PostCollectionTitleDiv>
               <TextCardDiv>
-                {reform === null ? (
+                {reform && reform.lenght === 0 ? (
                   <NoPost category="reform" />
                 ) : (
+                  reform &&
                   reform.slice(0, 3).map((thisPost) => {
                     return (
                       <TextCard
@@ -149,6 +186,7 @@ const UserPost = ({
         </PostDiv>
       ) : (
         <PostDiv>
+          <MarginDiv />
           {user !== null && +user.userType === 1
             ? category === "lookbook" && (
                 <PostCollection>
@@ -287,6 +325,10 @@ const PostCollection = styled.div`
 
 const PostDiv = styled.div``;
 
+const MarginDiv = styled.div`
+  height: 49px;
+`;
+
 const TextCardDiv = styled.div`
   display: flex;
   flex-direction: column;
@@ -294,11 +336,25 @@ const TextCardDiv = styled.div`
   margin-top: 40px;
 `;
 
+const PostCollectionTitleDiv = styled.div`
+  display: flex;
+  flex-direction: row;
+  margin-top: 49px;
+`;
+
 const CategoryTitle = styled.span`
   font-weight: 700;
   font-size: ${({ theme }) => theme.fontSizes.l};
   line-height: 24px;
-  margin-top: 49px;
+`;
+
+const SeeMore = styled.span`
+  font-weight: 700;
+  font-size: ${({ theme }) => theme.fontSizes.m};
+  line-height: 24px;
+  color: ${({ theme }) => theme.colors.red};
+  margin-left: auto;
+  cursor: pointer;
 `;
 
 const Grid = styled.div`

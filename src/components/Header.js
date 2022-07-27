@@ -125,9 +125,6 @@ const HeaderWrap = styled.header`
   width: 100%;
   z-index: 10;
   background-color: #fff;
-  @media ${({ theme }) => theme.device.mobile} {
-    border-bottom: 1px solid ${({ theme }) => theme.colors.lightGray};
-  }
 `;
 
 const UserNav = styled.nav`

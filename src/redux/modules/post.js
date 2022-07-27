@@ -63,11 +63,18 @@ const initialState = {
   Post: null,
   Comments: [],
   mainContents: {
-    banner: {
-      image:
-        "http://www.mth.co.kr/wp-content/uploads/2014/12/default-placeholder-1024x1024.png",
-      toUrl: "/",
-    },
+    banner: [
+      {
+        image:
+          "http://www.mth.co.kr/wp-content/uploads/2014/12/default-placeholder-1024x1024.png",
+        url: "/",
+      },
+      {
+        image:
+          "http://www.mth.co.kr/wp-content/uploads/2014/12/default-placeholder-1024x1024.png",
+        url: "/",
+      },
+    ],
     co2: { count: "999", co2Reduce: "99" },
     lookbookList: [],
     reviewList: [],

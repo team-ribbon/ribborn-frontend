@@ -31,8 +31,6 @@ export const loginDB = (username, password) => {
         return true;
       }
     } catch (error) {
-      console.log(error);
-      alert("띠로리....실패했습니다...");
       success = false;
     }
     return success;
@@ -46,8 +44,6 @@ export const signupDB = (userObj) => {
       await apis.signupUser(userObj);
       return true;
     } catch (error) {
-      console.log(error);
-      alert("띠로리....실패했습니다...");
       return false;
     }
   };
@@ -58,7 +54,6 @@ export const usernameCheckDB = (username) => {
   return async () => {
     try {
       const response = await apis.usernameCheck(username);
-      // console.log(response.data.status);
       if (response?.data?.status === "Success") return true;
     } catch (error) {
       console.log(error);
@@ -76,7 +71,6 @@ export const loadUserInfoDB = () => {
     } catch (error) {
       dispatch(clearUserInfo());
       localStorage.removeItem("token");
-      console.log(error);
     }
   };
 };

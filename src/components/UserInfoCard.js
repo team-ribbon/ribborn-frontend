@@ -10,13 +10,11 @@ const UserInfoCard = ({ myPage, user, change, isLogin, myInfo }) => {
 
   const onClickChat = async () => {
     try {
-      const response = await apis.addRoom(myPage.id);
+      const response = await apis.addRoom(user.id);
       navigate(`/chat/${response.data}`, {
         state: { backgroundLocation: location },
       });
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
 
   return user ? (

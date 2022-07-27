@@ -2,8 +2,13 @@ import React, { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import { cleanUpMessage, getMessageListDB } from "../redux/modules/chat";
 import moment from "moment";
+
+import {
+  cleanUpMessage,
+  getMessageListDB,
+  getRoomListDB,
+} from "../redux/modules/chat";
 
 // 채팅 모달 > 채팅방 > 채팅 내역
 const ChatList = () => {
@@ -20,6 +25,9 @@ const ChatList = () => {
 
   useEffect(() => {
     scrollRef.current.scrollIntoView({ behavior: "smooth", block: "end" });
+    if (messageList.length === 1) {
+      dispatch(getRoomListDB());
+    }
   }, [messageList]);
 
   return (
@@ -40,8 +48,8 @@ const ChatList = () => {
                 date !==
                   moment(messageList[index - 1]?.date).format("HH:mm")) && (
                 <NickAndDate me={isMe}>
-                  <Date me={isMe}>{date}</Date>
                   <Nickname>{chat?.senderNickname}</Nickname>
+                  <Date me={isMe}>{date}</Date>
                 </NickAndDate>
               )}
               <Bubble me={isMe}>{chat?.message}</Bubble>
@@ -62,17 +70,20 @@ const MessageWrap = styled.div`
   overflow-y: auto;
 `;
 const Message = styled.div`
-  align-self: ${({ me }) => me && "flex-end"};
+  display: flex;
+  flex-direction: column;
+  align-items: ${({ me }) => me && "flex-end"};
   margin: ${({ me }) => (me ? "0 0 0 10%" : "0 10% 0 0")};
 `;
 const NickAndDate = styled.div`
   display: flex;
-  flex-direction: ${({ me }) => !me && "row-reverse"};
+  flex-direction: ${({ me }) => me && "row-reverse"};
   justify-content: ${({ me }) => (me ? "end" : "start")};
   align-items: center;
   margin: 10px 0;
+  text-align: ${({ me }) => (me ? "end" : "start")};
 `;
-const Nickname = styled.div`
+const Nickname = styled.span`
   font-size: ${({ theme }) => theme.fontSizes.l};
 `;
 const Date = styled.span`
@@ -81,6 +92,7 @@ const Date = styled.span`
 `;
 const Bubble = styled.div`
   width: fit-content;
+  margin: 0;
   background-color: #f2f2f2;
   border-radius: ${({ me }) => (me ? "15px 0 15px 15px" : "0 15px 15px 15px")};
   padding: 20px 30px;

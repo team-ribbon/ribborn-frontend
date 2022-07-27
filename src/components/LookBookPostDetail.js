@@ -42,9 +42,7 @@ const LookBookPostDetail = ({ post, userId, postId, userType }) => {
       navigate(`/chat/${response.data}`, {
         state: { backgroundLocation: location },
       });
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
 
   return (
@@ -60,45 +58,30 @@ const LookBookPostDetail = ({ post, userId, postId, userType }) => {
             </ClickTitle>
             <Title weight={400}>님의 작업</Title>
           </TitleWrap>
-          <Date>
-            {post.createAt &&
-              moment(
-                post.createAt.split("T")[0] + "" + post.createAt.split("T")[1],
-                "YYYY-MM-DD HH:mm:ss"
-              )
-                .add(9, "hours")
-                .format()
-                .slice(0, 10)}
-          </Date>
-          {userId === post.userid ? (
+          <Date>{moment(post.createAt).format("YYYY.MM.DD")}</Date>
+          {userId === post.userid && (
             <MyButtonsWrap>
               <MyPostButtons postType="lookbook" id={post.id} />
             </MyButtonsWrap>
-          ) : null}
+          )}
           <MobileInfoSection>
             <InfoSection
               reform={false}
               region={post.addressCategory}
               category={post.category}
             />
-            {+userType === 0 ? (
+            {+userType === 0 && (
               <ChattingBtn onClick={onClickChat}>채팅하기</ChattingBtn>
-            ) : null}
+            )}
           </MobileInfoSection>
         </HeaderWrap>
         <BodyWrap>
           <LeftPostDiv />
           <CenterPostDiv>
-            <Image
-              first={true}
-              alt="card"
-              src={
-                post.image[0] !== null
-                  ? post.image[0]
-                  : "http://openimage.interpark.com/goods_image_big/1/4/1/9/9090461419_l.jpg"
-              }
-            />
-            <TextArea>{post.introduction}</TextArea>
+            <Image first alt="card" src={post.image[0]} />
+            {post.introduction.length > 1 && (
+              <TextArea>{post.introduction}</TextArea>
+            )}
             <Grid>
               {post.image.map((v, i) => {
                 return i !== 0 ? <Image alt="card" src={v} /> : null;
@@ -147,20 +130,17 @@ const Wrap = styled.div`
     width: 1360px;
   }
 `;
-
 const HeaderWrap = styled.div`
   display: flex;
   flex-direction: column;
   text-align: center;
   align-items: center;
 `;
-
 const TitleWrap = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
 `;
-
 const Title = styled.p`
   font-weight: ${(props) => props.weight};
   font-size: ${({ theme }) => theme.fontSizes.l};
@@ -171,25 +151,21 @@ const Title = styled.p`
     line-height: 60px;
   }
 `;
-
 const ClickTitle = styled(Title)`
   :hover {
     cursor: pointer;
   }
 `;
-
 const Date = styled.span`
   font-weight: 400;
   font-size: ${({ theme }) => theme.fontSizes.l};
   line-height: 24px;
   margin-top: 16px;
 `;
-
 const ChattingBtn = styled(MainBtn)`
   margin: 30px 0 0 16px;
   width: 314px;
 `;
-
 const BodyWrap = styled.div`
   display: flex;
   flex-direction: row;
@@ -199,7 +175,6 @@ const BodyWrap = styled.div`
     margin-top: 90px;
   }
 `;
-
 const LeftPostDiv = styled.div`
   display: none;
   @media ${({ theme }) => theme.device.mobile} {
@@ -207,7 +182,6 @@ const LeftPostDiv = styled.div`
     display: initial;
   }
 `;
-
 const RightPostDiv = styled.div`
   display: none;
   @media ${({ theme }) => theme.device.mobile} {
@@ -216,12 +190,10 @@ const RightPostDiv = styled.div`
     position: relative;
   }
 `;
-
 const Navbar = styled.div`
   position: absolute;
   margin-top: 200px;
 `;
-
 const MobilePostRightBtnWrap = styled.div`
   position: fixed;
   right: 16px;
@@ -230,7 +202,6 @@ const MobilePostRightBtnWrap = styled.div`
     display: none;
   }
 `;
-
 const MyButtonsWrap = styled.div`
   display: flex;
   flex-direction: row;
@@ -238,31 +209,26 @@ const MyButtonsWrap = styled.div`
   gap: 16px;
   margin-top: 30px;
 `;
-
 const MobileInfoSection = styled.div`
   @media ${({ theme }) => theme.device.mobile} {
     display: none;
   }
 `;
-
 const CenterPostDiv = styled.div`
   width: 700px;
   text-align: center;
 `;
-
 const Image = styled.img`
   width: 100%;
   object-fit: cover;
-  margin: ${(props) => (props.first ? "0" : "50px 0")};
+  margin: ${(props) => (props.first ? "0 0 -4px 0 " : "50px 0")};
 `;
-
 const Grid = styled.div`
   display: grid;
   grid-gap: 40px;
   grid-template-columns: 1fr 1fr;
   margin: 20px 0;
 `;
-
 const TextArea = styled.div`
   text-align: left;
   border: none;

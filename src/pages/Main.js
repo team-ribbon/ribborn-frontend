@@ -192,6 +192,10 @@ const Nav = styled.nav`
 const LinkDiv = styled.div`
   justify-content: center;
   text-align: center;
+  transition: all 0.1s ease-in-out;
+  &:hover {
+    opacity: 0.65;
+  }
 `;
 
 const NavSpan = styled.span`

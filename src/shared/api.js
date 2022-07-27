@@ -73,13 +73,9 @@ export const apis = {
     api.get(
       `/api/lookList?category=${category}&sort=${sort},desc&page=${page}&size=6`
     ),
-  // loadReformList: (category, region, process, page) =>
-  // api.get(
-  //   `/api/reformList?category=${category}&sort=createAt,desc&region=${region}&process=${process}&page=${page}&size=6`
-  // ),
   loadReformList: (category, region, process, page) =>
     api.get(
-      `/api/reformList?category=${category}&sort=createAt,desc&page=${page}&size=6`
+      `/api/reformList?category=${category}&sort=createAt,desc&region=${region}&process=${process}&page=${page}&size=6`
     ),
 
   // 게시물 상세

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { AiFillFacebook, AiOutlineInstagram } from "react-icons/ai";
-import { useMatch, useNavigate } from "react-router-dom";
+import { Link, useMatch, useNavigate } from "react-router-dom";
 import RuleModal from "./RuleModal";
 import RuleText from "../shared/RuleText";
 import InfoText from "../shared/InfoText";
@@ -100,7 +100,9 @@ const Footer = () => {
               <SpanMargin />
               <ClickContent>서비스소개</ClickContent> <br />
               <SpanMargin />
-              <ClickContent>FAQ</ClickContent>
+              <Link to="/faq">
+                <ClickContent>FAQ</ClickContent>
+              </Link>
             </ContentDiv>
           </BoxDiv>
         </Grid>
@@ -120,7 +122,9 @@ const Footer = () => {
               <MobileSpanMargin />
               <MobileContent>서비스소개</MobileContent> <br />
               <MobileSpanMargin />
-              <MobileContent>FAQ</MobileContent>
+              <Link to="/faq">
+                <MobileContent>FAQ</MobileContent>
+              </Link>
             </ContentDiv>
           </MobileBoxDiv>
         </MobileGrid>

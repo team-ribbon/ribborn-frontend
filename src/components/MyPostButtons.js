@@ -6,7 +6,7 @@ import styled from "styled-components";
 import { deletePostDB } from "../redux/modules/post";
 import AlertModal from "./AlertModal";
 
-const MyPostButtons = ({ id, postType }) => {
+const MyPostButtons = ({ id, postId, postType }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const confirmRef = useRef(false);
@@ -18,7 +18,7 @@ const MyPostButtons = ({ id, postType }) => {
 
   useEffect(() => {
     if (confirmRef.current) {
-      dispatch(deletePostDB(id)).then(() => {
+      dispatch(deletePostDB(postId)).then(() => {
         navigate(`/${postType}`);
       });
     }

@@ -40,6 +40,7 @@ const PostDetail = ({ qna, post, userId, postId }) => {
                 <MyPostButtons
                   postType={qna ? "qna" : "review"}
                   id={post.userid}
+                  postId={post.id}
                 />
               </RowDiv>
             ) : null}
@@ -122,6 +123,7 @@ const CenterPostDiv = styled.div`
 `;
 
 const RightPostDiv = styled.div`
+  z-index: 2;
   @media ${({ theme }) => theme.device.mobile} {
     position: relative;
     min-width: 60px;
@@ -145,6 +147,7 @@ const MobileNavbar = styled.div`
   position: fixed;
   right: 16px;
   bottom: 30%;
+  z-index: 2;
   @media ${({ theme }) => theme.device.mobile} {
     display: none;
   }

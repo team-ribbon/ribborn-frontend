@@ -54,7 +54,7 @@ const ReformPostDetail = ({ post, userId, userType }) => {
             />
             <MyButtonsWrap>
               {userId === post.userid ? (
-                <MyPostButtons postType="reform" id={post.id} />
+                <MyPostButtons postType="reform" postId={post.id} />
               ) : null}
             </MyButtonsWrap>
             {+userType === 1 ? <ChattingBtn>채팅하기</ChattingBtn> : null}
@@ -70,7 +70,7 @@ const ReformPostDetail = ({ post, userId, userType }) => {
               />
               <MyButtonsWrap>
                 {userId === post.userid ? (
-                  <MyPostButtons postType="reform" id={post.id} />
+                  <MyPostButtons postType="reform" postId={post.id} />
                 ) : null}
               </MyButtonsWrap>
               {+userType === 1 ? <ChattingBtn>채팅하기</ChattingBtn> : null}

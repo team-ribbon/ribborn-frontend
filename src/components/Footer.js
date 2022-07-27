@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { AiFillFacebook, AiOutlineInstagram } from "react-icons/ai";
-import { useMatch } from "react-router-dom";
+import { useMatch, useNavigate } from "react-router-dom";
 import RuleModal from "./RuleModal";
 import RuleText from "../shared/RuleText";
 import InfoText from "../shared/InfoText";
 
 const Footer = () => {
+  const navigate = useNavigate();
   const isLookbook = useMatch("lookbookdetail/:postId");
   const isReform = useMatch("reformdetail/:postId");
   const isWhite = useMatch("/reform");
@@ -39,18 +40,36 @@ const Footer = () => {
           <BoxDiv>
             <Title>RIBBORN</Title>
             <ContentDiv>
-              <Content>리본 주식회사 대표 이땡땡</Content> <br />
-              <Content>사업자등록번호:123-45-67891</Content> <br />
-              <Content>통신판매업신고번호:제2022-서울서초-0000호</Content>{" "}
+              <Content>FE: 김현빈, 차혜준</Content> <br />
+              <Content>BE: 박성규, 박성렬, 이정우</Content> <br />
+              <Content>DESIGN: 채리아</Content> <br />
+              <ClickContent
+                onClick={() => {
+                  window.open("https://github.com/team-ribbon", "_blank");
+                }}
+              >
+                https://github.com/team-ribbon
+              </ClickContent>
               <br />
-              <Content>주소: 서울시 강남구 도산대로, 7층</Content> <br />
-              <Content>ribborn@ribborn.co.kr</Content> <br />
+              <Content>ribborn.kr@gmail.com</Content>
+              <br />
             </ContentDiv>
-            <AiFillFacebook size="32" color="rgba(61, 62, 78)" />
+            <AiFillFacebook
+              onClick={() => {
+                window.open("https://www.facebook.com/ribborn.kr", "_blank");
+              }}
+              size="32"
+              color="rgba(61, 62, 78)"
+              cursor="pointer"
+            />
             <AiOutlineInstagram
+              onClick={() => {
+                window.open("https://www.instagram.com/ribborn.kr", "_blank");
+              }}
               style={{ marginLeft: "8px" }}
               size="32"
               color="rgba(61, 62, 78)"
+              cursor="pointer"
             />
           </BoxDiv>
           <BoxDiv>
@@ -107,24 +126,39 @@ const Footer = () => {
         </MobileGrid>
         <MobileBottomBoxDiv>
           <MobileBottomSpanDiv>
-            <MobileContent>리본 주식회사 대표 이땡땡</MobileContent>
+            <MobileContent>FE: 김현빈, 차혜준</MobileContent>
             <MobileSpanMargin />
-            <MobileContent>사업자등록번호:123-45-67891</MobileContent>
+            <MobileContent>BE: 박성규, 박성렬, 이정우</MobileContent>
             <MobileSpanMargin />
-            <MobileContent>
-              통신판매업신고번호:제2022-서울서초-0000호
+            <MobileContent>DESIGN: 채리아</MobileContent>
+            <MobileSpanMargin />
+            <MobileContent
+              onClick={() => {
+                window.open("https://github.com/team-ribbon", "_blank");
+              }}
+            >
+              https://github.com/team-ribbon
             </MobileContent>
             <MobileSpanMargin />
-            <MobileContent>주소: 서울시 강남구 도산대로, 7층</MobileContent>
-            <MobileSpanMargin />
-            <MobileContent>ribborn@ribborn.co.kr</MobileContent>
+            <MobileContent>ribborn.kr@gmail.com</MobileContent>
           </MobileBottomSpanDiv>
           <MobileIconDiv>
-            <AiFillFacebook size="28" color="rgba(61, 62, 78)" />
+            <AiFillFacebook
+              onClick={() => {
+                window.open("https://www.facebook.com/ribborn.kr", "_blank");
+              }}
+              size="28"
+              color="rgba(61, 62, 78)"
+              cursor="pointer"
+            />
             <AiOutlineInstagram
+              onClick={() => {
+                window.open("https://www.instagram.com/ribborn.kr", "_blank");
+              }}
               style={{ marginLeft: "8px" }}
               size="28"
               color="rgba(61, 62, 78)"
+              cursor="pointer"
             />
           </MobileIconDiv>
           <MobileCompanyName>RIBBORN</MobileCompanyName>

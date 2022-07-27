@@ -383,20 +383,6 @@ const GuideContent = styled.span`
     line-height: 28px;
   }
 `;
-const IntroDiv = styled.div`
-  position: relative;
-`;
-const IntroTextArea = styled.textarea`
-  padding: 30px 20px;
-  width: 100%;
-  height: 208px;
-  border: 1px solid #afb0b3;
-  border-radius: 15px;
-  font-weight: 400;
-  font-size: ${({ theme }) => theme.fontSizes.l};
-  line-height: 24px;
-  resize: none;
-`;
 const IntroLength = styled.span`
   position: absolute;
   right: 19px;

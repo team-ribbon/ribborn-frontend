@@ -8,6 +8,7 @@ import { TagTextColor } from "../elements/TagTextColor";
 // 메인, LOOKBOOK 게시판에 사용되는 카드
 const CardB = ({ postObj, hot, isMain, inViewRef }) => {
   const navigate = useNavigate();
+
   return (
     <Article
       onClick={() => {
@@ -44,7 +45,7 @@ const Article = styled.article`
       transform: scale(1.05);
     }
     #dim {
-      background-color: rgba(0, 0, 0, 0.5);
+      background-color: rgba(0, 0, 0, 0.4);
     }
   }
 `;

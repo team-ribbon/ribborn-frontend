@@ -17,14 +17,7 @@ const CardA = ({ postObj, type, reform, inViewRef }) => {
       }}
     >
       <ImageWrap ref={inViewRef}>
-        <Image
-          alt="card"
-          src={
-            postObj?.image
-              ? postObj.image
-              : "http://openimage.interpark.com/goods_image_big/1/4/1/9/9090461419_l.jpg"
-          }
-        />
+        <Image alt="card" src={postObj?.image || "/images/textLogo.png"} />
       </ImageWrap>
       <Content>
         <Title>{postObj.title}</Title>

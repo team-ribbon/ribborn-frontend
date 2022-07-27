@@ -10,6 +10,10 @@ export const MainBtn = styled.button`
   color: #fff;
   background-color: ${({ theme }) => theme.colors.orange};
   cursor: pointer;
+  transition: all 0.1s ease-in-out;
+  &:hover {
+    opacity: 0.7;
+  }
   @media all and (min-width: 300px) {
     border-radius: 10px;
     line-height: 17px;
@@ -51,6 +55,10 @@ export const FixedSizeMainBtn = styled.button`
   border-radius: 15px;
   padding: 25px 60px;
   font-size: ${({ theme }) => theme.fontSizes.l};
+  transition: all 0.1s ease-in-out;
+  &:hover {
+    opacity: 0.7;
+  }
 `;
 
 export const FixedSizeBlackBtn = styled(FixedSizeMainBtn)`
@@ -79,11 +87,18 @@ export const SubBtn = styled.button`
     font-size: ${({ theme }) => theme.fontSizes.l};
     border-radius: 25px;
   }
+  transition: all 0.1s ease-in-out;
+  &:hover {
+    filter: brightness(90%);
+  }
 `;
 export const SubBtnActive = css`
   background-color: ${({ theme }) => theme.colors.black};
   color: #fff;
   border: none;
+  &:hover {
+    filter: none;
+  }
 `;
 export const FixedSizeSubBtn = styled.button`
   border-radius: 25px;
@@ -92,6 +107,10 @@ export const FixedSizeSubBtn = styled.button`
   border: 1px solid #afb0b3;
   background-color: #fff;
   cursor: pointer;
+  transition: all 0.1s ease-in-out;
+  &:hover {
+    filter: brightness(90%);
+  }
 `;
 
 export const Category = styled.div`

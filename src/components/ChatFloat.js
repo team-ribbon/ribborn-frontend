@@ -61,6 +61,10 @@ const FloatWrap = styled.div`
   position: fixed;
   bottom: 30px;
   right: 30px;
+  @media screen and (max-width: ${({ theme }) => theme.deviceSizes.mobile}) {
+    bottom: 20px;
+    right: 20px;
+  }
 `;
 const ChatButton = styled.div`
   width: 57px;
@@ -73,11 +77,17 @@ const ChatButton = styled.div`
   cursor: pointer;
   div {
     text-align: center;
-    padding-top: 14px;
+    padding-top: 9px;
+    @media ${({ theme }) => theme.device.mobile} {
+      padding-top: 14px;
+    }
   }
   span {
     display: block;
-    padding-top: 5px;
+    padding-top: 0px;
+    @media ${({ theme }) => theme.device.mobile} {
+      padding-top: 5px;
+    }
   }
   @media ${({ theme }) => theme.device.mobile} {
     width: 67px;

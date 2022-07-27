@@ -11,58 +11,12 @@ import ImageUpload from "../components/ImageUpload";
 import RegionSelect from "../components/RegionSelect";
 import React from "react";
 import { ThinArrowSVG, WriteGuideSVG } from "../elements/SVG";
-import { Input, InputTitle } from "../elements/Inputs";
+import { HelpText, Input, InputTitle } from "../elements/Inputs";
 import { Textarea } from "../elements/Textarea";
+import { writeGuide } from "../shared/writeGuide";
 
+// 게시물 작성 페이지
 const WritePost = () => {
-  const info = {
-    review: {
-      title: "리폼 후기 게시물 작성 가이드",
-      content: [
-        "간단한 자기소개 후 디자이너의 작품을 소개해주세요.",
-        "사진 속 작품 정보를 본문에 최대한 적어주세요.",
-        "사진 첨부 시 용량은 장당 최대 20MB까지 업로드할 수 있고, png, jpg, jpeg, webp 포맷을 지원해요.",
-        "정보를 많이 입력할수록 검색 결과에 많이 노출되어 조회수가 올라가요.",
-        "글 작성과 이미지 업로드 시, 타인의 지식재산권을 침해하지 않도록 유의해주세요.",
-        "본문에 악의성 내용이 포함되어있으면 안내없이 해당 글이 관리자에 의해 삭제될 수 있어요.",
-      ],
-    },
-    lookbook: {
-      title: "룩북 게시물 작성 가이드",
-      content: [
-        "사진 가이드",
-        "- 작품이 한 눈에 잘 보이는 풀샷으로 찍어주세요.",
-        "- 수직/수평이 잘 맞게 작품을 찍어주세요.",
-        "- 필터 효과보단 선명하고 자연스러운 사진으로 찍어주세요.",
-        "- 다양한 각도로 작품을 보여주면, 디자이너님의 작품을 더욱 잘 이해할 수 있어요.",
-        "사진 속 작품 정보를 본문에 최대한 적어주세요.",
-        "사진 첨부 시 용량은 장당 최대 20MB까지 업로드할 수 있고, png, jpg, jpeg, webp 포맷을 지원해요.",
-        "글 작성과 이미지 업로드 시, 타인의 지식재산권을 침해하지 않도록 유의해주세요.",
-        "본문에 악의성 내용이 포함되어있으면 안내없이 해당 글이 관리자에 의해 삭제될 수 있어요.",
-      ],
-    },
-    reform: {
-      title: "리폼 견적 게시물 작성 가이드",
-      content: [
-        "사진 속 상품 정보를 본문에 최대한 적어주세요 (재질, 사이즈, 애로 사항 등)",
-        "사진 첨부 시 용량은 장당 최대 20MB까지 업로드할 수 있고, png, jpg, jpeg, webp 포맷을 지원해요.",
-        "정보를 많이 입력할수록 검색 결과에 많이 노출되어 조회수가 올라가요.",
-        "글 작성과 이미지 업로드 시, 타인의 지식재산권을 침해하지 않도록 유의해주세요.",
-        "본문에 악의성 내용이 포함되어있으면 안내없이 해당 글이 관리자에 의해 삭제될 수 있어요.",
-      ],
-    },
-    qna: {
-      title: "질문과 답변 게시물 작성 가이드",
-      content: [
-        "궁금한 내용을 상세히 적어주세요.",
-        "사진 첨부 시 용량은 장당 최대 20MB까지 업로드할 수 있고, png, jpg, jpeg, webp 포맷을 지원해요.",
-        "정보를 많이 입력할수록 검색 결과에 많이 노출되어 조회수가 올라가요.",
-        "글 작성과 이미지 업로드 시, 타인의 지식재산권을 침해하지 않도록 유의해주세요.",
-        "본문에 악의성 내용이 포함되어있으면 안내없이 해당 글이 관리자에 의해 삭제될 수 있어요.",
-      ],
-    },
-  };
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -70,6 +24,7 @@ const WritePost = () => {
   const contentRef = useRef();
   const introRef = useRef();
 
+  const { type } = useParams();
   const files = useSelector((state) => state.image.fileList);
   const intro = useSelector((state) => state.post.techIntro);
   const isLogin = useSelector((state) => state.user.isLogin);
@@ -80,33 +35,44 @@ const WritePost = () => {
   const [region, setRegion] = useState(0);
   const [isGuideOn, setIsGuideOn] = useState(true);
 
-  const { type } = useParams();
+  const [error, setError] = useState({
+    categoryError: null,
+    regionError: null,
+    titleError: null,
+    fileError: null,
+    contentError: null,
+  });
+
+  const { categoryError, regionError, titleError, fileError, contentError } =
+    error;
 
   const formData = new FormData();
 
   const onSubmit = async () => {
     if (+category === 0) {
-      alert("리폼 종류 없음");
+      setError({ ...error, categoryError: "리폼 종류를 선택해주세요." });
       return false;
     }
 
     if (type === "reform" && +region === 0) {
-      alert("지역 없음");
+      setError({ ...error, regionError: "지역을 선택해주세요." });
       return false;
     }
 
     if (type !== "lookbook" && title.length < 1) {
+      setError({ ...error, titleError: "제목을 입력해주세요." });
       titleRef.current.focus();
       return false;
     }
 
     if (contentRef.current.value.length < 1) {
+      setError({ ...error, contentError: "내용을 입력해주세요." });
       contentRef.current.focus();
       return false;
     }
 
     if ((type === "review" || type === "lookbook") && files.length < 1) {
-      alert("사진 없음");
+      setError({ ...error, fileError: "사진을 선택해주세요." });
       return false;
     }
 
@@ -144,6 +110,7 @@ const WritePost = () => {
 
   const onChangeTitle = (event) => {
     setTitle(event.target.value);
+    setError({ ...error, titleError: null });
     if (title.length > 29) {
       return setTitle((prev) => prev.substring(0, 30));
     }
@@ -157,17 +124,14 @@ const WritePost = () => {
 
   useEffect(() => {
     dispatch(getTechIntroDB());
+    return () => {
+      dispatch(resetFile());
+    };
   }, []);
 
   useEffect(() => {
     setIntroduction(intro);
   }, [intro]);
-
-  useEffect(() => {
-    return () => {
-      dispatch(resetFile());
-    };
-  }, []);
 
   useEffect(() => {
     if (!isLogin) {
@@ -179,29 +143,27 @@ const WritePost = () => {
     <Wrap>
       <FormWrap>
         <SubmitBtnDiv>
-          <SubmitBtn
-            onClick={() => {
-              onSubmit();
-            }}
-            type="submit"
-            value="발행"
-          />
+          <SubmitBtn onClick={onSubmit} type="submit" value="발행" />
         </SubmitBtnDiv>
         <SelectDiv>
           <CategorySelect
-            write={true}
+            write
             setCategory={setCategory}
             category={category}
+            setError={setError}
+            error={error}
           />
           {type === "reform" && (
             <RegionSelect write={true} setRegion={setRegion} region={region} />
           )}
         </SelectDiv>
+        {categoryError && <ErrorMessage>{categoryError}</ErrorMessage>}
+        {regionError && <ErrorMessage region>{regionError}</ErrorMessage>}
         <Guide>
           <GuideTitleDiv onClick={() => setIsGuideOn((prev) => !prev)}>
             <div>
               <WriteGuideSVG />
-              <GuideTitle>{info[type].title}</GuideTitle>
+              <GuideTitle>{writeGuide[type].title}</GuideTitle>
               <GuideSubTitle>
                 원활한 게시물 발행을 위해 꼭 읽어주세요!
               </GuideSubTitle>
@@ -212,7 +174,7 @@ const WritePost = () => {
           </GuideTitleDiv>
           {isGuideOn && (
             <GuideContentDiv>
-              {info[type].content.map((v, i) => {
+              {writeGuide[type].content.map((v, i) => {
                 return (
                   <div>
                     <GuideContent
@@ -243,20 +205,24 @@ const WritePost = () => {
           </InputWrap>
         )}
         {type !== "lookbook" && (
-          <InputWrap>
-            <InputTitle>제목</InputTitle>
-            <Input
-              name="title"
-              placeholder="제목을 입력해주세요"
-              value={title}
-              onChange={onChangeTitle}
-              ref={titleRef}
-            />
-            <TitleLength>{title.length}/30</TitleLength>
-          </InputWrap>
+          <>
+            <InputWrap>
+              <InputTitle>제목</InputTitle>
+              <Input
+                name="title"
+                placeholder="제목을 입력해주세요"
+                value={title}
+                onChange={onChangeTitle}
+                ref={titleRef}
+                invalid={titleError}
+              />
+              <TitleLength>{title.length}/30</TitleLength>
+            </InputWrap>
+            {titleError && <ErrorMessage>{titleError}</ErrorMessage>}
+          </>
         )}
         <InputWrap>
-          <ImageUpload type={type} />
+          <ImageUpload type={type} error={error} setError={setError} />
         </InputWrap>
         <InputWrap>
           <InputTitle>내용</InputTitle>
@@ -266,8 +232,13 @@ const WritePost = () => {
             ref={contentRef}
             maxLength="1000"
             height="400px"
+            invalid={contentError}
+            onChange={() => {
+              setError({ ...error, contentError: null });
+            }}
           />
         </InputWrap>
+        {contentError && <ErrorMessage>{contentError}</ErrorMessage>}
       </FormWrap>
     </Wrap>
   );
@@ -405,6 +376,10 @@ const TitleLength = styled.span`
   line-height: 24px;
   color: #afb0b3;
   background-color: #fff;
+`;
+const ErrorMessage = styled(HelpText)`
+  margin-bottom: 10px;
+  margin-left: 5px;
 `;
 
 export default WritePost;

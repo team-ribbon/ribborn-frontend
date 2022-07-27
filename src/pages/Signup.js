@@ -23,6 +23,18 @@ const Signup = () => {
           <HelpText>어떤 회원이신가요? 회원 종류를 선택해주세요!</HelpText>
         </HelpWrap>
       )}
+      {isTech && (
+        <HelpWrap>
+          <Eye>🚧</Eye>
+          <HelpText>
+            디자이너/기술자 회원가입은 준비 중입니다.
+            <br />
+            계정 생성은 이메일을 통해 문의해주세요.
+            <br />
+            <p>ribborn.kr@gmail.com</p>
+          </HelpText>
+        </HelpWrap>
+      )}
       <Outlet />
     </Wrap>
   );
@@ -58,6 +70,11 @@ const Eye = styled.div`
   background-color: ${({ theme }) => theme.colors.lighterGray}; ;
 `;
 const HelpText = styled.div`
+  line-height: 1.5;
   font-size: ${({ theme }) => theme.fontSizes.l};
+  p {
+    margin-top: 20px;
+    text-decoration: underline;
+  }
 `;
 export default Signup;

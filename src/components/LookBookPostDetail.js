@@ -61,7 +61,7 @@ const LookBookPostDetail = ({ post, userId, postId, userType }) => {
           <Date>{moment(post.createAt).format("YYYY.MM.DD")}</Date>
           {userId === post.userid && (
             <MyButtonsWrap>
-              <MyPostButtons postType="lookbook" id={post.id} />
+              <MyPostButtons postType="lookbook" postId={post.id} />
             </MyButtonsWrap>
           )}
           <MobileInfoSection>

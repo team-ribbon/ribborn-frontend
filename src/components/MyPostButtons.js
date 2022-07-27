@@ -35,7 +35,7 @@ const MyPostButtons = ({ id, postId, postType }) => {
           content="삭제 후에는 복구할 수 없습니다."
         />
       )}
-      <Link to={`/edit/${postType}/${id}`}>
+      <Link to={`/edit/${postType}/${postId}`}>
         <MyPostButton>수정</MyPostButton>
       </Link>
       <MyPostButton onClick={deletePost}>삭제</MyPostButton>

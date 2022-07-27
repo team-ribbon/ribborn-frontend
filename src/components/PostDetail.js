@@ -37,7 +37,11 @@ const PostDetail = ({ qna, post, userId, postId }) => {
             </RowDiv>
             {userId === post.userid ? (
               <RowDiv>
-                <MyPostButtons postType={qna ? "qna" : "review"} id={post.id} />
+                <MyPostButtons
+                  postType={qna ? "qna" : "review"}
+                  id={post.userid}
+                  postId={post.id}
+                />
               </RowDiv>
             ) : null}
           </IDDiv>
@@ -119,6 +123,7 @@ const CenterPostDiv = styled.div`
 `;
 
 const RightPostDiv = styled.div`
+  z-index: 2;
   @media ${({ theme }) => theme.device.mobile} {
     position: relative;
     min-width: 60px;
@@ -140,9 +145,9 @@ const Navbar = styled.div`
 const MobileNavbar = styled.div`
   height: fit-content;
   position: fixed;
-  right: 80px;
-  bottom: 180px;
-  transform: translate(50%, 0);
+  right: 16px;
+  bottom: 30%;
+  z-index: 2;
   @media ${({ theme }) => theme.device.mobile} {
     display: none;
   }

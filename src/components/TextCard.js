@@ -11,8 +11,6 @@ const TextCard = ({ postObj, noWriter, reform, inViewRef }) => {
 
   let process = null;
   switch (postObj.process) {
-    case undefined:
-      break;
     case "before":
       process = "모집중";
       break;
@@ -21,6 +19,8 @@ const TextCard = ({ postObj, noWriter, reform, inViewRef }) => {
       break;
     case "after":
       process = "완료";
+      break;
+    default:
       break;
   }
 
@@ -90,11 +90,8 @@ const TextCard = ({ postObj, noWriter, reform, inViewRef }) => {
       </TextDiv>
       <PictureDiv>
         <Picture
-          src={
-            postObj.image !== null
-              ? postObj.image
-              : "http://openimage.interpark.com/goods_image_big/1/4/1/9/9090461419_l.jpg"
-          }
+          hasImage={postObj?.image}
+          src={postObj?.image || "/images/textLogo.png"}
         />
       </PictureDiv>
     </PostDiv>
@@ -150,12 +147,12 @@ const PostProcess = styled.button`
   line-height: 14px;
   height: 27px;
   width: 59px;
-  background-color: ${(props) =>
-    props.process === "before"
-      ? "rgba(0, 174, 30, 0.43)"
-      : props.process === "ing"
-      ? "rgba(0, 64, 193, 0.43)"
-      : "rgba(255, 140, 40, 0.43)"};
+  background-color: ${({ process }) =>
+    process === "after"
+      ? "rgba(50, 47, 90, 0.43)"
+      : process === "ing"
+      ? "rgba(255, 140, 40, 0.43)"
+      : "rgba(0, 174, 30, 0.43)"};
   border: none;
   border-radius: 8px;
   margin: 16px 30px auto 0px;
@@ -269,6 +266,8 @@ const Picture = styled.img`
   height: 30vw;
   margin: auto;
   border-radius: 15px;
+  object-fit: cover;
+  opacity: ${({ hasImage }) => !hasImage && "0.15"};
   @media ${({ theme }) => theme.device.mobile} {
     width: 276px;
     height: 217px;

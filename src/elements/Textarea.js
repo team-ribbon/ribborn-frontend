@@ -9,6 +9,8 @@ export const Textarea = styled.textarea`
   border-radius: 15px;
   background-color: ${({ theme }) => theme.colors.lighterGray};
   font-size: ${({ theme }) => theme.fontSizes.l};
+  border: 1px solid
+    ${({ theme, invalid }) => (invalid ? theme.colors.orange : "none")};
   &:focus {
     outline: none;
   }

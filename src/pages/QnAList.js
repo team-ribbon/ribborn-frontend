@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
 import { useInView } from "react-intersection-observer";
 
 import {
@@ -10,6 +9,7 @@ import {
   cleanUpPostList,
   loadDoneReset,
 } from "../redux/modules/post";
+
 import TextCard from "../components/TextCard";
 import TabWrap from "../components/TabWrap";
 import Sort from "../components/Sort";
@@ -135,6 +135,7 @@ const Buttons = styled(Category)`
   margin: 20px auto;
   display: flex;
   align-items: center;
+  max-width: ${({ theme }) => theme.width.listWidth};
 `;
 
 const PostCoverDiv = styled.div`

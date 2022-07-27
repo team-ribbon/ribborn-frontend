@@ -1,27 +1,28 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useInView } from "react-intersection-observer";
-import styled, { css } from "styled-components";
-import CardA from "../components/CardA";
+import styled from "styled-components";
+
 import {
   getReviewListDB,
   cleanUpPostList,
   loadDoneReset,
 } from "../redux/modules/post";
-import { MainBtn, SubBtn, Category } from "../elements/Buttons";
+
 import Sort from "../components/Sort";
 import TabWrap from "../components/TabWrap";
+import CardA from "../components/CardA";
+import { MainBtn, SubBtn, Category } from "../elements/Buttons";
 import Categories from "../shared/Categories";
 
 const Review = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const param = useParams();
   const postList = useSelector((state) => state.post.PostList);
   const loadedEverything = useSelector((state) => state.post.loadedEverything);
   const isLogin = useSelector((state) => state.user.isLogin);
-  const param = useParams();
-  // console.log(postList);
 
   const [sort, setSort] = useState("createAt");
   const [category, setCategory] = useState(
@@ -133,6 +134,7 @@ const Buttons = styled(Category)`
   margin: 50px auto;
   display: flex;
   align-items: center;
+  max-width: ${({ theme }) => theme.width.listWidth};
 `;
 
 export default Review;

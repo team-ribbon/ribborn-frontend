@@ -8,6 +8,7 @@ import { TagTextColor } from "../elements/TagTextColor";
 // 메인, LOOKBOOK 게시판에 사용되는 카드
 const CardB = ({ postObj, hot, isMain, inViewRef }) => {
   const navigate = useNavigate();
+
   return (
     <Article
       onClick={() => {
@@ -15,23 +16,12 @@ const CardB = ({ postObj, hot, isMain, inViewRef }) => {
       }}
     >
       <ImageWrap isMain={isMain} ref={inViewRef}>
-        <ImageDim />
+        <ImageDim id="dim" />
         <Image alt="lookbook" src={postObj.image} />
         <Title>
           {postObj.nickname} <span>님의 작업</span>
         </Title>
-        <Date>
-          {postObj.createAt &&
-            moment(
-              postObj.createAt.split("T")[0] +
-                "" +
-                postObj.createAt.split("T")[1],
-              "YYYY-MM-DD HH:mm:ss"
-            )
-              .add(9, "hours")
-              .format()
-              .slice(0, 10)}
-        </Date>
+        <Date>{moment(postObj.createAt).format("YYYY.MM.DD")}</Date>
         {hot && <Hot>HOT 🔥</Hot>}
       </ImageWrap>
       {!isMain && (
@@ -50,6 +40,14 @@ const CardB = ({ postObj, hot, isMain, inViewRef }) => {
 };
 const Article = styled.article`
   cursor: pointer;
+  &:hover {
+    img {
+      transform: scale(1.05);
+    }
+    #dim {
+      background-color: rgba(0, 0, 0, 0.4);
+    }
+  }
 `;
 const ImageWrap = styled.div`
   position: relative;
@@ -74,6 +72,7 @@ const Image = styled.img`
   height: 100%;
   object-fit: cover;
   border-radius: 15px;
+  transition: all 0.1s linear;
 `;
 const Content = styled.div`
   display: flex;

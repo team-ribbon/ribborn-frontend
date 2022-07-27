@@ -40,8 +40,11 @@ const DesignSection = ({ postList }) => {
       <Background>
         <TopWrap>
           <DesktopTitle>놓치면 안되는 리폼 디자이너 🔥</DesktopTitle>
-          <MobileTitle>놓치면 안되는</MobileTitle>
-          <MobileTitle> 리폼 디자이너 🔥</MobileTitle>
+          <MobileTitle>
+            놓치면 안되는
+            <br />
+            리폼 디자이너 🔥
+          </MobileTitle>
           <More
             onClick={() => {
               navigate("/lookbook");
@@ -112,6 +115,10 @@ const TopWrap = styled.div`
   align-items: center;
   flex-wrap: wrap;
   margin-left: 50px;
+  @media screen and (max-width: 570px) {
+    padding: 100px 20px 50px 0px;
+    margin-left: 0px;
+  }
 `;
 const DesktopTitle = styled.div`
   display: none;
@@ -121,7 +128,7 @@ const DesktopTitle = styled.div`
   font-weight: 700;
   width: 380px;
   margin: 0 auto;
-  @media all and (min-width: 563px) {
+  @media all and (min-width: 500px) {
     display: inherit;
   }
 `;
@@ -129,9 +136,10 @@ const MobileTitle = styled.div`
   color: #fff;
   font-size: ${({ theme }) => theme.fontSizes.xl};
   font-weight: 700;
-  line-height: 32px;
-  width: 380px;
-  @media all and (min-width: 563px) {
+  line-height: 1.3;
+  max-width: 280px;
+  margin-left: 20px;
+  @media all and (min-width: 500px) {
     display: none;
   }
 `;

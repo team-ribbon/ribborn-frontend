@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useEffect } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
@@ -10,17 +10,16 @@ import LookBookPostDetail from "../components/LookBookPostDetail";
 const LookBookDetail = () => {
   const dispatch = useDispatch();
   const params = useParams();
-  console.log(params);
 
   const post = useSelector((state) => state.post.Post);
-  const userId = useSelector((state) => state.user.user.id);
-  const userType = useSelector((state) => state.user.user.userType);
+  const userId = useSelector((state) => state.user.user?.id);
+  const userType = useSelector((state) => state.user.user?.userType);
 
-  React.useEffect(() => {
+  useEffect(() => {
     dispatch(getLookbookPostDB(params.postId));
   }, []);
 
-  React.useEffect(() => {
+  useEffect(() => {
     return () => {
       dispatch(cleanUpPost());
     };

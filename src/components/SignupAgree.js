@@ -54,6 +54,7 @@ const SignupAgree = forwardRef(({ setAgreeError }, ref) => {
         )}
         {infoModal && (
           <RuleModal
+            info
             isModalOn={infoModal}
             setIsModalOn={setInfoModal}
             title="개인정보수집 및 이용동의"
@@ -123,7 +124,7 @@ const SignupAgree = forwardRef(({ setAgreeError }, ref) => {
               style={{ display: "none" }}
             />
             {agree3 ? <CheckSVG /> : <CheckBox />}
-            <RuleSpan>(필수) 개인정보수집 및 이용동의</RuleSpan>
+            <RuleSpan>(필수) 개인정보 수집 및 이용 동의</RuleSpan>
           </Label>
           <ShowContent
             onClick={() => {

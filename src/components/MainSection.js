@@ -1,7 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import CardA from "./CardA";
-import CardB from "./CardB";
 
 // 메인 > 기본 섹션
 const MainSection = ({ type, title, url, postList }) => {
@@ -21,7 +20,9 @@ const MainSection = ({ type, title, url, postList }) => {
       <Grid type={type}>
         {type === "C"
           ? postList.map((postObj) => {
-              return <CardA postObj={postObj} key={postObj.id} reform={true} />;
+              return (
+                <CardA postObj={postObj} key={postObj.id} reform type={type} />
+              );
             })
           : postList.map((postObj) => {
               return <CardA postObj={postObj} key={postObj.id} type={type} />;

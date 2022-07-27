@@ -56,6 +56,7 @@ const ChatRoom = () => {
       message: event.target.chat.value,
       isRead: false,
       type: "TALK",
+      nickname: user.nickname,
     };
 
     stompClient.send(
@@ -63,7 +64,9 @@ const ChatRoom = () => {
       { Authorization: `Bearer ${localStorage.getItem("token")}` },
       JSON.stringify(messageObj)
     );
-    dispatch(updateRoomMessage({ ...messageObj, index: location.state.index }));
+    dispatch(
+      updateRoomMessage({ ...messageObj, index: location.state.index ?? 0 })
+    );
     event.target.chat.value = null;
   };
 

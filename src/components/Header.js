@@ -85,7 +85,9 @@ const Header = () => {
         </UserNav>
       </NavWrap>
       <CategoryNav>
-        <Link to="/">RIBBORN</Link>
+        <Link to="/">
+          <Logo>RIBBORN</Logo>
+        </Link>
         <div>
           <Community isCommunity={isCommunity}>
             <Link to="/review">커뮤니티</Link>
@@ -100,7 +102,9 @@ const Header = () => {
       </CategoryNav>
       <MobileWrap>
         <TopWrap>
-          <Link to="/">RIBBORN</Link>
+          <Link to="/">
+            <Logo>RIBBORN</Logo>
+          </Link>
           <HeaderModal isLogin={isLogin} user={user} />
         </TopWrap>
         <BottomWrap>
@@ -126,7 +130,21 @@ const HeaderWrap = styled.header`
   z-index: 10;
   background-color: #fff;
 `;
-
+const LogoFont = css`
+  font-family: "quicksand", sans-serif !important;
+  font-style: normal;
+  font-weight: 500;
+`;
+const Logo = styled.h1`
+  ${LogoFont}
+  display: inline-block;
+  font-size: 30px;
+  margin-top: -10px;
+  @media screen and (max-width: ${({ theme }) => theme.deviceSizes.mobile}) {
+    font-size: ${({ theme }) => theme.fontSizes.m};
+    margin-bottom: 3px;
+  }
+`;
 const UserNav = styled.nav`
   max-width: ${({ theme }) => theme.width.maxWidth};
   margin: 10px auto;

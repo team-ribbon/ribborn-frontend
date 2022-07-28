@@ -1,11 +1,19 @@
 import React, { useRef, useState, useEffect } from "react";
 import styled from "styled-components";
-import { IoIosArrowDown } from "react-icons/io";
 
 import Categories from "../shared/Categories";
 import { ThinArrowSVG } from "../elements/SVG";
+import { HelpText } from "../elements/Inputs";
 
-const CategorySelect = ({ setCategory, category, write }) => {
+const CategorySelect = ({
+  setCategory,
+  category,
+  write,
+  setError,
+  error,
+  defaultValue,
+  optionList,
+}) => {
   const [isModalOn, setIsModalOn] = useState(false);
   const outsideRef = useRef();
 
@@ -30,19 +38,20 @@ const CategorySelect = ({ setCategory, category, write }) => {
       <ButtonWrap
         onClick={() => setIsModalOn((prev) => !prev)}
         isModalOn={isModalOn}
+        invalid={error?.categoryError}
       >
         {category === 0 && (
           <>
-            <Text>리폼종류</Text>
+            <Text>{defaultValue}</Text>
             <div>
               <ThinArrowSVG />
             </div>
           </>
         )}
-        {Categories.map((v) => {
-          return category === v.value ? (
+        {Categories.map((option) => {
+          return category === option.value ? (
             <>
-              <Text>{v.text}</Text>
+              <Text key={category}>{option.text}</Text>
               <div>
                 <ThinArrowSVG />
               </div>
@@ -61,6 +70,7 @@ const CategorySelect = ({ setCategory, category, write }) => {
                     onClick={() => {
                       setCategory(v.value);
                       setIsModalOn(false);
+                      setError({ ...error, categoryError: null });
                     }}
                   >
                     {v.text}
@@ -70,6 +80,9 @@ const CategorySelect = ({ setCategory, category, write }) => {
             })}
           </Modal>
         </>
+      )}
+      {error?.categoryError && (
+        <ErrorMessage>{error?.categoryError}</ErrorMessage>
       )}
     </Wrap>
   );
@@ -83,8 +96,9 @@ const ButtonWrap = styled.div`
   cursor: pointer;
   width: 120px;
   height: 44px;
-  border: 1px solid #afb0b3;
-  border-radius: 15px;
+  border: 1px solid
+    ${({ invalid, theme }) => (invalid ? theme.colors.orange : "#afb0b3")};
+  border-radius: 8px;
   outline: none;
   align-items: center;
   justify-content: space-between;
@@ -102,6 +116,7 @@ const ButtonWrap = styled.div`
     /* margin-left: ${(props) => (props.left ? "auto" : "30px")}; */
     padding: 0 20px;
     height: 54px;
+    border-radius: 15px;
   }
 `;
 const Text = styled.span`
@@ -139,5 +154,8 @@ const Modal = styled.div`
       margin: 30px 0 0 30px;
     }
   }
+`;
+const ErrorMessage = styled(HelpText)`
+  margin-left: 5px;
 `;
 export default CategorySelect;

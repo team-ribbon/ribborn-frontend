@@ -17,11 +17,11 @@ const Main = () => {
 
   return (
     <main>
-      {/* <Link to={contents.banner.toUrl}> */}
-      <BannerWrap>
-        <Banner src={contents.banner} type="A" />
-      </BannerWrap>
-      {/* </Link> */}
+      <Link to={contents.banner[0].url}>
+        <BannerWrap>
+          <Banner1 src={contents && contents.banner[0].image} type="A" />
+        </BannerWrap>
+      </Link>
       <MainNavWrap>
         <Nav>
           <Link to="/lookbook">
@@ -112,11 +112,13 @@ const Main = () => {
         />
       </MainWrap>
       <DesignSection postList={contents.lookbookList} />
-      {/* <Link to={contents.banner.toUrl}> */}
-      <BannerWrap>
-        <Banner src={contents.banner} type="B" />
+      <BannerWrap
+        onClick={() => {
+          window.open(contents.banner[1].url, "_blank");
+        }}
+      >
+        <Banner2 src={contents.banner[1].image} type="B" />
       </BannerWrap>
-      {/* </Link> */}
       <MainWrap>
         <MainSection
           type="C"
@@ -154,14 +156,30 @@ const MainNavWrap = styled.div`
 const BannerWrap = styled.div`
   max-width: ${({ theme }) => theme.width.maxWidth};
   margin: 0 auto 0 auto;
+  background-color: #d9d9d9;
+  cursor: pointer;
   @media ${({ theme }) => theme.device.mobile} {
     margin: 10px auto 0 auto;
   }
 `;
-const Banner = styled.img`
-  height: ${({ type }) => (type === "A" ? "480px" : "350px")};
+const Banner1 = styled.img`
   width: 100%;
+  height: 50vw;
   object-fit: cover;
+  @media ${({ theme }) => theme.device.mobile} {
+    height: 480px;
+    margin: 10px auto 0 auto;
+  }
+`;
+const Banner2 = styled.img`
+  width: calc(100% - 32px);
+  margin-left: 16px;
+  object-fit: contain;
+  @media ${({ theme }) => theme.device.mobile} {
+    height: 350px;
+    width: 100%;
+    margin-left: 0;
+  }
 `;
 
 const Nav = styled.nav`

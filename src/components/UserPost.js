@@ -165,8 +165,8 @@ const UserPost = ({
                 </SeeMore>
               </PostCollectionTitleDiv>
               <TextCardDiv>
-                {reform && reform.lenght === 0 ? (
-                  <NoPost category="reform" />
+                {reform && reform.length === 0 ? (
+                  <NoPost category="reform" myPage={myPage} />
                 ) : (
                   reform &&
                   reform.slice(0, 3).map((thisPost) => {

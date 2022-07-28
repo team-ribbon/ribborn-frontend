@@ -149,7 +149,7 @@ const Main = () => {
       <MainWrap>
         <MainSection
           type="A"
-          title="금손 장인 ✌🏻"
+          title="금손 장인✌🏻"
           url="/review"
           postList={contents.reviewList}
         />
@@ -165,7 +165,7 @@ const Main = () => {
       <MainWrap>
         <MainSection
           type="C"
-          title="오늘의 견적 ⚡️"
+          title="오늘의 견적⚡️"
           url="/reform"
           postList={contents.reformList}
         />

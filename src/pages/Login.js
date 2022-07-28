@@ -15,7 +15,6 @@ const Login = () => {
     register,
     handleSubmit,
     formState: { errors },
-    formState,
   } = useForm();
 
   const onValid = (loginObj) => {
@@ -29,7 +28,11 @@ const Login = () => {
   };
   return (
     <Wrap>
-      <h1>RIBBORN</h1>
+      <h1>
+        <div>
+          <Logo src={"/images/graphicLogo.png"} alt="ribborn" />
+        </div>
+      </h1>
       <form onSubmit={handleSubmit(onValid)}>
         <InputTitle>이메일 주소</InputTitle>
         <Input
@@ -70,10 +73,16 @@ const Wrap = styled.div`
   padding: 0 20px;
   h1 {
     text-align: center;
-    font-size: ${({ theme }) => theme.fontSizes.xl};
-    font-weight: 700;
-    margin: 90px 0;
+    margin: 90px 0 50px 0;
+    @media screen and (max-width: ${({ theme }) => theme.deviceSizes.mobile}) {
+      margin: 50px 0;
+    }
   }
+`;
+const Logo = styled.img`
+  width: 100%;
+  max-width: 500px;
+  border-radius: 25px;
 `;
 const TextBtn = styled.div`
   margin-top: 50px;

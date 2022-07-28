@@ -97,16 +97,59 @@ const Main = () => {
         </Nav>
       </MainNavWrap>
       <CO2>
-        <CO2Span>
-          누적 {contents.co2Count}건의 리본으로 인해
+        <CO2SVGWrap>
+          <CO2SVGDiv>
+            <svg
+              width="100%"
+              viewBox="0 0 1118 347"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M136.867 -63C89.7714 -16.848 16.9643 82.8168 102.5 112.261C209.42 149.065 194.145 184.117 148.323 252.469C102.5 320.821 -17.7848 439.998 83.407 497.834C184.599 555.67 205.601 420.719 245.696 373.399C285.791 326.079 331.613 312.058 438.533 336.594C545.453 361.131 549.271 222.675 518.723 187.623C488.174 152.571 362.162 99.9924 449.989 7.10425C537.815 -85.7839 610.368 99.9924 646.644 112.261C682.921 124.529 711.56 143.808 871.939 40.4038C1032.32 -63 1085.78 35.146 1070.5 78.9611C1055.23 122.776 936.855 229.685 881.486 266.49C826.117 303.295 881.486 408.451 837.572 464.534C793.659 520.618 665.737 534.639 646.644 464.534"
+                stroke="url(#paint0_linear_884_3510)"
+                stroke-opacity="0.66"
+                stroke-width="88"
+                stroke-linecap="round"
+              />
+              <defs>
+                <linearGradient
+                  id="paint0_linear_884_3510"
+                  x1="44"
+                  y1="224.5"
+                  x2="1073"
+                  y2="224.5"
+                  gradientUnits="userSpaceOnUse"
+                >
+                  <stop stop-color="#17029A" />
+                  <stop offset="1" stop-color="#16A000" />
+                </linearGradient>
+              </defs>
+            </svg>
+          </CO2SVGDiv>
+        </CO2SVGWrap>
+        <CO2SpanLeftDiv>
+          <CO2Span>누적 {contents.co2Count}건의 리폼이</CO2Span>
           <br />
-          탄소배출을 {contents.co2Reduce}kg 줄였습니다.
-        </CO2Span>
+          <CO2LightBoldSpan>RiBBORN</CO2LightBoldSpan>
+          <CO2Span>으로 인해</CO2Span>
+        </CO2SpanLeftDiv>
+        <br />
+        <CO2SpanRightDiv>
+          {+contents.co2Reduce >= 1000 ? (
+            <CO2BoldSpan>
+              탄소 {(+contents.co2Reduce / 1000).toFixed(1)}t
+            </CO2BoldSpan>
+          ) : (
+            <CO2BoldSpan>탄소 {contents.co2Reduce}kg</CO2BoldSpan>
+          )}
+          <CO2Span>을 줄였습니다.</CO2Span>
+        </CO2SpanRightDiv>
       </CO2>
       <MainWrap>
         <MainSection
           type="A"
-          title="금손 장인 ✌🏻"
+          title="금손 장인✌🏻"
           url="/review"
           postList={contents.reviewList}
         />
@@ -122,7 +165,7 @@ const Main = () => {
       <MainWrap>
         <MainSection
           type="C"
-          title="오늘의 견적 ⚡️"
+          title="오늘의 견적⚡️"
           url="/reform"
           postList={contents.reformList}
         />
@@ -406,28 +449,66 @@ const GoodsImg = styled.img`
 const CO2 = styled.div`
   margin: 0 auto;
   max-width: ${({ theme }) => theme.width.maxWidth};
-  height: 200px;
-  background-color: #64bf74;
+  height: 24vw;
+  max-height: 347px;
+  background: #d9d9d9;
   position: relative;
-  text-align: center;
   font-size: ${({ theme }) => theme.fontSizes.xl};
 `;
 
-const CO2Span = styled.span`
+const CO2SVGWrap = styled.div`
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+`;
+
+const CO2SVGDiv = styled.div`
+  width: 100%;
   position: absolute;
   top: 50%;
+  left: 50%;
   transform: translate(-50%, -50%);
+`;
+
+const CO2SpanLeftDiv = styled.div`
+  position: absolute;
+  top: 14%;
+  left: 3%;
   width: fit-content;
-  font-size: ${({ theme }) => theme.fontSizes.l};
-  line-height: 20px;
-  @media all and (min-width: 380px) {
+`;
+
+const CO2Span = styled.span`
+  font-size: ${({ theme }) => theme.fontSizes.s};
+  line-height: 129%;
+  font-weight: 400;
+  @media all and (min-width: 300px) {
+    font-size: ${({ theme }) => theme.fontSizes.m};
+  }
+  @media all and (min-width: 400px) {
+    font-size: ${({ theme }) => theme.fontSizes.l};
+  }
+  @media all and (min-width: 550px) {
     font-size: 25px;
-    line-height: 32px;
   }
-  @media all and (min-width: 500px) {
+  @media all and (min-width: 650px) {
     font-size: ${({ theme }) => theme.fontSizes.xl};
-    line-height: 36px;
   }
+`;
+
+const CO2LightBoldSpan = styled(CO2Span)`
+  font-weight: 600;
+`;
+
+const CO2BoldSpan = styled(CO2Span)`
+  font-weight: 700;
+`;
+
+const CO2SpanRightDiv = styled.span`
+  position: absolute;
+  right: 3.5%;
+  bottom: 8%;
+  width: fit-content;
 `;
 
 export default Main;

@@ -1,9 +1,10 @@
 import React, { useRef, useState, useEffect } from "react";
 import styled from "styled-components";
 import Regions from "../shared/Regions";
-import { IoIosArrowDown } from "react-icons/io";
+import { ThinArrowSVG } from "../elements/SVG";
+import { HelpText } from "../elements/Inputs";
 
-const RegionSelect = ({ setRegion, region, write }) => {
+const RegionSelect = ({ setRegion, region, write, setError, error }) => {
   const [isModalOn, setIsModalOn] = useState(false);
   const outsideRef = useRef();
 
@@ -25,24 +26,26 @@ const RegionSelect = ({ setRegion, region, write }) => {
 
   return (
     <Wrap ref={outsideRef}>
-      <ButtonWrap onClick={() => setIsModalOn((prev) => !prev)}>
+      <ButtonWrap
+        onClick={() => setIsModalOn((prev) => !prev)}
+        isModalOn={isModalOn}
+        invalid={error?.regionError}
+      >
         {region === 0 && (
           <>
             <Text>지역</Text>
-            <IoIosArrowDown
-              size="22"
-              style={{ marginLeft: "auto", marginRight: "10px" }}
-            />
+            <div>
+              <ThinArrowSVG />
+            </div>
           </>
         )}
         {Regions.map((v) => {
           return region === v.value ? (
             <>
               <Text>{v.text}</Text>
-              <IoIosArrowDown
-                size="22"
-                style={{ marginLeft: "auto", marginRight: "10px" }}
-              />
+              <div>
+                <ThinArrowSVG />
+              </div>
             </>
           ) : null;
         })}
@@ -57,6 +60,7 @@ const RegionSelect = ({ setRegion, region, write }) => {
                   onClick={() => {
                     setRegion(v.value);
                     setIsModalOn(false);
+                    write && setError({ ...error, regionError: null });
                   }}
                 >
                   {v.text}
@@ -66,6 +70,7 @@ const RegionSelect = ({ setRegion, region, write }) => {
           </Modal>
         </>
       )}
+      {error?.regionError && <ErrorMessage>{error?.regionError}</ErrorMessage>}
     </Wrap>
   );
 };
@@ -79,11 +84,17 @@ const ButtonWrap = styled.div`
   margin-left: ${(props) => (props.left ? "auto" : "10px")};
   width: 100%;
   height: 44px;
-  border: 1px solid #afb0b3;
+  border: 1px solid
+    ${({ invalid, theme }) => (invalid ? theme.colors.orange : "#afb0b3")};
   border-radius: 8px;
   outline: none;
-  text-align: center;
   align-items: center;
+  justify-content: space-between;
+  padding: 0 10px;
+  div {
+    transform: ${({ isModalOn }) =>
+      isModalOn ? "rotate(180deg)" : "rotate(0deg)"};
+  }
   @media all and (max-width: 320px) {
     height: 50px;
     padding: 5px;
@@ -109,7 +120,7 @@ const Text = styled.span`
 `;
 
 const Modal = styled.div`
-  right: 0;
+  right: -5px;
   position: absolute;
   height: ${(props) => (props.write ? "180px" : "215px")};
   width: 100%;
@@ -125,6 +136,7 @@ const Modal = styled.div`
     cursor: pointer;
   }
   @media ${({ theme }) => theme.device.mobile} {
+    right: 10px;
     height: ${(props) => (props.write ? "265px" : "310px")};
     width: 170px;
     span {
@@ -132,17 +144,11 @@ const Modal = styled.div`
       margin: 30px 0 0 30px;
     }
   }
-
-  /* &::after {
-    content: "";
-    position: absolute;
-    right: 50px;
-    margin-top: -25px;
-    border-top: 30px solid none;
-    border-bottom: 25px solid red;
-    border-right: 30px solid transparent;
-    border-left: 30px solid transparent;
-    box-shadow: 2px -2px 2px 0 rgba(178, 178, 178, 0.14);
-  } */
+`;
+const ErrorMessage = styled(HelpText)`
+  margin-left: 15px;
+  @media ${({ theme }) => theme.device.mobile} {
+    margin-left: 35px;
+  }
 `;
 export default RegionSelect;

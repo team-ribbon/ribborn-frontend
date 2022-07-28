@@ -24,6 +24,14 @@ const GlobalStyles = createGlobalStyle`
         width:100%;
 	    height:100vh;
     }
+    input, textarea, button {
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    border-radius: 0;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+}
 `;
 
 export default GlobalStyles;

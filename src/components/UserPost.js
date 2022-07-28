@@ -14,6 +14,7 @@ const UserPost = ({
   review,
   reform,
   categoriedPosts,
+  myPage,
 }) => {
   const postCategory = [
     {
@@ -80,7 +81,7 @@ const UserPost = ({
               </PostCollectionTitleDiv>
               <Grid>
                 {lookbook && lookbook.length === 0 ? (
-                  <NoPost category="lookbook" />
+                  <NoPost category="lookbook" myPage={myPage} />
                 ) : (
                   lookbook.slice(0, 3).map((thisPost) => {
                     return (
@@ -107,7 +108,7 @@ const UserPost = ({
             </PostCollectionTitleDiv>
             <Grid>
               {review && review.length === 0 ? (
-                <NoPost category="review" />
+                <NoPost category="review" myPage={myPage} />
               ) : (
                 review &&
                 review.slice(0, 3).map((thisPost) => {
@@ -137,7 +138,7 @@ const UserPost = ({
             </PostCollectionTitleDiv>
             <TextCardDiv>
               {qna && qna.length === 0 ? (
-                <NoPost category="qna" />
+                <NoPost category="qna" myPage={myPage} />
               ) : (
                 qna &&
                 qna.slice(0, 3).map((thisPost) => {
@@ -165,8 +166,8 @@ const UserPost = ({
                 </SeeMore>
               </PostCollectionTitleDiv>
               <TextCardDiv>
-                {reform && reform.lenght === 0 ? (
-                  <NoPost category="reform" />
+                {reform && reform.length === 0 ? (
+                  <NoPost category="reform" myPage={myPage} />
                 ) : (
                   reform &&
                   reform.slice(0, 3).map((thisPost) => {
@@ -192,8 +193,8 @@ const UserPost = ({
                 <PostCollection>
                   <CategoryTitle>{user.nickname}님의 룩북</CategoryTitle>
                   <Grid>
-                    {categoriedPosts === null ? (
-                      <NoPost category="lookbook" />
+                    {categoriedPosts && categoriedPosts.length === 0 ? (
+                      <NoPost category="lookbook" myPage={myPage} />
                     ) : (
                       categoriedPosts &&
                       categoriedPosts.map((thisPost) => {
@@ -215,8 +216,8 @@ const UserPost = ({
                 {user === null ? null : user.nickname}님이 쓴 후기
               </CategoryTitle>
               <Grid>
-                {categoriedPosts === null ? (
-                  <NoPost category="review" />
+                {categoriedPosts && categoriedPosts.length === 0 ? (
+                  <NoPost category="review" myPage={myPage} />
                 ) : (
                   categoriedPosts &&
                   categoriedPosts.map((thisPost) => {
@@ -238,8 +239,8 @@ const UserPost = ({
                 {user === null ? null : user.nickname}님의 질문과 답변
               </CategoryTitle>
               <TextCardDiv>
-                {categoriedPosts === null ? (
-                  <NoPost category="qna" />
+                {categoriedPosts && categoriedPosts.length === 0 ? (
+                  <NoPost category="qna" myPage={myPage} />
                 ) : (
                   categoriedPosts &&
                   category === "qna" &&
@@ -261,8 +262,8 @@ const UserPost = ({
                 <PostCollection>
                   <CategoryTitle>{user.nickname}님의 견적</CategoryTitle>
                   <TextCardDiv>
-                    {categoriedPosts === null ? (
-                      <NoPost category="reform" />
+                    {categoriedPosts && categoriedPosts.length === 0 ? (
+                      <NoPost category="reform" myPage={myPage} />
                     ) : (
                       categoriedPosts &&
                       category === "reform" &&
@@ -333,7 +334,7 @@ const TextCardDiv = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin-top: 40px;
+  margin-top: 20px;
 `;
 
 const PostCollectionTitleDiv = styled.div`

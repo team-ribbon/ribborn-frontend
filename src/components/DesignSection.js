@@ -39,11 +39,11 @@ const DesignSection = ({ postList }) => {
     <Wrap>
       <Background>
         <TopWrap>
-          <DesktopTitle>놓치면 안되는 리폼 디자이너 🔥</DesktopTitle>
+          <DesktopTitle>놓치면 안되는 리폼 디자이너🔥</DesktopTitle>
           <MobileTitle>
             놓치면 안되는
             <br />
-            리폼 디자이너 🔥
+            리폼 디자이너🔥
           </MobileTitle>
           <More
             onClick={() => {

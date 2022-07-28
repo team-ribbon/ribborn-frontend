@@ -333,7 +333,7 @@ const TextCardDiv = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin-top: 40px;
+  margin-top: 20px;
 `;
 
 const PostCollectionTitleDiv = styled.div`

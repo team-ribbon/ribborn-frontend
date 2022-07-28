@@ -86,6 +86,8 @@ export const apis = {
   likePost: (id, like) => api.post(`/api/post/${id}/love`, { love: like }),
   deletePost: (id) => api.delete(`/api/post/${id}`),
 
+  loadEventPost: (id) => api.get(`/api/event/${id}`),
+  ParticipateEventPost: () => api.post("/api/event/participation"),
   // 댓글
   loadComments: (postId, page, num) =>
     api.get(`/api/comments/${postId}?page=${page}&size=${num}`),

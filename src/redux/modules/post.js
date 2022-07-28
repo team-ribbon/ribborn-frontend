@@ -19,6 +19,7 @@ const DELETE_COMMENT = "DELETE_COMMENT";
 const MODIFY_COMMENT = "MODIFY_COMMENT";
 const NEW_COMMENT_LOAD = "NEW_COMMENT_LOAD";
 const MORE_COMMENT_LOAD = "MORE_COMMENT_LOAD";
+const EVENT_JOINED = "EVENT_JOINED";
 
 // Cleanup Action
 const CLEANUP_POST_LIST = "CLEANUP_POST_LIST";
@@ -50,6 +51,7 @@ const newCommentLoad = createAction(NEW_COMMENT_LOAD, (Comments) => ({
 const moreCommentLoad = createAction(MORE_COMMENT_LOAD, (Comments) => ({
   Comments,
 }));
+const EventJoined = createAction(EVENT_JOINED);
 
 // Cleanup Action Creator
 export const cleanUpPostList = createAction(CLEANUP_POST_LIST);
@@ -223,6 +225,30 @@ export const getLookbookPostDB = (id) => {
     try {
       const response = await apis.loadLookbookPost(id);
       dispatch(getNoCommentPost(response.data));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+// 이벤트 게시글 불러오기
+export const getEventPostDB = (id) => {
+  return async function (dispatch) {
+    try {
+      const response = await apis.loadEventPost(id);
+      dispatch(getNoCommentPost(response.data));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+// 이벤트 참가하기
+export const ParticipateEventDB = () => {
+  return async function (dispatch) {
+    try {
+      const response = await apis.ParticipateEventPost();
+      dispatch(EventJoined());
     } catch (error) {
       console.log(error);
     }
@@ -420,6 +446,10 @@ export default handleActions(
     [GET_TECH_INTRO]: (state, { payload }) =>
       produce(state, (draft) => {
         draft.techIntro = payload.intro.introduction;
+      }),
+    [EVENT_JOINED]: (state) =>
+      produce(state, (draft) => {
+        draft.Post.participation = "now";
       }),
     // Cleanup Reducer
     [CLEANUP_POST_LIST]: (state) =>

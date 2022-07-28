@@ -52,6 +52,7 @@ function MyPage() {
         review={review}
         reform={reform}
         categoriedPosts={categoriedPosts}
+        myPage={true}
       />
     </Template>
   );

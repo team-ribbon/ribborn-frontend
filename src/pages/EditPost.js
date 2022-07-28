@@ -16,56 +16,12 @@ import CategorySelect from "../components/CategorySelect";
 import ImageUpload from "../components/ImageUpload";
 import RegionSelect from "../components/RegionSelect";
 import React from "react";
+import { ThinArrowSVG, WriteGuideSVG } from "../elements/SVG";
+import { writeGuide } from "../shared/writeGuide";
+import { HelpText, Input, InputTitle } from "../elements/Inputs";
+import { Textarea } from "../elements/Textarea";
 
 const EditPost = () => {
-  const info = {
-    review: {
-      title: "리폼 후기 게시물 작성 가이드",
-      content: [
-        "간단한 자기 소개 후 디자이너의 작품을 소개해주세요",
-        "사진 속 제품 정보를 본문에 최대한 적어주세요",
-        "사진 첨부 시 용량은 장당 최대 20MB까지 업로드할 수 있고, png, jpg, jpeg, webp 포맷을 지원해요",
-        "정보를 많이 입력할수록 검색 결과에 많이 노출되어 조회수가 올라가요",
-        "글 작성과 이미지 업로드 시, 타인의 지식재산권을 침해하지 않도록 유의해주세요",
-        "본문에 악의성 내용이 포함되어있으면 안내없이 해당 글이 관리자에 의해 삭제될 수 있어요",
-      ],
-    },
-    lookbook: {
-      title: "룩북 게시물 작성 가이드",
-      content: [
-        "사진 가이드",
-        "- 작품이 한 눈에 잘 보이는 풀샷으로 찍어주세요",
-        "- 수직/수평이 잘 맞게 작품을 찍어주세요",
-        "- 필터 효과보단 선명하고 자연스러운 사진으로 찍어주세요",
-        "- 다양한 각도로 작품을 보여주면, 디자이너님의 작품을 더욱 잘 이해할 수 있어요",
-        "사진 속 제품 정보를 본문에 최대한 적어주세요",
-        "사진 첨부 시 용량은 장당 최대 20MB까지 업로드할 수 있고, png, jpg, jpeg, webp 포맷을 지원해요",
-        "글 작성과 이미지 업로드 시, 타인의 지식재산권을 침해하지 않도록 유의해주세요",
-        "본문에 악의성 내용이 포함되어있으면 안내없이 해당 글이 관리자에 의해 삭제될 수 있어요",
-      ],
-    },
-    reform: {
-      title: "리폼 견적 게시물 작성 가이드",
-      content: [
-        "사진 속 제품 정보를 본문에 최대한 적어주세요 (재질, 사이즈, 에로사항 등)",
-        "사진 첨부 시 용량은 장당 최대 20MB까지 업로드할 수 있고, png, jpg, jpeg, webp 포맷을 지원해요",
-        "정보를 많이 입력할수록 검색 결과에 많이 노출되어 조회수가 올라가요",
-        "글 작성과 이미지 업로드 시, 타인의 지식재산권을 침해하지 않도록 유의해주세요",
-        "본문에 악의성 내용이 포함되어있으면 안내없이 해당 글이 관리자에 의해 삭제될 수 있어요",
-      ],
-    },
-    qna: {
-      title: "질문과 답변 게시물 작성 가이드",
-      content: [
-        "궁금한 내용을 상세히 적어주세요",
-        "사진 첨부 시 용량은 장당 최대 20MB까지 업로드할 수 있고, png, jpg, jpeg, webp 포맷을 지원해요",
-        "정보를 많이 입력할수록 검색 결과에 많이 노출되어 조회수가 올라가요",
-        "글 작성과 이미지 업로드 시, 타인의 지식재산권을 침해하지 않도록 유의해주세요",
-        "본문에 악의성 내용이 포함되어있으면 안내없이 해당 글이 관리자에 의해 삭제될 수 있어요",
-      ],
-    },
-  };
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -84,6 +40,16 @@ const EditPost = () => {
   const [category, setCategory] = useState(0);
   const [region, setRegion] = useState(0);
   const [imageNotLoaded, setImageNotLoaded] = useState(true);
+  const [isGuideOn, setIsGuideOn] = useState(true);
+
+  const [error, setError] = useState({
+    categoryError: null,
+    regionError: null,
+    titleError: null,
+    fileError: null,
+    contentError: null,
+  });
+  const { titleError, contentError } = error;
 
   const { type } = useParams();
   const { id } = useParams();
@@ -124,27 +90,29 @@ const EditPost = () => {
 
   const onSubmit = async () => {
     if (+category === 0) {
-      alert("리폼 종류 없음");
+      setError({ ...error, categoryError: "리폼 종류를 선택해주세요." });
       return false;
     }
 
     if (type === "reform" && +region === 0) {
-      alert("지역 없음");
+      setError({ ...error, regionError: "지역을 선택해주세요." });
       return false;
     }
 
     if (type !== "lookbook" && title.length < 1) {
-      alert("제목 없음");
+      setError({ ...error, titleError: "제목을 입력해주세요." });
+      titleRef.current.focus();
       return false;
     }
 
     if (contentRef.current.value.length < 1) {
-      alert("내용 없음");
+      setError({ ...error, contentError: "내용을 입력해주세요." });
+      contentRef.current.focus();
       return false;
     }
 
-    if ((type === "review" || type === "lookbook") && previewList.length < 1) {
-      alert("사진 없음");
+    if ((type === "review" || type === "lookbook") && files.length < 1) {
+      setError({ ...error, fileError: "사진을 선택해주세요." });
       return false;
     }
 
@@ -217,8 +185,9 @@ const EditPost = () => {
 
   const onChangeTitle = (event) => {
     setTitle(event.target.value);
-    if (title.length > 14) {
-      return setTitle((prev) => prev.substring(0, 15));
+    setError({ ...error, titleError: null });
+    if (title.length > 29) {
+      return setTitle((prev) => prev.substring(0, 30));
     }
   };
   const onChangeIntro = (event) => {
@@ -262,69 +231,110 @@ const EditPost = () => {
           />
         </SubmitBtnDiv>
         <SelectDiv>
-          <CategorySelect setCategory={setCategory} category={category} />
+          <CategorySelect
+            setCategory={setCategory}
+            category={category}
+            defaultValue="리폼 종류"
+            setError={setError}
+            error={error}
+          />
           {type === "reform" && (
-            <RegionSelect write={true} setRegion={setRegion} region={region} />
+            <RegionSelect
+              write={true}
+              setRegion={setRegion}
+              region={region}
+              setError={setError}
+              error={error}
+            />
           )}
         </SelectDiv>
-        <GuideTitleDiv>
-          <GreenBox></GreenBox>
-          <GuideTitle>{info[type].title}</GuideTitle>
-          <GuideSubTitle>
-            원할한 게시물 발행을 위해 꼭 읽어주세요!
-          </GuideSubTitle>
-        </GuideTitleDiv>
-        <GuideContentDiv>
-          {info[type].content.map((v, i) => {
-            return (
-              <div>
-                <GuideContent
-                  indent={v.slice(0, 1) === "-"}
-                  key={"guideContent" + i}
-                >
-                  {v.slice(0, 1) === "-" ? v : "· " + v}
-                </GuideContent>
-              </div>
-            );
-          })}
-        </GuideContentDiv>
+        <Guide>
+          <GuideTitleDiv onClick={() => setIsGuideOn((prev) => !prev)}>
+            <div>
+              <WriteGuideSVG />
+              <GuideTitle>{writeGuide[type].title}</GuideTitle>
+              <GuideSubTitle>
+                원활한 게시물 발행을 위해 꼭 읽어주세요!
+              </GuideSubTitle>
+            </div>
+            <Arrow isGuideOn={isGuideOn}>
+              <ThinArrowSVG />
+            </Arrow>
+          </GuideTitleDiv>
+          {isGuideOn && (
+            <GuideContentDiv>
+              {writeGuide[type].content.map((v, i) => {
+                return (
+                  <div>
+                    <GuideContent
+                      indent={v.slice(0, 1) === "-"}
+                      key={"guideContent" + i}
+                    >
+                      {v.slice(0, 1) === "-" ? v : "· " + v}
+                    </GuideContent>
+                  </div>
+                );
+              })}
+            </GuideContentDiv>
+          )}
+        </Guide>
         {type === "lookbook" && (
-          <IntroDiv>
-            <IntroTextArea
+          <InputWrap>
+            <InputTitle>자기소개</InputTitle>
+            <Input
               id="introductionInput"
               name="introduction"
               placeholder="브랜드 또는 디자이너에 대한 간단한 소개를 적어주세요."
               value={introduction}
               onChange={onChangeIntro}
               ref={introRef}
+              hasCount
             />
-            <IntroLength>
-              {introduction ? introduction.length : 0}/100
-            </IntroLength>
-          </IntroDiv>
+            <IntroLength>{introduction?.length}/100</IntroLength>
+          </InputWrap>
         )}
         {type !== "lookbook" && (
-          <TitleDiv>
-            <TitleSpan>제목</TitleSpan>
-            <TitleInput
-              id="titleInput"
-              name="title"
-              placeholder="제목을 입력해주세요"
-              value={title}
-              onChange={onChangeTitle}
-              ref={titleRef}
-            />
-            <TitleLength>{title.length}/15</TitleLength>
-          </TitleDiv>
+          <>
+            <InputWrap>
+              <InputTitle>제목</InputTitle>
+              <Input
+                id="titleInput"
+                name="title"
+                placeholder="제목을 입력해주세요"
+                value={title}
+                onChange={onChangeTitle}
+                ref={titleRef}
+                invalid={titleError}
+              />
+              <TitleLength>{title.length}/30</TitleLength>
+            </InputWrap>
+            {titleError && <ErrorMessage>{titleError}</ErrorMessage>}
+          </>
         )}
-        <ImageUpload edit={true} type={type} />
-        <TitleSpan>내용</TitleSpan>
-        <TextArea
-          id="contentInput"
-          name="content"
-          placeholder="여기에 내용을 적어주세요"
-          ref={contentRef}
-        />
+        <InputWrap>
+          <ImageUpload
+            edit={true}
+            type={type}
+            error={error}
+            setError={setError}
+          />
+        </InputWrap>
+        <InputWrap>
+          <TitleSpan>내용</TitleSpan>
+          <Textarea
+            id="contentInput"
+            name="content"
+            placeholder="여기에 내용을 적어주세요."
+            ref={contentRef}
+            maxLength="1000"
+            height="400px"
+            invalid={contentError}
+            onChange={() => {
+              setError({ ...error, contentError: null });
+            }}
+          />
+        </InputWrap>
+        {contentError && <ErrorMessage>{contentError}</ErrorMessage>}
       </FormWrap>
     </Wrap>
   );
@@ -373,42 +383,42 @@ const SelectDiv = styled.div`
   display: flex;
   flex-direction: row;
 `;
-
+const Guide = styled.div`
+  margin-bottom: 30px;
+`;
 const GuideTitleDiv = styled.div`
-  margin: 24px auto 16px auto;
   display: flex;
-  flex-direction: row;
   align-items: center;
+  justify-content: space-between;
+  margin: 24px auto 16px auto;
+  padding-left: 20px;
   width: 100%;
   height: 76px;
   background: #f2f2f2;
   border-radius: 8px;
-`;
-
-const GreenBox = styled.div`
-  display: none;
-  width: 28px;
-  height: 28px;
-  background: rgba(0, 174, 30, 0.43);
-  border-radius: 5px;
-  margin: auto 14px auto 20px;
-  @media ${({ theme }) => theme.device.mobile} {
-    display: inherit;
+  cursor: pointer;
+  div {
+    display: flex;
+    align-items: center;
+    padding-right: 20px;
   }
 `;
-
 const GuideTitle = styled.span`
   word-break: keep-all;
-  margin-left: 10px;
+  margin-left: 20px;
   font-weight: 400;
-  font-size: ${({ theme }) => theme.fontSizes.l};
+  font-size: ${({ theme }) => theme.fontSizes.m};
   line-height: 20px;
   @media all and (min-width: 600px) {
     font-size: ${({ theme }) => theme.fontSizes.l};
     line-height: 24px;
   }
 `;
-
+const Arrow = styled.span`
+  transform: ${({ isGuideOn }) =>
+    isGuideOn ? "rotate(180deg)" : "rotate(0deg)"};
+  margin-right: 20px;
+`;
 const GuideSubTitle = styled.span`
   word-break: keep-all;
   margin-left: 15px;
@@ -422,7 +432,6 @@ const GuideSubTitle = styled.span`
 `;
 
 const GuideContentDiv = styled.div`
-  margin-bottom: 52px;
   width: 100%;
   background: #fafafa;
   border-radius: 8px;
@@ -441,23 +450,6 @@ const GuideContent = styled.span`
     line-height: 28px;
   }
 `;
-
-const IntroDiv = styled.div`
-  position: relative;
-`;
-
-const IntroTextArea = styled.textarea`
-  padding: 30px 20px;
-  width: 100%;
-  height: 208px;
-  border: 1px solid #afb0b3;
-  border-radius: 15px;
-  font-weight: 400;
-  font-size: ${({ theme }) => theme.fontSizes.l};
-  line-height: 24px;
-  resize: none;
-`;
-
 const IntroLength = styled.span`
   position: absolute;
   right: 19px;
@@ -490,7 +482,10 @@ const TitleInput = styled.input`
   font-size: ${({ theme }) => theme.fontSizes.l};
   line-height: 24px;
 `;
-
+const InputWrap = styled.div`
+  position: relative;
+  margin-top: 30px;
+`;
 const TitleLength = styled.span`
   position: absolute;
   right: 19px;
@@ -512,5 +507,8 @@ const TextArea = styled.textarea`
   line-height: 24px;
   resize: none;
 `;
-
+const ErrorMessage = styled(HelpText)`
+  margin-bottom: 10px;
+  margin-left: 5px;
+`;
 export default EditPost;

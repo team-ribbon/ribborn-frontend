@@ -79,22 +79,24 @@ const Lookbook = () => {
         </LCategory>
         <Sort setSort={setSort} sort={sort} />
       </TopWrap>
-      <MainBtn
-        onClick={() => {
-          if (!isLogin) {
-            navigate("/login");
-            return false;
-          }
-          if (+user.userType !== 1) {
-            alert("기술자 회원만 작성할 수 있는 페이지입니다!");
-            return false;
-          }
-          navigate("/write/lookbook");
-        }}
-        style={{ marginBottom: "30px" }}
-      >
-        룩북 올리기
-      </MainBtn>
+      {+user?.userType === 1 && (
+        <MainBtn
+          onClick={() => {
+            if (!isLogin) {
+              navigate("/login");
+              return false;
+            }
+            if (+user.userType !== 1) {
+              alert("기술자 회원만 작성할 수 있는 페이지입니다!");
+              return false;
+            }
+            navigate("/write/lookbook");
+          }}
+          style={{ marginBottom: "30px" }}
+        >
+          룩북 올리기
+        </MainBtn>
+      )}
       <Grid>
         {postList.map((postObj, index) =>
           index === postList.length - 1 ? (

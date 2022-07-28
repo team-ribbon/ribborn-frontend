@@ -82,7 +82,7 @@ const Wrap = styled.div`
 const Logo = styled.img`
   width: 100%;
   max-width: 500px;
-  border-radius: 15px;
+  border-radius: 25px;
 `;
 const TextBtn = styled.div`
   margin-top: 50px;

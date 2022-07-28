@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { BlackBtn } from "../elements/Buttons";
 
-const NoPost = ({ category }) => {
+const NoPost = ({ category, myPage }) => {
   const navigate = useNavigate();
   const text = [
     {
@@ -36,18 +36,20 @@ const NoPost = ({ category }) => {
       {text.map((v) => {
         return v.category === category ? <Text>{v.text}</Text> : null;
       })}
-      {text.map((v) => {
-        return v.category === category ? (
-          <Button
-            key={"nopostBtn" + v.link}
-            onClick={() => {
-              navigate(v.link);
-            }}
-          >
-            {v.button}
-          </Button>
-        ) : null;
-      })}
+      {myPage
+        ? text.map((v) => {
+            return v.category === category ? (
+              <Button
+                key={"nopostBtn" + v.link}
+                onClick={() => {
+                  navigate(v.link);
+                }}
+              >
+                {v.button}
+              </Button>
+            ) : null;
+          })
+        : null}
     </Cover>
   );
 };

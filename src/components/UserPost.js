@@ -14,6 +14,7 @@ const UserPost = ({
   review,
   reform,
   categoriedPosts,
+  myPage,
 }) => {
   const postCategory = [
     {
@@ -80,7 +81,7 @@ const UserPost = ({
               </PostCollectionTitleDiv>
               <Grid>
                 {lookbook && lookbook.length === 0 ? (
-                  <NoPost category="lookbook" />
+                  <NoPost category="lookbook" myPage={myPage} />
                 ) : (
                   lookbook.slice(0, 3).map((thisPost) => {
                     return (
@@ -107,7 +108,7 @@ const UserPost = ({
             </PostCollectionTitleDiv>
             <Grid>
               {review && review.length === 0 ? (
-                <NoPost category="review" />
+                <NoPost category="review" myPage={myPage} />
               ) : (
                 review &&
                 review.slice(0, 3).map((thisPost) => {
@@ -137,7 +138,7 @@ const UserPost = ({
             </PostCollectionTitleDiv>
             <TextCardDiv>
               {qna && qna.length === 0 ? (
-                <NoPost category="qna" />
+                <NoPost category="qna" myPage={myPage} />
               ) : (
                 qna &&
                 qna.slice(0, 3).map((thisPost) => {

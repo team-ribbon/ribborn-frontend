@@ -28,9 +28,10 @@ const Footer = () => {
         )}
         {infoModal && (
           <RuleModal
+            info
             isModalOn={infoModal}
             setIsModalOn={setInfoModal}
-            title="개인정보수집 및 이용동의"
+            title="개인정보처리방침"
             content={InfoText}
           />
         )}

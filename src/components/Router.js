@@ -25,6 +25,7 @@ import Footer from "./Footer";
 import ChatFloat from "./ChatFloat";
 import ChatModal from "./ChatModal";
 import PostComplete from "../pages/PostComplete";
+import Faq from "../pages/Faq";
 import EventDetail from "../pages/EventDetail";
 
 export default function Router() {
@@ -64,6 +65,7 @@ export default function Router() {
           <Route path="reformdetail/:postId" element={<ReformDetail />} />
           <Route path="lookbookdetail/:postId" element={<LookBookDetail />} />
           <Route path="complete" element={<PostComplete />} />
+          <Route path="faq" element={<Faq />} />
           <Route path="event/:eventId" element={<EventDetail />} />
           <Route path="*" element={<Main />} />
         </Routes>

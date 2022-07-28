@@ -192,8 +192,8 @@ const UserPost = ({
                 <PostCollection>
                   <CategoryTitle>{user.nickname}님의 룩북</CategoryTitle>
                   <Grid>
-                    {categoriedPosts === null ? (
-                      <NoPost category="lookbook" />
+                    {categoriedPosts && categoriedPosts.length === 0 ? (
+                      <NoPost category="lookbook" myPage={myPage} />
                     ) : (
                       categoriedPosts &&
                       categoriedPosts.map((thisPost) => {
@@ -215,8 +215,8 @@ const UserPost = ({
                 {user === null ? null : user.nickname}님이 쓴 후기
               </CategoryTitle>
               <Grid>
-                {categoriedPosts === null ? (
-                  <NoPost category="review" />
+                {categoriedPosts && categoriedPosts.length === 0 ? (
+                  <NoPost category="review" myPage={myPage} />
                 ) : (
                   categoriedPosts &&
                   categoriedPosts.map((thisPost) => {
@@ -238,8 +238,8 @@ const UserPost = ({
                 {user === null ? null : user.nickname}님의 질문과 답변
               </CategoryTitle>
               <TextCardDiv>
-                {categoriedPosts === null ? (
-                  <NoPost category="qna" />
+                {categoriedPosts && categoriedPosts.length === 0 ? (
+                  <NoPost category="qna" myPage={myPage} />
                 ) : (
                   categoriedPosts &&
                   category === "qna" &&
@@ -261,8 +261,8 @@ const UserPost = ({
                 <PostCollection>
                   <CategoryTitle>{user.nickname}님의 견적</CategoryTitle>
                   <TextCardDiv>
-                    {categoriedPosts === null ? (
-                      <NoPost category="reform" />
+                    {categoriedPosts && categoriedPosts.length === 0 ? (
+                      <NoPost category="reform" myPage={myPage} />
                     ) : (
                       categoriedPosts &&
                       category === "reform" &&

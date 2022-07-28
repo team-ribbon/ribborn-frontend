@@ -9,11 +9,11 @@ import CategorySelect from "../components/CategorySelect";
 
 import ImageUpload from "../components/ImageUpload";
 import RegionSelect from "../components/RegionSelect";
-import React from "react";
 import { ThinArrowSVG, WriteGuideSVG } from "../elements/SVG";
 import { HelpText, Input, InputTitle } from "../elements/Inputs";
 import { Textarea } from "../elements/Textarea";
 import { writeGuide } from "../shared/writeGuide";
+import Categories from "../shared/Categories";
 
 // 게시물 작성 페이지
 const WritePost = () => {
@@ -43,8 +43,7 @@ const WritePost = () => {
     contentError: null,
   });
 
-  const { categoryError, regionError, titleError, fileError, contentError } =
-    error;
+  const { titleError, contentError } = error;
 
   const formData = new FormData();
 
@@ -152,13 +151,19 @@ const WritePost = () => {
             category={category}
             setError={setError}
             error={error}
+            defaultValue="리폼 종류"
+            optionList={Categories}
           />
           {type === "reform" && (
-            <RegionSelect write={true} setRegion={setRegion} region={region} />
+            <RegionSelect
+              write={true}
+              setRegion={setRegion}
+              region={region}
+              setError={setError}
+              error={error}
+            />
           )}
         </SelectDiv>
-        {categoryError && <ErrorMessage>{categoryError}</ErrorMessage>}
-        {regionError && <ErrorMessage region>{regionError}</ErrorMessage>}
         <Guide>
           <GuideTitleDiv onClick={() => setIsGuideOn((prev) => !prev)}>
             <div>
@@ -201,7 +206,7 @@ const WritePost = () => {
               ref={introRef}
               hasCount
             />
-            <IntroLength>{introduction && introduction.length}/100</IntroLength>
+            <IntroLength>{introduction?.length}/100</IntroLength>
           </InputWrap>
         )}
         {type !== "lookbook" && (

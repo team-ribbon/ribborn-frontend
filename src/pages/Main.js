@@ -136,7 +136,13 @@ const Main = () => {
         </CO2SpanLeftDiv>
         <br />
         <CO2SpanRightDiv>
-          <CO2BoldSpan>탄소 {contents.co2Reduce}kg</CO2BoldSpan>
+          {+contents.co2Reduce >= 1000 ? (
+            <CO2BoldSpan>
+              탄소 {(+contents.co2Reduce / 1000).toFixed(1)}t
+            </CO2BoldSpan>
+          ) : (
+            <CO2BoldSpan>탄소 {contents.co2Reduce}kg</CO2BoldSpan>
+          )}
           <CO2Span>을 줄였습니다.</CO2Span>
         </CO2SpanRightDiv>
       </CO2>

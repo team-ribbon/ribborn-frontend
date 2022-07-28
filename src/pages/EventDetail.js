@@ -2,7 +2,11 @@ import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { getEventPostDB, cleanUpPost } from "../redux/modules/post";
+import {
+  ParticipateEventDB,
+  getEventPostDB,
+  cleanUpPost,
+} from "../redux/modules/post";
 import { FixedSizeMainBtn } from "../elements/Buttons";
 
 const EventDetail = () => {
@@ -22,19 +26,31 @@ const EventDetail = () => {
     };
   }, []);
 
+  const participateEvent = () => {
+    dispatch(ParticipateEventDB());
+  };
+
   return (
     <Wrap>
       {post && (
         <ImageWrap>
           <EventImage src={post.image} />
-          {isLogin ? (
-            <EventButton>이벤트 참여하기</EventButton>
-          ) : post.participation === "true" ? (
+          {!isLogin && <EventButton>이벤트 참여하기</EventButton>}
+          {isLogin && post.participation === "true" && (
             <ExpiredEventButton>이미 참여한 이벤트에요!</ExpiredEventButton>
-          ) : (
-            <EventButton>이벤트 참여하기</EventButton>
           )}
-          {post.participation !== "true" && (
+          {isLogin && post.participation === "false" && (
+            <EventButton onClick={participateEvent}>
+              이벤트 참여하기
+            </EventButton>
+          )}
+          {isLogin && post.participation === "now" && (
+            <ExpiredEventButton>이벤트에 참여하였습니다!</ExpiredEventButton>
+          )}
+          {(!isLogin ||
+            !(
+              post.participation === "true" || post.participation === "now"
+            )) && (
             <SVGWrap>
               <svg
                 width="100%"
@@ -49,7 +65,7 @@ const EventDetail = () => {
                     rx="123.5"
                     ry="45"
                     fill="url(#paint0_linear_907_3824)"
-                    fill-opacity="0.73"
+                    fillOpacity="0.73"
                   />
                 </g>
                 <defs>
@@ -60,9 +76,9 @@ const EventDetail = () => {
                     width="447"
                     height="290"
                     filterUnits="userSpaceOnUse"
-                    color-interpolation-filters="sRGB"
+                    colorInterpolationFilters="sRGB"
                   >
-                    <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                    <feFlood floodOpacity="0" result="BackgroundImageFix" />
                     <feBlend
                       mode="normal"
                       in="SourceGraphic"
@@ -82,8 +98,8 @@ const EventDetail = () => {
                     y2="157"
                     gradientUnits="userSpaceOnUse"
                   >
-                    <stop stop-color="#EB6D00" />
-                    <stop offset="1" stop-color="#FFE600" />
+                    <stop stopColor="#EB6D00" />
+                    <stop offset="1" stopColor="#FFE600" />
                   </linearGradient>
                 </defs>
               </svg>
@@ -113,6 +129,7 @@ const EventImage = styled.img`
 `;
 
 const EventButton = styled(FixedSizeMainBtn)`
+  z-index: 10;
   position: absolute;
   bottom: calc(17.88% - 20px);
   left: 21.4%;
@@ -139,6 +156,10 @@ const EventButton = styled(FixedSizeMainBtn)`
 const ExpiredEventButton = styled(EventButton)`
   background-color: ${({ theme }) => theme.colors.gray};
   font-size: ${({ theme }) => theme.fontSizes.s};
+  cursor: default;
+  &:hover {
+    opacity: 1;
+  }
   @media all and (min-width: 330px) {
     font-size: ${({ theme }) => theme.fontSizes.m};
   }

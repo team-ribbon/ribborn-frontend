@@ -1,6 +1,5 @@
-<h2 align![페북 공유_이미지](https://user-images.githubusercontent.com/105181604/181456458-830beb5a-5bf7-4bbc-b3d5-989f35256e06.png)
-="left"> 리본 종합 패션 공유 사이트</h2>
-
+<h2 align="left"> 리본 종합 패션 공유 사이트</h2>
+![페북 공유_이미지](https://user-images.githubusercontent.com/105181604/181456458-830beb5a-5bf7-4bbc-b3d5-989f35256e06.png)
 <br>
 <br>
 <div align="left">

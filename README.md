@@ -1,5 +1,5 @@
 <h2 align="left"> 리본 종합 패션 공유 사이트</h2>
-![페북 공유_이미지](https://user-images.githubusercontent.com/105181604/181456826-d342485e-99c7-4f0c-8e28-b8c9870b9195.png)
+<img src="https://user-images.githubusercontent.com/105181604/181456826-d342485e-99c7-4f0c-8e28-b8c9870b9195.png">
 
 <br>
 <br>

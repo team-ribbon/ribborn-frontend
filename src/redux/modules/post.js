@@ -229,6 +229,18 @@ export const getLookbookPostDB = (id) => {
   };
 };
 
+// 이벤트 게시글 불러오기
+export const getEventPostDB = (id) => {
+  return async function (dispatch) {
+    try {
+      const response = await apis.loadEventPost(id);
+      dispatch(getNoCommentPost(response.data));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
 // 게시물 좋아요
 export const likePostDB = (id, like) => {
   return async function (dispatch) {

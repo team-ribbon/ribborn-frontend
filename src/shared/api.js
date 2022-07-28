@@ -83,6 +83,7 @@ export const apis = {
   loadReviewPost: (id) => api.get(`/api/reviewPosts/${id}`),
   loadReformPost: (id) => api.get(`/api/reformPosts/${id}`),
   loadLookbookPost: (id) => api.get(`/api/lookPosts/${id}`),
+  loadEventPost: (id) => api.get(`/api/event/${id}`),
   likePost: (id, like) => api.post(`/api/post/${id}/love`, { love: like }),
   deletePost: (id) => api.delete(`/api/post/${id}`),
 

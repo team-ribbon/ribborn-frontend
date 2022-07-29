@@ -17,7 +17,11 @@ const CardA = ({ postObj, type, reform, inViewRef }) => {
       }}
     >
       <ImageWrap ref={inViewRef}>
-        <Image alt="card" src={postObj?.image || "/images/textLogo.png"} />
+        <Image
+          alt="card"
+          src={postObj?.image || "/images/textLogo.png"}
+          hasImage={postObj?.image}
+        />
       </ImageWrap>
       <Content>
         <Title>{postObj.title}</Title>
@@ -61,7 +65,6 @@ const ImageWrap = styled.div`
   width: 100%;
   height: 0;
   padding-bottom: 66%;
-  background: rgba(0, 0, 0, 0.1);
   border-radius: 15px;
 `;
 const Image = styled.img`
@@ -73,6 +76,7 @@ const Image = styled.img`
   object-fit: cover;
   border-radius: 15px;
   transition: all 0.1s linear;
+  opacity: ${({ hasImage }) => !hasImage && "0.15"};
   &:hover {
     transform: scale(1.05);
   }

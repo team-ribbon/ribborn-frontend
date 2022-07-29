@@ -47,14 +47,14 @@ const HeaderModal = ({ isLogin, user }) => {
                 X
               </GrClose>
             </XDiv>
-            <span
+            {/* <span
               onClick={() => {
                 setIsModalOn(false);
               }}
             >
               알림
             </span>
-            <HR />
+            <HR /> */}
             {isLogin ? (
               <Link to="/mypage">
                 <span
@@ -77,7 +77,7 @@ const HeaderModal = ({ isLogin, user }) => {
               </Link>
             )}
             <HR />
-            <span
+            {/* <span
               onClick={() => {
                 setIsModalOn(false);
                 isLogin ? navigate("/userpage") : navigate("/login");
@@ -85,7 +85,7 @@ const HeaderModal = ({ isLogin, user }) => {
             >
               관심 리폼
             </span>
-            <HR />
+            <HR /> */}
             {isLogin ? (
               <span
                 onClick={() => {

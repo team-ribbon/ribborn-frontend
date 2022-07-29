@@ -33,6 +33,8 @@ const MyPostButtons = ({ id, postId, postType }) => {
           setIsModalOn={setIsModalOn}
           title="게시물을 삭제하시겠어요?"
           content="삭제 후에는 복구할 수 없습니다."
+          leftButton="아니요, 안 할래요."
+          rightButton="네, 할게요."
         />
       )}
       <Link to={`/edit/${postType}/${postId}`}>

@@ -28,9 +28,9 @@ const Header = () => {
     <HeaderWrap>
       <NavWrap>
         <UserNav>
-          <HeaderBellDiv>
+          {/* <HeaderBellDiv>
             <VscBell size="18" />
-          </HeaderBellDiv>
+          </HeaderBellDiv> */}
           {isLogin ? (
             <HeaderUserSpan
               onClick={() => {
@@ -48,13 +48,13 @@ const Header = () => {
               마이페이지
             </HeaderUserSpan>
           )}
-          <HeaderUserSpan
+          {/* <HeaderUserSpan
             onClick={() => {
               isLogin ? navigate("/mypage") : navigate("/login");
             }}
           >
             관심 리폼
-          </HeaderUserSpan>
+          </HeaderUserSpan> */}
           {isLogin ? (
             <HeaderUserSpan
               onClick={() => {
@@ -198,6 +198,9 @@ const CategoryNav = styled.nav`
 const Active = css`
   border-bottom: 2px solid ${({ theme }) => theme.colors.black};
   font-weight: 700;
+  @media screen and (max-width: ${({ theme }) => theme.deviceSizes.mobile}) {
+    padding-bottom: 4px;
+  }
 `;
 const Community = styled.span`
   ${({ isCommunity }) => isCommunity && Active}

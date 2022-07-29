@@ -72,8 +72,14 @@ const PostFooter = ({
     });
   };
 
-  const modifyComment = (commentId) => {
     dispatch(modifyCommentDB(id, commentId, modifyInputCurrent.current.value));
+  const modifyComment = (commentId, currentComment) => {
+    if (modifyInputCurrent.current.value === "") {
+      return false;
+    }
+    if (modifyInputCurrent.current.value === currentComment) {
+      return false;
+    }
   };
 
   const borderActive = () => {
@@ -161,7 +167,7 @@ const PostFooter = ({
                       />
                       <MessageBtn
                         onClick={() => {
-                          modifyComment(v.id);
+                          modifyComment(v.id, v.comment);
                           modifyCommentCancel();
                           setChangingComment(null);
                         }}

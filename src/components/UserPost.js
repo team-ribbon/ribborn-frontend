@@ -193,11 +193,10 @@ const UserPost = ({
                 <PostCollection>
                   <CategoryTitle>{user.nickname}님의 룩북</CategoryTitle>
                   <Grid>
-                    {categoriedPosts && categoriedPosts.length === 0 ? (
+                    {lookbook.length === 0 ? (
                       <NoPost category="lookbook" myPage={myPage} />
                     ) : (
-                      categoriedPosts &&
-                      categoriedPosts.map((thisPost) => {
+                      lookbook.map((thisPost) => {
                         return (
                           <CardB
                             key={"lookbook" + thisPost.id}
@@ -216,11 +215,10 @@ const UserPost = ({
                 {user === null ? null : user.nickname}님이 쓴 후기
               </CategoryTitle>
               <Grid>
-                {categoriedPosts && categoriedPosts.length === 0 ? (
+                {review && review.length === 0 ? (
                   <NoPost category="review" myPage={myPage} />
                 ) : (
-                  categoriedPosts &&
-                  categoriedPosts.map((thisPost) => {
+                  review.map((thisPost) => {
                     return (
                       <CardA
                         key={"review" + thisPost.id}
@@ -239,12 +237,11 @@ const UserPost = ({
                 {user === null ? null : user.nickname}님의 질문과 답변
               </CategoryTitle>
               <TextCardDiv>
-                {categoriedPosts && categoriedPosts.length === 0 ? (
+                {qna.length === 0 ? (
                   <NoPost category="qna" myPage={myPage} />
                 ) : (
-                  categoriedPosts &&
                   category === "qna" &&
-                  categoriedPosts.map((thisPost) => {
+                  qna.map((thisPost) => {
                     return (
                       <TextCard
                         key={"qna" + thisPost.id}
@@ -262,12 +259,11 @@ const UserPost = ({
                 <PostCollection>
                   <CategoryTitle>{user.nickname}님의 견적</CategoryTitle>
                   <TextCardDiv>
-                    {categoriedPosts && categoriedPosts.length === 0 ? (
+                    {reform.length === 0 ? (
                       <NoPost category="reform" myPage={myPage} />
                     ) : (
-                      categoriedPosts &&
                       category === "reform" &&
-                      categoriedPosts.map((thisPost) => {
+                      reform.map((thisPost) => {
                         return (
                           <TextCard
                             key={"reform" + thisPost.id}

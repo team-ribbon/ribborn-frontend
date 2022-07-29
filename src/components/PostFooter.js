@@ -237,11 +237,8 @@ const BoldCommentCount = styled.span`
 
 const HR = styled.div`
   margin: 0 auto 30px auto;
-  width: 700px;
+  max-width: 700px;
   border-top: 1px solid #f2f2f2;
-  @media ${({ theme }) => theme.device.mobile} {
-    display: inherit;
-  }
 `;
 
 const CommentDiv = styled.div`

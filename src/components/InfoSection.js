@@ -49,8 +49,11 @@ const InfoDiv = styled.div`
   height: ${(props) => (props.reform ? "154px" : "102px")};
   background: #fafafa;
   border-radius: 8px;
-  margin: ${(props) =>
-    props.reform ? "48px 16px auto 0" : "48px 0 auto 16px"};
+  margin: 48px auto 0 auto;
+  @media ${({ theme }) => theme.device.mobile} {
+    margin: ${(props) =>
+      props.reform ? "48px 16px auto 0" : "48px 0 auto 16px"};
+  }
 `;
 
 const TopInfoDiv = styled.div`

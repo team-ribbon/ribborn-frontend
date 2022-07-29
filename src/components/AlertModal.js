@@ -1,4 +1,5 @@
 import { forwardRef, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { BlackBtn as Btn } from "../elements/Buttons";
 
@@ -7,18 +8,32 @@ import { XSVG } from "../elements/SVG";
 // 공통 > 얼럿 모달
 const AlertModal = forwardRef(
   (
-    { title, content, leftButton, rightButton, setIsModalOn, isModalOn },
+    {
+      title,
+      content,
+      leftButton,
+      rightButton,
+      leftLink,
+      rightLink,
+      setIsModalOn,
+      isModalOn,
+    },
     ref
   ) => {
     const outsideRef = useRef();
+    const navigate = useNavigate();
 
-    const onClickClose = () => {
+    const onClickLeft = () => {
       setIsModalOn(false);
+      if (leftLink) {
+        navigate(leftLink);
+      }
     };
 
-    const onClickConfirm = () => {
-      ref.current = true;
-      onClickClose();
+    const onClickRight = () => {
+      if (ref) ref.current = true;
+      setIsModalOn(false);
+      if (rightLink) navigate(rightLink);
     };
 
     useEffect(() => {
@@ -55,16 +70,16 @@ const AlertModal = forwardRef(
         <Dim />
         <Wrap ref={outsideRef}>
           <Title>{title}</Title>
-          <CloseBtn onClick={onClickClose}>
+          <CloseBtn onClick={() => setIsModalOn(false)}>
             <XSVG />
           </CloseBtn>
-          <Content>{content}</Content>
+          {content && <Content>{content}</Content>}
           <Buttons>
             {leftButton && (
-              <BlackBtn onClick={onClickClose}>{leftButton}</BlackBtn>
+              <BlackBtn onClick={onClickLeft}>{leftButton}</BlackBtn>
             )}
             {rightButton && (
-              <BlackBtn onClick={onClickConfirm}>{rightButton}</BlackBtn>
+              <BlackBtn onClick={onClickRight}>{rightButton}</BlackBtn>
             )}
           </Buttons>
         </Wrap>
@@ -126,7 +141,7 @@ const Buttons = styled.div`
   }
 `;
 const BlackBtn = styled(Btn)`
-  width: 220px;
+  /* width: 220px; */
   padding: 25px 45px;
   margin-top: 10px;
   @media screen and (max-width: ${({ theme }) => theme.deviceSizes.mobile}) {

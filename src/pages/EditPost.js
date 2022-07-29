@@ -111,21 +111,37 @@ const EditPost = () => {
       return false;
     }
 
-    if ((type === "review" || type === "lookbook") && files.length < 1) {
+    if (
+      (type === "review" || type === "lookbook") &&
+      files.length === 0 &&
+      previewList.length === 0
+    ) {
       setError({ ...error, fileError: "사진을 선택해주세요." });
       return false;
     }
 
-    // 1번 방법 => api 설계서와 동일하게 보내기
-    // const frm = new frm(event.target);
-    // frm.append("postCategory", type);
+    if (
+      category === post.category &&
+      contentRef.current.value === post.content &&
+      deleteImage.length === 0 &&
+      files.length === 0
+    ) {
+      if (type !== "lookbook" && titleRef.current.value === post.title) {
+        if (type === "review" || type === "qna") {
+          navigate("/" + type);
+          return false;
+        }
+        if (region === post.region) {
+          navigate("/" + type);
+          return false;
+        }
+      }
+      if (type === "lookbook" && introduction === post.introduction) {
+        navigate("/" + type);
+        return false;
+      }
+    }
 
-    // files.forEach((file) => {
-    //   frm.append("file", file);
-    // });
-    // console.log(frm.getAll("file"));
-
-    // 2번 방법 => file, key로 나눠서 보내기
     files.forEach((file) => {
       frm.append("file", file);
     });
@@ -149,10 +165,10 @@ const EditPost = () => {
       key = { ...key, imageUrl: imageUrl };
     }
     if (files.length === 0 || deleteImage.length > 0) {
-      key = { ...key, deleteImage: deleteImage };
+      key = { ...key, deleteImage };
     }
     if (type === "reform") {
-      key = { ...key, region: region, process: "before" };
+      key = { ...key, region, process: post.process };
     }
     if (type !== "lookbook") {
       key = { ...key, title: titleRef.current.value };
@@ -168,11 +184,11 @@ const EditPost = () => {
     // frm.append("key", JSON.stringify(key));
 
     // formdata 확인하기
-    // console.log(frm.getAll("file"));
-    // for (let key of frm.keys()) {
-    //   console.log(key, ":", frm.get(key));
-    // }
-    // for (let v of frm.values()) console.log(v);
+    console.log(frm.getAll("file"));
+    for (let key of frm.keys()) {
+      console.log(key, ":", frm.get(key));
+    }
+    for (let v of frm.values()) console.log(v);
 
     await dispatch(EditPostDB(frm, type, id)).then(() => {
       dispatch(resetFile());

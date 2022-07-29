@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import TimeCalculator from "../shared/TimeCalculator";
 import {
   GetCommentDB,
@@ -25,6 +26,7 @@ const PostFooter = ({
   const inputCurrent = React.useRef(null);
   const modifyInputCurrent = React.useRef(null);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const isLogin = useSelector((state) => state.user.isLogin);
   const [changingComment, setChangingComment] = useState(null);
 
@@ -156,18 +158,38 @@ const PostFooter = ({
         <CommentDiv>
           <CommentCount>댓글 </CommentCount>
           <BoldCommentCount>{commentCount}</BoldCommentCount>
-          <MessageCover id="commentSection">
-            <MessageInput
-              maxLength="100"
-              placeholder="기분 좋은 말 한마디는 모두에게 긍정적인 에너지를 줘요 :)"
-              id="messageInput"
-              ref={inputCurrent}
-              autoComplete="off"
-            />
-            <MessageBtn id="commentInputButton" onClick={sendComment}>
-              입력
-            </MessageBtn>
-          </MessageCover>
+          {isLogin ? (
+            <MessageCover id="commentSection">
+              <MessageInput
+                maxLength="100"
+                placeholder="기분 좋은 말 한마디는 모두에게 긍정적인 에너지를 줘요 :)"
+                id="messageInput"
+                ref={inputCurrent}
+                autoComplete="off"
+              />
+              <MessageBtn id="commentInputButton" onClick={sendComment}>
+                입력
+              </MessageBtn>
+            </MessageCover>
+          ) : (
+            <MessageCover id="commentSection">
+              <MessageInput
+                disabled
+                placeholder="댓글을 달려면 로그인을 해주세요!"
+                id="messageInput"
+                ref={inputCurrent}
+                autoComplete="off"
+              />
+              <MessageBtn
+                id="commentInputButton"
+                onClick={() => {
+                  navigate("/login");
+                }}
+              >
+                입력
+              </MessageBtn>
+            </MessageCover>
+          )}
           {commentsList.map((v, i) => {
             const myComment = userId === v.userid;
             return (

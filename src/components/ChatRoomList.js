@@ -30,6 +30,7 @@ const ChatRoomList = ({ location, roomId, setIsEmpty }) => {
           </List>
         </Link>
       ))}
+      {roomList.length < 1 && <List>진행 중인 채팅이 없습니다.</List>}
     </>
   );
 };

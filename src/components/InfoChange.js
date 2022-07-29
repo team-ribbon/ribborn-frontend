@@ -25,7 +25,6 @@ const InfoChange = ({ change, user, setCategory }) => {
   } = useForm();
 
   const onValid = (data) => {
-    console.log("startCheck");
     let sendData = null;
     if (passwordChange) {
       // password validation check
@@ -122,7 +121,6 @@ const InfoChange = ({ change, user, setCategory }) => {
       }
     }
     dispatch(changeMyDataDB(sendData)).then((res) => {
-      console.log(sendData);
       setCategory("all");
       if (res === true) {
         change(false);

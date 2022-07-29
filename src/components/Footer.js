@@ -39,7 +39,9 @@ const Footer = () => {
       <Wrap isLookbook={isLookbook} isReform={isReform} isWhite={isWhite}>
         <Grid>
           <BoxDiv>
-            <Title>RIBBORN</Title>
+            <Title>
+              <Logo>RIBBORN</Logo>
+            </Title>
             <ContentDiv>
               <Content>FE: 김현빈, 차혜준</Content> <br />
               <Content>BE: 박성규, 박성렬, 이정우</Content> <br />
@@ -97,10 +99,10 @@ const Footer = () => {
           <BoxDiv>
             <Title>고객지원</Title>
             <ContentDiv>
-              <ClickContent>공지사항</ClickContent> <br />
+              {/* <ClickContent>공지사항</ClickContent> <br />
               <SpanMargin />
               <ClickContent>서비스소개</ClickContent> <br />
-              <SpanMargin />
+              <SpanMargin /> */}
               <Link to="/faq">
                 <ClickContent>FAQ</ClickContent>
               </Link>
@@ -166,7 +168,9 @@ const Footer = () => {
               cursor="pointer"
             />
           </MobileIconDiv>
-          <MobileCompanyName>RIBBORN</MobileCompanyName>
+          <MobileCompanyName>
+            <Logo>RIBBORN</Logo>
+          </MobileCompanyName>
         </MobileBottomBoxDiv>
       </Wrap>
     </>
@@ -226,7 +230,11 @@ const Title = styled.span`
   font-size: 27px;
   line-height: 36px;
 `;
-
+const Logo = styled.span`
+  font-family: "quicksand", sans-serif !important;
+  font-style: normal;
+  font-weight: 500;
+`;
 const ContentDiv = styled.div`
   @media ${({ theme }) => theme.device.mobile} {
     margin: 16px 0 14px 0;

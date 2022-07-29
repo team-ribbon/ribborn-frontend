@@ -1,9 +1,10 @@
 import React from "react";
 import styled from "styled-components";
+import { apis } from "../shared/api";
 import MyPostButtons from "./MyPostButtons";
 import TimeCalculator from "../shared/TimeCalculator";
 import InfoSection from "./InfoSection";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { MainBtn } from "../elements/Buttons";
 
 const ReformPostDetail = ({ post, userId, userType }) => {
@@ -17,11 +18,12 @@ const ReformPostDetail = ({ post, userId, userType }) => {
       window.removeEventListener("scroll", scrollEvent);
     };
   }, []);
+
   const navigate = useNavigate();
+  const location = useLocation();
+
   let process = null;
   switch (post && post.process) {
-    case undefined:
-      break;
     case "before":
       process = "모집중";
       break;
@@ -31,7 +33,19 @@ const ReformPostDetail = ({ post, userId, userType }) => {
     case "after":
       process = "완료";
       break;
+    default:
+      break;
   }
+
+  const onClickChat = async () => {
+    try {
+      const response = await apis.addRoom(post.userid);
+      navigate(`/chat/${response.data}`, {
+        state: { backgroundLocation: location },
+      });
+    } catch (error) {}
+  };
+
   return (
     post && (
       <Wrap>
@@ -53,11 +67,13 @@ const ReformPostDetail = ({ post, userId, userType }) => {
               category={post.category}
             />
             <MyButtonsWrap>
-              {userId === post.userid ? (
+              {userId === post.userid && (
                 <MyPostButtons postType="reform" postId={post.id} />
-              ) : null}
+              )}
             </MyButtonsWrap>
-            {+userType === 1 ? <ChattingBtn>채팅하기</ChattingBtn> : null}
+            {+userType === 1 && (
+              <ChattingBtn onClick={onClickChat}>채팅하기</ChattingBtn>
+            )}
           </MobileInfoWrap>
         </HeaderWrap>
         <BodyWrap>
@@ -73,7 +89,9 @@ const ReformPostDetail = ({ post, userId, userType }) => {
                   <MyPostButtons postType="reform" postId={post.id} />
                 ) : null}
               </MyButtonsWrap>
-              {+userType === 1 ? <ChattingBtn>채팅하기</ChattingBtn> : null}
+              {+userType === 1 && (
+                <ChattingBtn onClick={onClickChat}>채팅하기</ChattingBtn>
+              )}
             </Navbar>
           </LeftPostDiv>
           <CenterPostDiv>

@@ -134,6 +134,7 @@ const PostFooter = ({
           <BoldCommentCount>{commentCount}</BoldCommentCount>
           <MessageCover id="commentSection">
             <MessageInput
+              maxLength="100"
               placeholder="기분 좋은 말 한마디는 모두에게 긍정적인 에너지를 줘요 :)"
               id="messageInput"
               ref={inputCurrent}

@@ -83,20 +83,36 @@ const PostFooter = ({
   };
 
   const borderActive = () => {
+    const commentInputButton = document.getElementById("commentInputButton");
     const CommentSection = document.getElementById("commentSection");
+    commentInputButton.style.color = "#222222";
     CommentSection.style.border = "1px solid #222222";
   };
   const borderDisAbled = () => {
+    const commentInputButton = document.getElementById("commentInputButton");
     const CommentSection = document.getElementById("commentSection");
+    commentInputButton.style.color = "#afb0b3";
     CommentSection.style.border = "1px solid #f2f2f2";
   };
   const modifyBorderActive = () => {
     const CommentSection = document.getElementById("modifyCommentSection");
+    const modifyMessageButton = document.getElementById("modifyMessageButton");
+    const modifyMessageCancelButton = document.getElementById(
+      "modifyMessageCancelButton"
+    );
     CommentSection.style.border = "1px solid #222222";
+    modifyMessageButton.style.color = "#222222";
+    modifyMessageCancelButton.style.color = "#222222";
   };
   const modifyBorderDisAbled = () => {
     const CommentSection = document.getElementById("modifyCommentSection");
+    const modifyMessageButton = document.getElementById("modifyMessageButton");
+    const modifyMessageCancelButton = document.getElementById(
+      "modifyMessageCancelButton"
+    );
     CommentSection.style.border = "1px solid #f2f2f2";
+    modifyMessageButton.style.color = "#afb0b3";
+    modifyMessageCancelButton.style.color = "#afb0b3";
   };
 
   React.useEffect(() => {
@@ -146,7 +162,9 @@ const PostFooter = ({
               ref={inputCurrent}
               autoComplete="off"
             />
-            <MessageBtn onClick={sendComment}>입력</MessageBtn>
+            <MessageBtn id="commentInputButton" onClick={sendComment}>
+              입력
+            </MessageBtn>
           </MessageCover>
           {commentsList.map((v, i) => {
             const myComment = userId === v.userid;
@@ -165,7 +183,17 @@ const PostFooter = ({
                         ref={modifyInputCurrent}
                         autoComplete="off"
                       />
+                      <LeftMessageBtn
+                        id="modifyMessageCancelButton"
+                        onClick={() => {
+                          modifyCommentCancel();
+                          setChangingComment(null);
+                        }}
+                      >
+                        취소
+                      </LeftMessageBtn>
                       <MessageBtn
+                        id="modifyMessageButton"
                         onClick={() => {
                           modifyComment(v.id, v.comment);
                           modifyCommentCancel();
@@ -180,30 +208,16 @@ const PostFooter = ({
                       {v.comment}
                     </CommentContent>
                   )}
-                  {myComment ? (
-                    <>
-                      {changingComment === null ? (
-                        <CommentModifyBtn
-                          onClick={() => {
-                            setChangingComment(i);
-                          }}
-                          left={true}
-                        >
-                          수정
-                        </CommentModifyBtn>
-                      ) : null}
-                      {changingComment === i ? (
-                        <CommentModifyBtn
-                          left={true}
-                          moreWidth={true}
-                          onClick={() => {
-                            modifyCommentCancel();
-                            setChangingComment(null);
-                          }}
-                        >
-                          수정 취소
-                        </CommentModifyBtn>
-                      ) : null}
+                  {myComment && changingComment !== i && (
+                    <DesktopMyCommentDiv>
+                      <CommentModifyBtn
+                        onClick={() => {
+                          setChangingComment(i);
+                        }}
+                        left={true}
+                      >
+                        수정
+                      </CommentModifyBtn>
                       <CommentModifyBtn
                         onClick={() => {
                           deleteComment(v.id);
@@ -212,10 +226,30 @@ const PostFooter = ({
                       >
                         삭제
                       </CommentModifyBtn>
-                    </>
-                  ) : null}
+                    </DesktopMyCommentDiv>
+                  )}
                 </CommentFistLine>
                 <CreatedAt>{TimeCalculator(v.createAt)}</CreatedAt>
+                {myComment && changingComment !== i && (
+                  <MobileMyCommentDiv>
+                    <CommentModifyBtn
+                      onClick={() => {
+                        setChangingComment(i);
+                      }}
+                      left={true}
+                    >
+                      수정
+                    </CommentModifyBtn>
+                    <CommentModifyBtn
+                      onClick={() => {
+                        deleteComment(v.id);
+                      }}
+                      left={changingComment !== null && changingComment !== i}
+                    >
+                      삭제
+                    </CommentModifyBtn>
+                  </MobileMyCommentDiv>
+                )}
               </Comment>
             );
           })}
@@ -270,15 +304,19 @@ const MessageCover = styled.section`
 `;
 
 const ModifyMessageCover = styled.section`
-  width: calc(100% - 286px);
+  width: calc(100% - 6px);
   height: 46px;
-  margin: -30px auto 0px auto;
+  margin: 0 auto 0 0;
   position: relative;
   border: none;
   background: #ffffff;
   border: 1px solid #f2f2f2;
   border-radius: 8px;
-  transform: translate(0%, 50%);
+  @media ${({ theme }) => theme.device.mobile} {
+    width: calc(100% - 112px);
+    margin: -47px 0 0px auto;
+    transform: translate(0%, 50%);
+  }
 `;
 
 const MessageInput = styled.input`
@@ -308,7 +346,7 @@ const ModifyMessageInput = styled.input`
   top: 50%;
   left: 7px;
   height: 46px;
-  width: calc(100% - 72px);
+  width: calc(100% - 130px);
   border: transparent;
   background-color: transparent;
   transform: translate(0%, -50%);
@@ -344,15 +382,48 @@ const MessageBtn = styled.button`
   }
 `;
 
+const LeftMessageBtn = styled.button`
+  border: none;
+  background-color: transparent;
+  width: 50px;
+  height: 30px;
+  width: fit-content;
+  color: #afb0b3;
+  position: absolute;
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 18px;
+  right: 73px;
+  top: 50%;
+  transform: translate(0%, -50%);
+  :hover {
+    cursor: pointer;
+  }
+`;
+
 const Comment = styled.div`
-  margin: 30px auto 0px auto;
+  display: flex;
+  flex-direction: column;
+  margin: 30px auto 0px 6px;
+  @media ${({ theme }) => theme.device.mobile} {
+    margin: 30px auto 0px auto;
+  }
 `;
 
 const CommentFistLine = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: baseline;
-  margin-bottom: 16px;
+  min-height: 45px;
+  vertical-align: middle;
+  gap: 6px;
+  margin-bottom: 6px;
+  @media ${({ theme }) => theme.device.mobile} {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 0px;
+  }
 `;
 
 const CommentNickname = styled.span`
@@ -365,26 +436,36 @@ const CommentNickname = styled.span`
 
 const CommentContent = styled.span`
   font-weight: 400;
-  font-size: ${({ theme }) => theme.fontSizes.m};
+  font-size: ${({ theme }) => theme.fontSizes.s};
   line-height: 18px;
-  margin-left: 16px;
   color: #222222;
-  width: ${(props) =>
-    props.myComment ? "calc(100% - 276px)" : "calc(100% - 116px)"};
+  width: calc(100% - 6px);
+  @media ${({ theme }) => theme.device.mobile} {
+    font-size: ${({ theme }) => theme.fontSizes.m};
+    margin-left: 16px;
+    width: ${(props) =>
+      props.myComment ? "calc(100% - 276px)" : "calc(100% - 116px)"};
+  }
 `;
 
 const CommentModifyBtn = styled.button`
-  width: ${(props) => (props.moreWidth ? "86px" : "68px")};
+  width: 48px;
   height: 29px;
   font-weight: 400;
-  font-size: ${({ theme }) => theme.fontSizes.m};
-  line-height: 18px;
+  font-size: ${({ theme }) => theme.fontSizes.s};
+  line-height: 14px;
   border: 1px solid #222222;
   border-radius: 8px;
   background-color: transparent;
-  margin-left: ${(props) => (props.left ? "auto" : "12px")};
+  margin-left: ${(props) => (props.left ? "auto" : "16px")};
   :hover {
     cursor: pointer;
+  }
+  @media ${({ theme }) => theme.device.mobile} {
+    margin-left: ${(props) => (props.left ? "auto" : "12px")};
+    width: ${(props) => (props.moreWidth ? "86px" : "68px")};
+    font-size: ${({ theme }) => theme.fontSizes.m};
+    line-height: 18px;
   }
 `;
 
@@ -393,6 +474,25 @@ const CreatedAt = styled.span`
   font-size: ${({ theme }) => theme.fontSizes.s};
   line-height: 14px;
   color: #afb0b3;
+  margin-top: 6px;
+  @media ${({ theme }) => theme.device.mobile} {
+    margin-top: 0px;
+  }
+`;
+
+const DesktopMyCommentDiv = styled.div`
+  display: none;
+  @media ${({ theme }) => theme.device.mobile} {
+    display: initial;
+  }
+`;
+
+const MobileMyCommentDiv = styled.div`
+  display: initial;
+  margin-top: 6px;
+  @media ${({ theme }) => theme.device.mobile} {
+    display: none;
+  }
 `;
 
 export default PostFooter;

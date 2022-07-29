@@ -50,7 +50,7 @@ formDataApi.interceptors.request.use(function (config) {
 export const apis = {
   // 회원정보
   login: (username, password) =>
-    api.post("/api/users/login", { username, password }),
+    chatApi.post("/api/users/login", { username, password }),
   signupUser: (userObj) => api.post("/api/users/register/users", userObj),
   usernameCheck: (username) =>
     api.post("/api/users/register/idCheck", { username }),

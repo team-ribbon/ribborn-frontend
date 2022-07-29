@@ -6,7 +6,10 @@ import { XSVG } from "../elements/SVG";
 
 // 공통 > 얼럿 모달
 const AlertModal = forwardRef(
-  ({ title, content, setIsModalOn, isModalOn }, ref) => {
+  (
+    { title, content, leftButton, rightButton, setIsModalOn, isModalOn },
+    ref
+  ) => {
     const outsideRef = useRef();
 
     const onClickClose = () => {
@@ -57,8 +60,12 @@ const AlertModal = forwardRef(
           </CloseBtn>
           <Content>{content}</Content>
           <Buttons>
-            <BlackBtn onClick={onClickClose}>아니요, 안 할래요.</BlackBtn>
-            <BlackBtn onClick={onClickConfirm}>네, 할게요.</BlackBtn>
+            {leftButton && (
+              <BlackBtn onClick={onClickClose}>{leftButton}</BlackBtn>
+            )}
+            {rightButton && (
+              <BlackBtn onClick={onClickConfirm}>{rightButton}</BlackBtn>
+            )}
           </Buttons>
         </Wrap>
       </FloatWrap>
@@ -66,17 +73,18 @@ const AlertModal = forwardRef(
   }
 );
 const FloatWrap = styled.div`
-  z-index: 99;
+  z-index: 100;
 `;
 const Dim = styled.div`
   box-sizing: border-box;
-  display: "block";
+  display: block;
   position: fixed;
   top: 0;
   left: 0;
   bottom: 0;
   right: 0;
   background-color: rgba(0, 0, 0, 0.6);
+  z-index: 100;
 `;
 const Wrap = styled.div`
   position: fixed;
@@ -88,8 +96,14 @@ const Wrap = styled.div`
   max-height: 375px;
   transform: translate(-50%, -50%);
   background-color: #fff;
-  border-radius: 24px;
+  border-radius: 25px;
   padding: 45px 30px;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  @media screen and (max-width: 375px) {
+    padding: 45px 20px 20px 20px;
+  }
 `;
 const Title = styled.div`
   margin-bottom: 30px;
@@ -98,16 +112,16 @@ const Title = styled.div`
   text-align: start;
 `;
 const Content = styled.div`
-  margin-bottom: 120px;
   text-align: start;
   font-size: ${({ theme }) => theme.fontSizes.l};
 `;
 const Buttons = styled.div`
   display: flex;
   gap: 20px;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   width: fit-content;
-  @media screen and (max-width: 355px) {
+  margin-top: auto;
+  @media screen and (max-width: ${({ theme }) => theme.deviceSizes.mobile}) {
     gap: 10px;
   }
 `;
@@ -116,8 +130,9 @@ const BlackBtn = styled(Btn)`
   padding: 25px 45px;
   margin-top: 10px;
   @media screen and (max-width: ${({ theme }) => theme.deviceSizes.mobile}) {
-    padding: 20px 20px;
+    padding: 20px 30px;
     width: fit-content;
+    margin: 0 auto;
   }
 `;
 const CloseBtn = styled.div`

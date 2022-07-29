@@ -21,14 +21,14 @@ const ChatRoom = () => {
   // 웹소켓 연결 요청 & 구독 요청
   const socketConnect = () => {
     const webSocket = new SockJS(`${process.env.REACT_APP_CHAT_URL}/ws-stomp`);
-    stompClient = Stomp.over(webSocket);
-    stompClient.connect(
+    stompClient.current = Stomp.over(webSocket);
+    stompClient.current.connect(
       {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
         type: "TALK",
       },
       () => {
-        stompClient.subscribe(
+        stompClient.current.subscribe(
           `/sub/chat/room/${roomId}`,
           (response) => {
             const messageFromServer = JSON.parse(response.body);
@@ -36,19 +36,23 @@ const ChatRoom = () => {
           },
           { Authorization: `Bearer ${localStorage.getItem("token")}` }
         );
+        document.getElementsByName("chat")[0].disabled = false;
       }
     );
   };
 
   // 웹소켓 연결 해제
   const socketDisconnect = () => {
-    stompClient.disconnect();
+    stompClient.current.disconnect();
   };
 
   // 메시지 전송
   const sendMessage = (event) => {
     event.preventDefault();
-    if (event.target.chat.value === "") return false;
+
+    const message = event.target.chat.value;
+
+    if (message === "" || message.trim(" ") === "") return false;
 
     const messageObj = {
       roomId: roomId,
@@ -59,11 +63,12 @@ const ChatRoom = () => {
       nickname: user.nickname,
     };
 
-    stompClient.send(
+    stompClient.current.send(
       `/pub/chat/message`,
       { Authorization: `Bearer ${localStorage.getItem("token")}` },
       JSON.stringify(messageObj)
     );
+
     dispatch(
       updateRoomMessage({ ...messageObj, index: location.state.index ?? 0 })
     );
@@ -76,6 +81,9 @@ const ChatRoom = () => {
       socketDisconnect();
     }
     socketConnect();
+
+    document.getElementsByName("chat")[0].value = "";
+    document.getElementsByName("chat")[0].disabled = true;
 
     // 언마운트 시 연결 해제
     return () => {

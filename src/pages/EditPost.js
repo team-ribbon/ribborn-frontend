@@ -77,7 +77,7 @@ const EditPost = () => {
       if (post.region) {
         setRegion(post.region);
       }
-      if (imageNotLoaded && post.image) {
+      if (imageNotLoaded && post.image[0]) {
         post.image.forEach((imageLink) => {
           dispatch(uploadPreview(imageLink));
         });

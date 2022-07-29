@@ -123,11 +123,8 @@ const ReformPostDetail = ({ post, userId, userType }) => {
           <CenterPostDiv>
             <Image
               alt="card"
-              src={
-                post.image[0] !== null
-                  ? post.image[0]
-                  : "http://openimage.interpark.com/goods_image_big/1/4/1/9/9090461419_l.jpg"
-              }
+              src={post?.image[0] || "/images/textLogo.png"}
+              hasImage={post?.image[0]}
             />
             <MobileTextArea>{post.content}</MobileTextArea>
             {post.image.map((v, i) => {
@@ -308,6 +305,7 @@ const Image = styled.img`
   width: 100%;
   object-fit: cover;
   margin: 50px auto;
+  opacity: ${({ hasImage }) => !hasImage && "0.15"};
 `;
 
 const ProcessButton = styled(MainBtn)`

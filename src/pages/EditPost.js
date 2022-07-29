@@ -129,7 +129,6 @@ const EditPost = () => {
     files.forEach((file) => {
       frm.append("file", file);
     });
-    console.log(files);
 
     let imageUrl = [];
 
@@ -161,8 +160,6 @@ const EditPost = () => {
     if (type === "lookbook") {
       key = { ...key, introduction: introRef.current.value };
     }
-
-    console.log(key);
 
     frm.append(
       "key",

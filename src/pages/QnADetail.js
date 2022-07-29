@@ -22,7 +22,6 @@ const QnADetail = () => {
   const [loading, setLoading] = React.useState(true);
 
   const [inViewRef, inView] = useInView();
-  console.log(params);
 
   const post = useSelector((state) => state.post.Post);
   const commentsList = useSelector((state) => state.post.Comments);

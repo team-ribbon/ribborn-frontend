@@ -262,7 +262,6 @@ export const likePostDB = (id, like) => {
       const response = await apis.likePost(id, like).then((res) => {
         dispatch(likesuccess());
       });
-      console.log(response);
     } catch (error) {
       console.log(error);
     }
@@ -286,7 +285,6 @@ export const PostCommentDB = (id, comment, page) => {
     await apis
       .uploadComment(id, comment)
       .then((res) => {
-        console.log(res);
         dispatch(newComment());
       })
       .catch((error) => {
@@ -330,7 +328,6 @@ export const GetCommentDB = (id, page, num) => {
           dispatch(loadDone());
         }
         if (page === 0) {
-          console.log(res.data);
           dispatch(newCommentLoad(res.data));
         } else {
           dispatch(moreCommentLoad(res.data));

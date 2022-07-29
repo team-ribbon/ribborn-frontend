@@ -88,6 +88,8 @@ export const apis = {
 
   loadEventPost: (id) => api.get(`/api/event/${id}`),
   ParticipateEventPost: () => api.post("/api/event/participation"),
+  changeProcess: (id, process) =>
+    chatApi.put(`/api/post/${id}/process`, { process: process }),
   // 댓글
   loadComments: (postId, page, num) =>
     api.get(`/api/comments/${postId}?page=${page}&size=${num}`),

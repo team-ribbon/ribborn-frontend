@@ -146,19 +146,20 @@ const Main = () => {
             </CO2SVGDiv>
           </CO2SVGWrap>
           <CO2SpanLeftDiv>
-            <CO2Span>누적 {contents.co2Count}건의 리폼이</CO2Span>
+            <CO2LightBoldSpan>RIBBORN</CO2LightBoldSpan>
+            <CO2Span>에서</CO2Span>
             <br />
-            <CO2LightBoldSpan>RiBBORN</CO2LightBoldSpan>
-            <CO2Span>으로 인해</CO2Span>
+            <CO2Span>누적 {contents.co2Count}건의 리폼으로</CO2Span>
+            <br />
           </CO2SpanLeftDiv>
           <br />
           <CO2SpanRightDiv>
             {+contents.co2Reduce >= 1000 ? (
               <CO2BoldSpan>
-                탄소 {(+contents.co2Reduce / 1000).toFixed(1)}t
+                탄소 배출 {(+contents.co2Reduce / 1000).toFixed(1)}t
               </CO2BoldSpan>
             ) : (
-              <CO2BoldSpan>탄소 {contents.co2Reduce}kg</CO2BoldSpan>
+              <CO2BoldSpan>탄소 배출 {contents.co2Reduce}kg</CO2BoldSpan>
             )}
             <CO2Span>을 줄였습니다.</CO2Span>
           </CO2SpanRightDiv>
@@ -215,7 +216,6 @@ const MainNavWrap = styled.div`
   }
 `;
 const BannerWrap = styled.div`
-  max-width: ${({ theme }) => theme.width.maxWidth};
   margin: 0 auto 0 auto;
   background-color: #d9d9d9;
   cursor: pointer;
@@ -421,29 +421,55 @@ const CO2SpanLeftDiv = styled.div`
 `;
 
 const CO2Span = styled.span`
-  font-size: ${({ theme }) => theme.fontSizes.s};
+  font-size: 48px;
   line-height: 129%;
   font-weight: 400;
-  @media all and (min-width: 300px) {
-    font-size: ${({ theme }) => theme.fontSizes.m};
+  @media screen and (max-width: 1280px) {
+    font-size: 40px;
   }
-  @media all and (min-width: 400px) {
-    font-size: ${({ theme }) => theme.fontSizes.l};
+  @media screen and (max-width: 1130px) {
+    font-size: 35px;
   }
-  @media all and (min-width: 550px) {
-    font-size: 25px;
+  @media screen and (max-width: 920px) {
+    font-size: 27px;
   }
-  @media all and (min-width: 650px) {
-    font-size: ${({ theme }) => theme.fontSizes.xl};
+  @media screen and (max-width: 750px) {
+    font-size: 21px;
+  }
+  @media screen and (max-width: 530px) {
+    font-size: 14px;
+  }
+  @media screen and (max-width: 330px) {
+    font-size: 12px;
   }
 `;
 
 const CO2LightBoldSpan = styled(CO2Span)`
+  font-family: "quicksand", sans-serif !important;
   font-weight: 600;
 `;
 
 const CO2BoldSpan = styled(CO2Span)`
   font-weight: 700;
+  font-size: 63px;
+  @media screen and (max-width: 1280px) {
+    font-size: 53px;
+  }
+  @media screen and (max-width: 1130px) {
+    font-size: 43px;
+  }
+  @media screen and (max-width: 920px) {
+    font-size: 33px;
+  }
+  @media screen and (max-width: 750px) {
+    font-size: 25px;
+  }
+  @media screen and (max-width: 530px) {
+    font-size: 17px;
+  }
+  @media screen and (max-width: 330px) {
+    font-size: 14px;
+  }
 `;
 
 const CO2SpanRightDiv = styled.span`

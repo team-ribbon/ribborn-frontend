@@ -10,7 +10,6 @@ import ReformPostDetail from "../components/ReformPostDetail";
 const ReformDetail = () => {
   const dispatch = useDispatch();
   const params = useParams();
-  console.log(params);
 
   const post = useSelector((state) => state.post.Post);
   const userId = useSelector((state) => state.user.user?.id);

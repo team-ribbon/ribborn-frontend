@@ -46,7 +46,6 @@ const SignupTech = () => {
     delete data.password2;
     data.addressCategory = selectRef.current;
     data.userType = 1;
-    // console.log(data);
     dispatch(signupDB(data));
     navigate("/login");
   };

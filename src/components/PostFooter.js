@@ -55,7 +55,7 @@ const PostFooter = ({
   };
 
   const deleteComment = (commentId) => {
-    dispatch(deleteCommentDB(id, commentId)).then(() => {
+    dispatch(deleteCommentDB(id, commentId, page)).then(() => {
       dispatch(loadDoneReset());
       if (page === 0) {
         setLoading(true);
@@ -72,7 +72,6 @@ const PostFooter = ({
     });
   };
 
-    dispatch(modifyCommentDB(id, commentId, modifyInputCurrent.current.value));
   const modifyComment = (commentId, currentComment) => {
     if (modifyInputCurrent.current.value === "") {
       return false;
@@ -80,6 +79,9 @@ const PostFooter = ({
     if (modifyInputCurrent.current.value === currentComment) {
       return false;
     }
+    dispatch(
+      modifyCommentDB(id, commentId, modifyInputCurrent.current.value, page)
+    );
   };
 
   const borderActive = () => {

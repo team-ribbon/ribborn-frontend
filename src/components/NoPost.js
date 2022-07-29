@@ -20,7 +20,7 @@ const NoPost = ({ category, myPage }) => {
     {
       category: "reform",
       text: "아직 견적을 낸 적이 없어요!",
-      button: "첫번째 후기 쓰기",
+      button: "첫번째 견적 쓰기",
       link: "/reform",
     },
     {

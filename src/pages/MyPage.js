@@ -31,7 +31,7 @@ function MyPage() {
     if (!infoChange) {
       dispatch(getMyPageDB(category));
     }
-  }, [category, infoChange]);
+  }, [infoChange]);
   React.useEffect(() => {
     return () => {
       dispatch(cleanUpMyPage());

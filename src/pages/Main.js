@@ -50,45 +50,40 @@ const Main = () => {
             </Link>
             <Link to="/review/clothes">
               <LinkDiv>
-                <NavButton black oneLine>
-                  <DesktopCommunity>CLOTHES</DesktopCommunity>
-                  <MobileCommunity>CLOTHES</MobileCommunity>
+                <NavButton>
+                  <ClothesImg src="./images/clothes.png" />
                 </NavButton>
                 <NavSpan>옷 리뷰</NavSpan>
               </LinkDiv>
             </Link>
             <Link to="/review/furniture">
               <LinkDiv>
-                <NavButton black>
-                  <DesktopCommunity>FURNITURE</DesktopCommunity>
-                  <MobileCommunity>FURNIT- URE</MobileCommunity>
+                <NavButton>
+                  <FurnituresImg src="./images/furnitures.png" />
                 </NavButton>
                 <NavSpan>가구 리뷰</NavSpan>
               </LinkDiv>
             </Link>
             <Link to="/review/shoes">
               <LinkDiv>
-                <NavButton black oneLine>
-                  <DesktopCommunity>SHOES</DesktopCommunity>
-                  <MobileCommunity>SHOES</MobileCommunity>
+                <NavButton>
+                  <ShoesImg src="./images/shoes.png" />
                 </NavButton>
                 <NavSpan>신발 리뷰</NavSpan>
               </LinkDiv>
             </Link>
             <Link to="/review/bags">
               <LinkDiv>
-                <NavButton black oneLine>
-                  <DesktopCommunity>BAG</DesktopCommunity>
-                  <MobileCommunity>BAG</MobileCommunity>
+                <NavButton>
+                  <BagsImg src="./images/bags.png" />
                 </NavButton>
                 <NavSpan>가방 리뷰</NavSpan>
               </LinkDiv>
             </Link>
             <Link to="/review/goods">
               <LinkDiv>
-                <NavButton black>
-                  <DesktopCommunity>ACCESSORY</DesktopCommunity>
-                  <MobileCommunity>ACCESS- ORY</MobileCommunity>
+                <NavButton>
+                  <GoodsImg src="./images/goods.png" />
                 </NavButton>
                 <NavSpan>기타 리뷰</NavSpan>
               </LinkDiv>
@@ -105,8 +100,7 @@ const Main = () => {
             <Link to="/">
               <LinkDiv onClick={() => setIsModalOn(true)}>
                 <NavButton>
-                  <DesktopCommunity>Service Guide</DesktopCommunity>
-                  <MobileCommunity>Service Guide</MobileCommunity>
+                  <Community>Service Guide</Community>
                 </NavButton>
                 <DesktopNavSpan>리본 이용 가이드</DesktopNavSpan>
                 <MobileNavSpan>이용 가이드</MobileNavSpan>
@@ -149,18 +143,21 @@ const Main = () => {
           <CO2SpanLeftDiv>
             <CO2Span>누적 {contents.co2Count}건의 리폼이</CO2Span>
             <br />
-            <CO2SpanRightDiv>
-              {+contents.co2Reduce >= 1000 ? (
-                <CO2BoldSpan>
-                  탄소 배출 {(+contents.co2Reduce / 1000).toFixed(1)}t
-                </CO2BoldSpan>
-              ) : (
-                <CO2BoldSpan>탄소 배출 {contents.co2Reduce}kg</CO2BoldSpan>
-              )}
-              <CO2Span>을 줄였습니다.</CO2Span>
-            </CO2SpanRightDiv>
-          </CO2>
-        </CO2Wrap>
+            <CO2LightBoldSpan>RiBBORN</CO2LightBoldSpan>
+            <CO2Span>으로 인해</CO2Span>
+          </CO2SpanLeftDiv>
+          <br />
+          <CO2SpanRightDiv>
+            {+contents.co2Reduce >= 1000 ? (
+              <CO2BoldSpan>
+                탄소 {(+contents.co2Reduce / 1000).toFixed(1)}t
+              </CO2BoldSpan>
+            ) : (
+              <CO2BoldSpan>탄소 {contents.co2Reduce}kg</CO2BoldSpan>
+            )}
+            <CO2Span>을 줄였습니다.</CO2Span>
+          </CO2SpanRightDiv>
+        </CO2>
         <MainWrap>
           <MainSection
             type="A"
@@ -213,6 +210,7 @@ const MainNavWrap = styled.div`
   }
 `;
 const BannerWrap = styled.div`
+  max-width: ${({ theme }) => theme.width.maxWidth};
   margin: 0 auto 0 auto;
   background-color: #d9d9d9;
   position: relative;
@@ -354,30 +352,42 @@ const MobileTrendButton = styled.div`
   width: 63px;
   height: 63px;
   margin: 0 auto 24px auto;
-  padding-top: 18px;
+  padding-top: 16px;
   @media ${({ theme }) => theme.device.mobile} {
     display: none;
   }
 `;
 
 const NewTrend = styled.span`
+  font-weight: 700;
   font-size: ${({ theme }) => theme.fontSizes.l};
   line-height: 32px;
   color: #fff;
 `;
+const Community = styled.span`
+  font-weight: 700;
+  font-size: ${({ theme }) => theme.fontSizes.s};
+  line-height: 14px;
+  @media ${({ theme }) => theme.device.mobile} {
+    font-size: ${({ theme }) => theme.fontSizes.l};
+    line-height: 32px;
+  }
+`;
+
 const DesktopCommunity = styled.span`
   display: none;
   @media ${({ theme }) => theme.device.mobile} {
     display: inherit;
+    font-weight: 700;
     font-size: ${({ theme }) => theme.fontSizes.l};
     line-height: 32px;
   }
 `;
 
 const MobileCommunity = styled.span`
+  font-weight: 700;
   font-size: ${({ theme }) => theme.fontSizes.s};
   line-height: 14px;
-  font-weight: 700;
   @media ${({ theme }) => theme.device.mobile} {
     display: none;
   }
@@ -387,13 +397,12 @@ const NavButton = styled.div`
   width: 63px;
   height: 63px;
   border-radius: 63px;
-  background-color: ${({ theme, black }) =>
-    black ? theme.colors.black : theme.colors.lightGray};
-  color: ${({ theme, black }) => (black ? "#fff" : theme.colors.black)};
-  margin: 0 auto 20px auto;
+  background-color: ${({ theme }) => theme.colors.lightGray};
+  margin: 0 auto 24px auto;
+  font-weight: 700;
   font-size: ${({ theme }) => theme.fontSizes.l};
   line-height: 16px;
-  padding-top: ${({ oneLine }) => (oneLine ? "24px" : "15px")};
+  padding-top: 15px;
   position: relative;
   @media ${({ theme }) => theme.device.mobile} {
     width: 100%;
@@ -403,9 +412,72 @@ const NavButton = styled.div`
     line-height: 32px;
   }
 `;
-const CO2Wrap = styled.div`
-  background-color: #d9d9d9;
+
+const ClothesImg = styled.img`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 43px;
+  height: 22px;
+  @media ${({ theme }) => theme.device.mobile} {
+    width: 108px;
+    height: 55px;
+  }
 `;
+
+const FurnituresImg = styled.img`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 43px;
+  height: 23px;
+  @media ${({ theme }) => theme.device.mobile} {
+    width: 94px;
+    height: 70px;
+  }
+`;
+
+const ShoesImg = styled.img`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 42px;
+  height: 30px;
+  @media ${({ theme }) => theme.device.mobile} {
+    width: 88px;
+    height: 70px;
+  }
+`;
+
+const BagsImg = styled.img`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 37px;
+  height: 23px;
+  @media ${({ theme }) => theme.device.mobile} {
+    width: 95px;
+    height: 70px;
+  }
+`;
+
+const GoodsImg = styled.img`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 38px;
+  height: 28px;
+  @media ${({ theme }) => theme.device.mobile} {
+    width: 71px;
+    height: 73px;
+  }
+`;
+
 const CO2 = styled.div`
   margin: 0 auto;
   max-width: ${({ theme }) => theme.width.maxWidth};
@@ -439,55 +511,29 @@ const CO2SpanLeftDiv = styled.div`
 `;
 
 const CO2Span = styled.span`
-  font-size: 48px;
+  font-size: ${({ theme }) => theme.fontSizes.s};
   line-height: 129%;
   font-weight: 400;
-  @media screen and (max-width: 1280px) {
-    font-size: 40px;
+  @media all and (min-width: 300px) {
+    font-size: ${({ theme }) => theme.fontSizes.m};
   }
-  @media screen and (max-width: 1130px) {
-    font-size: 35px;
+  @media all and (min-width: 400px) {
+    font-size: ${({ theme }) => theme.fontSizes.l};
   }
-  @media screen and (max-width: 920px) {
-    font-size: 27px;
+  @media all and (min-width: 550px) {
+    font-size: 25px;
   }
-  @media screen and (max-width: 750px) {
-    font-size: 21px;
-  }
-  @media screen and (max-width: 530px) {
-    font-size: 14px;
-  }
-  @media screen and (max-width: 330px) {
-    font-size: 12px;
+  @media all and (min-width: 650px) {
+    font-size: ${({ theme }) => theme.fontSizes.xl};
   }
 `;
 
 const CO2LightBoldSpan = styled(CO2Span)`
-  font-family: "quicksand", sans-serif !important;
   font-weight: 600;
 `;
 
 const CO2BoldSpan = styled(CO2Span)`
   font-weight: 700;
-  font-size: 63px;
-  @media screen and (max-width: 1280px) {
-    font-size: 53px;
-  }
-  @media screen and (max-width: 1130px) {
-    font-size: 43px;
-  }
-  @media screen and (max-width: 920px) {
-    font-size: 33px;
-  }
-  @media screen and (max-width: 750px) {
-    font-size: 25px;
-  }
-  @media screen and (max-width: 530px) {
-    font-size: 17px;
-  }
-  @media screen and (max-width: 330px) {
-    font-size: 14px;
-  }
 `;
 
 const CO2SpanRightDiv = styled.span`

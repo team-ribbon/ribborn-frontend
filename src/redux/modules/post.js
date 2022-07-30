@@ -14,8 +14,9 @@ const GET_TECH_INTRO = "GET_TECH_INTRO";
 const GET_POST = "GET_POST";
 const GET_NO_COMMENT_POST = "GET_NO_COMMENT_POST";
 const LIKE_SUCCESS = "LIKE_SUCCESS";
+
 const CHANGE_PROCESS = "CHANGE_PROCESS";
-const NEW_COMMENT = "NEW_COMMENT";
+
 const DELETE_COMMENT = "DELETE_COMMENT";
 const MODIFY_COMMENT = "MODIFY_COMMENT";
 const NEW_COMMENT_LOAD = "NEW_COMMENT_LOAD";
@@ -41,8 +42,9 @@ const getNoCommentPost = createAction(GET_NO_COMMENT_POST, (Post) => ({
   Post,
 }));
 const likesuccess = createAction(LIKE_SUCCESS);
+
 const changeProcess = createAction(CHANGE_PROCESS, (process) => ({ process }));
-const newComment = createAction(NEW_COMMENT);
+
 const deleteComment = createAction(DELETE_COMMENT, (commentId) => ({
   commentId,
 }));
@@ -296,12 +298,11 @@ export const deletePostDB = (id) => {
 };
 
 // 댓글달기
-export const PostCommentDB = (id, comment, page) => {
+export const PostCommentDB = (id, comment) => {
   return async function (dispatch) {
     await apis
       .uploadComment(id, comment)
-      .then((res) => {
-        dispatch(newComment());
+      .then(() => {
       })
       .catch((error) => {
         console.log(error);
@@ -311,11 +312,12 @@ export const PostCommentDB = (id, comment, page) => {
 };
 
 // 댓글 삭제
-export const deleteCommentDB = (id, commentId) => {
+export const deleteCommentDB = (id, commentId, page) => {
   return async (dispatch) => {
     try {
       await apis.deleteComment(id, commentId);
       dispatch(deleteComment(commentId));
+      dispatch(GetCommentDB(id, 0, (page + 1) * 5));
     } catch (error) {
       console.log(error);
     }
@@ -323,11 +325,12 @@ export const deleteCommentDB = (id, commentId) => {
 };
 
 // 댓글 수정
-export const modifyCommentDB = (id, commentId, comment) => {
+export const modifyCommentDB = (id, commentId, comment, page) => {
   return async (dispatch) => {
     try {
       await apis.modifyComment(id, commentId, comment);
       dispatch(modifyComment({ id: commentId, comment: comment }));
+      dispatch(GetCommentDB(id, 0, (page + 1) * 5));
     } catch (error) {
       console.log(error);
     }
@@ -436,10 +439,6 @@ export default handleActions(
       produce(state, (draft) => {
         draft.Post.process = payload.process;
       }),
-    [NEW_COMMENT]: (state) =>
-      produce(state, (draft) => {
-        draft.Post.commentCount++;
-      }),
     [DELETE_COMMENT]: (state, { payload }) =>
       produce(state, (draft) => {
         draft.Post.commentCount--;
@@ -455,10 +454,12 @@ export default handleActions(
     [NEW_COMMENT_LOAD]: (state, { payload }) =>
       produce(state, (draft) => {
         draft.Comments = payload.Comments.content;
+        draft.Post.commentCount = payload.Comments.totalElements;
       }),
     [MORE_COMMENT_LOAD]: (state, { payload }) =>
       produce(state, (draft) => {
         draft.Comments.push(...payload.Comments.content);
+        draft.Post.commentCount = payload.Comments.totalElements;
       }),
     [GET_TECH_INTRO]: (state, { payload }) =>
       produce(state, (draft) => {

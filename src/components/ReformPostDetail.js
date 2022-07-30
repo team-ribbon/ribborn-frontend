@@ -335,10 +335,12 @@ const TextArea = styled.div`
 `;
 
 const MobileTextArea = styled.div`
-  width: calc(100% - 16px);
+  width: calc(100% - 32px);
   font-weight: 400;
   font-size: ${({ theme }) => theme.fontSizes.l};
   line-height: 28px;
+  text-align: left;
+  margin: 0 auto;
   @media ${({ theme }) => theme.device.mobile} {
     display: none;
   }

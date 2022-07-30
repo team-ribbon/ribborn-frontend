@@ -249,14 +249,18 @@ const Image = styled.img`
 
 const TextArea = styled.div`
   border: none;
-  width: 100%;
+  width: calc(100% - 32px);
+  margin: ${(props) => (props.noImage ? "30px auto" : "0 auto")};
   height: auto;
   resize: none;
   overflow: hidden;
   font-weight: 400;
   font-size: 18px;
   line-height: 28px;
-  margin-top: ${(props) => (props.noImage ? "30px" : "")};
+  text-align: left;
+  @media ${({ theme }) => theme.device.mobile} {
+    width: 100%;
+  }
 `;
 
 export default PostDetail;

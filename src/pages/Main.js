@@ -50,40 +50,45 @@ const Main = () => {
             </Link>
             <Link to="/review/clothes">
               <LinkDiv>
-                <NavButton>
-                  <ClothesImg src="./images/clothes.png" />
+                <NavButton black oneLine>
+                  <DesktopCommunity>CLOTHES</DesktopCommunity>
+                  <MobileCommunity>CLOTHES</MobileCommunity>
                 </NavButton>
                 <NavSpan>옷 리뷰</NavSpan>
               </LinkDiv>
             </Link>
             <Link to="/review/furniture">
               <LinkDiv>
-                <NavButton>
-                  <FurnituresImg src="./images/furnitures.png" />
+                <NavButton black>
+                  <DesktopCommunity>FURNITURE</DesktopCommunity>
+                  <MobileCommunity>FURNIT- URE</MobileCommunity>
                 </NavButton>
                 <NavSpan>가구 리뷰</NavSpan>
               </LinkDiv>
             </Link>
             <Link to="/review/shoes">
               <LinkDiv>
-                <NavButton>
-                  <ShoesImg src="./images/shoes.png" />
+                <NavButton black oneLine>
+                  <DesktopCommunity>SHOES</DesktopCommunity>
+                  <MobileCommunity>SHOES</MobileCommunity>
                 </NavButton>
                 <NavSpan>신발 리뷰</NavSpan>
               </LinkDiv>
             </Link>
             <Link to="/review/bags">
               <LinkDiv>
-                <NavButton>
-                  <BagsImg src="./images/bags.png" />
+                <NavButton black oneLine>
+                  <DesktopCommunity>BAG</DesktopCommunity>
+                  <MobileCommunity>BAG</MobileCommunity>
                 </NavButton>
                 <NavSpan>가방 리뷰</NavSpan>
               </LinkDiv>
             </Link>
             <Link to="/review/goods">
               <LinkDiv>
-                <NavButton>
-                  <GoodsImg src="./images/goods.png" />
+                <NavButton black>
+                  <DesktopCommunity>ACCESSORY</DesktopCommunity>
+                  <MobileCommunity>ACCESS- ORY</MobileCommunity>
                 </NavButton>
                 <NavSpan>기타 리뷰</NavSpan>
               </LinkDiv>
@@ -100,7 +105,8 @@ const Main = () => {
             <Link to="/">
               <LinkDiv onClick={() => setIsModalOn(true)}>
                 <NavButton>
-                  <Community>Service Guide</Community>
+                  <DesktopCommunity>Service Guide</DesktopCommunity>
+                  <MobileCommunity>Service Guide</MobileCommunity>
                 </NavButton>
                 <DesktopNavSpan>리본 이용 가이드</DesktopNavSpan>
                 <MobileNavSpan>이용 가이드</MobileNavSpan>
@@ -365,35 +371,24 @@ const MobileTrendButton = styled.div`
 `;
 
 const NewTrend = styled.span`
-  font-weight: 700;
   font-size: ${({ theme }) => theme.fontSizes.l};
   line-height: 32px;
   color: #fff;
-`;
-const Community = styled.span`
-  font-weight: 700;
-  font-size: ${({ theme }) => theme.fontSizes.s};
-  line-height: 14px;
-  @media ${({ theme }) => theme.device.mobile} {
-    font-size: ${({ theme }) => theme.fontSizes.l};
-    line-height: 32px;
-  }
 `;
 
 const DesktopCommunity = styled.span`
   display: none;
   @media ${({ theme }) => theme.device.mobile} {
     display: inherit;
-    font-weight: 700;
     font-size: ${({ theme }) => theme.fontSizes.l};
     line-height: 32px;
   }
 `;
 
 const MobileCommunity = styled.span`
-  font-weight: 700;
   font-size: ${({ theme }) => theme.fontSizes.s};
   line-height: 14px;
+  font-weight: 700;
   @media ${({ theme }) => theme.device.mobile} {
     display: none;
   }
@@ -403,12 +398,13 @@ const NavButton = styled.div`
   width: 63px;
   height: 63px;
   border-radius: 63px;
-  background-color: ${({ theme }) => theme.colors.lightGray};
-  margin: 0 auto 24px auto;
-  font-weight: 700;
+  background-color: ${({ theme, black }) =>
+    black ? theme.colors.black : theme.colors.lightGray};
+  color: ${({ theme, black }) => (black ? "#fff" : theme.colors.black)};
+  margin: 0 auto 20px auto;
   font-size: ${({ theme }) => theme.fontSizes.l};
   line-height: 16px;
-  padding-top: 15px;
+  padding-top: ${({ oneLine }) => (oneLine ? "24px" : "15px")};
   position: relative;
   @media ${({ theme }) => theme.device.mobile} {
     width: 100%;
@@ -419,69 +415,6 @@ const NavButton = styled.div`
   }
 `;
 
-const ClothesImg = styled.img`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 43px;
-  height: 22px;
-  @media ${({ theme }) => theme.device.mobile} {
-    width: 108px;
-    height: 55px;
-  }
-`;
-
-const FurnituresImg = styled.img`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 43px;
-  height: 23px;
-  @media ${({ theme }) => theme.device.mobile} {
-    width: 94px;
-    height: 70px;
-  }
-`;
-
-const ShoesImg = styled.img`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 42px;
-  height: 30px;
-  @media ${({ theme }) => theme.device.mobile} {
-    width: 88px;
-    height: 70px;
-  }
-`;
-
-const BagsImg = styled.img`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 37px;
-  height: 23px;
-  @media ${({ theme }) => theme.device.mobile} {
-    width: 95px;
-    height: 70px;
-  }
-`;
-
-const GoodsImg = styled.img`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 38px;
-  height: 28px;
-  @media ${({ theme }) => theme.device.mobile} {
-    width: 71px;
-    height: 73px;
-  }
 `;
 
 const CO2 = styled.div`

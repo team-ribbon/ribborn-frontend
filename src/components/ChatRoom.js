@@ -16,11 +16,12 @@ const ChatRoom = () => {
   const location = useLocation();
   const { roomId } = useParams();
   const user = useSelector((state) => state.user.user);
+  const inputRef = useRef();
   let stompClient = useRef(null);
 
   // 웹소켓 연결 요청 & 구독 요청
   const socketConnect = () => {
-    const webSocket = new SockJS(`${process.env.REACT_APP_CHAT_URL}/ws-stomp`);
+    const webSocket = new SockJS(`${process.env.REACT_APP_CHAT_URL}/wss-stomp`);
     stompClient.current = Stomp.over(webSocket);
     stompClient.current.connect(
       {
@@ -36,7 +37,8 @@ const ChatRoom = () => {
           },
           { Authorization: `Bearer ${localStorage.getItem("token")}` }
         );
-        document.getElementsByName("chat")[0].disabled = false;
+        // document.getElementsByName("chat")[0].disabled = false;
+        // inputRef.current.disabled = false;
       }
     );
   };
@@ -44,6 +46,7 @@ const ChatRoom = () => {
   // 웹소켓 연결 해제
   const socketDisconnect = () => {
     stompClient.current.disconnect();
+    stompClient.current = null;
   };
 
   // 메시지 전송
@@ -82,12 +85,13 @@ const ChatRoom = () => {
     }
     socketConnect();
 
-    document.getElementsByName("chat")[0].value = "";
-    document.getElementsByName("chat")[0].disabled = true;
+    // inputRef.current.value = "";
+    // inputRef.current.disabled = true;
+    // document.getElementsByName("chat")[0].disabled = true;
 
     // 언마운트 시 연결 해제
     return () => {
-      socketDisconnect();
+      if (stompClient.current) socketDisconnect();
     };
   }, [roomId]);
 
@@ -96,6 +100,7 @@ const ChatRoom = () => {
       <ChatInputWrap>
         <form onSubmit={sendMessage}>
           <ChatInput
+            ref={inputRef}
             name="chat"
             autoComplete="off"
             placeholder="메시지를 입력해주세요."

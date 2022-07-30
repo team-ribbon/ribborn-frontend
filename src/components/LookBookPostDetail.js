@@ -192,7 +192,8 @@ const RightPostDiv = styled.div`
 `;
 const Navbar = styled.div`
   position: absolute;
-  margin-top: 200px;
+  margin-top: 10px;
+  top: ${(props) => (props.myPost ? "-350px" : "-250px")};
 `;
 const MobilePostRightBtnWrap = styled.div`
   position: fixed;

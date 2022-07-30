@@ -19,12 +19,12 @@ export const cleanUpMyPage = createAction(CLEANUP_MY_PAGE);
 // InitialState
 const initialState = {
   myPage: {
-    posts: null,
+    posts: [],
     users: null,
-    qnaList: null,
-    lookbookList: null,
-    reviewList: null,
-    reformList: null,
+    qnaList: [],
+    lookbookList: [],
+    reviewList: [],
+    reformList: [],
   },
 };
 

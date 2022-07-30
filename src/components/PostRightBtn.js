@@ -10,8 +10,10 @@ import {
 } from "../elements/SVG";
 import { useDispatch, useSelector } from "react-redux";
 import { likePostDB } from "../redux/modules/post";
+import { useNavigate } from "react-router-dom";
 
 const PostRightBtn = ({ noshare, id, liked, likeCount, lookbook }) => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const isLogin = useSelector((state) => state.user.isLogin);
   const [shareClicked, setShareClicked] = useState(false);
@@ -23,7 +25,7 @@ const PostRightBtn = ({ noshare, id, liked, likeCount, lookbook }) => {
         document.getElementById("likeBtn").disabled = false;
       });
     } else {
-      alert("좋아요를 누르려면 로그인을 해주세요!");
+      navigate("/login");
     }
   };
   const shareFaceBook = () => {

@@ -25,7 +25,7 @@ function UserDetail() {
 
   React.useEffect(() => {
     dispatch(getUserDetailDB(id, category));
-  }, [category]);
+  }, []);
   React.useEffect(() => {
     return () => {
       dispatch(cleanUpMyPage());

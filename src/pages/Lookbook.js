@@ -14,6 +14,7 @@ import {
 import styled from "styled-components";
 import { MainBtn, SubBtn, Category } from "../elements/Buttons";
 import Categories from "../shared/Categories";
+import PagePlaceholder from "../components/PagePlaceholder";
 
 const Lookbook = () => {
   const dispatch = useDispatch();
@@ -117,6 +118,12 @@ const Lookbook = () => {
           )
         )}
       </Grid>
+      {postList.length === 0 && (
+        <PagePlaceholder
+          emoji={"😦"}
+          content={"검색 결과에 해당하는 게시물이 없습니다."}
+        />
+      )}
     </Wrap>
   );
 };

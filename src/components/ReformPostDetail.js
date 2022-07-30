@@ -121,13 +121,10 @@ const ReformPostDetail = ({ post, userId, userType }) => {
             </Navbar>
           </LeftPostDiv>
           <CenterPostDiv>
-            <Image
+            <FirstImage
               alt="card"
-              src={
-                post.image[0] !== null
-                  ? post.image[0]
-                  : "http://openimage.interpark.com/goods_image_big/1/4/1/9/9090461419_l.jpg"
-              }
+              src={post?.image[0] || "/images/textLogo.png"}
+              hasImage={post?.image[0]}
             />
             <MobileTextArea>{post.content}</MobileTextArea>
             {post.image.map((v, i) => {
@@ -304,10 +301,18 @@ const RightPostDiv = styled.div`
   position: relative;
 `;
 
+const FirstImage = styled.img`
+  width: 100%;
+  object-fit: cover;
+  margin: 50px auto 15px auto;
+  opacity: ${({ hasImage }) => !hasImage && "0.15"};
+`;
+
 const Image = styled.img`
   width: 100%;
   object-fit: cover;
-  margin: 50px auto;
+  margin: 15px auto;
+  opacity: ${({ hasImage }) => !hasImage && "0.15"};
 `;
 
 const ProcessButton = styled(MainBtn)`
@@ -330,10 +335,12 @@ const TextArea = styled.div`
 `;
 
 const MobileTextArea = styled.div`
-  width: calc(100% - 16px);
+  width: calc(100% - 32px);
   font-weight: 400;
   font-size: ${({ theme }) => theme.fontSizes.l};
   line-height: 28px;
+  text-align: left;
+  margin: 0 auto;
   @media ${({ theme }) => theme.device.mobile} {
     display: none;
   }

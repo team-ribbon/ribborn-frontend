@@ -3,8 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import Categories from "../shared/Categories";
 import Regions from "../shared/Regions";
-import { HiOutlineHeart } from "react-icons/hi";
-import { IoChatbubbleOutline } from "react-icons/io5";
+import { CommentSVG, HeartSVG } from "../elements/SVG";
 
 const TextCard = ({ postObj, noWriter, reform, inViewRef }) => {
   const navigate = useNavigate();
@@ -49,10 +48,11 @@ const TextCard = ({ postObj, noWriter, reform, inViewRef }) => {
           {reform ? null : (
             <RowFlexDiv>
               <LikeDiv>
-                <HiOutlineHeart size="16" /> <Like>{postObj.likeCount}</Like>
+                <HeartSVG />
+                <Like>{postObj.likeCount}</Like>
               </LikeDiv>
               <LikeDiv>
-                <IoChatbubbleOutline size="16" />
+                <CommentSVG />
                 <Comment>{postObj.commentCount}</Comment>
               </LikeDiv>
             </RowFlexDiv>
@@ -108,6 +108,11 @@ const PostDiv = styled.div`
   cursor: pointer;
   @media all and (min-width: 650px) {
     height: 256px;
+  }
+  &:hover {
+    img {
+      transform: scale(1.05);
+    }
   }
 `;
 
@@ -200,7 +205,7 @@ const RowFlexDiv = styled.div`
 const Like = styled.p`
   font-weight: 400;
   font-size: ${({ theme }) => theme.fontSizes.s};
-  line-height: 14px;
+  line-height: 16px;
   margin-right: 20px;
   margin-left: 8px;
 `;
@@ -213,7 +218,7 @@ const LikeDiv = styled.div`
 const Comment = styled.p`
   font-weight: 400;
   font-size: ${({ theme }) => theme.fontSizes.s};
-  line-height: 14px;
+  line-height: 16px;
   margin-right: 40px;
   margin-left: 8px;
 `;
@@ -251,6 +256,8 @@ const PictureDiv = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
+  border-radius: 15px;
   @media all and (min-width: 650px) {
     margin: 0px auto;
   }
@@ -267,6 +274,7 @@ const Picture = styled.img`
   margin: auto;
   border-radius: 15px;
   object-fit: cover;
+  transition: all 0.1s linear;
   opacity: ${({ hasImage }) => !hasImage && "0.15"};
   @media ${({ theme }) => theme.device.mobile} {
     width: 276px;

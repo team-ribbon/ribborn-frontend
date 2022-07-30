@@ -14,6 +14,7 @@ const GET_TECH_INTRO = "GET_TECH_INTRO";
 const GET_POST = "GET_POST";
 const GET_NO_COMMENT_POST = "GET_NO_COMMENT_POST";
 const LIKE_SUCCESS = "LIKE_SUCCESS";
+const CHANGE_PROCESS = "CHANGE_PROCESS";
 const NEW_COMMENT = "NEW_COMMENT";
 const DELETE_COMMENT = "DELETE_COMMENT";
 const MODIFY_COMMENT = "MODIFY_COMMENT";
@@ -40,6 +41,7 @@ const getNoCommentPost = createAction(GET_NO_COMMENT_POST, (Post) => ({
   Post,
 }));
 const likesuccess = createAction(LIKE_SUCCESS);
+const changeProcess = createAction(CHANGE_PROCESS, (process) => ({ process }));
 const newComment = createAction(NEW_COMMENT);
 const deleteComment = createAction(DELETE_COMMENT, (commentId) => ({
   commentId,
@@ -262,6 +264,19 @@ export const likePostDB = (id, like) => {
       const response = await apis.likePost(id, like).then((res) => {
         dispatch(likesuccess());
       });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+// 게시물 좋아요
+export const processChangeDB = (id, process) => {
+  return async function (dispatch) {
+    try {
+      const response = await apis.changeProcess(id, process).then((res) => {
+        dispatch(changeProcess(process));
+      });
       console.log(response);
     } catch (error) {
       console.log(error);
@@ -286,7 +301,6 @@ export const PostCommentDB = (id, comment, page) => {
     await apis
       .uploadComment(id, comment)
       .then((res) => {
-        console.log(res);
         dispatch(newComment());
       })
       .catch((error) => {
@@ -330,7 +344,6 @@ export const GetCommentDB = (id, page, num) => {
           dispatch(loadDone());
         }
         if (page === 0) {
-          console.log(res.data);
           dispatch(newCommentLoad(res.data));
         } else {
           dispatch(moreCommentLoad(res.data));
@@ -418,6 +431,10 @@ export default handleActions(
       produce(state, (draft) => {
         draft.Post.liked = !draft.Post.liked;
         draft.Post.liked ? draft.Post.likeCount++ : draft.Post.likeCount--;
+      }),
+    [CHANGE_PROCESS]: (state, { payload }) =>
+      produce(state, (draft) => {
+        draft.Post.process = payload.process;
       }),
     [NEW_COMMENT]: (state) =>
       produce(state, (draft) => {

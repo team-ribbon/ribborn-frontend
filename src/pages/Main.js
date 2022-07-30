@@ -1,176 +1,188 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import MainSection from "../components/MainSection";
 import DesignSection from "../components/DesignSection";
 import { getMainDB } from "../redux/modules/post";
+import AlertModal from "../components/AlertModal";
 
 const Main = () => {
-  const contents = useSelector((state) => state.post.mainContents);
-
   const dispatch = useDispatch();
+  const contents = useSelector((state) => state.post.mainContents);
+  const [isModalOn, setIsModalOn] = useState(false);
 
-  React.useEffect(() => {
+  useEffect(() => {
     dispatch(getMainDB());
   }, []);
 
   return (
-    <main>
-      <Link to={contents.banner[0].url}>
-        <BannerWrap>
-          <Banner1 src={contents && contents.banner[0].image} type="A" />
-        </BannerWrap>
-      </Link>
-      <MainNavWrap>
-        <Nav>
-          <Link to="/lookbook">
-            <LinkDiv>
-              <TrendButton>
-                <NewTrend>NEW TREND</NewTrend>
-              </TrendButton>
-              <MobileTrendButton>
-                <NewTrend>NEW</NewTrend>
-              </MobileTrendButton>
-              <DesktopNavSpan>뉴 트렌드 리폼 🎵</DesktopNavSpan>
-              <MobileNavSpan>뉴 트렌드 리폼</MobileNavSpan>
-            </LinkDiv>
-          </Link>
-          <Link to="/review/clothes">
-            <LinkDiv>
-              <NavButton>
-                <ClothesImg src="./images/clothes.png" />
-              </NavButton>
-              <NavSpan>옷 리뷰</NavSpan>
-            </LinkDiv>
-          </Link>
-          <Link to="/review/furniture">
-            <LinkDiv>
-              <NavButton>
-                <FurnituresImg src="./images/furnitures.png" />
-              </NavButton>
-              <NavSpan>가구 리뷰</NavSpan>
-            </LinkDiv>
-          </Link>
-          <Link to="/review/shoes">
-            <LinkDiv>
-              <NavButton>
-                <ShoesImg src="./images/shoes.png" />
-              </NavButton>
-              <NavSpan>신발 리뷰</NavSpan>
-            </LinkDiv>
-          </Link>
-          <Link to="/review/bags">
-            <LinkDiv>
-              <NavButton>
-                <BagsImg src="./images/bags.png" />
-              </NavButton>
-              <NavSpan>가방 리뷰</NavSpan>
-            </LinkDiv>
-          </Link>
-          <Link to="/review/goods">
-            <LinkDiv>
-              <NavButton>
-                <GoodsImg src="./images/goods.png" />
-              </NavButton>
-              <NavSpan>기타 리뷰</NavSpan>
-            </LinkDiv>
-          </Link>
-          <Link to="/qna">
-            <LinkDiv>
-              <NavButton>
-                <DesktopCommunity>COMMUNITY</DesktopCommunity>
-                <MobileCommunity>COMM- UNITY</MobileCommunity>
-              </NavButton>
-              <NavSpan>질문과 답변</NavSpan>
-            </LinkDiv>
-          </Link>
-          <Link to="/">
-            <LinkDiv>
-              <NavButton>
-                <Community>Service Guide</Community>
-              </NavButton>
-              <DesktopNavSpan>리본 이용 가이드</DesktopNavSpan>
-              <MobileNavSpan>이용 가이드</MobileNavSpan>
-            </LinkDiv>
-          </Link>
-        </Nav>
-      </MainNavWrap>
-      <CO2>
-        <CO2SVGWrap>
-          <CO2SVGDiv>
-            <svg
-              width="100%"
-              viewBox="0 0 1118 347"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M136.867 -63C89.7714 -16.848 16.9643 82.8168 102.5 112.261C209.42 149.065 194.145 184.117 148.323 252.469C102.5 320.821 -17.7848 439.998 83.407 497.834C184.599 555.67 205.601 420.719 245.696 373.399C285.791 326.079 331.613 312.058 438.533 336.594C545.453 361.131 549.271 222.675 518.723 187.623C488.174 152.571 362.162 99.9924 449.989 7.10425C537.815 -85.7839 610.368 99.9924 646.644 112.261C682.921 124.529 711.56 143.808 871.939 40.4038C1032.32 -63 1085.78 35.146 1070.5 78.9611C1055.23 122.776 936.855 229.685 881.486 266.49C826.117 303.295 881.486 408.451 837.572 464.534C793.659 520.618 665.737 534.639 646.644 464.534"
-                stroke="url(#paint0_linear_884_3510)"
-                stroke-opacity="0.66"
-                stroke-width="88"
-                stroke-linecap="round"
-              />
-              <defs>
-                <linearGradient
-                  id="paint0_linear_884_3510"
-                  x1="44"
-                  y1="224.5"
-                  x2="1073"
-                  y2="224.5"
-                  gradientUnits="userSpaceOnUse"
-                >
-                  <stop stop-color="#17029A" />
-                  <stop offset="1" stop-color="#16A000" />
-                </linearGradient>
-              </defs>
-            </svg>
-          </CO2SVGDiv>
-        </CO2SVGWrap>
-        <CO2SpanLeftDiv>
-          <CO2Span>누적 {contents.co2Count}건의 리폼이</CO2Span>
+    <>
+      {isModalOn && (
+        <AlertModal
+          isModalOn={isModalOn}
+          setIsModalOn={setIsModalOn}
+          title="안내"
+          content="리본 이용 가이드는 현재 준비 중입니다."
+          leftButton="닫기"
+        />
+      )}
+      <main>
+        <Link to={contents.banner[0].url}>
+          <BannerWrap>
+            <Banner1 src={contents && contents.banner[0].image} type="A" />
+          </BannerWrap>
+        </Link>
+        <MainNavWrap>
+          <Nav>
+            <Link to="/lookbook">
+              <LinkDiv>
+                <TrendButton>
+                  <NewTrend>NEW TREND</NewTrend>
+                </TrendButton>
+                <MobileTrendButton>
+                  <NewTrend>NEW</NewTrend>
+                </MobileTrendButton>
+                <DesktopNavSpan>뉴 트렌드 리폼 🎵</DesktopNavSpan>
+                <MobileNavSpan>뉴 트렌드 리폼</MobileNavSpan>
+              </LinkDiv>
+            </Link>
+            <Link to="/review/clothes">
+              <LinkDiv>
+                <NavButton>
+                  <ClothesImg src="./images/clothes.png" />
+                </NavButton>
+                <NavSpan>옷 리뷰</NavSpan>
+              </LinkDiv>
+            </Link>
+            <Link to="/review/furniture">
+              <LinkDiv>
+                <NavButton>
+                  <FurnituresImg src="./images/furnitures.png" />
+                </NavButton>
+                <NavSpan>가구 리뷰</NavSpan>
+              </LinkDiv>
+            </Link>
+            <Link to="/review/shoes">
+              <LinkDiv>
+                <NavButton>
+                  <ShoesImg src="./images/shoes.png" />
+                </NavButton>
+                <NavSpan>신발 리뷰</NavSpan>
+              </LinkDiv>
+            </Link>
+            <Link to="/review/bags">
+              <LinkDiv>
+                <NavButton>
+                  <BagsImg src="./images/bags.png" />
+                </NavButton>
+                <NavSpan>가방 리뷰</NavSpan>
+              </LinkDiv>
+            </Link>
+            <Link to="/review/goods">
+              <LinkDiv>
+                <NavButton>
+                  <GoodsImg src="./images/goods.png" />
+                </NavButton>
+                <NavSpan>기타 리뷰</NavSpan>
+              </LinkDiv>
+            </Link>
+            <Link to="/qna">
+              <LinkDiv>
+                <NavButton>
+                  <DesktopCommunity>COMMUNITY</DesktopCommunity>
+                  <MobileCommunity>COMM- UNITY</MobileCommunity>
+                </NavButton>
+                <NavSpan>질문과 답변</NavSpan>
+              </LinkDiv>
+            </Link>
+            <Link to="/">
+              <LinkDiv onClick={() => setIsModalOn(true)}>
+                <NavButton>
+                  <Community>Service Guide</Community>
+                </NavButton>
+                <DesktopNavSpan>리본 이용 가이드</DesktopNavSpan>
+                <MobileNavSpan>이용 가이드</MobileNavSpan>
+              </LinkDiv>
+            </Link>
+          </Nav>
+        </MainNavWrap>
+        <CO2>
+          <CO2SVGWrap>
+            <CO2SVGDiv>
+              <svg
+                width="100%"
+                viewBox="0 0 1118 347"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M136.867 -63C89.7714 -16.848 16.9643 82.8168 102.5 112.261C209.42 149.065 194.145 184.117 148.323 252.469C102.5 320.821 -17.7848 439.998 83.407 497.834C184.599 555.67 205.601 420.719 245.696 373.399C285.791 326.079 331.613 312.058 438.533 336.594C545.453 361.131 549.271 222.675 518.723 187.623C488.174 152.571 362.162 99.9924 449.989 7.10425C537.815 -85.7839 610.368 99.9924 646.644 112.261C682.921 124.529 711.56 143.808 871.939 40.4038C1032.32 -63 1085.78 35.146 1070.5 78.9611C1055.23 122.776 936.855 229.685 881.486 266.49C826.117 303.295 881.486 408.451 837.572 464.534C793.659 520.618 665.737 534.639 646.644 464.534"
+                  stroke="url(#paint0_linear_884_3510)"
+                  stroke-opacity="0.66"
+                  stroke-width="88"
+                  stroke-linecap="round"
+                />
+                <defs>
+                  <linearGradient
+                    id="paint0_linear_884_3510"
+                    x1="44"
+                    y1="224.5"
+                    x2="1073"
+                    y2="224.5"
+                    gradientUnits="userSpaceOnUse"
+                  >
+                    <stop stop-color="#17029A" />
+                    <stop offset="1" stop-color="#16A000" />
+                  </linearGradient>
+                </defs>
+              </svg>
+            </CO2SVGDiv>
+          </CO2SVGWrap>
+          <CO2SpanLeftDiv>
+            <CO2Span>누적 {contents.co2Count}건의 리폼이</CO2Span>
+            <br />
+            <CO2LightBoldSpan>RiBBORN</CO2LightBoldSpan>
+            <CO2Span>으로 인해</CO2Span>
+          </CO2SpanLeftDiv>
           <br />
-          <CO2LightBoldSpan>RiBBORN</CO2LightBoldSpan>
-          <CO2Span>으로 인해</CO2Span>
-        </CO2SpanLeftDiv>
-        <br />
-        <CO2SpanRightDiv>
-          {+contents.co2Reduce >= 1000 ? (
-            <CO2BoldSpan>
-              탄소 {(+contents.co2Reduce / 1000).toFixed(1)}t
-            </CO2BoldSpan>
-          ) : (
-            <CO2BoldSpan>탄소 {contents.co2Reduce}kg</CO2BoldSpan>
-          )}
-          <CO2Span>을 줄였습니다.</CO2Span>
-        </CO2SpanRightDiv>
-      </CO2>
-      <MainWrap>
-        <MainSection
-          type="A"
-          title="금손 장인✌🏻"
-          url="/review"
-          postList={contents.reviewList}
-        />
-      </MainWrap>
-      <DesignSection postList={contents.lookbookList} />
-      <BannerWrap
-        onClick={() => {
-          window.open(contents.banner[1].url, "_blank");
-        }}
-      >
-        <Banner2 src={contents.banner[1].image} type="B" />
-      </BannerWrap>
-      <MainWrap>
-        <MainSection
-          type="C"
-          title="오늘의 견적⚡️"
-          url="/reform"
-          postList={contents.reformList}
-        />
-      </MainWrap>
-    </main>
+          <CO2SpanRightDiv>
+            {+contents.co2Reduce >= 1000 ? (
+              <CO2BoldSpan>
+                탄소 {(+contents.co2Reduce / 1000).toFixed(1)}t
+              </CO2BoldSpan>
+            ) : (
+              <CO2BoldSpan>탄소 {contents.co2Reduce}kg</CO2BoldSpan>
+            )}
+            <CO2Span>을 줄였습니다.</CO2Span>
+          </CO2SpanRightDiv>
+        </CO2>
+        <MainWrap>
+          <MainSection
+            type="A"
+            title="금손 장인✌🏻"
+            url="/review"
+            postList={contents.reviewList}
+          />
+        </MainWrap>
+        <DesignSection postList={contents.lookbookList} />
+        <BannerWrap
+          onClick={() => {
+            window.open(contents.banner[1].url, "_blank");
+          }}
+        >
+          <Banner2 src={contents.banner[1].image} type="B" />
+        </BannerWrap>
+        <MainWrap>
+          <MainSection
+            type="C"
+            title="오늘의 견적⚡️"
+            url="/reform"
+            postList={contents.reformList}
+          />
+        </MainWrap>
+      </main>
+    </>
   );
 };
 

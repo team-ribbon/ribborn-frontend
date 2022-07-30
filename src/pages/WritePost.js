@@ -78,7 +78,6 @@ const WritePost = () => {
     files.forEach((file) => {
       formData.append("file", file);
     });
-    console.log(files);
 
     let key = {
       postCategory: type,

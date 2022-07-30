@@ -22,8 +22,6 @@ const ReviewDetail = () => {
 
   const [inViewRef, inView] = useInView();
 
-  console.log(params);
-
   const post = useSelector((state) => state.post.Post);
   const commentsList = useSelector((state) => state.post.Comments);
   const userId = useSelector((state) => state.user.user?.id);

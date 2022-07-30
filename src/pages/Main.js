@@ -114,40 +114,46 @@ const Main = () => {
             </Link>
           </Nav>
         </MainNavWrap>
-        <CO2>
-          <CO2SVGWrap>
-            <CO2SVGDiv>
-              <svg
-                width="100%"
-                viewBox="0 0 1118 347"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M136.867 -63C89.7714 -16.848 16.9643 82.8168 102.5 112.261C209.42 149.065 194.145 184.117 148.323 252.469C102.5 320.821 -17.7848 439.998 83.407 497.834C184.599 555.67 205.601 420.719 245.696 373.399C285.791 326.079 331.613 312.058 438.533 336.594C545.453 361.131 549.271 222.675 518.723 187.623C488.174 152.571 362.162 99.9924 449.989 7.10425C537.815 -85.7839 610.368 99.9924 646.644 112.261C682.921 124.529 711.56 143.808 871.939 40.4038C1032.32 -63 1085.78 35.146 1070.5 78.9611C1055.23 122.776 936.855 229.685 881.486 266.49C826.117 303.295 881.486 408.451 837.572 464.534C793.659 520.618 665.737 534.639 646.644 464.534"
-                  stroke="url(#paint0_linear_884_3510)"
-                  strokeOpacity="0.66"
-                  strokeWidth="88"
-                  strokeLinecap="round"
-                />
-                <defs>
-                  <linearGradient
-                    id="paint0_linear_884_3510"
-                    x1="44"
-                    y1="224.5"
-                    x2="1073"
-                    y2="224.5"
-                    gradientUnits="userSpaceOnUse"
-                  >
-                    <stop stopColor="#17029A" />
-                    <stop offset="1" stopColor="#16A000" />
-                  </linearGradient>
-                </defs>
-              </svg>
-            </CO2SVGDiv>
-          </CO2SVGWrap>
-          <CO2SpanLeftDiv>
-            <CO2Span>누적 {contents.co2Count}건의 리폼이</CO2Span>
+        <CO2Wrap>
+          <CO2>
+            <CO2SVGWrap>
+              <CO2SVGDiv>
+                <svg
+                  width="100%"
+                  viewBox="0 0 1118 347"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M136.867 -63C89.7714 -16.848 16.9643 82.8168 102.5 112.261C209.42 149.065 194.145 184.117 148.323 252.469C102.5 320.821 -17.7848 439.998 83.407 497.834C184.599 555.67 205.601 420.719 245.696 373.399C285.791 326.079 331.613 312.058 438.533 336.594C545.453 361.131 549.271 222.675 518.723 187.623C488.174 152.571 362.162 99.9924 449.989 7.10425C537.815 -85.7839 610.368 99.9924 646.644 112.261C682.921 124.529 711.56 143.808 871.939 40.4038C1032.32 -63 1085.78 35.146 1070.5 78.9611C1055.23 122.776 936.855 229.685 881.486 266.49C826.117 303.295 881.486 408.451 837.572 464.534C793.659 520.618 665.737 534.639 646.644 464.534"
+                    stroke="url(#paint0_linear_884_3510)"
+                    strokeOpacity="0.66"
+                    strokeWidth="88"
+                    strokeLinecap="round"
+                  />
+                  <defs>
+                    <linearGradient
+                      id="paint0_linear_884_3510"
+                      x1="44"
+                      y1="224.5"
+                      x2="1073"
+                      y2="224.5"
+                      gradientUnits="userSpaceOnUse"
+                    >
+                      <stop stopColor="#17029A" />
+                      <stop offset="1" stopColor="#16A000" />
+                    </linearGradient>
+                  </defs>
+                </svg>
+              </CO2SVGDiv>
+            </CO2SVGWrap>
+            <CO2SpanLeftDiv>
+              <CO2LightBoldSpan>RIBBORN</CO2LightBoldSpan>
+              <CO2Span>에서</CO2Span>
+              <br />
+              <CO2Span>누적 {contents.co2Count}건의 리폼으로</CO2Span>
+              <br />
+            </CO2SpanLeftDiv>
             <br />
             <CO2SpanRightDiv>
               {+contents.co2Reduce >= 1000 ? (

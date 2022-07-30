@@ -121,7 +121,7 @@ const ReformPostDetail = ({ post, userId, userType }) => {
             </Navbar>
           </LeftPostDiv>
           <CenterPostDiv>
-            <Image
+            <FirstImage
               alt="card"
               src={post?.image[0] || "/images/textLogo.png"}
               hasImage={post?.image[0]}
@@ -301,10 +301,17 @@ const RightPostDiv = styled.div`
   position: relative;
 `;
 
+const FirstImage = styled.img`
+  width: 100%;
+  object-fit: cover;
+  margin: 50px auto 15px auto;
+  opacity: ${({ hasImage }) => !hasImage && "0.15"};
+`;
+
 const Image = styled.img`
   width: 100%;
   object-fit: cover;
-  margin: 50px auto;
+  margin: 15px auto;
   opacity: ${({ hasImage }) => !hasImage && "0.15"};
 `;
 

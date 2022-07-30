@@ -71,13 +71,11 @@ const initialState = {
   mainContents: {
     banner: [
       {
-        image:
-          "http://www.mth.co.kr/wp-content/uploads/2014/12/default-placeholder-1024x1024.png",
+        image: null,
         url: "/",
       },
       {
-        image:
-          "http://www.mth.co.kr/wp-content/uploads/2014/12/default-placeholder-1024x1024.png",
+        image: null,
         url: "/",
       },
     ],
@@ -86,6 +84,7 @@ const initialState = {
     reviewList: [],
     qnaList: [],
     reformList: [],
+    spinner: null,
   },
 };
 
@@ -302,8 +301,7 @@ export const PostCommentDB = (id, comment) => {
   return async function (dispatch) {
     await apis
       .uploadComment(id, comment)
-      .then(() => {
-      })
+      .then(() => {})
       .catch((error) => {
         console.log(error);
         alert("실패했어요!");

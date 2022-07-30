@@ -184,11 +184,11 @@ const EditPost = () => {
     // frm.append("key", JSON.stringify(key));
 
     // formdata 확인하기
-    console.log(frm.getAll("file"));
-    for (let key of frm.keys()) {
-      console.log(key, ":", frm.get(key));
-    }
-    for (let v of frm.values()) console.log(v);
+    // console.log(frm.getAll("file"));
+    // for (let key of frm.keys()) {
+    //   console.log(key, ":", frm.get(key));
+    // }
+    // for (let v of frm.values()) console.log(v);
 
     await dispatch(EditPostDB(frm, type, id)).then(() => {
       dispatch(resetFile());

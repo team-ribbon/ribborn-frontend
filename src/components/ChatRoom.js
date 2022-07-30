@@ -25,6 +25,9 @@ const ChatRoom = () => {
   const socketConnect = () => {
     const webSocket = new SockJS(`${process.env.REACT_APP_CHAT_URL}/wss-stomp`);
     stompClient.current = Stomp.over(webSocket);
+
+    stompClient.current.debug = null;
+
     stompClient.current.connect(
       {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -39,8 +42,7 @@ const ChatRoom = () => {
           },
           { Authorization: `Bearer ${localStorage.getItem("token")}` }
         );
-        // document.getElementsByName("chat")[0].disabled = false;
-        // inputRef.current.disabled = false;
+
         setIsLoading(false);
       }
     );
@@ -90,8 +92,6 @@ const ChatRoom = () => {
     socketConnect();
 
     inputRef.current.value = "";
-    // inputRef.current.disabled = true;
-    // document.getElementsByName("chat")[0].disabled = true;
 
     // 언마운트 시 연결 해제
     return () => {

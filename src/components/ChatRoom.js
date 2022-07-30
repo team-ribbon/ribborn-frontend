@@ -2,19 +2,25 @@ import SockJS from "sockjs-client";
 import Stomp from "stompjs";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 
-import { addMessage, updateRoomMessage } from "../redux/modules/chat";
+import {
+  addMessage,
+  getRoomListDB,
+  updateRoomMessage,
+} from "../redux/modules/chat";
 import ChatList from "./ChatList";
 import { Input } from "../elements/Inputs";
 import { MainBtn } from "../elements/Buttons";
 import LoadingSpinner from "./LoadingSpinner";
+import { apis } from "../shared/api";
 
 // 채팅 모달 > 채팅방
 const ChatRoom = () => {
   const dispatch = useDispatch();
   const location = useLocation();
+  const navigate = useNavigate();
   const { roomId } = useParams();
   const inputRef = useRef();
   let stompClient = useRef(null);
@@ -99,6 +105,11 @@ const ChatRoom = () => {
     };
   }, [roomId]);
 
+  const exitRoom = async () => {
+    await apis.exitRoom(roomId);
+    dispatch(getRoomListDB()).then(() => navigate(-1));
+  };
+
   return (
     <>
       {isLoading && <LoadingSpinner />}
@@ -112,6 +123,7 @@ const ChatRoom = () => {
           />
           <SendButton>보내기</SendButton>
         </form>
+        <button onClick={exitRoom}>나가기</button>
       </ChatInputWrap>
       <ChatList />
     </>

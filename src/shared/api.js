@@ -4,6 +4,7 @@ const api = axios.create({
   baseURL: process.env.REACT_APP_BASE_URL,
   headers: {
     "content-type": "application/json;charset=UTF-8",
+    "Access-Control-Allow-Origin": "*",
     accept: "application/json,",
   },
 });
@@ -12,6 +13,7 @@ const formDataApi = axios.create({
   baseURL: process.env.REACT_APP_BASE_URL,
   headers: {
     "content-type": "multipart/form-data",
+    "Access-Control-Allow-Origin": "*",
   },
 });
 
@@ -19,6 +21,7 @@ const chatApi = axios.create({
   baseURL: process.env.REACT_APP_CHAT_URL,
   headers: {
     "content-type": "application/json;charset=UTF-8",
+    "Access-Control-Allow-Origin": "*",
     accept: "application/json,",
   },
 });

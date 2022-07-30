@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import MainSection from "../components/MainSection";
 import DesignSection from "../components/DesignSection";
 import { getMainDB } from "../redux/modules/post";
@@ -31,6 +31,7 @@ const Main = () => {
         <Link to={contents.banner[0].url}>
           <BannerWrap>
             <Banner1 src={contents && contents.banner[0].image} type="A" />
+            <Spinner src={contents && contents.spinner} />
           </BannerWrap>
         </Link>
         <MainNavWrap>
@@ -119,9 +120,9 @@ const Main = () => {
                 <path
                   d="M136.867 -63C89.7714 -16.848 16.9643 82.8168 102.5 112.261C209.42 149.065 194.145 184.117 148.323 252.469C102.5 320.821 -17.7848 439.998 83.407 497.834C184.599 555.67 205.601 420.719 245.696 373.399C285.791 326.079 331.613 312.058 438.533 336.594C545.453 361.131 549.271 222.675 518.723 187.623C488.174 152.571 362.162 99.9924 449.989 7.10425C537.815 -85.7839 610.368 99.9924 646.644 112.261C682.921 124.529 711.56 143.808 871.939 40.4038C1032.32 -63 1085.78 35.146 1070.5 78.9611C1055.23 122.776 936.855 229.685 881.486 266.49C826.117 303.295 881.486 408.451 837.572 464.534C793.659 520.618 665.737 534.639 646.644 464.534"
                   stroke="url(#paint0_linear_884_3510)"
-                  stroke-opacity="0.66"
-                  stroke-width="88"
-                  stroke-linecap="round"
+                  strokeOpacity="0.66"
+                  strokeWidth="88"
+                  strokeLinecap="round"
                 />
                 <defs>
                   <linearGradient
@@ -132,8 +133,8 @@ const Main = () => {
                     y2="224.5"
                     gradientUnits="userSpaceOnUse"
                   >
-                    <stop stop-color="#17029A" />
-                    <stop offset="1" stop-color="#16A000" />
+                    <stop stopColor="#17029A" />
+                    <stop offset="1" stopColor="#16A000" />
                   </linearGradient>
                 </defs>
               </svg>
@@ -212,6 +213,7 @@ const BannerWrap = styled.div`
   max-width: ${({ theme }) => theme.width.maxWidth};
   margin: 0 auto 0 auto;
   background-color: #d9d9d9;
+  position: relative;
   cursor: pointer;
   @media ${({ theme }) => theme.device.mobile} {
     margin: 10px auto 0 auto;
@@ -224,6 +226,24 @@ const Banner1 = styled.img`
   @media ${({ theme }) => theme.device.mobile} {
     height: 480px;
     margin: 10px auto 0 auto;
+  }
+`;
+const rotation = keyframes`
+  from{
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  to{
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+`;
+const Spinner = styled.img`
+  position: absolute;
+  top: 55%;
+  left: 80%;
+  height: 22.6%;
+  animation: ${rotation} 30s linear infinite;
+  @media ${({ theme }) => theme.device.mobile} {
+    left: calc(50% + 287px);
   }
 `;
 const Banner2 = styled.img`

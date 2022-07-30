@@ -1,6 +1,6 @@
 import SockJS from "sockjs-client";
 import Stomp from "stompjs";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useParams } from "react-router-dom";
 import styled from "styled-components";
@@ -9,15 +9,17 @@ import { addMessage, updateRoomMessage } from "../redux/modules/chat";
 import ChatList from "./ChatList";
 import { Input } from "../elements/Inputs";
 import { MainBtn } from "../elements/Buttons";
+import LoadingSpinner from "./LoadingSpinner";
 
 // 채팅 모달 > 채팅방
 const ChatRoom = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const { roomId } = useParams();
-  const user = useSelector((state) => state.user.user);
   const inputRef = useRef();
   let stompClient = useRef(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const user = useSelector((state) => state.user.user);
 
   // 웹소켓 연결 요청 & 구독 요청
   const socketConnect = () => {
@@ -39,6 +41,7 @@ const ChatRoom = () => {
         );
         // document.getElementsByName("chat")[0].disabled = false;
         // inputRef.current.disabled = false;
+        setIsLoading(false);
       }
     );
   };
@@ -79,13 +82,14 @@ const ChatRoom = () => {
   };
 
   useEffect(() => {
+    setIsLoading(true);
     // 채팅방 전환 시 기존 연결 해제 후 새 연결 요청
     if (stompClient.current) {
       socketDisconnect();
     }
     socketConnect();
 
-    // inputRef.current.value = "";
+    inputRef.current.value = "";
     // inputRef.current.disabled = true;
     // document.getElementsByName("chat")[0].disabled = true;
 
@@ -97,6 +101,7 @@ const ChatRoom = () => {
 
   return (
     <>
+      {isLoading && <LoadingSpinner />}
       <ChatInputWrap>
         <form onSubmit={sendMessage}>
           <ChatInput

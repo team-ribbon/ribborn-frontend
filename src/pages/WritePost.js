@@ -219,6 +219,7 @@ const WritePost = () => {
                 onChange={onChangeTitle}
                 ref={titleRef}
                 invalid={titleError}
+                hasCount
               />
               <TitleLength>{title.length}/30</TitleLength>
             </InputWrap>
@@ -361,11 +362,15 @@ const GuideContent = styled.span`
 const IntroLength = styled.span`
   position: absolute;
   right: 19px;
-  bottom: 25px;
+  top: 45px;
   font-weight: 700;
   font-size: ${({ theme }) => theme.fontSizes.l};
   line-height: 24px;
   color: #afb0b3;
+  @media screen and (max-width: ${({ theme }) => theme.deviceSizes.mobile}) {
+    top: 40px;
+    font-size: ${({ theme }) => theme.fontSizes.m};
+  }
 `;
 const InputWrap = styled.div`
   position: relative;
@@ -374,12 +379,16 @@ const InputWrap = styled.div`
 const TitleLength = styled.span`
   position: absolute;
   right: 19px;
-  top: 56px;
+  top: 45px;
   font-weight: 700;
   font-size: ${({ theme }) => theme.fontSizes.l};
   line-height: 24px;
   color: #afb0b3;
   background-color: #fff;
+  @media screen and (max-width: ${({ theme }) => theme.deviceSizes.mobile}) {
+    top: 40px;
+    font-size: ${({ theme }) => theme.fontSizes.m};
+  }
 `;
 const ErrorMessage = styled(HelpText)`
   margin-bottom: 10px;

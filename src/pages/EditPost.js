@@ -318,6 +318,7 @@ const EditPost = () => {
                 onChange={onChangeTitle}
                 ref={titleRef}
                 invalid={titleError}
+                hasCount
               />
               <TitleLength>{title.length}/30</TitleLength>
             </InputWrap>
@@ -333,7 +334,7 @@ const EditPost = () => {
           />
         </InputWrap>
         <InputWrap>
-          <TitleSpan>내용</TitleSpan>
+          <InputTitle>내용</InputTitle>
           <Textarea
             id="contentInput"
             name="content"
@@ -507,6 +508,10 @@ const TitleLength = styled.span`
   font-size: ${({ theme }) => theme.fontSizes.l};
   line-height: 24px;
   color: #afb0b3;
+  @media screen and (max-width: ${({ theme }) => theme.deviceSizes.mobile}) {
+    top: 42px;
+    font-size: ${({ theme }) => theme.fontSizes.m};
+  }
 `;
 
 const TextArea = styled.textarea`

@@ -126,7 +126,16 @@ const ReformPostDetail = ({ post, userId, userType }) => {
               src={post?.image[0] || "/images/textLogo.png"}
               hasImage={post?.image[0]}
             />
-            <MobileTextArea>{post.content}</MobileTextArea>
+            <MobileTextArea>
+              {post.content.split("\n").map((line) => {
+                return (
+                  <span>
+                    {line}
+                    <br />
+                  </span>
+                );
+              })}
+            </MobileTextArea>
             {post.image.map((v, i) => {
               return i !== 0 ? <Image alt="card" src={v} /> : null;
             })}
@@ -151,7 +160,16 @@ const ReformPostDetail = ({ post, userId, userType }) => {
                   완료로 변경
                 </ProcessButton>
               )}
-              <TextArea>{post.content}</TextArea>
+              <TextArea>
+                {post.content.split("\n").map((line) => {
+                  return (
+                    <span>
+                      {line}
+                      <br />
+                    </span>
+                  );
+                })}
+              </TextArea>
             </RightNavbar>
           </RightPostDiv>
         </BodyWrap>
@@ -312,7 +330,6 @@ const Image = styled.img`
   width: 100%;
   object-fit: cover;
   margin: 15px auto;
-  opacity: ${({ hasImage }) => !hasImage && "0.15"};
 `;
 
 const ProcessButton = styled(MainBtn)`

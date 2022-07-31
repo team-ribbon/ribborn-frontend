@@ -87,7 +87,16 @@ const LookBookPostDetail = ({ post, userId, postId, userType }) => {
                 return i !== 0 ? <Image alt="card" src={v} /> : null;
               })}
             </Grid>
-            <TextArea white={true}>{post.content}</TextArea>
+            <TextArea white={true}>
+              {post.content.split("\n").map((line) => {
+                return (
+                  <span>
+                    {line}
+                    <br />
+                  </span>
+                );
+              })}
+            </TextArea>
           </CenterPostDiv>
           <RightPostDiv>
             <Navbar id="navbar" myPost={post && userId === post.userid}>

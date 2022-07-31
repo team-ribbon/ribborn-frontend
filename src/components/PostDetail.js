@@ -61,7 +61,16 @@ const PostDetail = ({ qna, post, userId, postId }) => {
           {post.image[0] !== null ? (
             <Image alt="card" src={post.image[0]} />
           ) : null}
-          <TextArea noImage={post.image[0] === null}>{post.content}</TextArea>
+          <TextArea noImage={post.image[0] === null}>
+            {post.content.split("\n").map((line) => {
+              return (
+                <span>
+                  {line}
+                  <br />
+                </span>
+              );
+            })}
+          </TextArea>
           {post.image.map((v, i) => {
             return i !== 0 ? <Image alt="card" src={v} /> : null;
           })}
@@ -254,10 +263,10 @@ const TextArea = styled.div`
   height: auto;
   resize: none;
   overflow: hidden;
-  font-weight: 400;
-  font-size: 18px;
-  line-height: 28px;
   text-align: left;
+  font-weight: 400;
+  font-size: ${({ theme }) => theme.fontSizes.l};
+  line-height: 28px;
   @media ${({ theme }) => theme.device.mobile} {
     width: 100%;
   }

@@ -451,11 +451,14 @@ const CommentFistLine = styled.div`
 `;
 
 const CommentNickname = styled.span`
-  width: 100px;
+  width: 100%;
   font-weight: 700;
   font-size: ${({ theme }) => theme.fontSizes.m};
   line-height: 18px;
   color: #222222;
+  @media ${({ theme }) => theme.device.mobile} {
+    width: 100px;
+  }
 `;
 
 const CommentContent = styled.span`

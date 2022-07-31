@@ -186,7 +186,7 @@ body는 필수 요소가 아니며 제목과 구분되도록 한칸 띄어서 �
   <br>
   <br>
   
- <h3 align="left">👨‍💻FE Contributions</h3>  
+ <h3 align="left">👨‍💻FE 팀원 안내</h3>  
   
 |   Name  | GitHub | 자기소개 |
 | ----- | --- | --- |

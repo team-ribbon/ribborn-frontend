@@ -7,7 +7,19 @@
 <h3 align="left">📅프로젝트 기간 : 2022년 6월 24일 ~ 2022년 8월 5일 (6주)</h3>
   <h4 align="left">1주차:
     <span><a href="https://www.notion.so/99-8-08bf4916b9e548279d160ba596f9ac2e">(🔗리본 기획 노션 바로가기)</a></span></h4>
-<p align="left">-webRTC를 이용한 화상채팅 및 socket을 통해 실시간 채팅 구현 결정 </p>
+<p align="left">-리폼 전문 사이트 리본, socket을 통해 실시간 채팅 구현 결정 </p>
+  <h4 align="left">2주차:
+    <span><a href="https://www.notion.so/API-3078c33df93d4bc180531687a99b2757">(🔗리본 API 설계 노션 바로가기)</a></span></h4>
+<p align="left">-API 및 와이어프레임 설계, 이를 기반으로 한 기능 구현 시작 </p>
+  <h4 align="left">3주차:
+<p align="left">-CRUD 기능 및 주요페이지 뷰 완성 </p>
+  <h4 align="left">4주차:
+<p align="left">-채팅 기능 완료, 모바일 뷰 구현, Github Action을 통한 CI/CD 구현 </p>
+  <h4 align="left">5주차:
+    <span><a href="ribborn.kr">(🔗리본 사이트 바로가기)</a></span></h4>
+<p align="left">-SSE를 통한 알림 기능, 전반적 디자인 수정 및 버그 픽스, 홍보전략 수립, Route53과 CloudFront를 통한 https 환경 배포 </p>
+  <h4 align="left">6주차:
+<p align="left">-유저테스트를 통한 피드백 반영, refresh token 구현 예정 </p>
 </div>
   
 <br>

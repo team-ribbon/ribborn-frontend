@@ -15,7 +15,7 @@
 <p align="left">-CRUD 기능 및 주요페이지 뷰 완성 </p>
   <h4 align="left">4주차:</h4>
 <p align="left">-채팅 기능 완료, 모바일 뷰 구현, Github Action을 통한 CI/CD 구현 </p>
-  <h4 align="left">5주차:</h4>
+  <h4 align="left">5주차:
     <span><a href="ribborn.kr">(🔗리본 사이트 바로가기)</a></span></h4>
 <p align="left">-SSE를 통한 알림 기능, 전반적 디자인 수정 및 버그 픽스, 홍보전략 수립, Route53과 CloudFront를 통한 https 환경 배포 </p>
   <h4 align="left">6주차:</h4>

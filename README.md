@@ -19,7 +19,8 @@
   <h4 align="left">2주차:
     <span><a href="https://www.notion.so/API-3078c33df93d4bc180531687a99b2757">(🔗리본 API 설계 노션 바로가기)</a></span></h4>
 <p align="left">-API 및 와이어프레임 설계, 이를 기반으로 한 기능 구현 시작 </p>
-  <h4 align="left">3주차:</h4>
+  <h4 align="left">3주차:
+  <span><a href="https://drive.google.com/file/d/1L6n1pqvSiUHsvMupHJFCmQKu9-3qasEd/view?usp=sharing">(🔗리본 MVP 발표 바로가기)</a></span></h4>
 <p align="left">-CRUD 기능 및 주요페이지 뷰 완성 </p>
   <h4 align="left">4주차:</h4>
 <p align="left">-채팅 기능 완료, 모바일 뷰 구현, Github Action을 통한 CI/CD 구현 </p>

@@ -39,6 +39,7 @@ const PostFooter = ({
         dispatch(loadDoneReset());
         if (page === 0) {
           setLoading(true);
+          setChangingComment(null);
           dispatch(GetCommentDB(id, page, 5)).then((res) => {
             if (inView && !loadedEverything) {
               setPage(page + 1);
@@ -47,6 +48,7 @@ const PostFooter = ({
             }
           });
         } else {
+          setChangingComment(null);
           setPage(0);
         }
       });

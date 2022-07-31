@@ -24,8 +24,8 @@
 <img src="https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=css3&logoColor=white">
 <img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black">
 <br>
+<img src="https://img.shields.io/badge/StompJS-008000?style=for-the-badge&logo=stompjs&logoColor=white">
 <img src="https://img.shields.io/badge/SockJS-008000?style=for-the-badge&logo=sockjs&logoColor=white">
-<img src="https://img.shields.io/badge/WebRtc-E2001A?style=for-the-badge&logo=WebRtc&logoColor=white">
 <img src="https://img.shields.io/badge/Styled Components-F893D1?style=for-the-badge&logo=styledComponents&logoColor=white">
 <img src="https://img.shields.io/badge/Redux-764ABC?style=for-the-badge&logo=Redux&logoColor=white"> 
 <img src="https://img.shields.io/badge/Axios-764ABC?style=for-the-badge&logo=Axios&logoColor=white">
@@ -134,7 +134,7 @@ body는 필수 요소가 아니며 제목과 구분되도록 한칸 띄어서 �
   
  <h3 align="left">👨‍💻FE Contributions</h3>  
   
-|   Name  | GitHub | Role | 자기소개 |
+|   Name  | GitHub | 자기소개 |
 | ----- | --- | --- | --- |
-| 김현빈 | https://github.com/treblabin | 맡은 기능 | 자기소개 |
-| 차혜준 | https://github.com/nujeyh | 맡은 기능 | 자기소개 |
+| 김현빈 | https://github.com/treblabin | 자기소개 |
+| 차혜준 | https://github.com/nujeyh | 자기소개 |

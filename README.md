@@ -149,6 +149,7 @@ body는 필수 요소가 아니며 제목과 구분되도록 한칸 띄어서 �
   <details>
     <summary>용량이 큰 이미지 업로드 시 렉이 걸립니다</summary>
     <div markdown="1">
+      <br>
       <ul>
         <li>browser-image-compression을 적용해서 업로드된 이미지를 압축해 저장하고 미리보기에 보여줌(구현중)</li>
       </ul>
@@ -157,6 +158,7 @@ body는 필수 요소가 아니며 제목과 구분되도록 한칸 띄어서 �
   <details>
     <summary>커뮤니티랑 룩북 게시판의 차이를 인지하기가 어렵습니다</summary>
     <div markdown="1">
+      <br>
       <ul>
         <li>각 게시판별 상단에 해당 게시판 사용 안내 문구 추가(구현중)</li>
       </ul>
@@ -165,6 +167,7 @@ body는 필수 요소가 아니며 제목과 구분되도록 한칸 띄어서 �
   <details>
     <summary>비밀번호 확인이 완료되었는지 유무를 가입하기 버튼을 누르기전에 판별되었으면 좋겠습니다</summary>
     <div markdown="1">
+      <br>
       <ul>
         <li>가입하기 버튼을 안 눌러도 비밀번호와 비밀번호 확인이 일치한지 확인(구현중)</li>
       </ul>
@@ -173,6 +176,7 @@ body는 필수 요소가 아니며 제목과 구분되도록 한칸 띄어서 �
   <details>
     <summary>게시글 작성 시 작성하기 버튼을 누르려면 다시 맨 위로 스크롤 해야함</summary>
     <div markdown="1">
+      <br>
       <ul>
         <li>작성하기 버튼에 fixed positon 적용(구현중)</li>
       </ul>

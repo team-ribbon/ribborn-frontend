@@ -1,6 +1,6 @@
 <h2 align="left"> 리본 종합 패션 공유 사이트</h2>
 <img src="https://user-images.githubusercontent.com/105181604/181456826-d342485e-99c7-4f0c-8e28-b8c9870b9195.png">
-<div display="grid" grid-template-columns="1fr 1fr 1fr 1fr 1fr 1fr">
+<div display="grid" gridTemplateColumns="1fr 1fr 1fr 1fr 1fr 1fr">
   <img src="https://user-images.githubusercontent.com/105181604/182021597-193a4562-25e8-495a-accc-c0232b50a3c2.png">
   <img src="https://user-images.githubusercontent.com/105181604/182021603-59a835bf-fd68-45c8-9372-61ad44136036.png">
   <img src="https://user-images.githubusercontent.com/105181604/182021606-98d68384-d28e-4db2-9c7f-b726d933091f.png">

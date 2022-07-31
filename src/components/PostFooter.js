@@ -248,7 +248,7 @@ const PostFooter = ({
                         onClick={() => {
                           deleteComment(v.id);
                         }}
-                        left={changingComment !== null && changingComment !== i}
+                        left={false}
                       >
                         삭제
                       </CommentModifyBtn>
@@ -270,7 +270,7 @@ const PostFooter = ({
                       onClick={() => {
                         deleteComment(v.id);
                       }}
-                      left={changingComment !== null && changingComment !== i}
+                      left={false}
                     >
                       삭제
                     </CommentModifyBtn>

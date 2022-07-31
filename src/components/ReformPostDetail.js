@@ -312,7 +312,6 @@ const Image = styled.img`
   width: 100%;
   object-fit: cover;
   margin: 15px auto;
-  opacity: ${({ hasImage }) => !hasImage && "0.15"};
 `;
 
 const ProcessButton = styled(MainBtn)`

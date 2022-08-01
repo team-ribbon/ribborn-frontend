@@ -132,9 +132,6 @@ const WritePost = () => {
   return (
     <Wrap>
       <FormWrap>
-        <SubmitBtnDiv>
-          <SubmitBtn onClick={onSubmit} type="submit" value="발행" />
-        </SubmitBtnDiv>
         <SelectDiv>
           <CategorySelect
             write
@@ -238,6 +235,9 @@ const WritePost = () => {
           />
         </InputWrap>
         {contentError && <ErrorMessage>{contentError}</ErrorMessage>}
+        <SubmitBtnDiv>
+          <SubmitBtn onClick={onSubmit} type="submit" value="발행" />
+        </SubmitBtnDiv>
       </FormWrap>
     </Wrap>
   );
@@ -276,10 +276,10 @@ const SubmitBtn = styled.input`
   height: 74px;
   border: none;
   color: #fff;
-  margin-bottom: 100px;
   background-color: ${({ theme }) => theme.colors.orange};
   font-size: ${({ theme }) => theme.fontSizes.l};
   cursor: pointer;
+  margin: 50px 0 0 0;
 `;
 
 const SelectDiv = styled.div`

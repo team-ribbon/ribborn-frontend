@@ -204,7 +204,7 @@ type: subject
       </div>
    </details>
    
-     <details>
+  <details>
     <summary>채팅 알림 기능</summary>
       <div markdown="1">
         <br>

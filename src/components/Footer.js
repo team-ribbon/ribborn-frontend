@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { AiFillFacebook, AiOutlineInstagram } from "react-icons/ai";
-import { useMatch, useNavigate } from "react-router-dom";
+import { Link, useMatch, useNavigate } from "react-router-dom";
 import RuleModal from "./RuleModal";
 import RuleText from "../shared/RuleText";
 import InfoText from "../shared/InfoText";
@@ -28,9 +28,10 @@ const Footer = () => {
         )}
         {infoModal && (
           <RuleModal
+            info
             isModalOn={infoModal}
             setIsModalOn={setInfoModal}
-            title="개인정보수집 및 이용동의"
+            title="개인정보처리방침"
             content={InfoText}
           />
         )}
@@ -38,7 +39,9 @@ const Footer = () => {
       <Wrap isLookbook={isLookbook} isReform={isReform} isWhite={isWhite}>
         <Grid>
           <BoxDiv>
-            <Title>RIBBORN</Title>
+            <Title>
+              <Logo>RIBBORN</Logo>
+            </Title>
             <ContentDiv>
               <Content>FE: 김현빈, 차혜준</Content> <br />
               <Content>BE: 박성규, 박성렬, 이정우</Content> <br />
@@ -96,11 +99,13 @@ const Footer = () => {
           <BoxDiv>
             <Title>고객지원</Title>
             <ContentDiv>
-              <ClickContent>공지사항</ClickContent> <br />
+              {/* <ClickContent>공지사항</ClickContent> <br />
               <SpanMargin />
               <ClickContent>서비스소개</ClickContent> <br />
-              <SpanMargin />
-              <ClickContent>FAQ</ClickContent>
+              <SpanMargin /> */}
+              <Link to="/faq">
+                <ClickContent>FAQ</ClickContent>
+              </Link>
             </ContentDiv>
           </BoxDiv>
         </Grid>
@@ -120,7 +125,9 @@ const Footer = () => {
               <MobileSpanMargin />
               <MobileContent>서비스소개</MobileContent> <br />
               <MobileSpanMargin />
-              <MobileContent>FAQ</MobileContent>
+              <Link to="/faq">
+                <MobileContent>FAQ</MobileContent>
+              </Link>
             </ContentDiv>
           </MobileBoxDiv>
         </MobileGrid>
@@ -161,7 +168,9 @@ const Footer = () => {
               cursor="pointer"
             />
           </MobileIconDiv>
-          <MobileCompanyName>RIBBORN</MobileCompanyName>
+          <MobileCompanyName>
+            <Logo>RIBBORN</Logo>
+          </MobileCompanyName>
         </MobileBottomBoxDiv>
       </Wrap>
     </>
@@ -221,7 +230,11 @@ const Title = styled.span`
   font-size: 27px;
   line-height: 36px;
 `;
-
+const Logo = styled.span`
+  font-family: "quicksand", sans-serif !important;
+  font-style: normal;
+  font-weight: 500;
+`;
 const ContentDiv = styled.div`
   @media ${({ theme }) => theme.device.mobile} {
     margin: 16px 0 14px 0;

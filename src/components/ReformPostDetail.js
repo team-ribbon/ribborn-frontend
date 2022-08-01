@@ -1,15 +1,19 @@
 import React from "react";
 import styled from "styled-components";
+import { useDispatch } from "react-redux";
+import { apis } from "../shared/api";
 import MyPostButtons from "./MyPostButtons";
 import TimeCalculator from "../shared/TimeCalculator";
 import InfoSection from "./InfoSection";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { MainBtn } from "../elements/Buttons";
+import { processChangeDB } from "../redux/modules/post";
 
 const ReformPostDetail = ({ post, userId, userType }) => {
   const scrollEvent = () => {
     document.getElementById("navbar1").style.top = window.pageYOffset + "px";
-    document.getElementById("navbar2").style.top = window.pageYOffset + "px";
+    document.getElementById("navbar2").style.top =
+      window.pageYOffset + 18 + "px";
   };
   React.useEffect(() => {
     window.addEventListener("scroll", scrollEvent);
@@ -17,11 +21,13 @@ const ReformPostDetail = ({ post, userId, userType }) => {
       window.removeEventListener("scroll", scrollEvent);
     };
   }, []);
+
   const navigate = useNavigate();
+  const location = useLocation();
+  const dispatch = useDispatch();
+
   let process = null;
   switch (post && post.process) {
-    case undefined:
-      break;
     case "before":
       process = "모집중";
       break;
@@ -31,7 +37,23 @@ const ReformPostDetail = ({ post, userId, userType }) => {
     case "after":
       process = "완료";
       break;
+    default:
+      break;
   }
+
+  const onClickChat = async () => {
+    try {
+      const response = await apis.addRoom(post.userid);
+      navigate(`/chat/${response.data}`, {
+        state: { backgroundLocation: location },
+      });
+    } catch (error) {}
+  };
+
+  const onClickProcessChange = (process) => {
+    dispatch(processChangeDB(post.id, process));
+  };
+
   return (
     post && (
       <Wrap>
@@ -52,12 +74,32 @@ const ReformPostDetail = ({ post, userId, userType }) => {
               region={post.region}
               category={post.category}
             />
+            {userId === post.userid && post.process === "before" && (
+              <ProcessButton
+                onClick={() => {
+                  onClickProcessChange("ing");
+                }}
+              >
+                진행중으로 변경
+              </ProcessButton>
+            )}
+            {userId === post.userid && post.process === "ing" && (
+              <ProcessButton
+                onClick={() => {
+                  onClickProcessChange("after");
+                }}
+              >
+                완료로 변경
+              </ProcessButton>
+            )}
             <MyButtonsWrap>
-              {userId === post.userid ? (
+              {userId === post.userid && (
                 <MyPostButtons postType="reform" postId={post.id} />
-              ) : null}
+              )}
             </MyButtonsWrap>
-            {+userType === 1 ? <ChattingBtn>채팅하기</ChattingBtn> : null}
+            {+userType === 1 && (
+              <ChattingBtn onClick={onClickChat}>채팅하기</ChattingBtn>
+            )}
           </MobileInfoWrap>
         </HeaderWrap>
         <BodyWrap>
@@ -73,17 +115,16 @@ const ReformPostDetail = ({ post, userId, userType }) => {
                   <MyPostButtons postType="reform" postId={post.id} />
                 ) : null}
               </MyButtonsWrap>
-              {+userType === 1 ? <ChattingBtn>채팅하기</ChattingBtn> : null}
+              {+userType === 1 && (
+                <ChattingBtn onClick={onClickChat}>채팅하기</ChattingBtn>
+              )}
             </Navbar>
           </LeftPostDiv>
           <CenterPostDiv>
-            <Image
+            <FirstImage
               alt="card"
-              src={
-                post.image[0] !== null
-                  ? post.image[0]
-                  : "http://openimage.interpark.com/goods_image_big/1/4/1/9/9090461419_l.jpg"
-              }
+              src={post?.image[0] || "/images/textLogo.png"}
+              hasImage={post?.image[0]}
             />
             <MobileTextArea>{post.content}</MobileTextArea>
             {post.image.map((v, i) => {
@@ -91,9 +132,27 @@ const ReformPostDetail = ({ post, userId, userType }) => {
             })}
           </CenterPostDiv>
           <RightPostDiv>
-            <Navbar id="navbar2">
+            <RightNavbar id="navbar2">
+              {userId === post.userid && post.process === "before" && (
+                <ProcessButton
+                  onClick={() => {
+                    onClickProcessChange("ing");
+                  }}
+                >
+                  진행중으로 변경
+                </ProcessButton>
+              )}
+              {userId === post.userid && post.process === "ing" && (
+                <ProcessButton
+                  onClick={() => {
+                    onClickProcessChange("after");
+                  }}
+                >
+                  완료로 변경
+                </ProcessButton>
+              )}
               <TextArea>{post.content}</TextArea>
-            </Navbar>
+            </RightNavbar>
           </RightPostDiv>
         </BodyWrap>
       </Wrap>
@@ -132,8 +191,9 @@ const Title = styled.p`
 `;
 
 const IDDiv = styled.div`
-  display: flex;
-  gap: 16px;
+  display: grid;
+  grid-template-columns: 1fr 6px 1fr;
+  grid-gap: 16px;
   margin-top: 16px;
   align-items: center;
   justify-content: center;
@@ -144,6 +204,7 @@ const ID = styled.p`
   font-size: ${({ theme }) => theme.fontSizes.m};
   line-height: 18px;
   color: #afb0b3;
+  text-align: right;
   :hover {
     cursor: pointer;
   }
@@ -161,7 +222,7 @@ const Time = styled.p`
   font-size: ${({ theme }) => theme.fontSizes.m};
   line-height: 18px;
   color: #afb0b3;
-  margin-right: 34px;
+  text-align: left;
 `;
 
 const PostProcess = styled.button`
@@ -178,7 +239,7 @@ const PostProcess = styled.button`
       : "rgba(255, 140, 40, 0.43)"};
   border: none;
   border-radius: 8px;
-  margin: 16px 30px auto 0px;
+  margin: 16px auto auto auto;
   float: left;
 `;
 
@@ -199,7 +260,12 @@ const LeftPostDiv = styled.div`
 
 const Navbar = styled.div`
   position: absolute;
-  top: 0;
+  top: 0px;
+`;
+
+const RightNavbar = styled.div`
+  position: absolute;
+  top: 18px;
 `;
 
 const MobileInfoWrap = styled.div`
@@ -235,10 +301,25 @@ const RightPostDiv = styled.div`
   position: relative;
 `;
 
+const FirstImage = styled.img`
+  width: 100%;
+  object-fit: cover;
+  margin: 50px auto 15px auto;
+  opacity: ${({ hasImage }) => !hasImage && "0.15"};
+`;
+
 const Image = styled.img`
   width: 100%;
   object-fit: cover;
-  margin: 50px auto;
+  margin: 15px auto;
+  opacity: ${({ hasImage }) => !hasImage && "0.15"};
+`;
+
+const ProcessButton = styled(MainBtn)`
+  margin: 30px auto 0 auto;
+  @media ${({ theme }) => theme.device.mobile} {
+    margin: 30px 38px auto 16px;
+  }
 `;
 
 const TextArea = styled.div`
@@ -250,14 +331,16 @@ const TextArea = styled.div`
   font-weight: 400;
   font-size: ${({ theme }) => theme.fontSizes.l};
   line-height: 28px;
-  margin: 48px 38px auto 16px;
+  margin: 30px 38px auto 16px;
 `;
 
 const MobileTextArea = styled.div`
-  width: calc(100% - 16px);
+  width: calc(100% - 32px);
   font-weight: 400;
   font-size: ${({ theme }) => theme.fontSizes.l};
   line-height: 28px;
+  text-align: left;
+  margin: 0 auto;
   @media ${({ theme }) => theme.device.mobile} {
     display: none;
   }

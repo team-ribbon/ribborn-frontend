@@ -1,34 +1,47 @@
 import SockJS from "sockjs-client";
 import Stomp from "stompjs";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 
-import { addMessage, updateRoomMessage } from "../redux/modules/chat";
+import {
+  addMessage,
+  getRoomListDB,
+  updateRoomMessage,
+} from "../redux/modules/chat";
 import ChatList from "./ChatList";
 import { Input } from "../elements/Inputs";
 import { MainBtn } from "../elements/Buttons";
+import LoadingSpinner from "./LoadingSpinner";
+import { apis } from "../shared/api";
 
 // 채팅 모달 > 채팅방
 const ChatRoom = () => {
   const dispatch = useDispatch();
   const location = useLocation();
+  const navigate = useNavigate();
   const { roomId } = useParams();
-  const user = useSelector((state) => state.user.user);
+  const inputRef = useRef();
   let stompClient = useRef(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const user = useSelector((state) => state.user.user);
 
   // 웹소켓 연결 요청 & 구독 요청
   const socketConnect = () => {
-    const webSocket = new SockJS(`${process.env.REACT_APP_CHAT_URL}/ws-stomp`);
-    stompClient = Stomp.over(webSocket);
-    stompClient.connect(
+    const webSocket = new SockJS(`${process.env.REACT_APP_CHAT_URL}/wss-stomp`);
+
+    stompClient.current = Stomp.over(webSocket);
+
+    stompClient.current.debug = null;
+
+    stompClient.current.connect(
       {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
         type: "TALK",
       },
       () => {
-        stompClient.subscribe(
+        stompClient.current.subscribe(
           `/sub/chat/room/${roomId}`,
           (response) => {
             const messageFromServer = JSON.parse(response.body);
@@ -36,19 +49,25 @@ const ChatRoom = () => {
           },
           { Authorization: `Bearer ${localStorage.getItem("token")}` }
         );
+
+        setIsLoading(false);
       }
     );
   };
 
   // 웹소켓 연결 해제
   const socketDisconnect = () => {
-    stompClient.disconnect();
+    stompClient.current.disconnect();
+    stompClient.current = null;
   };
 
   // 메시지 전송
   const sendMessage = (event) => {
     event.preventDefault();
-    if (event.target.chat.value === "") return false;
+
+    const message = event.target.chat.value;
+
+    if (message === "" || message.trim(" ") === "") return false;
 
     const messageObj = {
       roomId: roomId,
@@ -59,11 +78,12 @@ const ChatRoom = () => {
       nickname: user.nickname,
     };
 
-    stompClient.send(
+    stompClient.current.send(
       `/pub/chat/message`,
       { Authorization: `Bearer ${localStorage.getItem("token")}` },
       JSON.stringify(messageObj)
     );
+
     dispatch(
       updateRoomMessage({ ...messageObj, index: location.state.index ?? 0 })
     );
@@ -71,23 +91,36 @@ const ChatRoom = () => {
   };
 
   useEffect(() => {
+    setIsLoading(true);
     // 채팅방 전환 시 기존 연결 해제 후 새 연결 요청
     if (stompClient.current) {
       socketDisconnect();
     }
     socketConnect();
 
+    inputRef.current.value = "";
+
     // 언마운트 시 연결 해제
     return () => {
-      socketDisconnect();
+      if (stompClient.current) socketDisconnect();
     };
   }, [roomId]);
 
+  const exitRoom = async () => {
+    const confirm = window.confirm("채팅방을 나가시겠어요?");
+    if (confirm) {
+      await apis.exitRoom(roomId);
+      dispatch(getRoomListDB()).then(() => navigate(-1));
+    }
+  };
+
   return (
     <>
+      {isLoading && <LoadingSpinner />}
       <ChatInputWrap>
         <form onSubmit={sendMessage}>
           <ChatInput
+            ref={inputRef}
             name="chat"
             autoComplete="off"
             placeholder="메시지를 입력해주세요."
@@ -96,6 +129,7 @@ const ChatRoom = () => {
         </form>
       </ChatInputWrap>
       <ChatList />
+      <ExitButton onClick={exitRoom}>나가기</ExitButton>
     </>
   );
 };
@@ -115,6 +149,17 @@ const ChatInput = styled(Input)`
 const SendButton = styled(MainBtn)`
   padding: 10px 20px;
   font-size: ${({ theme }) => theme.fontSizes.m};
+`;
+const ExitButton = styled(SendButton)`
+  color: ${({ theme }) => theme.colors.black};
+  background-color: #fff;
+  border: solid 1px ${({ theme }) => theme.colors.black};
+  font-size: ${({ theme }) => theme.fontSizes.s};
+  padding: 5px 10px;
+  position: absolute;
+  z-index: 2;
+  top: 18px;
+  right: 60px;
 `;
 
 export default ChatRoom;

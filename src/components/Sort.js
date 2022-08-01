@@ -86,7 +86,7 @@ const Modal = styled.div`
   width: 170px;
   right: -25px;
   margin-top: 15px;
-  z-index: 2;
+  z-index: 3;
   background: #ffffff;
   box-shadow: 3px 4px 11px rgba(0, 0, 0, 0.14);
   border-radius: 11px;
@@ -102,6 +102,10 @@ const Modal = styled.div`
     &:hover {
       background-color: ${({ theme }) => theme.colors.lightGray};
     }
+  }
+  @media screen and (max-width: ${({ theme }) => theme.deviceSizes.mobile}) {
+    width: 130px;
+    right: 0;
   }
 `;
 export default Sort;

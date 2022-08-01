@@ -15,6 +15,7 @@ import RegionSelect from "../components/RegionSelect";
 import ProcessSelect from "../components/ProcessSelect";
 import { SubBtn, Category, MainBtn } from "../elements/Buttons";
 import Categories from "../shared/Categories";
+import PagePlaceholder from "../components/PagePlaceholder";
 
 function ReformList() {
   const isLogin = useSelector((state) => state.user.isLogin);
@@ -121,6 +122,12 @@ function ReformList() {
               <TextCard postObj={v} key={"post" + v.id} reform={true} />
             );
           })}
+          {postlists.length === 0 && (
+            <PagePlaceholder
+              emoji={"😦"}
+              content={"검색 결과에 해당하는 게시물이 없습니다."}
+            />
+          )}
         </WidthWrap>
       </PostCoverDiv>
     </Wrap>

@@ -14,11 +14,14 @@ const GET_TECH_INTRO = "GET_TECH_INTRO";
 const GET_POST = "GET_POST";
 const GET_NO_COMMENT_POST = "GET_NO_COMMENT_POST";
 const LIKE_SUCCESS = "LIKE_SUCCESS";
-const NEW_COMMENT = "NEW_COMMENT";
+
+const CHANGE_PROCESS = "CHANGE_PROCESS";
+
 const DELETE_COMMENT = "DELETE_COMMENT";
 const MODIFY_COMMENT = "MODIFY_COMMENT";
 const NEW_COMMENT_LOAD = "NEW_COMMENT_LOAD";
 const MORE_COMMENT_LOAD = "MORE_COMMENT_LOAD";
+const EVENT_JOINED = "EVENT_JOINED";
 
 // Cleanup Action
 const CLEANUP_POST_LIST = "CLEANUP_POST_LIST";
@@ -39,7 +42,9 @@ const getNoCommentPost = createAction(GET_NO_COMMENT_POST, (Post) => ({
   Post,
 }));
 const likesuccess = createAction(LIKE_SUCCESS);
-const newComment = createAction(NEW_COMMENT);
+
+const changeProcess = createAction(CHANGE_PROCESS, (process) => ({ process }));
+
 const deleteComment = createAction(DELETE_COMMENT, (commentId) => ({
   commentId,
 }));
@@ -50,6 +55,7 @@ const newCommentLoad = createAction(NEW_COMMENT_LOAD, (Comments) => ({
 const moreCommentLoad = createAction(MORE_COMMENT_LOAD, (Comments) => ({
   Comments,
 }));
+const EventJoined = createAction(EVENT_JOINED);
 
 // Cleanup Action Creator
 export const cleanUpPostList = createAction(CLEANUP_POST_LIST);
@@ -65,13 +71,11 @@ const initialState = {
   mainContents: {
     banner: [
       {
-        image:
-          "http://www.mth.co.kr/wp-content/uploads/2014/12/default-placeholder-1024x1024.png",
+        image: null,
         url: "/",
       },
       {
-        image:
-          "http://www.mth.co.kr/wp-content/uploads/2014/12/default-placeholder-1024x1024.png",
+        image: null,
         url: "/",
       },
     ],
@@ -80,6 +84,7 @@ const initialState = {
     reviewList: [],
     qnaList: [],
     reformList: [],
+    spinner: null,
   },
 };
 
@@ -229,12 +234,49 @@ export const getLookbookPostDB = (id) => {
   };
 };
 
+// 이벤트 게시글 불러오기
+export const getEventPostDB = (id) => {
+  return async function (dispatch) {
+    try {
+      const response = await apis.loadEventPost(id);
+      dispatch(getNoCommentPost(response.data));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+// 이벤트 참가하기
+export const ParticipateEventDB = () => {
+  return async function (dispatch) {
+    try {
+      const response = await apis.ParticipateEventPost();
+      dispatch(EventJoined());
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
 // 게시물 좋아요
 export const likePostDB = (id, like) => {
   return async function (dispatch) {
     try {
       const response = await apis.likePost(id, like).then((res) => {
         dispatch(likesuccess());
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+// 게시물 좋아요
+export const processChangeDB = (id, process) => {
+  return async function (dispatch) {
+    try {
+      const response = await apis.changeProcess(id, process).then((res) => {
+        dispatch(changeProcess(process));
       });
       console.log(response);
     } catch (error) {
@@ -255,14 +297,11 @@ export const deletePostDB = (id) => {
 };
 
 // 댓글달기
-export const PostCommentDB = (id, comment, page) => {
+export const PostCommentDB = (id, comment) => {
   return async function (dispatch) {
     await apis
       .uploadComment(id, comment)
-      .then((res) => {
-        console.log(res);
-        dispatch(newComment());
-      })
+      .then(() => {})
       .catch((error) => {
         console.log(error);
         alert("실패했어요!");
@@ -271,11 +310,12 @@ export const PostCommentDB = (id, comment, page) => {
 };
 
 // 댓글 삭제
-export const deleteCommentDB = (id, commentId) => {
+export const deleteCommentDB = (id, commentId, page) => {
   return async (dispatch) => {
     try {
       await apis.deleteComment(id, commentId);
       dispatch(deleteComment(commentId));
+      dispatch(GetCommentDB(id, 0, (page + 1) * 5));
     } catch (error) {
       console.log(error);
     }
@@ -283,11 +323,12 @@ export const deleteCommentDB = (id, commentId) => {
 };
 
 // 댓글 수정
-export const modifyCommentDB = (id, commentId, comment) => {
+export const modifyCommentDB = (id, commentId, comment, page) => {
   return async (dispatch) => {
     try {
       await apis.modifyComment(id, commentId, comment);
       dispatch(modifyComment({ id: commentId, comment: comment }));
+      dispatch(GetCommentDB(id, 0, (page + 1) * 5));
     } catch (error) {
       console.log(error);
     }
@@ -304,7 +345,6 @@ export const GetCommentDB = (id, page, num) => {
           dispatch(loadDone());
         }
         if (page === 0) {
-          console.log(res.data);
           dispatch(newCommentLoad(res.data));
         } else {
           dispatch(moreCommentLoad(res.data));
@@ -393,9 +433,9 @@ export default handleActions(
         draft.Post.liked = !draft.Post.liked;
         draft.Post.liked ? draft.Post.likeCount++ : draft.Post.likeCount--;
       }),
-    [NEW_COMMENT]: (state) =>
+    [CHANGE_PROCESS]: (state, { payload }) =>
       produce(state, (draft) => {
-        draft.Post.commentCount++;
+        draft.Post.process = payload.process;
       }),
     [DELETE_COMMENT]: (state, { payload }) =>
       produce(state, (draft) => {
@@ -412,14 +452,20 @@ export default handleActions(
     [NEW_COMMENT_LOAD]: (state, { payload }) =>
       produce(state, (draft) => {
         draft.Comments = payload.Comments.content;
+        draft.Post.commentCount = payload.Comments.totalElements;
       }),
     [MORE_COMMENT_LOAD]: (state, { payload }) =>
       produce(state, (draft) => {
         draft.Comments.push(...payload.Comments.content);
+        draft.Post.commentCount = payload.Comments.totalElements;
       }),
     [GET_TECH_INTRO]: (state, { payload }) =>
       produce(state, (draft) => {
         draft.techIntro = payload.intro.introduction;
+      }),
+    [EVENT_JOINED]: (state) =>
+      produce(state, (draft) => {
+        draft.Post.participation = "now";
       }),
     // Cleanup Reducer
     [CLEANUP_POST_LIST]: (state) =>

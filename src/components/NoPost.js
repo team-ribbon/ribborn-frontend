@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { BlackBtn } from "../elements/Buttons";
 
-const NoPost = ({ category }) => {
+const NoPost = ({ category, myPage }) => {
   const navigate = useNavigate();
   const text = [
     {
@@ -20,7 +20,7 @@ const NoPost = ({ category }) => {
     {
       category: "reform",
       text: "아직 견적을 낸 적이 없어요!",
-      button: "첫번째 후기 쓰기",
+      button: "첫번째 견적 쓰기",
       link: "/reform",
     },
     {
@@ -36,18 +36,20 @@ const NoPost = ({ category }) => {
       {text.map((v) => {
         return v.category === category ? <Text>{v.text}</Text> : null;
       })}
-      {text.map((v) => {
-        return v.category === category ? (
-          <Button
-            key={"nopostBtn" + v.link}
-            onClick={() => {
-              navigate(v.link);
-            }}
-          >
-            {v.button}
-          </Button>
-        ) : null;
-      })}
+      {myPage
+        ? text.map((v) => {
+            return v.category === category ? (
+              <Button
+                key={"nopostBtn" + v.link}
+                onClick={() => {
+                  navigate(v.link);
+                }}
+              >
+                {v.button}
+              </Button>
+            ) : null;
+          })
+        : null}
     </Cover>
   );
 };

@@ -15,6 +15,7 @@ import TabWrap from "../components/TabWrap";
 import Sort from "../components/Sort";
 import Categories from "../shared/Categories";
 import { MainBtn, SubBtn, Category } from "../elements/Buttons";
+import PagePlaceholder from "../components/PagePlaceholder";
 
 function QnAList() {
   const dispatch = useDispatch();
@@ -106,6 +107,12 @@ function QnAList() {
             );
           })}
         </PostCoverDiv>
+        {postlists.length === 0 && (
+          <PagePlaceholder
+            emoji={"😦"}
+            content={"검색 결과에 해당하는 게시물이 없습니다."}
+          />
+        )}
       </WidthWrap>
     </Wrap>
   );

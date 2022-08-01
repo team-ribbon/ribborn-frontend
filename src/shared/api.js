@@ -50,7 +50,7 @@ formDataApi.interceptors.request.use(function (config) {
 export const apis = {
   // 회원정보
   login: (username, password) =>
-    api.post("/api/users/login", { username, password }),
+    chatApi.post("/api/users/login", { username, password }),
   signupUser: (userObj) => api.post("/api/users/register/users", userObj),
   usernameCheck: (username) =>
     api.post("/api/users/register/idCheck", { username }),
@@ -86,6 +86,10 @@ export const apis = {
   likePost: (id, like) => api.post(`/api/post/${id}/love`, { love: like }),
   deletePost: (id) => api.delete(`/api/post/${id}`),
 
+  loadEventPost: (id) => api.get(`/api/event/${id}`),
+  ParticipateEventPost: () => api.post("/api/event/participation"),
+  changeProcess: (id, process) =>
+    chatApi.put(`/api/post/${id}/process`, { process: process }),
   // 댓글
   loadComments: (postId, page, num) =>
     api.get(`/api/comments/${postId}?page=${page}&size=${num}`),

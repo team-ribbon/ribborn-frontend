@@ -28,9 +28,9 @@ const Header = () => {
     <HeaderWrap>
       <NavWrap>
         <UserNav>
-          <HeaderBellDiv>
+          {/* <HeaderBellDiv>
             <VscBell size="18" />
-          </HeaderBellDiv>
+          </HeaderBellDiv> */}
           {isLogin ? (
             <HeaderUserSpan
               onClick={() => {
@@ -48,13 +48,13 @@ const Header = () => {
               마이페이지
             </HeaderUserSpan>
           )}
-          <HeaderUserSpan
+          {/* <HeaderUserSpan
             onClick={() => {
               isLogin ? navigate("/mypage") : navigate("/login");
             }}
           >
             관심 리폼
-          </HeaderUserSpan>
+          </HeaderUserSpan> */}
           {isLogin ? (
             <HeaderUserSpan
               onClick={() => {
@@ -85,7 +85,9 @@ const Header = () => {
         </UserNav>
       </NavWrap>
       <CategoryNav>
-        <Link to="/">RIBBORN</Link>
+        <Link to="/">
+          <Logo>RIBBORN</Logo>
+        </Link>
         <div>
           <Community isCommunity={isCommunity}>
             <Link to="/review">커뮤니티</Link>
@@ -100,7 +102,9 @@ const Header = () => {
       </CategoryNav>
       <MobileWrap>
         <TopWrap>
-          <Link to="/">RIBBORN</Link>
+          <Link to="/">
+            <Logo>RIBBORN</Logo>
+          </Link>
           <HeaderModal isLogin={isLogin} user={user} />
         </TopWrap>
         <BottomWrap>
@@ -126,7 +130,21 @@ const HeaderWrap = styled.header`
   z-index: 10;
   background-color: #fff;
 `;
-
+const LogoFont = css`
+  font-family: "quicksand", sans-serif !important;
+  font-style: normal;
+  font-weight: 500;
+`;
+const Logo = styled.h1`
+  ${LogoFont}
+  display: inline-block;
+  font-size: 30px;
+  margin-top: -10px;
+  @media screen and (max-width: ${({ theme }) => theme.deviceSizes.mobile}) {
+    font-size: ${({ theme }) => theme.fontSizes.m};
+    margin-bottom: 3px;
+  }
+`;
 const UserNav = styled.nav`
   max-width: ${({ theme }) => theme.width.maxWidth};
   margin: 10px auto;
@@ -180,6 +198,9 @@ const CategoryNav = styled.nav`
 const Active = css`
   border-bottom: 2px solid ${({ theme }) => theme.colors.black};
   font-weight: 700;
+  @media screen and (max-width: ${({ theme }) => theme.deviceSizes.mobile}) {
+    padding-bottom: 4px;
+  }
 `;
 const Community = styled.span`
   ${({ isCommunity }) => isCommunity && Active}

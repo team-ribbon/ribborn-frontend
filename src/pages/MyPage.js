@@ -31,7 +31,7 @@ function MyPage() {
     if (!infoChange) {
       dispatch(getMyPageDB(category));
     }
-  }, [category, infoChange]);
+  }, [infoChange]);
   React.useEffect(() => {
     return () => {
       dispatch(cleanUpMyPage());
@@ -52,6 +52,7 @@ function MyPage() {
         review={review}
         reform={reform}
         categoriedPosts={categoriedPosts}
+        myPage={true}
       />
     </Template>
   );

@@ -255,10 +255,10 @@ type: subject
 
 <br>
  
-|   Name  | GitHub | 자기소개 |
-| ----- | --- | --- |
-| 김현빈 | https://github.com/treblabin | 자기소개 |
-| 차혜준 | https://github.com/nujeyh | 자기소개 |
+|   Name  | GitHub |
+| ----- | --- |
+| 김현빈 | https://github.com/treblabin |
+| 차혜준 | https://github.com/nujeyh |
 
 <br>
 

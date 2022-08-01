@@ -50,23 +50,32 @@ const WritePost = () => {
   const onSubmit = async () => {
     if (+category === 0) {
       setError({ ...error, categoryError: "리폼 종류를 선택해주세요." });
+      document
+        .getElementById("categorySelectDiv")
+        .scrollIntoView({ behavior: "smooth", block: "center" });
       return false;
     }
 
     if (type === "reform" && +region === 0) {
       setError({ ...error, regionError: "지역을 선택해주세요." });
+      document
+        .getElementById("categorySelectDiv")
+        .scrollIntoView({ behavior: "smooth", block: "center" });
       return false;
     }
 
     if (type !== "lookbook" && title.length < 1) {
       setError({ ...error, titleError: "제목을 입력해주세요." });
-      titleRef.current.focus();
+      titleRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
       return false;
     }
 
     if (contentRef.current.value.length < 1) {
       setError({ ...error, contentError: "내용을 입력해주세요." });
-      contentRef.current.focus();
+      contentRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
       return false;
     }
 
@@ -132,7 +141,7 @@ const WritePost = () => {
   return (
     <Wrap>
       <FormWrap>
-        <SelectDiv>
+        <SelectDiv id="categorySelectDiv">
           <CategorySelect
             write
             setCategory={setCategory}

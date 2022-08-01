@@ -137,6 +137,7 @@ const PostRightBtn = ({ noshare, id, liked, likeCount, lookbook }) => {
 const Cover = styled.div`
   display: flex;
   flex-direction: column;
+  position: relative;
   text-align: center;
   align-items: center;
   margin-top: 50px;
@@ -175,11 +176,21 @@ const HR = styled.hr`
 `;
 
 const ShareClickedDiv = styled.div`
+  position: absolute;
   display: flex;
   flex-direction: row;
   margin-top: 12px;
   gap: 10px;
   z-index: 20;
+  bottom: 5px;
+  right: 60px;
+  @media ${({ theme }) => theme.device.mobile} and (max-width: 999px) {
+    position: initial;
+    transform: translate(-36%, 0);
+  }
+  @media screen and (min-width: 1000px) {
+    position: initial;
+  }
 `;
 
 const KakaoImg = styled.img`

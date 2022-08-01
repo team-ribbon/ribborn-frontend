@@ -8,7 +8,7 @@ import {
 } from "react-router-dom";
 import styled from "styled-components";
 
-import { getRoomListDB } from "../redux/modules/chat";
+import { setNotification, getRoomListDB } from "../redux/modules/chat";
 import ChatRoom from "./ChatRoom";
 
 import { OrangeChatSVG, XSVG } from "../elements/SVG";
@@ -35,6 +35,7 @@ const ChatModal = () => {
 
   useEffect(() => {
     dispatch(getRoomListDB());
+    dispatch(setNotification(false));
   }, [dispatch]);
 
   useEffect(() => {

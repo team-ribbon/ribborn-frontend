@@ -108,16 +108,12 @@ const WritePost = () => {
 
   const onChangeTitle = (event) => {
     setTitle(event.target.value);
-    setError({ ...error, titleError: null });
-    if (title.length > 29) {
-      return setTitle((prev) => prev.substring(0, 30));
+    if (error.titleError) {
+      setError({ ...error, titleError: null });
     }
   };
   const onChangeIntro = (event) => {
     setIntroduction(event.target.value);
-    if (introduction.length > 99) {
-      return setIntroduction((prev) => prev.substring(0, 100));
-    }
   };
 
   useEffect(() => {
@@ -126,10 +122,6 @@ const WritePost = () => {
       dispatch(resetFile());
     };
   }, []);
-
-  useEffect(() => {
-    setIntroduction(intro);
-  }, [intro]);
 
   useEffect(() => {
     if (!isLogin) {
@@ -199,8 +191,8 @@ const WritePost = () => {
             <Input
               id="introduction"
               name="introduction"
+              maxLength="100"
               placeholder="브랜드 또는 디자이너에 대한 간단한 소개를 적어주세요."
-              value={introduction}
               onChange={onChangeIntro}
               ref={introRef}
               hasCount
@@ -215,7 +207,7 @@ const WritePost = () => {
               <Input
                 name="title"
                 placeholder="제목을 입력해주세요"
-                value={title}
+                maxLength="30"
                 onChange={onChangeTitle}
                 ref={titleRef}
                 invalid={titleError}
@@ -239,7 +231,9 @@ const WritePost = () => {
             height="400px"
             invalid={contentError}
             onChange={() => {
-              setError({ ...error, contentError: null });
+              if (error.contentError) {
+                setError({ ...error, contentError: null });
+              }
             }}
           />
         </InputWrap>

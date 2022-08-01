@@ -81,6 +81,9 @@ const WritePost = () => {
 
     if ((type === "review" || type === "lookbook") && files.length < 1) {
       setError({ ...error, fileError: "사진을 선택해주세요." });
+      document
+        .getElementById("addPicture")
+        .scrollIntoView({ behavior: "smooth", block: "center" });
       return false;
     }
 

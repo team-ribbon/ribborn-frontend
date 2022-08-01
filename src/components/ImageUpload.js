@@ -120,7 +120,7 @@ const ImageUpload = ({ type, edit, error, setError }) => {
         <Label htmlFor="file">
           <FileInput invalid={error?.fileError}>
             <FileInputPlus>+</FileInputPlus>
-            <FileInputText>사진 추가하기</FileInputText>
+            <FileInputText id="addPicture">사진 추가하기</FileInputText>
           </FileInput>
           {error?.fileError && <HelpText>{error?.fileError}</HelpText>}
           <FileText>*권장 사이즈: 700*508 (1:1.3비율)</FileText>

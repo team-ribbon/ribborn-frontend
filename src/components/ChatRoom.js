@@ -30,6 +30,7 @@ const ChatRoom = () => {
   // 웹소켓 연결 요청 & 구독 요청
   const socketConnect = () => {
     const webSocket = new SockJS(`${process.env.REACT_APP_CHAT_URL}/wss-stomp`);
+
     stompClient.current = Stomp.over(webSocket);
 
     stompClient.current.debug = null;
@@ -106,8 +107,11 @@ const ChatRoom = () => {
   }, [roomId]);
 
   const exitRoom = async () => {
-    await apis.exitRoom(roomId);
-    dispatch(getRoomListDB()).then(() => navigate(-1));
+    const confirm = window.confirm("채팅방을 나가시겠어요?");
+    if (confirm) {
+      await apis.exitRoom(roomId);
+      dispatch(getRoomListDB()).then(() => navigate(-1));
+    }
   };
 
   return (
@@ -123,9 +127,9 @@ const ChatRoom = () => {
           />
           <SendButton>보내기</SendButton>
         </form>
-        <button onClick={exitRoom}>나가기</button>
       </ChatInputWrap>
       <ChatList />
+      <ExitButton onClick={exitRoom}>나가기</ExitButton>
     </>
   );
 };
@@ -145,6 +149,17 @@ const ChatInput = styled(Input)`
 const SendButton = styled(MainBtn)`
   padding: 10px 20px;
   font-size: ${({ theme }) => theme.fontSizes.m};
+`;
+const ExitButton = styled(SendButton)`
+  color: ${({ theme }) => theme.colors.black};
+  background-color: #fff;
+  border: solid 1px ${({ theme }) => theme.colors.black};
+  font-size: ${({ theme }) => theme.fontSizes.s};
+  padding: 5px 10px;
+  position: absolute;
+  z-index: 2;
+  top: 18px;
+  right: 60px;
 `;
 
 export default ChatRoom;

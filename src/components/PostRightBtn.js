@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 import { FaFacebookF } from "react-icons/fa";
 import {
@@ -43,6 +43,37 @@ const PostRightBtn = ({ noshare, id, liked, likeCount, lookbook }) => {
     document.body.removeChild(textarea);
     alert("URL이 복사되었습니다.");
   };
+
+  useEffect(() => {
+    initKakao();
+  }, []);
+
+  const initKakao = () => {
+    if (window.Kakao) {
+      const kakao = window.Kakao;
+      if (!kakao.isInitialized()) {
+        kakao.init(process.env.REACT_APP_KAKAO_TOKEN);
+      }
+    }
+  };
+
+  const shareKakao = () => {
+    const url = window.location.href;
+    window.Kakao.Link.sendDefault({
+      objectType: "feed",
+      content: {
+        title: "✂️ 리폼 견적 · 커뮤니티는 리본 🎀",
+        description: "리폼 견적 요청부터 후기까지 모두 리본!",
+        imageUrl:
+          "https://user-images.githubusercontent.com/105181604/181456826-d342485e-99c7-4f0c-8e28-b8c9870b9195.png",
+        link: {
+          mobileWebUrl: url,
+          webUrl: url,
+        },
+      },
+    });
+  };
+
   return (
     <Cover lookbook={lookbook}>
       <Button
@@ -67,6 +98,16 @@ const PostRightBtn = ({ noshare, id, liked, likeCount, lookbook }) => {
           </Button>
           {shareClicked ? (
             <ShareClickedDiv>
+              <Button
+                small={true}
+                color="#FAE301"
+                onClick={() => {
+                  shareKakao();
+                  setShareClicked(false);
+                }}
+              >
+                <KakaoImg src="https://w.namu.la/s/059f8bf3e629d3f2e343fe3f3f10809022d58800962db675d233429660bf98d9ceccd60e23b1324d090c87485833b10c2c4503c93a230003ba67d5fcafa52793e30f5abff4d86607618c1355222157b79e7b06a3c9588ab45ae83da6fb545875" />
+              </Button>
               <Button
                 small={true}
                 color="#1977F3"
@@ -98,6 +139,7 @@ const PostRightBtn = ({ noshare, id, liked, likeCount, lookbook }) => {
 const Cover = styled.div`
   display: flex;
   flex-direction: column;
+  position: relative;
   text-align: center;
   align-items: center;
   margin-top: 50px;
@@ -136,11 +178,26 @@ const HR = styled.hr`
 `;
 
 const ShareClickedDiv = styled.div`
+  position: absolute;
   display: flex;
   flex-direction: row;
   margin-top: 12px;
   gap: 10px;
   z-index: 20;
+  bottom: 5px;
+  right: 60px;
+  @media ${({ theme }) => theme.device.mobile} and (max-width: 999px) {
+    position: initial;
+    transform: translate(-36%, 0);
+  }
+  @media screen and (min-width: 1000px) {
+    position: initial;
+  }
+`;
+
+const KakaoImg = styled.img`
+  width: 25px;
+  height: 25px;
 `;
 
 export default PostRightBtn;

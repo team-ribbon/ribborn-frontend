@@ -87,7 +87,16 @@ const LookBookPostDetail = ({ post, userId, postId, userType }) => {
                 return i !== 0 ? <Image alt="card" src={v} /> : null;
               })}
             </Grid>
-            <TextArea white={true}>{post.content}</TextArea>
+            <TextArea white={true}>
+              {post.content.split("\n").map((line) => {
+                return (
+                  <span>
+                    {line}
+                    <br />
+                  </span>
+                );
+              })}
+            </TextArea>
           </CenterPostDiv>
           <RightPostDiv>
             <Navbar id="navbar" myPost={post && userId === post.userid}>
@@ -192,7 +201,8 @@ const RightPostDiv = styled.div`
 `;
 const Navbar = styled.div`
   position: absolute;
-  margin-top: 200px;
+  margin-top: 10px;
+  top: ${(props) => (props.myPost ? "-350px" : "-250px")};
 `;
 const MobilePostRightBtnWrap = styled.div`
   position: fixed;

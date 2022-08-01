@@ -50,28 +50,40 @@ const WritePost = () => {
   const onSubmit = async () => {
     if (+category === 0) {
       setError({ ...error, categoryError: "리폼 종류를 선택해주세요." });
+      document
+        .getElementById("categorySelectDiv")
+        .scrollIntoView({ behavior: "smooth", block: "center" });
       return false;
     }
 
     if (type === "reform" && +region === 0) {
       setError({ ...error, regionError: "지역을 선택해주세요." });
+      document
+        .getElementById("categorySelectDiv")
+        .scrollIntoView({ behavior: "smooth", block: "center" });
       return false;
     }
 
     if (type !== "lookbook" && title.length < 1) {
       setError({ ...error, titleError: "제목을 입력해주세요." });
-      titleRef.current.focus();
+      titleRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
       return false;
     }
 
     if (contentRef.current.value.length < 1) {
       setError({ ...error, contentError: "내용을 입력해주세요." });
-      contentRef.current.focus();
+      contentRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
       return false;
     }
 
     if ((type === "review" || type === "lookbook") && files.length < 1) {
       setError({ ...error, fileError: "사진을 선택해주세요." });
+      document
+        .getElementById("addPicture")
+        .scrollIntoView({ behavior: "smooth", block: "center" });
       return false;
     }
 
@@ -108,16 +120,12 @@ const WritePost = () => {
 
   const onChangeTitle = (event) => {
     setTitle(event.target.value);
-    setError({ ...error, titleError: null });
-    if (title.length > 29) {
-      return setTitle((prev) => prev.substring(0, 30));
+    if (error.titleError) {
+      setError({ ...error, titleError: null });
     }
   };
   const onChangeIntro = (event) => {
     setIntroduction(event.target.value);
-    if (introduction.length > 99) {
-      return setIntroduction((prev) => prev.substring(0, 100));
-    }
   };
 
   useEffect(() => {
@@ -128,10 +136,6 @@ const WritePost = () => {
   }, []);
 
   useEffect(() => {
-    setIntroduction(intro);
-  }, [intro]);
-
-  useEffect(() => {
     if (!isLogin) {
       navigate("/");
     }
@@ -140,10 +144,7 @@ const WritePost = () => {
   return (
     <Wrap>
       <FormWrap>
-        <SubmitBtnDiv>
-          <SubmitBtn onClick={onSubmit} type="submit" value="발행" />
-        </SubmitBtnDiv>
-        <SelectDiv>
+        <SelectDiv id="categorySelectDiv">
           <CategorySelect
             write
             setCategory={setCategory}
@@ -199,8 +200,8 @@ const WritePost = () => {
             <Input
               id="introduction"
               name="introduction"
+              maxLength="100"
               placeholder="브랜드 또는 디자이너에 대한 간단한 소개를 적어주세요."
-              value={introduction}
               onChange={onChangeIntro}
               ref={introRef}
               hasCount
@@ -215,10 +216,11 @@ const WritePost = () => {
               <Input
                 name="title"
                 placeholder="제목을 입력해주세요"
-                value={title}
+                maxLength="30"
                 onChange={onChangeTitle}
                 ref={titleRef}
                 invalid={titleError}
+                hasCount
               />
               <TitleLength>{title.length}/30</TitleLength>
             </InputWrap>
@@ -238,11 +240,16 @@ const WritePost = () => {
             height="400px"
             invalid={contentError}
             onChange={() => {
-              setError({ ...error, contentError: null });
+              if (error.contentError) {
+                setError({ ...error, contentError: null });
+              }
             }}
           />
         </InputWrap>
         {contentError && <ErrorMessage>{contentError}</ErrorMessage>}
+        <SubmitBtnDiv>
+          <SubmitBtn onClick={onSubmit} type="submit" value="발행" />
+        </SubmitBtnDiv>
       </FormWrap>
     </Wrap>
   );
@@ -281,10 +288,10 @@ const SubmitBtn = styled.input`
   height: 74px;
   border: none;
   color: #fff;
-  margin-bottom: 100px;
   background-color: ${({ theme }) => theme.colors.orange};
   font-size: ${({ theme }) => theme.fontSizes.l};
   cursor: pointer;
+  margin: 50px 0 0 0;
 `;
 
 const SelectDiv = styled.div`
@@ -361,11 +368,15 @@ const GuideContent = styled.span`
 const IntroLength = styled.span`
   position: absolute;
   right: 19px;
-  bottom: 25px;
+  top: 45px;
   font-weight: 700;
   font-size: ${({ theme }) => theme.fontSizes.l};
   line-height: 24px;
   color: #afb0b3;
+  @media screen and (max-width: ${({ theme }) => theme.deviceSizes.mobile}) {
+    top: 40px;
+    font-size: ${({ theme }) => theme.fontSizes.m};
+  }
 `;
 const InputWrap = styled.div`
   position: relative;
@@ -374,12 +385,16 @@ const InputWrap = styled.div`
 const TitleLength = styled.span`
   position: absolute;
   right: 19px;
-  top: 56px;
+  top: 45px;
   font-weight: 700;
   font-size: ${({ theme }) => theme.fontSizes.l};
   line-height: 24px;
   color: #afb0b3;
   background-color: #fff;
+  @media screen and (max-width: ${({ theme }) => theme.deviceSizes.mobile}) {
+    top: 40px;
+    font-size: ${({ theme }) => theme.fontSizes.m};
+  }
 `;
 const ErrorMessage = styled(HelpText)`
   margin-bottom: 10px;

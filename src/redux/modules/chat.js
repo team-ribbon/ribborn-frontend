@@ -7,6 +7,7 @@ const GET_MESSAGE_LIST = "GET_MESSAGE_LIST";
 const ADD_MESSAGE = "ADD_MESSAGE";
 const UPDATE_ROOM_MESSAGE = "UPDATE_ROOM_MESSAGE";
 const CLEAN_UP_MESSAGE = "CLEAN_UP_MESSAGE";
+const SET_NOTIFICATION = "SET_NOTIFICATION";
 
 const getRoomList = createAction(GET_ROOM_LIST, (roomList) => ({ roomList }));
 const getMessageList = createAction(GET_MESSAGE_LIST, (messageList) => ({
@@ -22,10 +23,17 @@ export const updateRoomMessage = createAction(
   })
 );
 export const cleanUpMessage = createAction(CLEAN_UP_MESSAGE, () => ({}));
+export const setNotification = createAction(
+  SET_NOTIFICATION,
+  (notification) => ({
+    notification,
+  })
+);
 
 const initialState = {
   roomList: [],
   messageList: [],
+  notification: false,
 };
 
 // 채팅 페이지에서 채팅 리스트 데이터 받아오기
@@ -81,6 +89,10 @@ export default handleActions(
     [CLEAN_UP_MESSAGE]: (state, { payload }) =>
       produce(state, (draft) => {
         draft.messageList = initialState.messageList;
+      }),
+    [SET_NOTIFICATION]: (state, { payload }) =>
+      produce(state, (draft) => {
+        draft.notification = payload.notification;
       }),
   },
   initialState

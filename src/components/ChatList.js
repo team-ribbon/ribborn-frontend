@@ -10,12 +10,12 @@ import {
   getRoomListDB,
 } from "../redux/modules/chat";
 
-// 채팅 모달 > 채팅방 > 채팅 내역
+// 채팅 > 채팅방 > 채팅 내역
 const ChatList = () => {
   const dispatch = useDispatch();
   const { roomId } = useParams();
   const scrollRef = useRef();
-  const messageList = useSelector((state) => state.chat.messageList);
+  let messageList = useSelector((state) => state.chat.messageList);
   const user = useSelector((state) => state.user.user);
 
   useEffect(() => {
@@ -29,6 +29,17 @@ const ChatList = () => {
       dispatch(getRoomListDB());
     }
   }, [messageList]);
+
+  (() => {
+    let slicedList = [];
+    messageList.forEach((message) => {
+      slicedList = [...slicedList, message];
+      if (message.type === "STATUS" && message.senderName === user.username) {
+        slicedList = [];
+      }
+    });
+    messageList = slicedList;
+  })();
 
   return (
     <MessageWrap>
@@ -46,6 +57,7 @@ const ChatList = () => {
             {chat.type === "TALK" ? (
               <Message key={chat.messageId} me={isMe}>
                 {(chat.senderName !== messageList[index - 1]?.senderName ||
+                  messageList[index - 1].type === "STATUS" ||
                   date !==
                     moment(messageList[index - 1]?.date).format("HH:mm")) && (
                   <NickAndDate me={isMe}>

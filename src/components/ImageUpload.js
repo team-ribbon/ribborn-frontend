@@ -127,7 +127,7 @@ const ImageUpload = ({ type, edit, error, setError }) => {
         </Label>
         {previewList.map((file, index) => {
           return (
-            <PreviewWrap key={Date.now() + file}>
+            <PreviewWrap key={Date.now() + index}>
               <Preview src={file} />
               {edit ? (
                 <DeleteButton

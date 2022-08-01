@@ -256,7 +256,7 @@ type: subject
 <br>
  
 |   Name  | GitHub |
-| ----- | --- |
+| ------ | -------------------------------- |
 | 김현빈 | https://github.com/treblabin |
 | 차혜준 | https://github.com/nujeyh |
 

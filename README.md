@@ -1,135 +1,168 @@
-<h2 align="left"> 리본 종합 패션 공유 사이트</h2>
-<img src="https://user-images.githubusercontent.com/105181604/181456826-d342485e-99c7-4f0c-8e28-b8c9870b9195.png">
-<div>
-  <img width="200" src="https://user-images.githubusercontent.com/105181604/182021597-193a4562-25e8-495a-accc-c0232b50a3c2.png">
-  <img width="200" src="https://user-images.githubusercontent.com/105181604/182021603-59a835bf-fd68-45c8-9372-61ad44136036.png">
-  <img width="200" src="https://user-images.githubusercontent.com/105181604/182021606-98d68384-d28e-4db2-9c7f-b726d933091f.png">
-  <img width="200" src="https://user-images.githubusercontent.com/105181604/182021612-cc1b73d6-fb1b-485b-b0ec-7c2a6c9934cf.png">
-  <img width="200" src="https://user-images.githubusercontent.com/105181604/182021615-48e2cc3e-358a-48a5-88d9-29c5830770e4.png">
-  <img width="200" src="https://user-images.githubusercontent.com/105181604/182021617-ccc9747e-42cd-45d2-91d8-5979a65a5c2c.png">
-</div>
+# 리폼 커뮤니티 리본
+
+<img height="250px" src="https://user-images.githubusercontent.com/105181604/181456826-d342485e-99c7-4f0c-8e28-b8c9870b9195.png">
 
 <br>
-<br>
-<div align="left">
-<h3 align="left">📅프로젝트 기간 : 2022년 6월 24일 ~ 2022년 8월 5일 (6주)</h3>
-  <h4 align="left">1주차:
-    <span><a href="https://www.notion.so/99-8-08bf4916b9e548279d160ba596f9ac2e">(🔗리본 기획 노션 바로가기)</a></span></h4>
-<p align="left">-리폼 전문 사이트 리본, socket을 통해 실시간 채팅 구현 결정 </p>
-  <h4 align="left">2주차:
-    <span><a href="https://www.notion.so/API-3078c33df93d4bc180531687a99b2757">(🔗리본 API 설계 노션 바로가기)</a></span></h4>
-<p align="left">-API 및 와이어프레임 설계, 이를 기반으로 한 기능 구현 시작 </p>
-  <h4 align="left">3주차:
-  <span><a href="https://drive.google.com/file/d/1L6n1pqvSiUHsvMupHJFCmQKu9-3qasEd/view?usp=sharing">(🔗리본 MVP 발표 바로가기)</a></span></h4>
-<p align="left">-CRUD 기능 및 주요페이지 뷰 완성 </p>
-  <h4 align="left">4주차:</h4>
-<p align="left">-채팅 기능 완료, 모바일 뷰 구현, Github Action을 통한 CI/CD 구현 </p>
-  <h4 align="left">5주차:
-    <span><a href="https://ribborn.kr">(🔗리본 사이트 바로가기)</a></span></h4>
-<p align="left">-SSE를 통한 알림 기능, 전반적 디자인 수정 및 버그 픽스, 홍보전략 수립, Route53과 CloudFront를 통한 https 환경 배포 </p>
-  <h4 align="left">6주차:</h4>
-<p align="left">-유저테스트를 통한 피드백 반영, refresh token 구현 예정 </p>
-</div>
-  
-<br>
-<br>
-<h3 align="left">⚒️프로젝트 아키텍처</h3>
-  
-<br>
+
+## [🎀 리본 바로가기 >](https://ribborn.kr)
+
 <br>
 
-<h3 align="left">📱FE 기술스택</h3>
-<div width="100" align="center">
+---
+
+<br>
+
+## 📅 프로젝트 기간
+
+- 2022.06.24 ~ 2022.08.05 (6주)
+
+<br>
+
+### 1주차 [( 리본 기획 노션 > )](https://www.notion.so/796c173690a54a0ca0bba7101e3ec43e)
+
+- 리폼 커뮤니티 리본 기획 확정
+
+### 2주차 [( 리본 API 설계 노션 > )](https://www.notion.so/API-3078c33df93d4bc180531687a99b2757)
+
+- API 및 와이어프레임 설계, 이를 기반으로 주요 기능 구현 시작
+
+### 3주차 [( 리본 MVP 발표 자료 > )](https://drive.google.com/file/d/1L6n1pqvSiUHsvMupHJFCmQKu9-3qasEd/view?usp=sharing)
+
+- CRUD 기능 및 주요 페이지 구현 완료
+- 디자인 적용
+
+### 4주차
+
+- 채팅 기능 구현 완료
+- 모바일 반응형 뷰 구현
+- Github Action을 통한 CI/CD 구현
+
+### 5주차 [( 리본 서비스 바로가기 > )](https://ribborn.kr)
+
+- SSE를 이용한 채팅 알림 기능 구현
+- 디자이너 피드백 반영하여 세부 디자인 수정
+- 테스트 및 버그 수정
+- Route53과 CloudFront를 통한 https 환경 배포
+
+### 6주차
+
+- 유저 테스트 피드백 반영
+- refresh token 구현 예정
+
+---
+
+<br>
+
+## 🏗 서비스 아키텍쳐
+
+> 이미지 첨부
+
+<br>
+
+### Front-end 기술 스택
+
+<br>
+
 <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=black">
+<img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black">
 <img src="https://img.shields.io/badge/html-E34F26?style=for-the-badge&logo=html5&logoColor=white">
 <img src="https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=css3&logoColor=white">
-<img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black">
-<br>
+
+<img src="https://img.shields.io/badge/Styled Components-F893D1?style=for-the-badge&logo=styledComponents&logoColor=white">
+<img src="https://img.shields.io/badge/Redux-764ABC?style=for-the-badge&logo=Redux&logoColor=white">
 <img src="https://img.shields.io/badge/StompJS-008000?style=for-the-badge&logo=stompjs&logoColor=white">
 <img src="https://img.shields.io/badge/SockJS-008000?style=for-the-badge&logo=sockjs&logoColor=white">
-<img src="https://img.shields.io/badge/Styled Components-F893D1?style=for-the-badge&logo=styledComponents&logoColor=white">
-<img src="https://img.shields.io/badge/Redux-764ABC?style=for-the-badge&logo=Redux&logoColor=white"> 
-<br>
+
 <img src="https://img.shields.io/badge/Notion-000000?style=for-the-badge&logo=Notion&logoColor=white">
 <img src="https://img.shields.io/badge/Github-000000?style=for-the-badge&logo=github&logoColor=white">
 <img src="https://img.shields.io/badge/Github%20Actions-000000?style=for-the-badge&logo=github-actions&logoColor=white">
-<br>
+
 <img src="https://img.shields.io/badge/AWS%20S3-FF9900?style=for-the-badge&logo=amazonaws&logoColor=white"/>
 <img src="https://img.shields.io/badge/AWS%20CloudFront-FF9900?style=for-the-badge&logo=amazonaws&logoColor=white"/>
 <img src="https://img.shields.io/badge/AWS%20Route%2053-FF9900?style=for-the-badge&logo=amazonaws&logoColor=white"/>
 
-</div>
-
 <br>
-<br>
-<h3 align="left">💻FE Stack version</h3>
-<div align="center">
-  
-  |name|ver|
-|------|---|
-| React |18.2.0|
-| react-router-dom |6.3.0|
-| styled-components |5.3.5|
-| styled-reset |4.4.1|
-| redux |4.2.0|
-| react-redux |8.0.2|
-| redux-logger |3.0.6|
-| redux-thunk |2.4.1|
-| redux-actions |2.6.5|
-| immer |9.0.15|
-| axios |0.27.2|
-| react-hook-form |7.33.0|
-| react-icons |4.4.0|
-| moment |2.29.4|
-| react-intersection-observer |9.3.5|
-| net |9.3.5|
-| sockjs-client |1.6.1|
-| stompjs |2.3.3|
 
-  
-</div>
-
-### 📩Git Flow
+| Name                        | Version |
+| --------------------------- | ------- |
+| React                       | 18.2.0  |
+| react-router-dom            | 6.3.0   |
+| styled-components           | 5.3.5   |
+| redux                       | 4.2.0   |
+| react-redux                 | 8.0.2   |
+| redux-logger                | 3.0.6   |
+| redux-thunk                 | 2.4.1   |
+| redux-actions               | 2.6.5   |
+| immer                       | 9.0.15  |
+| axios                       | 0.27.2  |
+| moment                      | 2.29.4  |
+| react-hook-form             | 7.33.0  |
+| styled-reset                | 4.4.1   |
+| react-icons                 | 4.4.0   |
+| react-intersection-observer | 9.3.5   |
+| net                         | 9.3.5   |
+| sockjs-client               | 1.6.1   |
+| stompjs                     | 2.3.3   |
 
 ---
 
-Branch 전략
-- master branch: 현재 서비스 중인 브랜치 <br>
-- release branch(main): master branch로 가기 전 merge 받아서 테스트해보는 브랜치 <br>
-~~- develop branch(현빈, 혜준 브랜치): 각자 개발하는 브랜치~~ <br>
-- develop branch(feature/#이슈번호/설명(설명은 필수 아님) 브랜치): 이슈에 대해 개발하는 브랜치 <br>
-- hotfix branch(hotfix/#이슈번호/설명(설명은 필수 아님) 브랜치): 긴급한 버그가 생길 시, master branch에서 pull을 해, 해당 버그만 수정하는 브랜치 <br>
+<br>
 
-### ✨Git 컨벤션
+## ⛓ Git Flow
+
+- master : 서비스 배포 브랜치
+- main : 배포 전에 테스트를 하기 위한 브랜치
+- ~~hyunbeen, hyejun : 각자 맡은 기능을 개발하는 브랜치~~
+
+  → 멘토링 피드백 수용하여 브랜치 기능별로 생성하는 것으로 변경
+
+- feature/#이슈번호/설명(선택 사항) : 단위 기능에 대해 개발하는 브랜치
+- hotfix/#이슈번호/설명(선택 사항) : master 브랜치 배포 후 치명적 버그 발생 시 긴급 수정하는 브랜치.
+
+<br>
 
 ---
 
-```
-FEAT:    새로운 기능을 추가할 경우
-FIX:     버그를 고친 경우
-STYLE:   코드 포맷 변경, 간단한 수정, 코드 변경이 없는 경우
-REFACTOR: 프로덕션 코드 리팩토링
-DOCS:    문서를 수정한 경우
-RENAME:  파일 혹은 폴더명 수정 및 이동
-REMOVE:  파일 삭제
-CHORE:    빌드 업무 수정(ex> dependency 추가)
-```
+<br>
+
+## 📝 Commit Message Convention
+
+<br>
+
+| Type     | Description                                        |
+| -------- | -------------------------------------------------- |
+| FEAT     | 새로운 기능을 추가하는 경우                        |
+| FIX      | 버그를 고친 경우                                   |
+| STYLE    | 코드 포맷 변경, 간단한 수정, 코드 변경이 없는 경우 |
+| DOCS     | 문서를 수정한 경우                                 |
+| REFACTOR | 프로덕션 코드 리팩토링                             |
+| RENAME   | 파일, 폴더명 수정 및 이동한 경우                   |
+| REMOVE   | 파일을 삭제한 경우                                 |
+| CHORE    | 빌드 업무 수정 (e.g., dependency 추가)             |
+
+<br>
 
 ```bash
 type: subject
 
 body
+--------------------------------------------------------------------
+type: subject
+    커밋 타입과 내용 작성
+    e.g. FEAT: 로그인 기능 추가
 
-type: subject 커밋 타입과 내용 자세히 적어주기
-  ex) FEAT: 로그인 기능 추가
-
-type은 영문 대문자로 적고, 제목은 50자를 넘기지 않는다. 제목에서는 마침표를 쓰지 않는다.
-body는 필수 요소가 아니며 제목과 구분되도록 한칸 띄어서 작성한다.
+- type은 영문 대문자로 적고, 50자를 넘기지 않는다.
+- 제목에서는 마침표를 쓰지 않는다.
+- body는 선택 사항이며, 제목과 구분되도록 한칸 띄어서 작성한다.
 ```
-  
-  <br>
-  <br>
- <h3 align="left">🤔FE Trouble Shooting</h3>  
+
+<br>
+
+---
+
+<br>
+ 
+ ## 🛠 Trouble Shooting
  
   <details>
     <summary>무한스크롤 오류</summary>
@@ -141,54 +174,73 @@ body는 필수 요소가 아니며 제목과 구분되도록 한칸 띄어서 �
       </div>
    </details>
 
-  <br>
-  <br>
-  
-   <h3 align="left">🙆‍♀️FE 유저피드백 개선사항</h3>  
+<br>
+
+---
+
+<br>
+ 
+## 👨‍👩‍👧‍👦 유저 피드백 개선사항
  
   <details>
-    <summary>용량이 큰 이미지 업로드 시 렉이 걸립니다</summary>
+    <summary>용량이 큰 이미지 업로드 시 렉이 걸립니다.</summary>
     <div markdown="1">
-      <br>
       <ul>
         <li>browser-image-compression을 적용해서 업로드된 이미지를 압축해 저장하고 미리보기에 보여줌(구현중)</li>
       </ul>
     </div>
   </details>
+
   <details>
-    <summary>커뮤니티랑 룩북 게시판의 차이를 인지하기가 어렵습니다</summary>
+    <summary>커뮤니티랑 룩북 게시판의 차이를 인지하기가 어렵습니다.</summary>
     <div markdown="1">
-      <br>
       <ul>
         <li>각 게시판별 상단에 해당 게시판 사용 안내 문구 추가(구현중)</li>
       </ul>
     </div>
   </details>
+
   <details>
-    <summary>비밀번호 확인이 완료되었는지 유무를 가입하기 버튼을 누르기전에 판별되었으면 좋겠습니다</summary>
+    <summary>비밀번호 확인이 완료되었는지 유무를 가입하기 버튼을 누르기 전에 판별되었으면 좋겠습니다.</summary>
     <div markdown="1">
-      <br>
       <ul>
         <li>가입하기 버튼을 안 눌러도 비밀번호와 비밀번호 확인이 일치한지 확인(구현중)</li>
       </ul>
   </div>
   </details>
+
   <details>
-    <summary>게시글 작성 시 작성하기 버튼을 누르려면 다시 맨 위로 스크롤 해야함</summary>
+    <summary>게시글 작성 시 작성하기 버튼을 누르려면 다시 맨 위로 스크롤 해야해서 불편합니다.</summary>
     <div markdown="1">
-      <br>
       <ul>
-        <li>작성하기 버튼에 fixed positon 적용(구현중)</li>
+        <li>작성하기 버튼 고정되도록 수정(구현중)</li>
       </ul>
     </div>
  </details>
   
-  <br>
-  <br>
-  
- <h3 align="left">👨‍💻FE 팀원 안내</h3>  
-  
+ <br>
+
+---
+
+<br>
+
+## 👨‍💻 Front-end 팀원 소개
+
+<br>
+ 
 |   Name  | GitHub | 자기소개 |
 | ----- | --- | --- |
 | 김현빈 | https://github.com/treblabin | 자기소개 |
 | 차혜준 | https://github.com/nujeyh | 자기소개 |
+
+<br>
+
+## 👨‍💻 Back-end 팀원 소개
+
+### [Back-end GitHub >](https://github.com/team-ribbon/ribborn-backend)
+
+| Name   | GitHub                           |
+| ------ | -------------------------------- |
+| 박성규 | https://github.com/ParkSungGyu1  |
+| 박성렬 | https://github.com/songryel-park |
+| 이정우 | https://github.com/lky8967       |

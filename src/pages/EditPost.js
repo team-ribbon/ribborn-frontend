@@ -91,23 +91,32 @@ const EditPost = () => {
   const onSubmit = async () => {
     if (+category === 0) {
       setError({ ...error, categoryError: "리폼 종류를 선택해주세요." });
+      document
+        .getElementById("categorySelectDiv")
+        .scrollIntoView({ behavior: "smooth", block: "center" });
       return false;
     }
 
     if (type === "reform" && +region === 0) {
       setError({ ...error, regionError: "지역을 선택해주세요." });
+      document
+        .getElementById("categorySelectDiv")
+        .scrollIntoView({ behavior: "smooth", block: "center" });
       return false;
     }
 
     if (type !== "lookbook" && title.length < 1) {
       setError({ ...error, titleError: "제목을 입력해주세요." });
-      titleRef.current.focus();
+      titleRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
       return false;
     }
 
     if (contentRef.current.value.length < 1) {
       setError({ ...error, contentError: "내용을 입력해주세요." });
-      contentRef.current.focus();
+      contentRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
       return false;
     }
 
@@ -117,6 +126,9 @@ const EditPost = () => {
       previewList.length === 0
     ) {
       setError({ ...error, fileError: "사진을 선택해주세요." });
+      document
+        .getElementById("addPicture")
+        .scrollIntoView({ behavior: "smooth", block: "center" });
       return false;
     }
 
@@ -234,15 +246,6 @@ const EditPost = () => {
   return (
     <Wrap>
       <FormWrap>
-        <SubmitBtnDiv>
-          <SubmitBtn
-            onClick={() => {
-              onSubmit();
-            }}
-            type="submit"
-            value="발행"
-          />
-        </SubmitBtnDiv>
         <SelectDiv>
           <CategorySelect
             setCategory={setCategory}
@@ -349,6 +352,15 @@ const EditPost = () => {
           />
         </InputWrap>
         {contentError && <ErrorMessage>{contentError}</ErrorMessage>}
+        <SubmitBtnDiv id="categorySelectDiv">
+          <SubmitBtn
+            onClick={() => {
+              onSubmit();
+            }}
+            type="submit"
+            value="발행"
+          />
+        </SubmitBtnDiv>
       </FormWrap>
     </Wrap>
   );
@@ -387,7 +399,7 @@ const SubmitBtn = styled.input`
   height: 74px;
   border: none;
   color: #fff;
-  margin-bottom: 100px;
+  margin: 50px 0 0 0;
   background-color: ${({ theme }) => theme.colors.orange};
   font-size: ${({ theme }) => theme.fontSizes.l};
   cursor: pointer;

@@ -203,6 +203,15 @@ type: subject
       해결 방안: 게시글을 불러오는 useEffect에 의존성배열을 page만 넣고, page가 0일 때 카테고리나 정렬순이 변경되면 게시글을 불러오도록 예외처리해줌
       </div>
    </details>
+   
+  <details>
+    <summary>용량이 큰 이미지 업로드 시 렉이 걸립니다.</summary>
+    <div markdown="1">
+      문제 상황: 게시물 작성하기 단계에서 용량이 큰 (17MB 이미지로 실험) 이미지를 업로드하는 경우, 클라이언트 측에서 브라우저 성능이 저하되는 문제 <br> <br>
+      문제 이유: 이미지 용량이 아무리 커도 압축을 진행하지 않고 그대로 사용하고 있었음. 올린 이미지를 미리보기로 보여주는 div의 key값이 file의 값 자체를 그대로 써서 key가 지나치게 길어짐 <br> <br>
+      해결 방안: browser-image-compression을 사용하여 이미지를 2MB 이하로 압축시킴. 이 압축시킨 이미지를 미리보기로 보여주고, 서버에도 요청을 보냄. div의 key값을 변경
+    </div>
+  </details>
 
 <br>
 
@@ -210,15 +219,6 @@ type: subject
 
 ## 👨‍👩‍👧‍👦 유저 피드백 개선사항
  
-  <details>
-    <summary>용량이 큰 이미지 업로드 시 렉이 걸립니다.</summary>
-    <div markdown="1">
-      <ul>
-        <li>browser-image-compression을 적용해서 업로드된 이미지를 압축해 저장하고 미리보기에 보여줌(구현중)</li>
-      </ul>
-    </div>
-  </details>
-
   <details>
     <summary>커뮤니티랑 룩북 게시판의 차이를 인지하기가 어렵습니다.</summary>
     <div markdown="1">

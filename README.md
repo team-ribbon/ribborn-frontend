@@ -204,6 +204,16 @@ type: subject
       </div>
    </details>
    
+     <details>
+    <summary>채팅 알림 기능</summary>
+      <div markdown="1">
+        <br>
+      문제 상황: 최초에 webSocket을 이용하여 알림 기능 구현을 시도하였으나 webSocket이 양방향 통신인 것에 비해, 채팅 알림은 서버에서 클라이언트로의 단방향 통신만을 요구하였기 때문에, 이에 서버 리소스 낭비를 우려하여 새로운 방법을 모색함 <br> <br>
+      해결 방안: webSocket 이외의 통신 방법을 찾아본 결과, 서버에서 클라이언트로의 단방향 통신만을 지원하는  SSE를 알림에 사용하는 것이 적합하다고 판단 <br> <br>
+      결과: webSocket과 달리 SSE는 별도의 프로토콜을 사용하지 않고 HTTP를 이용하기 때문에 webSocket을 사용할 때 보다 리소스 낭비를 감소시킬 수 있었음
+      </div>
+   </details>
+   
   <details>
     <summary>용량이 큰 이미지 업로드 시 렉 걸림</summary>
     <div markdown="1">

@@ -205,7 +205,7 @@ type: subject
    </details>
    
   <details>
-    <summary>용량이 큰 이미지 업로드 시 렉 걸림</summary>
+    <summary>용량이 큰 이미지 업로드 시 브라우저 성능 저하되는 문제</summary>
     <div markdown="1">
         <br>
       문제 상황: 게시물 작성하기 단계에서 용량이 큰 (17MB 이미지로 실험) 이미지를 업로드하는 경우, 클라이언트 측에서 브라우저 성능이 저하되는 문제 <br> <br>

@@ -1,22 +1,16 @@
 # 리폼 커뮤니티 리본
 
-<img height="250px" src="https://user-images.githubusercontent.com/105181604/181456826-d342485e-99c7-4f0c-8e28-b8c9870b9195.png">
+<img height="300px" src="https://user-images.githubusercontent.com/105181604/181456826-d342485e-99c7-4f0c-8e28-b8c9870b9195.png">
 
-<br>
-
-## [🎀 리본 바로가기 >](https://ribborn.kr)
+### [🎀 리본 바로가기 >](https://ribborn.kr)
 
 <br>
 
 ---
 
-<br>
-
 ## 📅 프로젝트 기간
 
 - 2022.06.24 ~ 2022.08.05 (6주)
-
-<br>
 
 ### 1주차 [( 리본 기획 노션 > )](https://www.notion.so/796c173690a54a0ca0bba7101e3ec43e)
 
@@ -49,9 +43,7 @@
 - 유저 테스트 피드백 반영
 - refresh token 구현 예정
 
----
-
-<br>
+----
 
 ## 🏗 서비스 아키텍쳐
 
@@ -63,23 +55,28 @@
 
 <br>
 
+<div>
 <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=black">
 <img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black">
 <img src="https://img.shields.io/badge/html-E34F26?style=for-the-badge&logo=html5&logoColor=white">
 <img src="https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=css3&logoColor=white">
-
+</div>
+<div>
 <img src="https://img.shields.io/badge/Styled Components-F893D1?style=for-the-badge&logo=styledComponents&logoColor=white">
 <img src="https://img.shields.io/badge/Redux-764ABC?style=for-the-badge&logo=Redux&logoColor=white">
 <img src="https://img.shields.io/badge/StompJS-008000?style=for-the-badge&logo=stompjs&logoColor=white">
 <img src="https://img.shields.io/badge/SockJS-008000?style=for-the-badge&logo=sockjs&logoColor=white">
-
+</div>
+<div>
 <img src="https://img.shields.io/badge/Notion-000000?style=for-the-badge&logo=Notion&logoColor=white">
 <img src="https://img.shields.io/badge/Github-000000?style=for-the-badge&logo=github&logoColor=white">
 <img src="https://img.shields.io/badge/Github%20Actions-000000?style=for-the-badge&logo=github-actions&logoColor=white">
-
+</div>
+<div>
 <img src="https://img.shields.io/badge/AWS%20S3-FF9900?style=for-the-badge&logo=amazonaws&logoColor=white"/>
 <img src="https://img.shields.io/badge/AWS%20CloudFront-FF9900?style=for-the-badge&logo=amazonaws&logoColor=white"/>
 <img src="https://img.shields.io/badge/AWS%20Route%2053-FF9900?style=for-the-badge&logo=amazonaws&logoColor=white"/>
+</div>
 
 <br>
 
@@ -106,8 +103,6 @@
 
 ---
 
-<br>
-
 ## ⛓ Git Flow
 
 - master : 서비스 배포 브랜치
@@ -122,8 +117,6 @@
 <br>
 
 ---
-
-<br>
 
 ## 📝 Commit Message Convention
 
@@ -160,8 +153,6 @@ type: subject
 
 ---
 
-<br>
- 
  ## 🛠 Trouble Shooting
  
   <details>
@@ -178,7 +169,6 @@ type: subject
 
 ---
 
-<br>
  
 ## 👨‍👩‍👧‍👦 유저 피드백 개선사항
  
@@ -221,8 +211,6 @@ type: subject
  <br>
 
 ---
-
-<br>
 
 ## 👨‍💻 Front-end 팀원 소개
 

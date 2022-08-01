@@ -97,6 +97,7 @@
 | styled-reset                | 4.4.1   |
 | react-icons                 | 4.4.0   |
 | react-intersection-observer | 9.3.5   |
+| browser-image-compression   | 2.0.0   |
 | net                         | 9.3.5   |
 | sockjs-client               | 1.6.1   |
 | stompjs                     | 2.3.3   |

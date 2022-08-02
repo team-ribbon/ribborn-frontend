@@ -172,8 +172,12 @@ const Date = styled.span`
   margin-top: 16px;
 `;
 const ChattingBtn = styled(MainBtn)`
-  margin: 30px 0 0 16px;
+  margin: 30px auto 0 auto;
   width: 314px;
+  max-width: calc(100vw - 32px);
+  @media ${({ theme }) => theme.device.mobile} {
+    margin: 30px 0 0 16px;
+  }
 `;
 const BodyWrap = styled.div`
   display: flex;

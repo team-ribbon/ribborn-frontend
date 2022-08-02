@@ -45,12 +45,14 @@ const InfoSection = ({ reform, region, category }) => {
 };
 
 const InfoDiv = styled.div`
+  max-width: 100vw;
   width: 314px;
   height: ${(props) => (props.reform ? "154px" : "102px")};
   background: #fafafa;
   border-radius: 8px;
   margin: 48px auto 0 auto;
   @media ${({ theme }) => theme.device.mobile} {
+    width: 314px;
     margin: ${(props) =>
       props.reform ? "48px 16px auto 0" : "48px 0 auto 16px"};
   }
@@ -77,7 +79,7 @@ const InfoContentSpan = styled.span`
 `;
 
 const ReformCategoryDiv = styled.div`
-  margin: 27px 30px auto 51px;
+  margin: 27px 25px auto 46px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -95,7 +97,7 @@ const VerticalLineDiv = styled.div`
 `;
 
 const LocationDiv = styled.div`
-  margin: 27px 51px auto 30px;
+  margin: 27px 46px auto 25px;
   display: flex;
   flex-direction: column;
   justify-content: center;

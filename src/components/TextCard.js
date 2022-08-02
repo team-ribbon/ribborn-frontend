@@ -148,6 +148,11 @@ const TitleDiv = styled.div`
 `;
 
 const Title = styled.p`
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
   font-size: ${({ theme }) => theme.fontSizes.m};
   font-weight: 700;
   margin: 20px 5px 10px 0;

@@ -7,7 +7,7 @@ export const Input = styled.input`
       invalid ? theme.colors.orange : theme.colors.gray};
   border-radius: 15px;
   padding: ${({ hasCount }) =>
-    hasCount ? "30px 95px 30px 20px" : "25px 20px"};
+    hasCount ? "25px 95px 25px 20px" : "25px 20px"};
   font-size: ${({ theme }) => theme.fontSizes.l};
   &:focus {
     outline: ${({ theme, invalid }) =>

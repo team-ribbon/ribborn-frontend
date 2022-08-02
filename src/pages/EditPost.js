@@ -54,9 +54,9 @@ const EditPost = () => {
   const { type } = useParams();
   const { id } = useParams();
 
-  React.useEffect(() => {
-    if (!isLogin) {
-      navigate("/");
+  useEffect(() => {
+    if (isLogin === false) {
+      navigate("/login");
     }
   }, [isLogin]);
 
@@ -176,7 +176,7 @@ const EditPost = () => {
     if (imageUrl.length > 0) {
       key = { ...key, imageUrl: imageUrl };
     }
-    if (files.length === 0 || deleteImage.length > 0) {
+    if (files.length === 0 && deleteImage.length > 0) {
       key = { ...key, deleteImage };
     }
     if (type === "reform") {

@@ -10,12 +10,12 @@ import {
   getRoomListDB,
 } from "../redux/modules/chat";
 
-// 채팅 모달 > 채팅방 > 채팅 내역
+// 채팅 > 채팅방 > 채팅 내역
 const ChatList = () => {
   const dispatch = useDispatch();
   const { roomId } = useParams();
   const scrollRef = useRef();
-  const messageList = useSelector((state) => state.chat.messageList);
+  let messageList = useSelector((state) => state.chat.messageList);
   const user = useSelector((state) => state.user.user);
 
   useEffect(() => {
@@ -30,6 +30,17 @@ const ChatList = () => {
     }
   }, [messageList]);
 
+  (() => {
+    let slicedList = [];
+    messageList.forEach((message) => {
+      slicedList = [...slicedList, message];
+      if (message.type === "STATUS" && message.senderName === user.username) {
+        slicedList = [];
+      }
+    });
+    messageList = slicedList;
+  })();
+
   return (
     <MessageWrap>
       {messageList.map((chat, index) => {
@@ -43,17 +54,22 @@ const ChatList = () => {
                 {moment(chat.date).format("YYYY.MM.DD")}
               </ChatListDate>
             )}
-            <Message key={chat.messageId} me={isMe}>
-              {(chat.senderName !== messageList[index - 1]?.senderName ||
-                date !==
-                  moment(messageList[index - 1]?.date).format("HH:mm")) && (
-                <NickAndDate me={isMe}>
-                  <Nickname>{chat?.senderNickname}</Nickname>
-                  <Date me={isMe}>{date}</Date>
-                </NickAndDate>
-              )}
-              <Bubble me={isMe}>{chat?.message}</Bubble>
-            </Message>
+            {chat.type === "TALK" ? (
+              <Message key={chat.messageId} me={isMe}>
+                {(chat.senderName !== messageList[index - 1]?.senderName ||
+                  messageList[index - 1].type === "STATUS" ||
+                  date !==
+                    moment(messageList[index - 1]?.date).format("HH:mm")) && (
+                  <NickAndDate me={isMe}>
+                    <Nickname>{chat?.senderNickname}</Nickname>
+                    <Date me={isMe}>{date}</Date>
+                  </NickAndDate>
+                )}
+                <Bubble me={isMe}>{chat?.message}</Bubble>
+              </Message>
+            ) : (
+              <Status>{chat?.message}</Status>
+            )}
           </>
         );
       })}
@@ -107,6 +123,10 @@ const ChatListDate = styled.div`
   text-align: center;
   margin: 30px 0;
   font-size: ${({ theme }) => theme.fontSizes.l};
+`;
+const Status = styled(ChatListDate)`
+  font-size: ${({ theme }) => theme.fontSizes.m};
+  color: ${({ theme }) => theme.colors.gray};
 `;
 
 export default ChatList;

@@ -2,19 +2,25 @@ import SockJS from "sockjs-client";
 import Stomp from "stompjs";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 
-import { addMessage, updateRoomMessage } from "../redux/modules/chat";
+import {
+  addMessage,
+  getRoomListDB,
+  updateRoomMessage,
+} from "../redux/modules/chat";
 import ChatList from "./ChatList";
 import { Input } from "../elements/Inputs";
 import { MainBtn } from "../elements/Buttons";
 import LoadingSpinner from "./LoadingSpinner";
+import { apis } from "../shared/api";
 
 // 채팅 모달 > 채팅방
 const ChatRoom = () => {
   const dispatch = useDispatch();
   const location = useLocation();
+  const navigate = useNavigate();
   const { roomId } = useParams();
   const inputRef = useRef();
   let stompClient = useRef(null);
@@ -24,6 +30,7 @@ const ChatRoom = () => {
   // 웹소켓 연결 요청 & 구독 요청
   const socketConnect = () => {
     const webSocket = new SockJS(`${process.env.REACT_APP_CHAT_URL}/wss-stomp`);
+
     stompClient.current = Stomp.over(webSocket);
 
     stompClient.current.debug = null;
@@ -99,6 +106,14 @@ const ChatRoom = () => {
     };
   }, [roomId]);
 
+  const exitRoom = async () => {
+    const confirm = window.confirm("채팅방을 나가시겠어요?");
+    if (confirm) {
+      await apis.exitRoom(roomId);
+      dispatch(getRoomListDB()).then(() => navigate(-1));
+    }
+  };
+
   return (
     <>
       {isLoading && <LoadingSpinner />}
@@ -115,6 +130,7 @@ const ChatRoom = () => {
         </form>
       </ChatInputWrap>
       <ChatList />
+      <ExitButton onClick={exitRoom}>나가기</ExitButton>
     </>
   );
 };
@@ -142,6 +158,17 @@ const ChatInput = styled(Input)`
 const SendButton = styled(MainBtn)`
   padding: 10px 20px;
   font-size: ${({ theme }) => theme.fontSizes.m};
+`;
+const ExitButton = styled(SendButton)`
+  color: ${({ theme }) => theme.colors.black};
+  background-color: #fff;
+  border: solid 1px ${({ theme }) => theme.colors.black};
+  font-size: ${({ theme }) => theme.fontSizes.s};
+  padding: 5px 10px;
+  position: absolute;
+  z-index: 2;
+  top: 18px;
+  right: 60px;
 `;
 
 export default ChatRoom;

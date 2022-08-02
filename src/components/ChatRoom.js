@@ -10,11 +10,12 @@ import {
   getRoomListDB,
   updateRoomMessage,
 } from "../redux/modules/chat";
+import { apis } from "../shared/api";
 import ChatList from "./ChatList";
+import LoadingSpinner from "./LoadingSpinner";
+
 import { Input } from "../elements/Inputs";
 import { MainBtn } from "../elements/Buttons";
-import LoadingSpinner from "./LoadingSpinner";
-import { apis } from "../shared/api";
 
 // 채팅 모달 > 채팅방
 const ChatRoom = () => {
@@ -94,6 +95,7 @@ const ChatRoom = () => {
   useEffect(() => {
     setIsLoading(true);
     inputRef.current.value = "";
+    dispatch(getRoomListDB());
 
     // 채팅방 전환 시 기존 연결 해제 후 새 연결 요청
     if (stompClient.current) {

@@ -54,9 +54,9 @@ const EditPost = () => {
   const { type } = useParams();
   const { id } = useParams();
 
-  React.useEffect(() => {
-    if (!isLogin) {
-      navigate("/");
+  useEffect(() => {
+    if (isLogin === false) {
+      navigate("/login");
     }
   }, [isLogin]);
 

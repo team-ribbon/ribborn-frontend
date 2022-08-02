@@ -14,7 +14,7 @@ export const clearUserInfo = createAction(CLEAR_USER_INFO);
 // initialState
 const initialState = {
   user: null,
-  isLogin: false,
+  isLogin: null,
 };
 
 // Middleware
@@ -86,7 +86,7 @@ export default handleActions(
     [CLEAR_USER_INFO]: (state) =>
       produce(state, (draft) => {
         draft.user = initialState.user;
-        draft.isLogin = initialState.isLogin;
+        draft.isLogin = false;
       }),
   },
   initialState

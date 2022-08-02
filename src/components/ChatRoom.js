@@ -87,18 +87,19 @@ const ChatRoom = () => {
     dispatch(
       updateRoomMessage({ ...messageObj, index: location.state.index ?? 0 })
     );
+
     event.target.chat.value = null;
   };
 
   useEffect(() => {
     setIsLoading(true);
+    inputRef.current.value = "";
+
     // 채팅방 전환 시 기존 연결 해제 후 새 연결 요청
     if (stompClient.current) {
       socketDisconnect();
     }
     socketConnect();
-
-    inputRef.current.value = "";
 
     // 언마운트 시 연결 해제
     return () => {
@@ -106,6 +107,7 @@ const ChatRoom = () => {
     };
   }, [roomId]);
 
+  // 채팅방 나가기
   const exitRoom = async () => {
     const confirm = window.confirm("채팅방을 나가시겠어요?");
     if (confirm) {

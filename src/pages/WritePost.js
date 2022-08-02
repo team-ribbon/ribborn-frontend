@@ -368,7 +368,7 @@ const GuideContent = styled.span`
 const IntroLength = styled.span`
   position: absolute;
   right: 19px;
-  top: 45px;
+  top: 52px;
   font-weight: 700;
   font-size: ${({ theme }) => theme.fontSizes.l};
   line-height: 24px;
@@ -385,7 +385,7 @@ const InputWrap = styled.div`
 const TitleLength = styled.span`
   position: absolute;
   right: 19px;
-  top: 45px;
+  top: 52px;
   font-weight: 700;
   font-size: ${({ theme }) => theme.fontSizes.l};
   line-height: 24px;

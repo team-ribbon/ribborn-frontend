@@ -25,7 +25,7 @@ const CardA = ({ postObj, type, reform, inViewRef }) => {
       </ImageWrap>
       <Content>
         <Title>{postObj.title}</Title>
-        {type === "A" && <p>@{postObj.nickname}</p>}
+        {type === "A" && <Nickname>@{postObj.nickname}</Nickname>}
         {type === "C" && (
           <Tag process={postObj?.process}>
             {postObj.process === "after"
@@ -100,7 +100,6 @@ const Bookmark = styled.button`
 `;
 const Content = styled.div`
   display: flex;
-  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
   margin: 15px 0;
@@ -118,15 +117,26 @@ const Content = styled.div`
     font-weight: 700;
   }
 `;
+const Nickname = styled.p`
+  white-space: nowrap;
+`;
 const Region = styled.div`
   margin: -10px;
   padding-left: 10px;
   font-size: ${({ theme }) => theme.fontSizes.s};
 `;
 const Title = styled.p`
+  font-weight: 700;
+  white-space: break-spaces;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
   font-size: ${({ theme }) => theme.fontSizes.l};
 `;
 const Tag = styled.div`
+  white-space: nowrap;
   font-size: ${({ theme }) => theme.fontSizes.s};
   padding: 7px 13.5px 6px 13.5px;
   border-radius: 8px;

@@ -136,8 +136,8 @@ const WritePost = () => {
   }, []);
 
   useEffect(() => {
-    if (!isLogin) {
-      navigate("/");
+    if (isLogin === false) {
+      navigate("/login");
     }
   }, [isLogin]);
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { cleanUpMyPage, getMyPageDB } from "../redux/modules/userPage";
@@ -22,17 +22,17 @@ function MyPage() {
   const [infoChange, SetInfoChange] = useState(false);
   const [category, setCategory] = useState("all");
 
-  React.useEffect(() => {
-    if (!isLogin) {
-      navigate("/");
+  useEffect(() => {
+    if (isLogin === false) {
+      navigate("/login");
     }
   }, [isLogin]);
-  React.useEffect(() => {
+  useEffect(() => {
     if (!infoChange) {
       dispatch(getMyPageDB(category));
     }
   }, [infoChange]);
-  React.useEffect(() => {
+  useEffect(() => {
     return () => {
       dispatch(cleanUpMyPage());
     };

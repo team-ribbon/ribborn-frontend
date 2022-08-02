@@ -3,9 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation, useMatch } from "react-router-dom";
 import styled from "styled-components";
 
-import { SmileChatSVG } from "../elements/SVG";
 import { setNotification } from "../redux/modules/chat";
-import { apis } from "../shared/api";
+import { SmileChatSVG } from "../elements/SVG";
 
 // 우측 하단 채팅 플로팅 버튼
 const ChatFloat = () => {
@@ -15,13 +14,6 @@ const ChatFloat = () => {
   const notification = useSelector((state) => state.chat.notification);
   const userId = useSelector((state) => state.user.user?.id);
   const eventSource = useRef();
-
-  useEffect(() => {
-    (async () => {
-      const response = await apis.getNotification();
-      console.log(response.data);
-    })();
-  }, []);
 
   useEffect(() => {
     if (userId) {
@@ -39,11 +31,13 @@ const ChatFloat = () => {
       eventSource.current.onopen = (event) => {
         console.log("연결 성공");
       };
+
       // 에러 발생 시 실행
       // eventSource.current.onerror = (event) => {
       //   console.log("에러");
       //   // eventSource.close();
       // };
+
       // 서버에서 보내는 데이터 받기
       eventSource.current.onmessage = (message) => {
         if (!message.data.includes("EventStream Created")) {

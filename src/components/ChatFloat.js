@@ -5,6 +5,7 @@ import styled from "styled-components";
 
 import { SmileChatSVG } from "../elements/SVG";
 import { setNotification } from "../redux/modules/chat";
+import { apis } from "../shared/api";
 
 // 우측 하단 채팅 플로팅 버튼
 const ChatFloat = () => {
@@ -13,8 +14,14 @@ const ChatFloat = () => {
   const isChatModalOn = useMatch("/chat/*");
   const notification = useSelector((state) => state.chat.notification);
   const userId = useSelector((state) => state.user.user?.id);
-
   const eventSource = useRef();
+
+  useEffect(() => {
+    (async () => {
+      const response = await apis.getNotification();
+      console.log(response.data);
+    })();
+  }, []);
 
   useEffect(() => {
     if (userId) {
@@ -27,15 +34,16 @@ const ChatFloat = () => {
           },
         }
       );
+
       //연결 성공 시 실행
       eventSource.current.onopen = (event) => {
         console.log("연결 성공");
       };
       // 에러 발생 시 실행
-      eventSource.current.onerror = (event) => {
-        console.log("에러");
-        // eventSource.close();
-      };
+      // eventSource.current.onerror = (event) => {
+      //   console.log("에러");
+      //   // eventSource.close();
+      // };
       // 서버에서 보내는 데이터 받기
       eventSource.current.onmessage = (message) => {
         if (!message.data.includes("EventStream Created")) {
@@ -47,7 +55,6 @@ const ChatFloat = () => {
     }
     return () => {
       if (eventSource.current) {
-        console.log("연결종료");
         eventSource.current.close();
         eventSource.current = null;
       }

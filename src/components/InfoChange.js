@@ -9,7 +9,12 @@ import { AddressCategory } from "../shared/AddressCategory";
 import { Textarea } from "../elements/Textarea";
 import { HelpText, Input, InputTitle, Required } from "../elements/Inputs";
 import CustomSelect from "../elements/CustomSelect";
-import { BlackBtn } from "../elements/Buttons";
+import {
+  BlackBtn,
+  FixedSizeSubBtn,
+  SubBtnActive,
+  FixedSizeMainBtn,
+} from "../elements/Buttons";
 
 const InfoChange = ({ change, user, setCategory }) => {
   const dispatch = useDispatch();
@@ -28,7 +33,7 @@ const InfoChange = ({ change, user, setCategory }) => {
     let sendData = null;
     if (passwordChange) {
       // password validation check
-      if (data.currentPassword !== "") {
+      if (data.currentPassword === "") {
         setError(
           "currentPassword",
           { message: "현재 비밀번호를 입력해주세요!" },
@@ -36,7 +41,7 @@ const InfoChange = ({ change, user, setCategory }) => {
         );
         return false;
       }
-      if (data.newPassword !== "") {
+      if (data.newPassword === "") {
         setError(
           "newPassword",
           { message: "새로운 비밀번호를 입력해주세요!" },
@@ -131,96 +136,121 @@ const InfoChange = ({ change, user, setCategory }) => {
   return (
     <Template>
       <ChangeTitle>회원 정보 수정</ChangeTitle>
+      <div>
+        <TypeBtn
+          onClick={() => {
+            setPasswordChange(false);
+          }}
+          active={!passwordChange}
+        >
+          회원 정보 수정
+        </TypeBtn>
+        <TypeBtn
+          onClick={() => {
+            setPasswordChange(true);
+          }}
+          active={passwordChange}
+        >
+          비밀번호 수정
+        </TypeBtn>
+      </div>
       <Form onSubmit={handleSubmit(onValid)}>
-        <InputTitle>이메일 주소</InputTitle>
-        <DisabledInput disabled value={user.username} />
-        <HelpText></HelpText>
-        <InputTitle>
-          {user.userType === 1 ? "이름 또는 업체이름 (닉네임 가능)" : "닉네임"}
-          <Required>●</Required>
-        </InputTitle>
-        <Input
-          {...register("nickname", {
-            required:
-              user.userType === 1
-                ? "이름 또는 업체이름을 입력하세요."
-                : "닉네임을 입력하세요.",
-            pattern: {
-              value: /^[가-힣|a-z|A-Z|0-9|&*()]+$/,
-              message: "업체명은 한글, 영어, 숫자, &*()만 입력 할 수 있습니다.",
-            },
-            minLength: {
-              value: 2,
-              message: "2자 이상 입력해주세요.",
-            },
-            maxLength: {
-              value: 12,
-              message: "12자까지만 입력할 수 있습니다.",
-            },
-          })}
-          defaultValue={user.nickname}
-          autoComplete="off"
-        />
-        <HelpText>{errors?.nickname?.message}</HelpText>
-        {user.userType === 1 ? (
+        {!passwordChange ? (
           <div>
+            <InputTitle>이메일 주소</InputTitle>
+            <DisabledInput disabled value={user.username} />
+            <HelpText></HelpText>
             <InputTitle>
-              연락처<Required>●</Required>
+              {user.userType === 1
+                ? "이름 또는 업체이름 (닉네임 가능)"
+                : "닉네임"}
+              <Required>●</Required>
             </InputTitle>
             <Input
-              {...register("phoneNum", {
-                required: "연락처를 입력해주세요.",
+              {...register("nickname", {
+                required:
+                  user.userType === 1
+                    ? "이름 또는 업체이름을 입력하세요."
+                    : "닉네임을 입력하세요.",
                 pattern: {
-                  value: /^([0-9]{9,11})$/,
-                  message: "전화번호 형식이 아닙니다.",
+                  value: /^[가-힣|a-z|A-Z|0-9|&*()]+$/,
+                  message:
+                    "업체명은 한글, 영어, 숫자, &*()만 입력 할 수 있습니다.",
+                },
+                minLength: {
+                  value: 2,
+                  message: "2자 이상 입력해주세요.",
+                },
+                maxLength: {
+                  value: 12,
+                  message: "12자까지만 입력할 수 있습니다.",
                 },
               })}
-              defaultValue={user.phoneNum}
+              defaultValue={user.nickname}
               autoComplete="off"
             />
-            <HelpText>{errors?.phoneNum?.message}</HelpText>
+            <HelpText>{errors?.nickname?.message}</HelpText>
+            {user.userType === 1 ? (
+              <div>
+                <InputTitle>
+                  연락처<Required>●</Required>
+                </InputTitle>
+                <Input
+                  {...register("phoneNum", {
+                    required: "연락처를 입력해주세요.",
+                    pattern: {
+                      value: /^([0-9]{9,11})$/,
+                      message: "전화번호 형식이 아닙니다.",
+                    },
+                  })}
+                  defaultValue={user.phoneNum}
+                  autoComplete="off"
+                />
+                <HelpText>{errors?.phoneNum?.message}</HelpText>
 
-            <InputTitle>
-              사업자등록번호<Required>●</Required>
-            </InputTitle>
-            <Input
-              {...register("companyNum", {
-                required: "사업자등록번호를 입력해주세요.",
-                pattern: {
-                  value: /^\d\d\d\d\d\d\d\d\d\d$/,
-                  message: "사업자등록번호 형식이 아닙니다.",
-                },
-              })}
-              defaultValue={user.companyNum}
-              autoComplete="off"
-            />
-            <HelpText>{errors?.companyNum?.message}</HelpText>
+                <InputTitle>
+                  사업자등록번호<Required>●</Required>
+                </InputTitle>
+                <Input
+                  {...register("companyNum", {
+                    required: "사업자등록번호를 입력해주세요.",
+                    pattern: {
+                      value: /^\d\d\d\d\d\d\d\d\d\d$/,
+                      message: "사업자등록번호 형식이 아닙니다.",
+                    },
+                  })}
+                  defaultValue={user.companyNum}
+                  autoComplete="off"
+                />
+                <HelpText>{errors?.companyNum?.message}</HelpText>
 
-            <InputTitle>
-              사업자 위치<Required>●</Required>
-            </InputTitle>
-            <CustomSelect
-              options={AddressCategory}
-              defaultValue={user.addressCategory}
-              setSelectError={setSelectError}
-            />
-            <HelpText />
-            <InputTitle>상세주소</InputTitle>
-            <Input
-              {...register("addressDetail", {
-                required: "상세주소를 입력해주세요.",
-              })}
-              defaultValue={user.addressDetail}
-              autoComplete="off"
-            />
-            <HelpText />
+                <InputTitle>
+                  사업자 위치<Required>●</Required>
+                </InputTitle>
+                <CustomSelect
+                  options={AddressCategory}
+                  defaultValue={user.addressCategory}
+                  setSelectError={setSelectError}
+                />
+                <HelpText />
+                <InputTitle>상세주소</InputTitle>
+                <Input
+                  {...register("addressDetail", {
+                    required: "상세주소를 입력해주세요.",
+                  })}
+                  defaultValue={user.addressDetail}
+                  autoComplete="off"
+                />
+                <HelpText />
 
-            <InputTitle>브랜드/자기소개</InputTitle>
-            <Textarea
-              {...register("introduction", {})}
-              defaultValue={user.introduction}
-              autoComplete="off"
-            />
+                <InputTitle>브랜드/자기소개</InputTitle>
+                <Textarea
+                  {...register("introduction", {})}
+                  defaultValue={user.introduction}
+                  autoComplete="off"
+                />
+              </div>
+            ) : null}
           </div>
         ) : null}
 
@@ -246,16 +276,6 @@ const InfoChange = ({ change, user, setCategory }) => {
           placeholder="현재 비밀번호"
         />
         <HelpText>{errors?.currentPassword?.message}</HelpText>
-        <ButtonDiv>
-          <FakeButton
-            onClick={() => {
-              setPasswordChange(!passwordChange);
-            }}
-          >
-            {passwordChange ? "비밀번호 수정취소" : "비밀번호 수정"}
-          </FakeButton>
-        </ButtonDiv>
-
         {passwordChange ? (
           <div>
             <InputTitle>
@@ -301,7 +321,7 @@ const InfoChange = ({ change, user, setCategory }) => {
           >
             수정 취소
           </FakeButton>
-          <NewBlackBtn>회원정보 수정</NewBlackBtn>
+          <NewBtn>회원정보 수정</NewBtn>
         </ButtonDiv>
       </Form>
     </Template>
@@ -317,6 +337,12 @@ const Template = styled.div`
   align-items: center;
   padding-top: 40px;
   margin: 0 auto;
+`;
+
+const TypeBtn = styled(FixedSizeSubBtn)`
+  margin-right: 25px;
+  margin-bottom: 20px;
+  ${(props) => props?.active && SubBtnActive}
 `;
 
 const ChangeTitle = styled.span`
@@ -352,6 +378,9 @@ const FakeButton = styled.div`
   color: #fff;
   background-color: ${({ theme }) => theme.colors.black};
   cursor: pointer;
+  &:hover {
+    opacity: 0.7;
+  }
   @media all and (min-width: 345px) {
     width: fit-content;
     height: fit-content;
@@ -370,7 +399,8 @@ const FakeButton = styled.div`
   }
 `;
 
-const NewBlackBtn = styled(BlackBtn)`
+const NewBtn = styled(BlackBtn)`
+  background-color: ${({ theme }) => theme.colors.orange};
   word-break: keep-all;
   font-weight: 400;
   @media all and (min-width: 345px) {

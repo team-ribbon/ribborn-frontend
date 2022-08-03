@@ -9,8 +9,22 @@ import React from "react";
 
 const PostDetail = ({ qna, post, userId, postId }) => {
   const scrollEvent = () => {
-    document.getElementById("navbar").style.top =
-      window.pageYOffset + 100 + "px";
+    if (
+      document.getElementById("footer").offsetTop -
+        document.getElementById("navbar").offsetHeight -
+        document.getElementById("centerPostDiv").offsetTop -
+        100 >=
+      window.pageYOffset
+    ) {
+      document.getElementById("navbar").style.top =
+        window.pageYOffset + 100 + "px";
+    } else {
+      document.getElementById("navbar").style.top =
+        document.getElementById("footer").offsetTop -
+        document.getElementById("navbar").offsetHeight -
+        document.getElementById("centerPostDiv").offsetTop +
+        "px";
+    }
   };
   React.useEffect(() => {
     window.addEventListener("scroll", scrollEvent);
@@ -24,7 +38,7 @@ const PostDetail = ({ qna, post, userId, postId }) => {
     post && (
       <PostWrap>
         <LeftPostDiv />
-        <CenterPostDiv>
+        <CenterPostDiv id="centerPostDiv">
           <Community>{qna ? "질문과 답변" : "리폼 후기"}</Community>
           <Title>{post.title}</Title>
           <IDDiv>

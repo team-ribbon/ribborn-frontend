@@ -34,6 +34,9 @@ const ChatModal = () => {
 
   useEffect(() => {
     dispatch(getRoomListDB());
+  }, [roomId, dispatch]);
+
+  useEffect(() => {
     return () => {
       dispatch(setNotification(false));
     };

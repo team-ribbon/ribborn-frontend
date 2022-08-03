@@ -82,6 +82,7 @@ const PostDetail = ({ qna, post, userId, postId }) => {
               id={postId}
               liked={post && post.liked}
               likeCount={post && post.likeCount}
+              booked={post && post.booked}
             />
           </Navbar>
           <MobileNavbar>
@@ -90,6 +91,7 @@ const PostDetail = ({ qna, post, userId, postId }) => {
               id={postId}
               liked={post && post.liked}
               likeCount={post && post.likeCount}
+              booked={post && post.booked}
             />
           </MobileNavbar>
         </RightPostDiv>

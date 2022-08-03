@@ -14,6 +14,7 @@ const GET_TECH_INTRO = "GET_TECH_INTRO";
 const GET_POST = "GET_POST";
 const GET_NO_COMMENT_POST = "GET_NO_COMMENT_POST";
 const LIKE_SUCCESS = "LIKE_SUCCESS";
+const BOOKMARK_SUCCESS = "BOOKMARK_SUCCESS";
 
 const CHANGE_PROCESS = "CHANGE_PROCESS";
 
@@ -42,6 +43,7 @@ const getNoCommentPost = createAction(GET_NO_COMMENT_POST, (Post) => ({
   Post,
 }));
 const likesuccess = createAction(LIKE_SUCCESS);
+const BookmarkSuccess = createAction(BOOKMARK_SUCCESS);
 
 const changeProcess = createAction(CHANGE_PROCESS, (process) => ({ process }));
 
@@ -271,7 +273,20 @@ export const likePostDB = (id, like) => {
   };
 };
 
-// 게시물 좋아요
+// 게시물 북마크
+export const BookmarkPostDB = (id, booked) => {
+  return async function (dispatch) {
+    try {
+      const response = await apis.bookmarkPost(id, booked).then((res) => {
+        dispatch(BookmarkSuccess());
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+// 게시물 상태변경
 export const processChangeDB = (id, process) => {
   return async function (dispatch) {
     try {
@@ -432,6 +447,10 @@ export default handleActions(
       produce(state, (draft) => {
         draft.Post.liked = !draft.Post.liked;
         draft.Post.liked ? draft.Post.likeCount++ : draft.Post.likeCount--;
+      }),
+    [BOOKMARK_SUCCESS]: (state) =>
+      produce(state, (draft) => {
+        draft.Post.booked = !draft.Post.booked;
       }),
     [CHANGE_PROCESS]: (state, { payload }) =>
       produce(state, (draft) => {

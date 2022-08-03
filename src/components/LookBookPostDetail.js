@@ -113,6 +113,7 @@ const LookBookPostDetail = ({ post, userId, postId, userType }) => {
                 id={postId}
                 liked={post && post.liked}
                 likeCount={post && post.likeCount}
+                booked={post && post.booked}
                 lookbook={true}
               />
             </Navbar>
@@ -124,6 +125,7 @@ const LookBookPostDetail = ({ post, userId, postId, userType }) => {
             id={postId}
             liked={post && post.liked}
             likeCount={post && post.likeCount}
+            booked={post && post.booked}
             lookbook={true}
           />
         </MobilePostRightBtnWrap>

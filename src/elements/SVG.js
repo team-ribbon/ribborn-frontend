@@ -50,6 +50,41 @@ export const OrangeHeartSVG = () => {
   );
 };
 
+export const BookMarkSVG = () => {
+  return (
+    <svg
+      width="11"
+      height="15"
+      viewBox="0 0 11 15"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M5.50415 11.5031L0.5 14.1673V0.5H10.5V14.1314L5.99025 11.5121L5.7497 11.3724L5.50415 11.5031Z"
+        stroke="#222222"
+      />
+    </svg>
+  );
+};
+
+export const GreenBookMarkSVG = () => {
+  return (
+    <svg
+      width="11"
+      height="15"
+      viewBox="0 0 11 15"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M5.50415 11.5031L0.5 14.1673V0.5H10.5V14.1314L5.99025 11.5121L5.7497 11.3724L5.50415 11.5031Z"
+        fill="#00AE1E"
+        stroke="#222222"
+      />
+    </svg>
+  );
+};
+
 export const ShareSVG = () => {
   return (
     <svg

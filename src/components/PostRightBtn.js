@@ -7,12 +7,14 @@ import {
   ShareSVG,
   ShareClickedSVG,
   LinkSVG,
+  BookMarkSVG,
+  GreenBookMarkSVG,
 } from "../elements/SVG";
 import { useDispatch, useSelector } from "react-redux";
-import { likePostDB } from "../redux/modules/post";
+import { likePostDB, BookmarkPostDB } from "../redux/modules/post";
 import { useNavigate } from "react-router-dom";
 
-const PostRightBtn = ({ noshare, id, liked, likeCount, lookbook }) => {
+const PostRightBtn = ({ noshare, id, liked, likeCount, booked, lookbook }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const isLogin = useSelector((state) => state.user.isLogin);
@@ -23,6 +25,16 @@ const PostRightBtn = ({ noshare, id, liked, likeCount, lookbook }) => {
       document.getElementById("likeBtn").disabled = true;
       dispatch(likePostDB(id, !liked)).then(() => {
         document.getElementById("likeBtn").disabled = false;
+      });
+    } else {
+      navigate("/login");
+    }
+  };
+  const bookIt = () => {
+    if (isLogin) {
+      document.getElementById("BookmarkBtn").disabled = true;
+      dispatch(BookmarkPostDB(id, !booked)).then(() => {
+        document.getElementById("BookmarkBtn").disabled = false;
       });
     } else {
       navigate("/login");
@@ -76,6 +88,15 @@ const PostRightBtn = ({ noshare, id, liked, likeCount, lookbook }) => {
 
   return (
     <Cover lookbook={lookbook}>
+      <Button
+        top
+        id="BookmarkBtn"
+        onClick={() => {
+          bookIt();
+        }}
+      >
+        {booked ? <GreenBookMarkSVG /> : <BookMarkSVG />}
+      </Button>
       <Button
         id="likeBtn"
         onClick={() => {
@@ -158,6 +179,7 @@ const Button = styled.div`
   cursor: pointer;
   background-color: ${(props) => props.color};
   z-index: 20;
+  margin-bottom: ${(props) => (props.top ? "32px" : "")};
 `;
 
 const LikeCount = styled.span`

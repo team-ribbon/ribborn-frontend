@@ -39,6 +39,7 @@ const PostFooter = ({
         dispatch(loadDoneReset());
         if (page === 0) {
           setLoading(true);
+          setChangingComment(null);
           dispatch(GetCommentDB(id, page, 5)).then((res) => {
             if (inView && !loadedEverything) {
               setPage(page + 1);
@@ -47,6 +48,7 @@ const PostFooter = ({
             }
           });
         } else {
+          setChangingComment(null);
           setPage(0);
         }
       });
@@ -246,7 +248,7 @@ const PostFooter = ({
                         onClick={() => {
                           deleteComment(v.id);
                         }}
-                        left={changingComment !== null && changingComment !== i}
+                        left={false}
                       >
                         삭제
                       </CommentModifyBtn>
@@ -268,7 +270,7 @@ const PostFooter = ({
                       onClick={() => {
                         deleteComment(v.id);
                       }}
-                      left={changingComment !== null && changingComment !== i}
+                      left={false}
                     >
                       삭제
                     </CommentModifyBtn>
@@ -451,11 +453,14 @@ const CommentFistLine = styled.div`
 `;
 
 const CommentNickname = styled.span`
-  width: 100px;
+  width: 100%;
   font-weight: 700;
   font-size: ${({ theme }) => theme.fontSizes.m};
   line-height: 18px;
   color: #222222;
+  @media ${({ theme }) => theme.device.mobile} {
+    width: 100px;
+  }
 `;
 
 const CommentContent = styled.span`

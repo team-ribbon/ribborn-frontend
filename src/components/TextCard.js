@@ -114,6 +114,17 @@ const PostDiv = styled.div`
       transform: scale(1.05);
     }
   }
+  animation: 0.5s ease-in-out loadEffect;
+  @keyframes loadEffect {
+    0% {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0px);
+    }
+  }
 `;
 
 const TextDiv = styled.div`
@@ -137,6 +148,11 @@ const TitleDiv = styled.div`
 `;
 
 const Title = styled.p`
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
   font-size: ${({ theme }) => theme.fontSizes.m};
   font-weight: 700;
   margin: 20px 5px 10px 0;

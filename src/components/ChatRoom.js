@@ -126,6 +126,7 @@ const ChatRoom = () => {
             name="chat"
             autoComplete="off"
             placeholder="메시지를 입력해주세요."
+            maxLength={150}
           />
           <SendButton>보내기</SendButton>
         </form>
@@ -137,15 +138,23 @@ const ChatRoom = () => {
 };
 
 const ChatInputWrap = styled.div`
-  margin: 30px;
+  margin: 0 30px 30px 30px;
   border-radius: 15px;
   border: 1px solid ${({ theme }) => theme.colors.gray};
+  @media screen and (max-width: ${({ theme }) => theme.deviceSizes.mobile}) {
+    margin: 0 10px 10px 10px;
+  }
 `;
 const ChatInput = styled(Input)`
   border: none;
   width: calc(100% - 100px);
   &:focus {
     outline: none;
+  }
+  @media screen and (max-width: ${({ theme }) => theme.deviceSizes.mobile}) {
+    width: calc(100% - 90px);
+    padding: 20px 10px 20px 15px;
+    font-size: ${({ theme }) => theme.fontSizes.m};
   }
 `;
 const SendButton = styled(MainBtn)`

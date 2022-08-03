@@ -40,7 +40,7 @@ const Signup = () => {
   );
 };
 const Wrap = styled.div`
-  max-width: 740px;
+  max-width: 600px;
   margin: 0 auto 150px auto;
   padding: 0 20px;
   h1 {

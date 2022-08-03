@@ -54,9 +54,9 @@ const EditPost = () => {
   const { type } = useParams();
   const { id } = useParams();
 
-  React.useEffect(() => {
-    if (!isLogin) {
-      navigate("/");
+  useEffect(() => {
+    if (isLogin === false) {
+      navigate("/login");
     }
   }, [isLogin]);
 
@@ -91,23 +91,32 @@ const EditPost = () => {
   const onSubmit = async () => {
     if (+category === 0) {
       setError({ ...error, categoryError: "리폼 종류를 선택해주세요." });
+      document
+        .getElementById("categorySelectDiv")
+        .scrollIntoView({ behavior: "smooth", block: "center" });
       return false;
     }
 
     if (type === "reform" && +region === 0) {
       setError({ ...error, regionError: "지역을 선택해주세요." });
+      document
+        .getElementById("categorySelectDiv")
+        .scrollIntoView({ behavior: "smooth", block: "center" });
       return false;
     }
 
     if (type !== "lookbook" && title.length < 1) {
       setError({ ...error, titleError: "제목을 입력해주세요." });
-      titleRef.current.focus();
+      titleRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
       return false;
     }
 
     if (contentRef.current.value.length < 1) {
       setError({ ...error, contentError: "내용을 입력해주세요." });
-      contentRef.current.focus();
+      contentRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
       return false;
     }
 
@@ -117,6 +126,9 @@ const EditPost = () => {
       previewList.length === 0
     ) {
       setError({ ...error, fileError: "사진을 선택해주세요." });
+      document
+        .getElementById("addPicture")
+        .scrollIntoView({ behavior: "smooth", block: "center" });
       return false;
     }
 
@@ -164,7 +176,7 @@ const EditPost = () => {
     if (imageUrl.length > 0) {
       key = { ...key, imageUrl: imageUrl };
     }
-    if (files.length === 0 || deleteImage.length > 0) {
+    if (files.length === 0 && deleteImage.length > 0) {
       key = { ...key, deleteImage };
     }
     if (type === "reform") {
@@ -234,15 +246,6 @@ const EditPost = () => {
   return (
     <Wrap>
       <FormWrap>
-        <SubmitBtnDiv>
-          <SubmitBtn
-            onClick={() => {
-              onSubmit();
-            }}
-            type="submit"
-            value="발행"
-          />
-        </SubmitBtnDiv>
         <SelectDiv>
           <CategorySelect
             setCategory={setCategory}
@@ -318,6 +321,7 @@ const EditPost = () => {
                 onChange={onChangeTitle}
                 ref={titleRef}
                 invalid={titleError}
+                hasCount
               />
               <TitleLength>{title.length}/30</TitleLength>
             </InputWrap>
@@ -333,7 +337,7 @@ const EditPost = () => {
           />
         </InputWrap>
         <InputWrap>
-          <TitleSpan>내용</TitleSpan>
+          <InputTitle>내용</InputTitle>
           <Textarea
             id="contentInput"
             name="content"
@@ -348,6 +352,15 @@ const EditPost = () => {
           />
         </InputWrap>
         {contentError && <ErrorMessage>{contentError}</ErrorMessage>}
+        <SubmitBtnDiv id="categorySelectDiv">
+          <SubmitBtn
+            onClick={() => {
+              onSubmit();
+            }}
+            type="submit"
+            value="발행"
+          />
+        </SubmitBtnDiv>
       </FormWrap>
     </Wrap>
   );
@@ -386,7 +399,7 @@ const SubmitBtn = styled.input`
   height: 74px;
   border: none;
   color: #fff;
-  margin-bottom: 100px;
+  margin: 50px 0 0 0;
   background-color: ${({ theme }) => theme.colors.orange};
   font-size: ${({ theme }) => theme.fontSizes.l};
   cursor: pointer;
@@ -507,6 +520,10 @@ const TitleLength = styled.span`
   font-size: ${({ theme }) => theme.fontSizes.l};
   line-height: 24px;
   color: #afb0b3;
+  @media screen and (max-width: ${({ theme }) => theme.deviceSizes.mobile}) {
+    top: 42px;
+    font-size: ${({ theme }) => theme.fontSizes.m};
+  }
 `;
 
 const TextArea = styled.textarea`

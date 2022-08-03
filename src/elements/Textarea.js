@@ -17,4 +17,7 @@ export const Textarea = styled.textarea`
   &::placeholder {
     color: ${({ theme }) => theme.colors.gray};
   }
+  @media screen and (max-width: ${({ theme }) => theme.deviceSizes.mobile}) {
+    font-size: ${({ theme }) => theme.fontSizes.m};
+  }
 `;

@@ -87,7 +87,16 @@ const LookBookPostDetail = ({ post, userId, postId, userType }) => {
                 return i !== 0 ? <Image alt="card" src={v} /> : null;
               })}
             </Grid>
-            <TextArea white={true}>{post.content}</TextArea>
+            <TextArea white={true}>
+              {post.content.split("\n").map((line) => {
+                return (
+                  <span>
+                    {line}
+                    <br />
+                  </span>
+                );
+              })}
+            </TextArea>
           </CenterPostDiv>
           <RightPostDiv>
             <Navbar id="navbar" myPost={post && userId === post.userid}>
@@ -163,8 +172,12 @@ const Date = styled.span`
   margin-top: 16px;
 `;
 const ChattingBtn = styled(MainBtn)`
-  margin: 30px 0 0 16px;
+  margin: 30px auto 0 auto;
   width: 314px;
+  max-width: calc(100vw - 32px);
+  @media ${({ theme }) => theme.device.mobile} {
+    margin: 30px 0 0 16px;
+  }
 `;
 const BodyWrap = styled.div`
   display: flex;
@@ -192,7 +205,8 @@ const RightPostDiv = styled.div`
 `;
 const Navbar = styled.div`
   position: absolute;
-  margin-top: 200px;
+  margin-top: 10px;
+  top: ${(props) => (props.myPost ? "-350px" : "-250px")};
 `;
 const MobilePostRightBtnWrap = styled.div`
   position: fixed;

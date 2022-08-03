@@ -7,7 +7,7 @@ export const Input = styled.input`
       invalid ? theme.colors.orange : theme.colors.gray};
   border-radius: 15px;
   padding: ${({ hasCount }) =>
-    hasCount ? "30px 95px 30px 20px" : "30px 20px"};
+    hasCount ? "25px 95px 25px 20px" : "25px 20px"};
   font-size: ${({ theme }) => theme.fontSizes.l};
   &:focus {
     outline: ${({ theme, invalid }) =>
@@ -16,12 +16,20 @@ export const Input = styled.input`
   &::placeholder {
     color: ${({ theme }) => theme.colors.gray};
   }
+  @media screen and (max-width: ${({ theme }) => theme.deviceSizes.mobile}) {
+    padding: ${({ hasCount }) =>
+      hasCount ? "20px 70px 20px 10px" : "20px 15px"};
+    font-size: ${({ theme }) => theme.fontSizes.m};
+  }
 `;
 
 export const InputTitle = styled.div`
   font-size: ${({ theme }) => theme.fontSizes.l};
   color: ${({ theme }) => theme.colors.gray};
   margin-bottom: 8px;
+  @media screen and (max-width: ${({ theme }) => theme.deviceSizes.mobile}) {
+    font-size: ${({ theme }) => theme.fontSizes.m};
+  }
 `;
 
 export const HelpText = styled.div`

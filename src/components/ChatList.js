@@ -84,6 +84,9 @@ const MessageWrap = styled.div`
   gap: 10px;
   padding: 30px 30px 0 30px;
   overflow-y: auto;
+  @media screen and (max-width: ${({ theme }) => theme.deviceSizes.mobile}) {
+    padding: 10px 10px 0 10px;
+  }
 `;
 const Message = styled.div`
   display: flex;
@@ -112,6 +115,9 @@ const Bubble = styled.div`
   background-color: #f2f2f2;
   border-radius: ${({ me }) => (me ? "15px 0 15px 15px" : "0 15px 15px 15px")};
   padding: 20px 30px;
+  @media screen and (max-width: ${({ theme }) => theme.deviceSizes.mobile}) {
+    padding: 15px 25px;
+  }
 `;
 const ChatListDate = styled.div`
   text-align: center;

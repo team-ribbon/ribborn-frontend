@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+import imageCompression from "browser-image-compression";
 import { HelpText as Help } from "../elements/Inputs";
 
 import {
@@ -18,7 +19,18 @@ const ImageUpload = ({ type, edit, error, setError }) => {
   const fileList = useSelector((state) => state.image.fileList);
   const previewList = useSelector((state) => state.image.previewList);
 
-  const onChangeFile = (event) => {
+  const compressImage = async (image) => {
+    try {
+      const options = {
+        maxSizeMB: 2,
+      };
+      return await imageCompression(image, options);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const onChangeFile = async (event) => {
     setError({ ...error, fileError: null });
     const { files } = event.target;
 
@@ -37,12 +49,20 @@ const ImageUpload = ({ type, edit, error, setError }) => {
       const file = files[i];
 
       if (validation(file)) {
-        dispatch(uploadFile(file));
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onloadend = () => {
-          dispatch(uploadPreview(reader.result));
-        };
+        try {
+          const compressedImage = await compressImage(file);
+          const myFile = new File([compressedImage], compressedImage.name, {
+            type: compressedImage.type,
+          });
+          dispatch(uploadFile(myFile));
+          const reader = new FileReader();
+          reader.readAsDataURL(myFile);
+          reader.onloadend = () => {
+            dispatch(uploadPreview(reader.result));
+          };
+        } catch (e) {
+          console.log(e);
+        }
       }
     }
     function validation(obj) {
@@ -100,14 +120,14 @@ const ImageUpload = ({ type, edit, error, setError }) => {
         <Label htmlFor="file">
           <FileInput invalid={error?.fileError}>
             <FileInputPlus>+</FileInputPlus>
-            <FileInputText>사진 추가하기</FileInputText>
+            <FileInputText id="addPicture">사진 추가하기</FileInputText>
           </FileInput>
           {error?.fileError && <HelpText>{error?.fileError}</HelpText>}
           <FileText>*권장 사이즈: 700*508 (1:1.3비율)</FileText>
         </Label>
         {previewList.map((file, index) => {
           return (
-            <PreviewWrap key={Date.now() + file}>
+            <PreviewWrap key={Date.now() + index}>
               <Preview src={file} />
               {edit ? (
                 <DeleteButton

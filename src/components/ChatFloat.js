@@ -127,6 +127,23 @@ const NewNoti = styled.div`
     right: 2px;
     bottom: 40px;
   }
+  &:before {
+    position: absolute;
+    left: 0;
+    top: -10%;
+    width: 100%;
+    height: 120%;
+    background: ${({ theme }) => theme.colors.orange};
+    filter: blur(10px);
+    content: "";
+    opacity: 0;
+    animation: flash 0.9s ease-out alternate infinite;
+  }
+  @keyframes flash {
+    to {
+      opacity: 1;
+    }
+  }
 `;
 
 export default ChatFloat;

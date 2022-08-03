@@ -12,11 +12,35 @@ import PostRightBtn from "../components/PostRightBtn";
 const LookBookPostDetail = ({ post, userId, postId, userType }) => {
   const scrollEvent = () => {
     if (post && userId === post.userid) {
-      document.getElementById("navbar").style.top =
-        window.pageYOffset - 350 + "px";
+      if (
+        document.getElementById("centerPostDiv").offsetHeight -
+          document.getElementById("navbar").offsetHeight +
+          350 >=
+        window.pageYOffset
+      ) {
+        document.getElementById("navbar").style.top =
+          window.pageYOffset - 350 + "px";
+      } else {
+        document.getElementById("navbar").style.top =
+          document.getElementById("centerPostDiv").offsetHeight -
+          document.getElementById("navbar").offsetHeight +
+          "px";
+      }
     } else {
-      document.getElementById("navbar").style.top =
-        window.pageYOffset - 250 + "px";
+      if (
+        document.getElementById("centerPostDiv").offsetHeight -
+          document.getElementById("navbar").offsetHeight +
+          250 >=
+        window.pageYOffset
+      ) {
+        document.getElementById("navbar").style.top =
+          window.pageYOffset - 250 + "px";
+      } else {
+        document.getElementById("navbar").style.top =
+          document.getElementById("centerPostDiv").offsetHeight -
+          document.getElementById("navbar").offsetHeight +
+          "px";
+      }
     }
   };
   React.useEffect(() => {
@@ -77,7 +101,7 @@ const LookBookPostDetail = ({ post, userId, postId, userType }) => {
         </HeaderWrap>
         <BodyWrap>
           <LeftPostDiv />
-          <CenterPostDiv>
+          <CenterPostDiv id="centerPostDiv">
             <Image first alt="card" src={post.image[0]} />
             {post.introduction.length > 1 && (
               <TextArea>{post.introduction}</TextArea>

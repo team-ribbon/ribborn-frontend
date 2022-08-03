@@ -94,7 +94,6 @@ const ChatRoom = () => {
   useEffect(() => {
     setIsLoading(true);
     inputRef.current.value = "";
-    // dispatch(getRoomListDB());
 
     // 채팅방 전환 시 기존 연결 해제 후 새 연결 요청
     if (stompClient.current) {

@@ -19,10 +19,13 @@ const InfoChange = ({ change, user, setCategory }) => {
 
   const {
     register,
+    getValues,
     handleSubmit,
     setError,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    mode: "onBlur",
+  });
 
   const onValid = (data) => {
     let sendData = null;
@@ -229,6 +232,7 @@ const InfoChange = ({ change, user, setCategory }) => {
         </InputTitle>
         <Input
           {...register("currentPassword", {
+            required: "비밀번호를 입력해주세요.",
             pattern: {
               value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d!@#$%^&*()-_=+]{1,}$/,
               message: "영문과 숫자가 반드시 포함되어야 합니다.",
@@ -285,7 +289,11 @@ const InfoChange = ({ change, user, setCategory }) => {
               변경 비밀번호 확인<Required>●</Required>
             </InputTitle>
             <Input
-              {...register("newPasswordCheck", {})}
+              {...register("newPasswordCheck", {
+                validate: (value) =>
+                  value === getValues("newPassword") ||
+                  "동일한 비밀번호를 입력해주세요.",
+              })}
               placeholder="변경 비밀번호 확인"
               type="password"
             />

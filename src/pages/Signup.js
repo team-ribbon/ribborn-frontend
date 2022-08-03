@@ -23,7 +23,7 @@ const Signup = () => {
           <HelpText>어떤 회원이신가요? 회원 종류를 선택해주세요!</HelpText>
         </HelpWrap>
       )}
-      {isTech && (
+      {/* {isTech && (
         <HelpWrap>
           <Eye>🚧</Eye>
           <HelpText>
@@ -34,7 +34,7 @@ const Signup = () => {
             <p>ribborn.kr@gmail.com</p>
           </HelpText>
         </HelpWrap>
-      )}
+      )} */}
       <Outlet />
     </Wrap>
   );

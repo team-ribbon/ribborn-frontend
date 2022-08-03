@@ -31,11 +31,8 @@ const ChatRoom = () => {
   // 웹소켓 연결 요청 & 구독 요청
   const socketConnect = () => {
     const webSocket = new SockJS(`${process.env.REACT_APP_CHAT_URL}/wss-stomp`);
-
     stompClient.current = Stomp.over(webSocket);
-
     stompClient.current.debug = null;
-
     stompClient.current.connect(
       {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -47,6 +44,12 @@ const ChatRoom = () => {
           (response) => {
             const messageFromServer = JSON.parse(response.body);
             dispatch(addMessage(messageFromServer));
+            dispatch(
+              updateRoomMessage({
+                ...messageFromServer,
+                index: location.state.index ?? 0,
+              })
+            );
           },
           { Authorization: `Bearer ${localStorage.getItem("token")}` }
         );
@@ -68,7 +71,7 @@ const ChatRoom = () => {
 
     const message = event.target.chat.value;
 
-    if (message === "" || message.trim(" ") === "") return false;
+    if (message === "" || message.trim() === "") return false;
 
     const messageObj = {
       roomId: roomId,
@@ -85,17 +88,13 @@ const ChatRoom = () => {
       JSON.stringify(messageObj)
     );
 
-    dispatch(
-      updateRoomMessage({ ...messageObj, index: location.state.index ?? 0 })
-    );
-
     event.target.chat.value = null;
   };
 
   useEffect(() => {
     setIsLoading(true);
     inputRef.current.value = "";
-    dispatch(getRoomListDB());
+    // dispatch(getRoomListDB());
 
     // 채팅방 전환 시 기존 연결 해제 후 새 연결 요청
     if (stompClient.current) {

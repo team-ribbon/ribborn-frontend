@@ -15,7 +15,7 @@ const ChatRoomList = ({ location, roomId }) => {
         return (
           <Link
             to={`/chat/${room.roomId}`}
-            key={room.roomId}
+            key={`roomList${room.roomId}`}
             state={{
               backgroundLocation: location.state.backgroundLocation,
               index: index,
@@ -30,7 +30,9 @@ const ChatRoomList = ({ location, roomId }) => {
                 <Message>
                   {isExit ? "채팅 내역이 없습니다." : room?.message}
                 </Message>
-                {room?.unreadCnt > 0 && <NotiCount>{room.unreadCnt}</NotiCount>}
+                {room?.unreadCnt > 0 && +roomId !== +room.roomId && (
+                  <NotiCount>{room.unreadCnt}</NotiCount>
+                )}
               </span>
             </List>
           </Link>

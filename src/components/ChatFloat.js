@@ -1,54 +1,60 @@
-import { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useEffect, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation, useMatch } from "react-router-dom";
 import styled from "styled-components";
 
+import { setNotification } from "../redux/modules/chat";
 import { SmileChatSVG } from "../elements/SVG";
 
 // 우측 하단 채팅 플로팅 버튼
 const ChatFloat = () => {
+  const dispatch = useDispatch();
   const location = useLocation();
   const isChatModalOn = useMatch("/chat/*");
-  const user = useSelector((state) => state.user.user);
+  const notification = useSelector((state) => state.chat.notification);
+  const userId = useSelector((state) => state.user.user?.id);
+  const eventSource = useRef();
 
-  // useEffect(() => {
-  //   if (user) {
-  //     // 구독 요청
-  //     const eventSource = new EventSource(
-  //       `${process.env.REACT_APP_CHAT_URL}/user/subscribe/${user.id}`
-  //       // `${process.env.REACT_APP_CHAT_URL}/sub/notification/`
-  //     );
+  useEffect(() => {
+    if (userId) {
+      // SSE 구독 요청
+      eventSource.current = new EventSource(
+        `${process.env.REACT_APP_CHAT_URL}/user/subscribe/${userId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
 
-  //     // 연결 성공 시 실행
-  //     eventSource.onopen = () => {
-  //       console.log("연결 성공");
-  //     };
-
-  //     // 에러 발생 시 실행
-  //     eventSource.onerror = (error) => {
-  //       console.log("에러 :", error);
-  //       eventSource.close();
-  //     };
-
-  //     // 서버에서 보내는 데이터 받기
-  //     eventSource.onmessage = (message) => {
-  //       const parsedData = JSON.parse(message.data);
-  //       console.log("parsedData", parsedData);
-  //     };
-  //   }
-  // }, [user]);
+      // 서버에서 메시지가 전송될 때 실행되는 함수
+      eventSource.current.onmessage = (message) => {
+        if (!message.data.includes("EventStream Created")) {
+          dispatch(setNotification(true));
+        }
+      };
+    }
+    return () => {
+      // 언마운트 시 연결 종료
+      if (eventSource.current) {
+        eventSource.current.close();
+        eventSource.current = null;
+      }
+    };
+  }, [userId, dispatch]);
 
   return (
     <>
-      {user && !isChatModalOn && (
+      {userId && !isChatModalOn && (
         <FloatWrap>
           <Link to="/chat" state={{ backgroundLocation: location }}>
-            <ChatButton>
-              <div>
+            <ChatButtonWrap>
+              <ChatButton>
+                {notification && <NewNoti />}
                 <SmileChatSVG />
                 <span>채팅</span>
-              </div>
-            </ChatButton>
+              </ChatButton>
+            </ChatButtonWrap>
           </Link>
         </FloatWrap>
       )}
@@ -66,7 +72,7 @@ const FloatWrap = styled.div`
     right: 20px;
   }
 `;
-const ChatButton = styled.div`
+const ChatButtonWrap = styled.div`
   width: 57px;
   height: 57px;
   border-radius: 50px;
@@ -92,6 +98,39 @@ const ChatButton = styled.div`
   @media ${({ theme }) => theme.device.mobile} {
     width: 67px;
     height: 67px;
+  }
+`;
+const ChatButton = styled.div`
+  position: relative;
+`;
+const NewNoti = styled.div`
+  width: 14px;
+  height: 14px;
+  border-radius: 10px;
+  position: absolute;
+  right: 5px;
+  bottom: 45px;
+  background-color: ${({ theme }) => theme.colors.orange};
+  @media screen and (max-width: ${({ theme }) => theme.deviceSizes.mobile}) {
+    right: 2px;
+    bottom: 40px;
+  }
+  &:before {
+    position: absolute;
+    left: 0;
+    top: -10%;
+    width: 100%;
+    height: 120%;
+    background: ${({ theme }) => theme.colors.orange};
+    filter: blur(10px);
+    content: "";
+    opacity: 0;
+    animation: flash 0.9s ease-out alternate infinite;
+  }
+  @keyframes flash {
+    to {
+      opacity: 1;
+    }
   }
 `;
 

@@ -8,13 +8,15 @@ import styled from "styled-components";
 import {
   addMessage,
   getRoomListDB,
+  readMessage,
   updateRoomMessage,
 } from "../redux/modules/chat";
+import { apis } from "../shared/api";
 import ChatList from "./ChatList";
+import LoadingSpinner from "./LoadingSpinner";
+
 import { Input } from "../elements/Inputs";
 import { MainBtn } from "../elements/Buttons";
-import LoadingSpinner from "./LoadingSpinner";
-import { apis } from "../shared/api";
 
 // 채팅 모달 > 채팅방
 const ChatRoom = () => {
@@ -30,9 +32,9 @@ const ChatRoom = () => {
   // 웹소켓 연결 요청 & 구독 요청
   const socketConnect = () => {
     const webSocket = new SockJS(`${process.env.REACT_APP_CHAT_URL}/wss-stomp`);
-
     stompClient.current = Stomp.over(webSocket);
 
+    // STOMPJS console log 지워주는 부분
     stompClient.current.debug = null;
 
     stompClient.current.connect(
@@ -40,16 +42,23 @@ const ChatRoom = () => {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
         type: "TALK",
       },
+
+      // 연결 성공 시 실행되는 함수
       () => {
         stompClient.current.subscribe(
           `/sub/chat/room/${roomId}`,
           (response) => {
             const messageFromServer = JSON.parse(response.body);
             dispatch(addMessage(messageFromServer));
+            dispatch(
+              updateRoomMessage({
+                ...messageFromServer,
+                index: location.state.index ?? 0,
+              })
+            );
           },
           { Authorization: `Bearer ${localStorage.getItem("token")}` }
         );
-
         setIsLoading(false);
       }
     );
@@ -67,7 +76,7 @@ const ChatRoom = () => {
 
     const message = event.target.chat.value;
 
-    if (message === "" || message.trim(" ") === "") return false;
+    if (message === "" || message.trim() === "") return false;
 
     const messageObj = {
       roomId: roomId,
@@ -84,28 +93,31 @@ const ChatRoom = () => {
       JSON.stringify(messageObj)
     );
 
-    dispatch(
-      updateRoomMessage({ ...messageObj, index: location.state.index ?? 0 })
-    );
     event.target.chat.value = null;
   };
 
   useEffect(() => {
     setIsLoading(true);
+    inputRef.current.value = "";
+
     // 채팅방 전환 시 기존 연결 해제 후 새 연결 요청
     if (stompClient.current) {
       socketDisconnect();
     }
     socketConnect();
 
-    inputRef.current.value = "";
-
-    // 언마운트 시 연결 해제
     return () => {
+      // 언마운트 시 연결 해제
       if (stompClient.current) socketDisconnect();
+      dispatch(readMessage(location.state.index));
+
+      // 요청 보내는 이유 :
+      // 해당 요청으로 백엔드에서 채팅 읽음 처리를 해주기 위함.
+      apis.getMessageList(roomId);
     };
   }, [roomId]);
 
+  // 채팅방 나가기
   const exitRoom = async () => {
     const confirm = window.confirm("채팅방을 나가시겠어요?");
     if (confirm) {

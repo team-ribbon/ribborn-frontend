@@ -221,10 +221,10 @@ type: subject
 ## 👨‍👩‍👧‍👦 유저 피드백 개선사항
  
   <details>
-    <summary>커뮤니티랑 룩북 게시판의 차이를 인지하기가 어렵습니다.</summary>
+    <summary>사용 방법에 대해 설명 부족합니다.</summary>
     <div markdown="1">
       <ul>
-        <li>각 게시판별 상단에 해당 게시판 사용 안내 문구 추가(구현중)</li>
+        <li>서비스 이용 가이드 페이지 추가</li>
       </ul>
     </div>
   </details>
@@ -243,6 +243,15 @@ type: subject
     <div markdown="1">
       <ul>
         <li>작성하기 버튼 고정되도록 수정(구현중)</li>
+      </ul>
+    </div>
+ </details>
+ 
+   <details>
+    <summary>새로고침하면 메인으로 이동하는데 보고있던 페이지를 그대로 보고싶어요.</summary>
+    <div markdown="1">
+      <ul>
+        <li></li>
       </ul>
     </div>
  </details>

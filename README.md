@@ -1,3 +1,5 @@
+ <div align="center">
+ 
 # 리폼 커뮤니티 리본
 
 <img height="300px" src="https://user-images.githubusercontent.com/105181604/181456826-d342485e-99c7-4f0c-8e28-b8c9870b9195.png">
@@ -6,7 +8,11 @@
 
 <br>
 
+</div>
+
 ----
+
+ <div align="center">
 
 ## 🏗 서비스 아키텍쳐
 
@@ -61,6 +67,8 @@
 | stompjs                     | 2.3.3   |
 
 <br>
+
+</div>
 
 ----
 
@@ -125,7 +133,7 @@
 ### 6주차
 
 - 유저 테스트 피드백 반영
-- refresh token 구현 예정
+- 테스트 및 버그 수정
 
 <br>
 

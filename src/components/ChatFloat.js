@@ -17,7 +17,7 @@ const ChatFloat = () => {
 
   useEffect(() => {
     if (userId) {
-      //구독 요청
+      // SSE 구독 요청
       eventSource.current = new EventSource(
         `${process.env.REACT_APP_CHAT_URL}/user/subscribe/${userId}`,
         {
@@ -27,27 +27,15 @@ const ChatFloat = () => {
         }
       );
 
-      //연결 성공 시 실행
-      eventSource.current.onopen = (event) => {
-        console.log("연결 성공");
-      };
-
-      // 에러 발생 시 실행
-      // eventSource.current.onerror = (event) => {
-      //   console.log("에러");
-      //   // eventSource.close();
-      // };
-
-      // 서버에서 보내는 데이터 받기
+      // 서버에서 메시지가 전송될 때 실행되는 함수
       eventSource.current.onmessage = (message) => {
         if (!message.data.includes("EventStream Created")) {
-          const parsedData = JSON.parse(message.data);
-          console.log(parsedData);
           dispatch(setNotification(true));
         }
       };
     }
     return () => {
+      // 언마운트 시 연결 종료
       if (eventSource.current) {
         eventSource.current.close();
         eventSource.current = null;

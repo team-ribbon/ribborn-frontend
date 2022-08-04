@@ -105,9 +105,11 @@ const Footer = () => {
             <Title>고객지원</Title>
             <ContentDiv>
               {/* <ClickContent>공지사항</ClickContent> <br />
-              <SpanMargin />
-              <ClickContent>서비스소개</ClickContent> <br />
               <SpanMargin /> */}
+              <Link to="/guide">
+                <ClickContent>이용 가이드</ClickContent> <br />
+              </Link>
+              <SpanMargin />
               <Link to="/faq">
                 <ClickContent>FAQ</ClickContent>
               </Link>
@@ -126,9 +128,11 @@ const Footer = () => {
           <MobileBoxDiv>
             <MobileTitle>고객지원</MobileTitle>
             <ContentDiv>
-              <MobileContent>공지사항</MobileContent> <br />
-              <MobileSpanMargin />
-              <MobileContent>서비스소개</MobileContent> <br />
+              {/* <MobileContent>공지사항</MobileContent> <br />
+              <MobileSpanMargin /> */}
+              <Link to="/guide">
+                <MobileContent>이용 가이드</MobileContent>
+              </Link>
               <MobileSpanMargin />
               <Link to="/faq">
                 <MobileContent>FAQ</MobileContent>

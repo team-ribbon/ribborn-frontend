@@ -251,9 +251,9 @@ type: subject
 
 ---
 
-## 👨‍💻 Front-end 팀원 소개
+## 👨‍💻 팀원 소개
 
-<br>
+### Front-end
  
 |   Name  | GitHub |
 | ------ | -------------------------------- |
@@ -262,14 +262,20 @@ type: subject
 
 <br>
 
----
+### Back-end
 
-## 👨‍💻 Back-end 팀원 소개
-
-### [Back-end GitHub >](https://github.com/team-ribbon/ribborn-backend)
+#### [Back-end GitHub >](https://github.com/team-ribbon/ribborn-backend)
 
 | Name   | GitHub                           |
 | ------ | -------------------------------- |
 | 박성규 | https://github.com/ParkSungGyu1  |
 | 박성렬 | https://github.com/songryel-park |
 | 이정우 | https://github.com/lky8967       |
+
+<br>
+
+### Design
+
+#### 
+| 채리아 | [Figma >](https://www.figma.com/file/HpvWyB5bPt1mubbFDymSUw/채리아_8조?node-id=0%3A1) |
+|------|-------|

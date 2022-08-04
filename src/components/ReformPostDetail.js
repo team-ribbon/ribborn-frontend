@@ -11,9 +11,32 @@ import { processChangeDB } from "../redux/modules/post";
 
 const ReformPostDetail = ({ post, userId, userType }) => {
   const scrollEvent = () => {
-    document.getElementById("navbar1").style.top = window.pageYOffset + "px";
-    document.getElementById("navbar2").style.top =
-      window.pageYOffset + 18 + "px";
+    if (
+      document.getElementById("centerPostDiv").offsetHeight -
+        document.getElementById("navbar1").offsetHeight >=
+      window.pageYOffset
+    ) {
+      document.getElementById("navbar1").style.top = window.pageYOffset + "px";
+    } else {
+      document.getElementById("navbar1").style.top =
+        document.getElementById("centerPostDiv").offsetHeight -
+        document.getElementById("navbar1").offsetHeight +
+        "px";
+    }
+    if (
+      document.getElementById("centerPostDiv").offsetHeight -
+        document.getElementById("navbar2").offsetHeight -
+        18 >=
+      window.pageYOffset
+    ) {
+      document.getElementById("navbar2").style.top =
+        window.pageYOffset + 18 + "px";
+    } else {
+      document.getElementById("navbar2").style.top =
+        document.getElementById("centerPostDiv").offsetHeight -
+        document.getElementById("navbar2").offsetHeight +
+        "px";
+    }
   };
   React.useEffect(() => {
     window.addEventListener("scroll", scrollEvent);
@@ -110,17 +133,17 @@ const ReformPostDetail = ({ post, userId, userType }) => {
                 region={post.region}
                 category={post.category}
               />
-              <MyButtonsWrap>
-                {userId === post.userid ? (
+              {userId === post.userid ? (
+                <MyButtonsWrap>
                   <MyPostButtons postType="reform" postId={post.id} />
-                ) : null}
-              </MyButtonsWrap>
+                </MyButtonsWrap>
+              ) : null}
               {+userType === 1 && (
                 <ChattingBtn onClick={onClickChat}>채팅하기</ChattingBtn>
               )}
             </Navbar>
           </LeftPostDiv>
-          <CenterPostDiv>
+          <CenterPostDiv id="centerPostDiv">
             <FirstImage
               alt="card"
               src={post?.image[0] || "/images/textLogo.png"}
@@ -322,14 +345,14 @@ const RightPostDiv = styled.div`
 const FirstImage = styled.img`
   width: 100%;
   object-fit: cover;
-  margin: 50px auto 15px auto;
+  margin: 50px auto 0px auto;
   opacity: ${({ hasImage }) => !hasImage && "0.15"};
 `;
 
 const Image = styled.img`
   width: 100%;
   object-fit: cover;
-  margin: 15px auto;
+  margin: 30px auto 0 auto;
 `;
 
 const ProcessButton = styled(MainBtn)`
@@ -357,7 +380,7 @@ const MobileTextArea = styled.div`
   font-size: ${({ theme }) => theme.fontSizes.l};
   line-height: 28px;
   text-align: left;
-  margin: 0 auto;
+  margin: 30px auto 0 auto;
   @media ${({ theme }) => theme.device.mobile} {
     display: none;
   }

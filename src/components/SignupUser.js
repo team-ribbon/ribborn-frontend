@@ -17,10 +17,13 @@ const SignupUser = () => {
   const [agreeError, setAgreeError] = useState("");
   const {
     register,
+    getValues,
     handleSubmit,
     setError,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    mode: "onBlur",
+  });
 
   const onValid = (data) => {
     if (data.password !== data.password2) {
@@ -99,6 +102,9 @@ const SignupUser = () => {
         <Input
           {...register("password2", {
             required: "비밀번호를 다시 입력해주세요.",
+            validate: (value) =>
+              value === getValues("password") ||
+              "동일한 비밀번호를 입력해주세요.",
           })}
           invalid={errors?.password2?.message}
           placeholder="비밀번호를 다시 한 번 입력해주세요."

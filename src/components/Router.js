@@ -27,6 +27,7 @@ import ChatModal from "./ChatModal";
 import PostComplete from "../pages/PostComplete";
 import Faq from "../pages/Faq";
 import EventDetail from "../pages/EventDetail";
+import NotFound from "../pages/NotFound";
 
 export default function Router() {
   const location = useLocation();
@@ -48,7 +49,7 @@ export default function Router() {
           <Route path="login" element={<Login />} />
           <Route path="signup" element={<Signup />}>
             <Route path="user" element={<SignupUser />} />
-            {/* <Route path="tech" element={<SignupTech />} /> */}
+            <Route path="tech" element={<SignupTech />} />
           </Route>
           <Route path="signup/tech" element={<Signup />} />
           <Route path="review" element={<Review />} />
@@ -67,7 +68,7 @@ export default function Router() {
           <Route path="complete" element={<PostComplete />} />
           <Route path="faq" element={<Faq />} />
           <Route path="event/:eventId" element={<EventDetail />} />
-          <Route path="*" element={<Main />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </MainWrap>
       <Footer />

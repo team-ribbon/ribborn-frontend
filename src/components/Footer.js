@@ -36,7 +36,12 @@ const Footer = () => {
           />
         )}
       </ModalWrap>
-      <Wrap isLookbook={isLookbook} isReform={isReform} isWhite={isWhite}>
+      <Wrap
+        id="footer"
+        isLookbook={isLookbook}
+        isReform={isReform}
+        isWhite={isWhite}
+      >
         <Grid>
           <BoxDiv>
             <Title>

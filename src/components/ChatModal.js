@@ -34,7 +34,7 @@ const ChatModal = () => {
 
   useEffect(() => {
     dispatch(getRoomListDB());
-  }, [roomId, dispatch]);
+  }, [dispatch]);
 
   useEffect(() => {
     return () => {
@@ -42,6 +42,7 @@ const ChatModal = () => {
     };
   }, [dispatch]);
 
+  // 화면 스크롤 방지
   useEffect(() => {
     document.body.style.cssText = `
         position: fixed;

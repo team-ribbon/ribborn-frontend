@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import {
   useLocation,
@@ -8,11 +8,11 @@ import {
 } from "react-router-dom";
 import styled from "styled-components";
 
-import { getRoomListDB } from "../redux/modules/chat";
+import { setNotification, getRoomListDB } from "../redux/modules/chat";
 import ChatRoom from "./ChatRoom";
+import ChatRoomList from "./ChatRoomList";
 
 import { OrangeChatSVG, XSVG } from "../elements/SVG";
-import ChatRoomList from "./ChatRoomList";
 
 // 채팅 모달
 const ChatModal = () => {
@@ -21,7 +21,6 @@ const ChatModal = () => {
   const location = useLocation();
   const isMatchChat = useMatch("/chat");
   const { roomId } = useParams();
-  const [isEmpty, setIsEmpty] = useState(false);
 
   const onClickClose = () => {
     navigate(location.state.backgroundLocation);
@@ -37,6 +36,13 @@ const ChatModal = () => {
     dispatch(getRoomListDB());
   }, [dispatch]);
 
+  useEffect(() => {
+    return () => {
+      dispatch(setNotification(false));
+    };
+  }, [dispatch]);
+
+  // 화면 스크롤 방지
   useEffect(() => {
     document.body.style.cssText = `
         position: fixed;
@@ -62,12 +68,7 @@ const ChatModal = () => {
             </span>
           </Title>
           <ListWrap>
-            <ChatRoomList
-              location={location}
-              roomId={roomId}
-              setIsEmpty={setIsEmpty}
-              isEmpty={isEmpty}
-            />
+            <ChatRoomList location={location} roomId={roomId} />
           </ListWrap>
         </LeftWrap>
         <RoomWrap isRoom={roomId}>
@@ -76,14 +77,10 @@ const ChatModal = () => {
               <div>
                 <OrangeChatSVG />
               </div>
-              {isEmpty ? (
-                <>채팅 내역이 없습니다.</>
-              ) : (
-                <>
-                  왼쪽 채팅 목록을 클릭하여 <br />
-                  채팅 내용을 확인해주세요!
-                </>
-              )}
+              <>
+                왼쪽 채팅 목록을 클릭하여 <br />
+                채팅 내용을 확인해주세요!
+              </>
             </HelpMessage>
           )}
           {roomId && <ChatRoom roomId={roomId} />}

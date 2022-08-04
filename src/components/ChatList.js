@@ -15,8 +15,8 @@ const ChatList = () => {
   const dispatch = useDispatch();
   const { roomId } = useParams();
   const scrollRef = useRef();
-  let messageList = useSelector((state) => state.chat.messageList);
   const user = useSelector((state) => state.user.user);
+  let messageList = useSelector((state) => state.chat.messageList);
 
   useEffect(() => {
     dispatch(cleanUpMessage());
@@ -24,12 +24,17 @@ const ChatList = () => {
   }, [roomId]);
 
   useEffect(() => {
+    // 채팅 메시지 내역 자동 스크롤
     scrollRef.current.scrollIntoView({ behavior: "smooth", block: "end" });
+
+    // 새로운 채팅방인 경우, 메시지 보내는 순간 방이 생성되기 때문에
+    // 좌측 채팅방 리스트에 표시해주기 위해 GET 요청 보냄.
     if (messageList.length === 1) {
       dispatch(getRoomListDB());
     }
   }, [messageList]);
 
+  // 채팅방 나간 경우 이전 메시지 숨김 처리.
   (() => {
     let slicedList = [];
     messageList.forEach((message) => {

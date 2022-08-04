@@ -28,6 +28,7 @@ import PostComplete from "../pages/PostComplete";
 import Faq from "../pages/Faq";
 import EventDetail from "../pages/EventDetail";
 import NotFound from "../pages/NotFound";
+import ServiceGuide from "../pages/ServiceGuide";
 
 export default function Router() {
   const location = useLocation();
@@ -68,6 +69,7 @@ export default function Router() {
           <Route path="complete" element={<PostComplete />} />
           <Route path="faq" element={<Faq />} />
           <Route path="event/:eventId" element={<EventDetail />} />
+          <Route path="guide" element={<ServiceGuide />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </MainWrap>

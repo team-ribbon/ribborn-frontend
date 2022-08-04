@@ -1,16 +1,14 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import styled, { keyframes } from "styled-components";
 import MainSection from "../components/MainSection";
 import DesignSection from "../components/DesignSection";
 import { getMainDB } from "../redux/modules/post";
-import AlertModal from "../components/AlertModal";
 
 const Main = () => {
   const dispatch = useDispatch();
   const contents = useSelector((state) => state.post.mainContents);
-  const [isModalOn, setIsModalOn] = useState(false);
 
   useEffect(() => {
     dispatch(getMainDB());
@@ -18,15 +16,6 @@ const Main = () => {
 
   return (
     <>
-      {isModalOn && (
-        <AlertModal
-          isModalOn={isModalOn}
-          setIsModalOn={setIsModalOn}
-          title="안내"
-          content="리본 이용 가이드는 현재 준비 중입니다."
-          leftButton="닫기"
-        />
-      )}
       <main>
         <Link to={contents.banner[0].url}>
           <BannerWrap>
@@ -102,8 +91,8 @@ const Main = () => {
                 <NavSpan>질문과 답변</NavSpan>
               </LinkDiv>
             </Link>
-            <Link to="/">
-              <LinkDiv onClick={() => setIsModalOn(true)}>
+            <Link to="/guide">
+              <LinkDiv>
                 <NavButton>
                   <DesktopCommunity>Service Guide</DesktopCommunity>
                   <MobileCommunity>Service Guide</MobileCommunity>

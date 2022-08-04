@@ -4,9 +4,9 @@
 
 <img height="350px" src="https://user-images.githubusercontent.com/105181604/181456826-d342485e-99c7-4f0c-8e28-b8c9870b9195.png">
 
-### [🎀 리본 바로가기 >](https://ribborn.kr)
+### [🎀 리본 서비스 바로가기 >](https://ribborn.kr)
 
-### [📜 리본 WIKI 바로가기 >](https://github.com/team-ribbon/ribborn-frontend/wiki)
+### [📜 리본 Wiki 바로가기 >](https://github.com/team-ribbon/ribborn-frontend/wiki)
 
 <br>
 
@@ -74,7 +74,7 @@
 
 ---
 
-## ⭐️ 주요 기능
+## ⭐️ 주요 기능 
 
 ### ✅ 4종류의 게시판 CRUD
 
@@ -97,6 +97,10 @@
 - 마이페이지에서 내 정보(닉네임, 개인정보) 변경 기능
 
 ### ✅ 모든 페이지 반응형 CSS 적용
+
+<br>
+
+### [📜 Wiki에서 자세히 보기 >](https://github.com/team-ribbon/ribborn-frontend/wiki/기능-및-화면-소개)
 
 <br>
 

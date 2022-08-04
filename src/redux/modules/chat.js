@@ -8,6 +8,7 @@ const ADD_MESSAGE = "ADD_MESSAGE";
 const UPDATE_ROOM_MESSAGE = "UPDATE_ROOM_MESSAGE";
 const CLEAN_UP_MESSAGE = "CLEAN_UP_MESSAGE";
 const SET_NOTIFICATION = "SET_NOTIFICATION";
+const READ_MESSAGE = "READ_MESSAGE";
 
 const getRoomList = createAction(GET_ROOM_LIST, (roomList) => ({ roomList }));
 const getMessageList = createAction(GET_MESSAGE_LIST, (messageList) => ({
@@ -29,6 +30,7 @@ export const setNotification = createAction(
     notification,
   })
 );
+export const readMessage = createAction(READ_MESSAGE, (index) => ({ index }));
 
 const initialState = {
   roomList: [],
@@ -52,47 +54,50 @@ export const getMessageListDB = (roomId) => {
   };
 };
 
-//채팅방 나가기
-const exitChatDB = (roomId) => {
-  return function (dispatch, getState, { history }) {
-    chatApi
-      .exitChat(roomId)
-      .then((res) => {
-        history.push(`/chat`);
-      })
-      .catch((error) => {
-        // console.log(error);
-      });
-  };
-};
-
 export default handleActions(
   {
+    // 채팅방 목록
     [GET_ROOM_LIST]: (state, { payload }) =>
       produce(state, (draft) => {
         draft.roomList = payload.roomList;
       }),
+
+    // 채팅 메시지 내역
     [GET_MESSAGE_LIST]: (state, { payload }) =>
       produce(state, (draft) => {
         draft.messageList = payload.messageList;
       }),
+
+    // 채팅 메시지 추가
     [ADD_MESSAGE]: (state, { payload }) =>
       produce(state, (draft) => {
         draft.messageList.push(payload.messageObj);
       }),
+
+    // 채팅 리스트의 메시지 갱신
     [UPDATE_ROOM_MESSAGE]: (state, { payload }) =>
       produce(state, (draft) => {
         draft.roomList[payload.messageObj.index].message =
           payload.messageObj.message;
         draft.roomList[payload.messageObj.index].date = payload.messageObj.date;
       }),
+
+    // 메시지 지우기
     [CLEAN_UP_MESSAGE]: (state, { payload }) =>
       produce(state, (draft) => {
         draft.messageList = initialState.messageList;
       }),
+
+    // 알림 표시
     [SET_NOTIFICATION]: (state, { payload }) =>
       produce(state, (draft) => {
         draft.notification = payload.notification;
+      }),
+
+    // 알림 개수 초기화
+    [READ_MESSAGE]: (state, { payload }) =>
+      produce(state, (draft) => {
+        draft.roomList[payload.index].unreadCnt = 0;
       }),
   },
   initialState

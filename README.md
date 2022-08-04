@@ -6,6 +6,8 @@
 
 ### [🎀 리본 바로가기 >](https://ribborn.kr)
 
+### [📜 리본 WIKI 바로가기 >](https://github.com/team-ribbon/ribborn-frontend/wiki)
+
 <br>
 
 </div>

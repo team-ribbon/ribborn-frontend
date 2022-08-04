@@ -5,16 +5,18 @@ import { MainBtn } from "../elements/Buttons";
 const ServiceGuide = () => {
   return (
     <Main>
-      <img
-        src="https://marketkurly-imageupload.s3.ap-northeast-2.amazonaws.com/%EC%9D%B4%EB%B2%A4%ED%8A%B8%EC%9D%B4%EB%AF%B8%EC%A7%80.png"
-        alt="guide"
-      />
-      <p>이제 리본 이용하러 가볼까요?</p>
-      <p>👇🏻 👇🏻 👇🏻</p>
       <div>
-        <Link to="/">
-          <MainBtn>리본 둘러보기</MainBtn>
-        </Link>
+        <img
+          src="https://marketkurly-imageupload.s3.ap-northeast-2.amazonaws.com/%EC%9D%B4%EB%B2%A4%ED%8A%B8%EC%9D%B4%EB%AF%B8%EC%A7%80.png"
+          alt="guide"
+        />
+        <p>이제 리본 이용하러 가볼까요?</p>
+        <p>👇🏻 👇🏻 👇🏻</p>
+        <div>
+          <Link to="/">
+            <MainBtn>리본 둘러보기</MainBtn>
+          </Link>
+        </div>
       </div>
     </Main>
   );
@@ -22,9 +24,11 @@ const ServiceGuide = () => {
 
 const Main = styled.main`
   margin: 0 auto;
-  width: fit-content;
   text-align: center;
+  max-width: 700px;
+
   img {
+    width: 100%;
     margin-bottom: 50px;
   }
   p {

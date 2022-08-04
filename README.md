@@ -245,19 +245,19 @@ type: subject
 ## 👨‍👩‍👧‍👦 유저 피드백 개선사항
 
   <details>
-    <summary>서비스 이용 방법에 대한 설명 부족합니다.</summary>
+    <summary>서비스 이용 방법에 대한 설명이 부족합니다.</summary>
     <div markdown="1">
       <ul>
-        <li>서비스 이용 가이드 페이지 추가</li>
+        🪄 서비스 이용 가이드 페이지 추가
       </ul>
     </div>
   </details>
 
   <details>
-    <summary>비밀번호 확인이 완료되었는지 유무를 가입하기 버튼을 누르기 전에 판별되었으면 좋겠습니다.</summary>
+    <summary>회원가입 시 비밀번호 확인이 완료되었는지 유무가 가입하기 버튼을 누르기 전에 판별되었으면 좋겠습니다.</summary>
     <div markdown="1">
       <ul>
-        <li>가입하기 버튼을 안 눌러도 비밀번호와 비밀번호 확인이 일치한지 확인(구현중)</li>
+        🪄 input 포커스 해제 시 유효성 검사하도록 수정
       </ul>
   </div>
   </details>
@@ -266,16 +266,16 @@ type: subject
     <summary>게시글 작성 시 작성하기 버튼을 누르려면 다시 맨 위로 스크롤 해야해서 불편합니다.</summary>
     <div markdown="1">
       <ul>
-        <li>작성하기 버튼 고정되도록 수정(구현중)</li>
+      🪄 디자인 의논 후 작성하기 버튼 아래로 옮겨서 사용성 개선
       </ul>
     </div>
  </details>
  
    <details>
-    <summary>새로고침하면 메인으로 이동하는데 보고있던 페이지를 그대로 보고싶어요.</summary>
+    <summary>새로고침하면 메인으로 이동하는데, 보고있던 페이지를 그대로 보고싶어요.</summary>
     <div markdown="1">
       <ul>
-        <li></li>
+        🪄 login 여부를 판별하는 로직 수정하여 새로고침해도 페이지 유지되도록 수정
       </ul>
     </div>
  </details>
@@ -286,7 +286,7 @@ type: subject
 
 ## 👨‍💻 팀원 소개
 
-### Front-end
+### ✨ Front-end 💫
 
 | Name   | GitHub                       |
 | ------ | ---------------------------- |

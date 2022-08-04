@@ -97,7 +97,9 @@ export default handleActions(
     // 알림 개수 초기화
     [READ_MESSAGE]: (state, { payload }) =>
       produce(state, (draft) => {
-        draft.roomList[payload.index].unreadCnt = 0;
+        if (draft.roomList[payload.index]?.unreadCnt) {
+          draft.roomList[payload.index].unreadCnt = 0;
+        }
       }),
   },
   initialState

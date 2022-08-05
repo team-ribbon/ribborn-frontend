@@ -100,10 +100,6 @@
 
 <br>
 
-### [📜 Wiki에서 자세히 보기 >](https://github.com/team-ribbon/ribborn-frontend/wiki/기능-및-화면-소개)
-
-<br>
-
 ---
 
 ## 📅 프로젝트 기간

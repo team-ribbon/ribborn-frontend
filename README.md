@@ -132,7 +132,7 @@
 - 테스트 및 버그 수정
 - Route53과 CloudFront를 통한 https 환경 배포
 
-### 6주차
+### 6주차 [( 리본 최종 발표 보러가기 > )](https://youtu.be/CveaMYDt_gA)
 
 - 유저 테스트 피드백 반영
 - 테스트 및 버그 수정

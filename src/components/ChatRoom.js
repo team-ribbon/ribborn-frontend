@@ -110,6 +110,10 @@ const ChatRoom = () => {
       // 언마운트 시 연결 해제
       if (stompClient.current) socketDisconnect();
       dispatch(readMessage(location.state.index));
+
+      // 요청 보내는 이유 :
+      // 해당 요청으로 백엔드에서 채팅 읽음 처리를 해주기 위함.
+      apis.getMessageList(roomId);
     };
   }, [roomId]);
 

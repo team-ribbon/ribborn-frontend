@@ -263,6 +263,8 @@ type: subject
     <div markdown="1">
       <ul>
         <h3>🪄 input 포커스 해제 시 유효성 검사하도록 수정</h3>
+        <br>
+<img src="https://user-images.githubusercontent.com/102746846/183233723-a803ea15-296c-42dc-a91d-ba3581edbd3f.gif" />
       </ul>
   </div>
   </details>
@@ -273,7 +275,7 @@ type: subject
       <ul>
       <h3>🪄 디자인 의논 후 작성하기 버튼 아래로 옮겨서 사용성 개선 </h3>
       <br>
-<img src="https://user-images.githubusercontent.com/102746846/182836036-f85243e5-503b-4077-95a7-e082685ba34f.png" height=400 />
+<img src="https://user-images.githubusercontent.com/102746846/182836036-f85243e5-503b-4077-95a7-e082685ba34f.png"  />
       </ul>
     </div>
  </details>
@@ -283,6 +285,7 @@ type: subject
     <div markdown="1">
       <ul>
        <h3> 🪄 login 여부를 판별하는 로직 수정하여 새로고침해도 페이지 유지되도록 수정 </h3>
+<img src="https://user-images.githubusercontent.com/102746846/183234308-259b091d-2f1c-4890-9804-85e1c87e36c7.gif"  />
       </ul>
     </div>
  </details>

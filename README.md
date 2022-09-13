@@ -4,6 +4,8 @@
 
 <img height="350px" src="https://user-images.githubusercontent.com/105181604/181456826-d342485e-99c7-4f0c-8e28-b8c9870b9195.png">
 
+<img height="350px" src="https://user-images.githubusercontent.com/102746846/189794459-e26d2307-4ce4-4601-a6b3-8d3deb6d711f.png">
+
 ### [🎀 리본 서비스 바로가기 >](https://ribborn.kr)
 
 ### [📜 리본 Wiki 바로가기 >](https://github.com/team-ribbon/ribborn-frontend/wiki)

@@ -20,7 +20,7 @@
 
  <div align="center">
 
-## 🏗 서비스 아키텍쳐(Service Architecture)
+## 🏗 서비스 아키텍쳐 (Service Architecture)
 
 ![SA](https://user-images.githubusercontent.com/102746846/182116929-66a4e502-9c5f-4592-95d4-e5a02398d818.png)
 
